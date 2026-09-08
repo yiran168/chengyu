@@ -1,0 +1,14 @@
+# Replace example.com, document root and the installed PHP-FPM socket.
+# This file is for a dedicated host; do not replace a panel's configuration.
+example.com {
+    root * /var/www/chengyu/site
+    encode zstd gzip
+    @private path /app /app/* /storage /storage/* /uploads /uploads/* /.git* /.env* /.ht* /web.config /INSTALL_KEY.txt
+    handle @private {
+        respond 404
+    }
+    handle {
+        php_fastcgi unix//run/php/php8.3-fpm.sock
+        file_server
+    }
+}

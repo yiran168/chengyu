@@ -1,0 +1,16 @@
+site/app/config.php
+site/storage/*
+!site/storage/.htaccess
+!site/storage/index.php
+INSTALL_KEY.txt
+.work/
+site/uploads/*
+!site/uploads/.htaccess
+!site/uploads/index.php
+__pycache__/
+*.pyc
+*.sqlite
+*.sqlite3
+*.db
+*.log
+.env

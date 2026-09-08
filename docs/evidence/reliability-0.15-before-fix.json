@@ -1,0 +1,1389 @@
+{
+    "php": "8.4.23",
+    "adapter": "test-only FFI / actual libsqlite3 (NOT native PDO)",
+    "time": "2026-09-06T20:55:56+08:00",
+    "total": 342,
+    "passed": 339,
+    "failed": 3,
+    "tests": [
+        {
+            "test": "integer money 0.01",
+            "ok": true
+        },
+        {
+            "test": "integer money 1",
+            "ok": true
+        },
+        {
+            "test": "integer money 9.9",
+            "ok": true
+        },
+        {
+            "test": "integer money 9999999.99",
+            "ok": true
+        },
+        {
+            "test": "invalid money 1.001",
+            "ok": true
+        },
+        {
+            "test": "invalid money 1e2",
+            "ok": true
+        },
+        {
+            "test": "invalid money -1",
+            "ok": true
+        },
+        {
+            "test": "invalid money NaN",
+            "ok": true
+        },
+        {
+            "test": "invalid money 01",
+            "ok": true
+        },
+        {
+            "test": "invalid money  1",
+            "ok": true
+        },
+        {
+            "test": "invalid money 0",
+            "ok": true
+        },
+        {
+            "test": "negative ledger formatting",
+            "ok": true
+        },
+        {
+            "test": "CSRF valid",
+            "ok": true
+        },
+        {
+            "test": "CSRF forgery rejected",
+            "ok": true
+        },
+        {
+            "test": "safe Markdown escapes scripts",
+            "ok": true
+        },
+        {
+            "test": "safe Markdown blocks javascript link",
+            "ok": true
+        },
+        {
+            "test": "safe Markdown keeps https link",
+            "ok": true
+        },
+        {
+            "test": "AES GCM round trip",
+            "ok": true
+        },
+        {
+            "test": "AES GCM rejects corruption",
+            "ok": true
+        },
+        {
+            "test": "registration points",
+            "ok": true
+        },
+        {
+            "test": "registration duplicate rejected",
+            "ok": true
+        },
+        {
+            "test": "login authenticates and rotates session",
+            "ok": true
+        },
+        {
+            "test": "ordinary user cannot manage",
+            "ok": true
+        },
+        {
+            "test": "ordinary user cannot access admin action",
+            "ok": true
+        },
+        {
+            "test": "external redirect blocked",
+            "ok": true
+        },
+        {
+            "test": "local redirect allowed",
+            "ok": true
+        },
+        {
+            "test": "wallet retry is idempotent",
+            "ok": true
+        },
+        {
+            "test": "wallet conflicting key rejected",
+            "ok": true
+        },
+        {
+            "test": "wallet cannot overdraw",
+            "ok": true
+        },
+        {
+            "test": "outer transaction rollback includes ledger",
+            "ok": true
+        },
+        {
+            "test": "daily check-in credits once",
+            "ok": true
+        },
+        {
+            "test": "7-day streak bonus",
+            "ok": true
+        },
+        {
+            "test": "transfer balances and idempotence",
+            "ok": true
+        },
+        {
+            "test": "self transfer blocked",
+            "ok": true
+        },
+        {
+            "test": "voucher exact once",
+            "ok": true
+        },
+        {
+            "test": "expired voucher rejected",
+            "ok": true
+        },
+        {
+            "test": "exchange preserves integer assets and idempotence",
+            "ok": true
+        },
+        {
+            "test": "exchange rejects fractional yuan",
+            "ok": true
+        },
+        {
+            "test": "digital purchase debits once and grants entitlement",
+            "ok": true
+        },
+        {
+            "test": "refund credits back and removes entitlement",
+            "ok": true
+        },
+        {
+            "test": "another user cannot request refund",
+            "ok": true
+        },
+        {
+            "test": "insufficient purchase rolls back order and coupon",
+            "ok": true
+        },
+        {
+            "test": "points purchase uses points not balance",
+            "ok": true
+        },
+        {
+            "test": "tokens purchase uses tokens",
+            "ok": true
+        },
+        {
+            "test": "membership extends duration on renewals",
+            "ok": true
+        },
+        {
+            "test": "unique card inventory imported",
+            "ok": true
+        },
+        {
+            "test": "duplicate inventory import fully rolls back",
+            "ok": true
+        },
+        {
+            "test": "card allocation delivers distinct encrypted codes",
+            "ok": true
+        },
+        {
+            "test": "empty inventory rejects without debit",
+            "ok": true
+        },
+        {
+            "test": "refund one repeatable order preserves other entitlement",
+            "ok": true
+        },
+        {
+            "test": "physical order requires owned shipping address",
+            "ok": true
+        },
+        {
+            "test": "physical stock, encrypted address and manual shipment",
+            "ok": true
+        },
+        {
+            "test": "referral commission and refund reversal",
+            "ok": true
+        },
+        {
+            "test": "withdrawal hold and rejection release exactly once",
+            "ok": true
+        },
+        {
+            "test": "guest cannot access VIP body",
+            "ok": true
+        },
+        {
+            "test": "logged in required content gate",
+            "ok": true
+        },
+        {
+            "test": "reply gate opens only after approved reply",
+            "ok": true
+        },
+        {
+            "test": "public search cannot match protected body",
+            "ok": true
+        },
+        {
+            "test": "search SQL metacharacters are literal",
+            "ok": true
+        },
+        {
+            "test": "future publication hidden without scheduler",
+            "ok": true
+        },
+        {
+            "test": "ordinary submission cannot publish or set price",
+            "ok": true
+        },
+        {
+            "test": "like and bookmark toggle safely",
+            "ok": true
+        },
+        {
+            "test": "private message stored with recipient binding",
+            "ok": true
+        },
+        {
+            "test": "self administrator demotion blocked",
+            "ok": true
+        },
+        {
+            "test": "CSV neutralizes formula injection and excludes hashes",
+            "ok": true
+        },
+        {
+            "test": "checkout signed fields and matching callback URL",
+            "ok": true
+        },
+        {
+            "test": "forged payment rejected without credit",
+            "ok": true
+        },
+        {
+            "test": "signed payment mismatch money",
+            "ok": true
+        },
+        {
+            "test": "signed payment mismatch pid",
+            "ok": true
+        },
+        {
+            "test": "signed payment mismatch type",
+            "ok": true
+        },
+        {
+            "test": "signed payment mismatch trade_status",
+            "ok": true
+        },
+        {
+            "test": "gateway secrets encrypted in database",
+            "ok": true
+        },
+        {
+            "test": "old order verifies snapshot after key rotation; duplicate credits once",
+            "ok": true
+        },
+        {
+            "test": "same order conflicting receipt rejected",
+            "ok": true
+        },
+        {
+            "test": "receipt reuse across orders rejected",
+            "ok": true
+        },
+        {
+            "test": "valid late payment credits expired top-up",
+            "ok": true
+        },
+        {
+            "test": "HTTP canonical URL blocks payment creation",
+            "ok": true
+        },
+        {
+            "test": "legacy CodePay signed exact amount protocol fixture",
+            "ok": true
+        },
+        {
+            "test": "legacy CodePay floating amount mode deliberately rejected",
+            "ok": true
+        },
+        {
+            "test": "cleanup does not delete financial ledger",
+            "ok": true
+        },
+        {
+            "test": "migration is additive, repeatable and versioned",
+            "ok": true
+        },
+        {
+            "test": "direct zero-price purchase cannot unlock public",
+            "ok": true
+        },
+        {
+            "test": "direct zero-price purchase cannot unlock login",
+            "ok": true
+        },
+        {
+            "test": "direct zero-price purchase cannot unlock reply",
+            "ok": true
+        },
+        {
+            "test": "direct zero-price purchase cannot unlock vip",
+            "ok": true
+        },
+        {
+            "test": "direct zero-price purchase cannot unlock password",
+            "ok": true
+        },
+        {
+            "test": "legacy zero-price order does not bypass VIP policy",
+            "ok": true
+        },
+        {
+            "test": "malformed password input is a controlled rejection array",
+            "ok": true
+        },
+        {
+            "test": "malformed password input is a controlled rejection string",
+            "ok": true
+        },
+        {
+            "test": "password whitespace is preserved",
+            "ok": true
+        },
+        {
+            "test": "guest password access uses exact password",
+            "ok": true
+        },
+        {
+            "test": "changing password revokes previous browser grant",
+            "ok": true
+        },
+        {
+            "test": "bounded password sessions preserve content ID keys",
+            "ok": true
+        },
+        {
+            "test": "purchased access expiry is captured in the order",
+            "ok": true
+        },
+        {
+            "test": "expired purchase no longer authorizes protected body",
+            "ok": true
+        },
+        {
+            "test": "expired digital access can be purchased again",
+            "ok": true
+        },
+        {
+            "test": "higher tier and lower tier have separate expiry dates",
+            "ok": true
+        },
+        {
+            "test": "tier 1 cannot open tier 2 content",
+            "ok": true
+        },
+        {
+            "test": "ordinary admin profile edit preserves all tier grants",
+            "ok": true
+        },
+        {
+            "test": "explicit administrator replacement can revoke memberships",
+            "ok": true
+        },
+        {
+            "test": "variant stock aggregation replaces base inventory",
+            "ok": true
+        },
+        {
+            "test": "variant selection is required for direct purchase",
+            "ok": true
+        },
+        {
+            "test": "variant price, allocation and metadata use server values",
+            "ok": true
+        },
+        {
+            "test": "unshipped variant refund restores only its own stock",
+            "ok": true
+        },
+        {
+            "test": "variant cannot be moved to a different product",
+            "ok": true
+        },
+        {
+            "test": "foreign product variant rejected",
+            "ok": true
+        },
+        {
+            "test": "variant pricing asset cannot silently change",
+            "ok": true
+        },
+        {
+            "test": "code variants ignore forged inventory quantities",
+            "ok": true
+        },
+        {
+            "test": "code variant import synchronizes stock and preserves zero code",
+            "ok": true
+        },
+        {
+            "test": "code variant purchase consumes one matching secret",
+            "ok": true
+        },
+        {
+            "test": "unassigned base codes prevent ambiguous variant conversion",
+            "ok": true
+        },
+        {
+            "test": "multi-variant checkout consumes exact per-unit quantities",
+            "ok": true
+        },
+        {
+            "test": "checkout replay returns the same order IDs without debit",
+            "ok": true
+        },
+        {
+            "test": "checkout intent cannot be reused with changed quantity",
+            "ok": true
+        },
+        {
+            "test": "checkout stock failure rolls back orders ledger and earlier unit",
+            "ok": true
+        },
+        {
+            "test": "digital access quantity cannot cause duplicate charges",
+            "ok": true
+        },
+        {
+            "test": "shipment can be corrected and owner can confirm receipt",
+            "ok": true
+        },
+        {
+            "test": "withdrawn referral commission does not block buyer refund",
+            "ok": true
+        },
+        {
+            "test": "revision saves old text and rejects stale editor version",
+            "ok": true
+        },
+        {
+            "test": "revision restore does not roll back current pricing",
+            "ok": true
+        },
+        {
+            "test": "revision cannot be restored to another content item",
+            "ok": true
+        },
+        {
+            "test": "layout validation strips unknown fields and uses safe choices",
+            "ok": true
+        },
+        {
+            "test": "layout saves with revision check and exports no unrelated settings",
+            "ok": true
+        },
+        {
+            "test": "layout rejects executable/unknown block php",
+            "ok": true
+        },
+        {
+            "test": "layout rejects executable/unknown block javascript",
+            "ok": true
+        },
+        {
+            "test": "layout rejects executable/unknown block <script>",
+            "ok": true
+        },
+        {
+            "test": "layout rejects duplicate IDs and oversized block lists",
+            "ok": true
+        },
+        {
+            "test": "layout rejects external/script destinations",
+            "ok": true
+        },
+        {
+            "test": "collection deduplicates IDs and preserves editorial order",
+            "ok": true
+        },
+        {
+            "test": "invalid collection update rolls back previous membership",
+            "ok": true
+        },
+        {
+            "test": "link directory blocks script and credential URLs",
+            "ok": true
+        },
+        {
+            "test": "announcements honor audience and scheduled start",
+            "ok": true
+        },
+        {
+            "test": "task requires server-verified progress",
+            "ok": true
+        },
+        {
+            "test": "task claim is idempotent and credits points plus experience",
+            "ok": true
+        },
+        {
+            "test": "claimed task reward rules cannot be silently changed",
+            "ok": true
+        },
+        {
+            "test": "daily profile reward farming is rejected",
+            "ok": true
+        },
+        {
+            "test": "pending comments do not qualify for task rewards",
+            "ok": true
+        },
+        {
+            "test": "task module disable blocks claim endpoint",
+            "ok": true
+        },
+        {
+            "test": "invitation plaintext is never stored",
+            "ok": true
+        },
+        {
+            "test": "registration requires a valid invitation when configured",
+            "ok": true
+        },
+        {
+            "test": "invitation is consumed once with new account transaction",
+            "ok": true
+        },
+        {
+            "test": "failed registration never spends invitation allowance",
+            "ok": true
+        },
+        {
+            "test": "disabled invitation is rejected",
+            "ok": true
+        },
+        {
+            "test": "download counts authorized unique files rather than range retries",
+            "ok": true
+        },
+        {
+            "test": "daily download quota rejects another file without recording it",
+            "ok": true
+        },
+        {
+            "test": "unauthorized file access is not recorded",
+            "ok": true
+        },
+        {
+            "test": "byte-range parser supports whole suffix and open-ended ranges",
+            "ok": true
+        },
+        {
+            "test": "invalid range rejected bytes=20-",
+            "ok": true
+        },
+        {
+            "test": "invalid range rejected bytes=9-2",
+            "ok": true
+        },
+        {
+            "test": "invalid range rejected bytes=0-1,3-4",
+            "ok": true
+        },
+        {
+            "test": "invalid range rejected bytes=-0",
+            "ok": true
+        },
+        {
+            "test": "comment visibility rejects unauthorized readers and writers",
+            "ok": true
+        },
+        {
+            "test": "long SKU order labels fit the MySQL title column",
+            "ok": true
+        },
+        {
+            "test": "catalog shows actual minimum available variant price",
+            "ok": true
+        },
+        {
+            "test": "UTF-8 body and revision can exceed 64 KB without being shortened",
+            "ok": true
+        },
+        {
+            "test": "eight concurrent SKU purchases settle exactly one unit",
+            "ok": true
+        },
+        {
+            "test": "nested exception cannot be swallowed into a partial commit",
+            "ok": true
+        },
+        {
+            "test": "transaction remains reusable after rollback-only failure",
+            "ok": true
+        },
+        {
+            "test": "logout clears all authorization and one-time secret state",
+            "ok": true
+        },
+        {
+            "test": "password change invalidates recovery links and rotates session version",
+            "ok": true
+        },
+        {
+            "test": "incorrect password change cannot consume recovery links",
+            "ok": true
+        },
+        {
+            "test": "admin credential or email change invalidates all outstanding recovery links",
+            "ok": true
+        },
+        {
+            "test": "admin display-only change preserves valid recovery proof",
+            "ok": true
+        },
+        {
+            "test": "poll requires 2-10 distinct options and rolls back entire post",
+            "ok": true
+        },
+        {
+            "test": "unvoted poll snapshot never contains counts for after-vote privacy",
+            "ok": true
+        },
+        {
+            "test": "first vote recorded exactly once despite duplicate submit",
+            "ok": true
+        },
+        {
+            "test": "second choice after voting is rejected without changing result",
+            "ok": true
+        },
+        {
+            "test": "another reader cannot see private poll counts after someone else votes",
+            "ok": true
+        },
+        {
+            "test": "foreign option cannot be used in a vote",
+            "ok": true
+        },
+        {
+            "test": "poll freezes poll_question after first vote",
+            "ok": true
+        },
+        {
+            "test": "poll freezes poll_options after first vote",
+            "ok": true
+        },
+        {
+            "test": "poll freezes poll_results after first vote",
+            "ok": true
+        },
+        {
+            "test": "poll freezes poll_closes_at after first vote",
+            "ok": true
+        },
+        {
+            "test": "poll freezes thread_mode after first vote",
+            "ok": true
+        },
+        {
+            "test": "failed poll edit leaves content revision unchanged",
+            "ok": true
+        },
+        {
+            "test": "content authorization protects poll metadata and voting",
+            "ok": true
+        },
+        {
+            "test": "unvoted poll deadline can be cleared explicitly",
+            "ok": true
+        },
+        {
+            "test": "closed-only poll requires an actual closing time",
+            "ok": true
+        },
+        {
+            "test": "closed poll rejects votes and releases closed-only results",
+            "ok": true
+        },
+        {
+            "test": "closed-only results remain private even to a voter before deadline",
+            "ok": true
+        },
+        {
+            "test": "future scheduled poll cannot accept votes even from its author",
+            "ok": true
+        },
+        {
+            "test": "suspended user cannot vote with a stale account snapshot",
+            "ok": true
+        },
+        {
+            "test": "disabled poll module blocks write endpoint and snapshot",
+            "ok": true
+        },
+        {
+            "test": "only question author or editor can accept an answer",
+            "ok": true
+        },
+        {
+            "test": "pending, nested and foreign answers cannot be accepted",
+            "ok": true
+        },
+        {
+            "test": "accepting an answer is idempotent and notifies once",
+            "ok": true
+        },
+        {
+            "test": "moderation revokes rejected accepted answer atomically",
+            "ok": true
+        },
+        {
+            "test": "question feature switch blocks answer acceptance",
+            "ok": true
+        },
+        {
+            "test": "motion presets reference only shared validated fields",
+            "ok": true
+        },
+        {
+            "test": "partial motion save preserves theme and unrelated appearance settings",
+            "ok": true
+        },
+        {
+            "test": "custom curve cannot inject CSS or invalid x coordinates",
+            "ok": true
+        },
+        {
+            "test": "mandatory email verification cannot be enabled without SMTP",
+            "ok": true
+        },
+        {
+            "test": "verification stores no plaintext email or code",
+            "ok": true
+        },
+        {
+            "test": "wrong code attempt persists despite the validation exception",
+            "ok": true
+        },
+        {
+            "test": "correct code produces a proof consumed exactly once",
+            "ok": true
+        },
+        {
+            "test": "code proof rolls back with a failed account transaction",
+            "ok": true
+        },
+        {
+            "test": "code is bound to browser session and original purpose",
+            "ok": true
+        },
+        {
+            "test": "five wrong codes exhaust the challenge even when next code is correct",
+            "ok": true
+        },
+        {
+            "test": "expired code cannot validate",
+            "ok": true
+        },
+        {
+            "test": "failed delivery never leaves a usable challenge",
+            "ok": true
+        },
+        {
+            "test": "mail rate limiter is shared across purposes and password recovery",
+            "ok": true
+        },
+        {
+            "test": "verified registration records proof and reward in one transaction",
+            "ok": true
+        },
+        {
+            "test": "registration without required proof creates neither account nor reward",
+            "ok": true
+        },
+        {
+            "test": "duplicate username does not spend a correct email proof",
+            "ok": true
+        },
+        {
+            "test": "email change requires current password and binds proof to current user",
+            "ok": true
+        },
+        {
+            "test": "ordinary author edits preserve staff-owned content policy and prices",
+            "ok": true
+        },
+        {
+            "test": "circle content is excluded from guest and nonmember feeds",
+            "ok": true
+        },
+        {
+            "test": "circle single content blocks even its nonmember author",
+            "ok": true
+        },
+        {
+            "test": "circle joining charges once and opens content",
+            "ok": true
+        },
+        {
+            "test": "active circle membership cannot be charged a second time",
+            "ok": true
+        },
+        {
+            "test": "circle private file enforces the same category boundary",
+            "ok": true
+        },
+        {
+            "test": "circle read and post gates are independently enforced",
+            "ok": true
+        },
+        {
+            "test": "circle replies also enforce the posting gate",
+            "ok": true
+        },
+        {
+            "test": "suspension takes precedence over paid access and forbids repurchase",
+            "ok": true
+        },
+        {
+            "test": "manual grant expires without creating a fictitious paid order",
+            "ok": true
+        },
+        {
+            "test": "refund restores circle asset and revokes its exact term",
+            "ok": true
+        },
+        {
+            "test": "expired circle term can be renewed and old refund does not revoke renewal",
+            "ok": true
+        },
+        {
+            "test": "circle balance price uses integer cents",
+            "ok": true
+        },
+        {
+            "test": "free circle joins produce no zero-value ledger entry",
+            "ok": true
+        },
+        {
+            "test": "unaffordable circle leaves no order or membership",
+            "ok": true
+        },
+        {
+            "test": "closed circle denies joining while existing membership remains valid",
+            "ok": true
+        },
+        {
+            "test": "a public child cannot weaken a members-only parent",
+            "ok": true
+        },
+        {
+            "test": "category cycles rejected without modifying the existing tree",
+            "ok": true
+        },
+        {
+            "test": "missing category is fail-closed",
+            "ok": true
+        },
+        {
+            "test": "existing category update to nonexisting ID returns 404",
+            "ok": true
+        },
+        {
+            "test": "circle with membership history cannot be silently converted to a public category",
+            "ok": true
+        },
+        {
+            "test": "multi-choice results and counts stay absent before authorized result visibility",
+            "ok": true
+        },
+        {
+            "test": "multi-choice ballot stores two selections but one voter",
+            "ok": true
+        },
+        {
+            "test": "same multiselect ballot in different order is idempotent",
+            "ok": true
+        },
+        {
+            "test": "cannot change previously recorded multiselect ballot",
+            "ok": true
+        },
+        {
+            "test": "too many options and duplicate options leave no ballot",
+            "ok": true
+        },
+        {
+            "test": "foreign poll options are rejected transactionally",
+            "ok": true
+        },
+        {
+            "test": "maximum choices cannot be changed after voting",
+            "ok": true
+        },
+        {
+            "test": "v3 to v4 ballot backfill is restartable and preserves multiselect choices",
+            "ok": true
+        },
+        {
+            "test": "funded question holds points once under repeated submission",
+            "ok": true
+        },
+        {
+            "test": "third party cannot fund another authors question",
+            "ok": true
+        },
+        {
+            "test": "unexpired bounty cannot be withdrawn by owner",
+            "ok": true
+        },
+        {
+            "test": "self answer cannot claim bounty",
+            "ok": true
+        },
+        {
+            "test": "unapproved answer cannot receive bounty",
+            "ok": true
+        },
+        {
+            "test": "accepting an answer atomically pays held points once",
+            "ok": true
+        },
+        {
+            "test": "awarded bounty cannot be reassigned or returned",
+            "ok": true
+        },
+        {
+            "test": "moderating an awarded answer does not erase or duplicate financial history",
+            "ok": true
+        },
+        {
+            "test": "expired unanswered bounty returns once without cron",
+            "ok": true
+        },
+        {
+            "test": "bounty return remains available when new bounties are disabled",
+            "ok": true
+        },
+        {
+            "test": "oversized or unaffordable bounty creates no escrow",
+            "ok": true
+        },
+        {
+            "test": "bounty-bearing question cannot be converted into a poll",
+            "ok": true
+        },
+        {
+            "test": "nonbuyer cannot create a verified review",
+            "ok": true
+        },
+        {
+            "test": "new verified review waits for moderation and is not in public aggregate",
+            "ok": true
+        },
+        {
+            "test": "approved review appears in accurate rating aggregate",
+            "ok": true
+        },
+        {
+            "test": "editing review re-enters moderation and never creates second review",
+            "ok": true
+        },
+        {
+            "test": "refund removes verified review from public score without deleting its audit history",
+            "ok": true
+        },
+        {
+            "test": "invalid review rating cannot reach storage",
+            "ok": true
+        },
+        {
+            "test": "automatic invitation product delivers a unique encrypted code exactly once",
+            "ok": true
+        },
+        {
+            "test": "unused invitation refund revokes the generated registration code",
+            "ok": true
+        },
+        {
+            "test": "used invitation cannot be refunded automatically or create a double credit",
+            "ok": true
+        },
+        {
+            "test": "failed invitation purchase leaves no usable invitation or spent stock",
+            "ok": true
+        },
+        {
+            "test": "disabling invitation products cannot silently fulfill them as plain text",
+            "ok": true
+        },
+        {
+            "test": "category with children cannot change kind and orphan child policy",
+            "ok": true
+        },
+        {
+            "test": "revalidation rejects a credential invalidated after Auth cache was populated",
+            "ok": true
+        },
+        {
+            "test": "private attachment linked after one hundred denied items remains readable",
+            "ok": true
+        },
+        {
+            "test": "suspended sender cannot transfer assets through the service boundary",
+            "ok": true
+        },
+        {
+            "test": "creator accrual snapshots independent author, net price and share",
+            "ok": true
+        },
+        {
+            "test": "pending earnings are not spendable or settled before hold expiry",
+            "ok": true
+        },
+        {
+            "test": "foreign creator cannot settle another author income",
+            "ok": true
+        },
+        {
+            "test": "settlement and replay credit exactly one author ledger entry",
+            "ok": true
+        },
+        {
+            "test": "earnings conversion is atomic, idempotent and input-bound",
+            "ok": true
+        },
+        {
+            "test": "creator refund reverses settled earnings even after conversion and module disable",
+            "ok": true
+        },
+        {
+            "test": "income debt prevents withdrawal rather than creating spendable funds",
+            "ok": true
+        },
+        {
+            "test": "pending refund freezes creator settlement",
+            "ok": true
+        },
+        {
+            "test": "rejected refund releases settlement and new revenue repays income debt",
+            "ok": true
+        },
+        {
+            "test": "earnings withdrawal rejection returns the same asset",
+            "ok": true
+        },
+        {
+            "test": "self purchases never accrue author earnings",
+            "ok": true
+        },
+        {
+            "test": "author share uses net amount after referral not gross twice",
+            "ok": true
+        },
+        {
+            "test": "unapproved author and points sales create no monetary author liability",
+            "ok": true
+        },
+        {
+            "test": "approved author can create paid content but cannot self-publish",
+            "ok": true
+        },
+        {
+            "test": "approved author retains editor constraints while adjusting own permitted price",
+            "ok": true
+        },
+        {
+            "test": "revoked author cannot newly add a paid gate",
+            "ok": true
+        },
+        {
+            "test": "creator approval does not unlock administrator-owned pricing controls",
+            "ok": true
+        },
+        {
+            "test": "history progress is private, monotonic and replay safe",
+            "ok": true
+        },
+        {
+            "test": "another user cannot see private reading history",
+            "ok": true
+        },
+        {
+            "test": "disabling reading history clears records and prevents new writes",
+            "ok": true
+        },
+        {
+            "test": "history rejects denied content and never indexes protected body",
+            "ok": true
+        },
+        {
+            "test": "search suggestions escape SQL wildcards and expose only safe fields",
+            "ok": true
+        },
+        {
+            "test": "following feed contains only followed authors",
+            "ok": true
+        },
+        {
+            "test": "pinning a missing comment returns not found",
+            "ok": true
+        },
+        {
+            "test": "points sales never generate money-denominated author earnings",
+            "ok": true
+        },
+        {
+            "test": "refund while earnings withdrawal is held blocks manual paid confirmation",
+            "ok": true
+        },
+        {
+            "test": "history retention is bounded by configured count",
+            "ok": true
+        },
+        {
+            "test": "restarting additive v5 preserves author ledger and history",
+            "ok": true
+        },
+        {
+            "test": "physical creator revenue requires confirmed receipt even after hold expiry",
+            "ok": true
+        },
+        {
+            "test": "old revenue retains its rate and hold after author and global terms change",
+            "ok": true
+        },
+        {
+            "test": "pending author income refund cancels liability without crediting earnings",
+            "ok": true
+        },
+        {
+            "test": "free content orders create no creator income",
+            "ok": true
+        },
+        {
+            "test": "014: first tier-one purchase does not extend from a higher-tier expiry",
+            "ok": true
+        },
+        {
+            "test": "014: suspended account cannot consume a voucher at the service boundary",
+            "ok": true
+        },
+        {
+            "test": "014: login service rejects bcrypt-truncated passwords longer than 72 bytes",
+            "ok": true
+        },
+        {
+            "test": "014: RFC 6238 SHA1 vector 59",
+            "ok": true
+        },
+        {
+            "test": "014: RFC 6238 SHA1 vector 1111111109",
+            "ok": true
+        },
+        {
+            "test": "014: RFC 6238 SHA1 vector 1111111111",
+            "ok": true
+        },
+        {
+            "test": "014: RFC 6238 SHA1 vector 1234567890",
+            "ok": true
+        },
+        {
+            "test": "014: RFC 6238 SHA1 vector 2000000000",
+            "ok": true
+        },
+        {
+            "test": "014: RFC 6238 SHA1 vector 20000000000",
+            "ok": true
+        },
+        {
+            "test": "014: base32 round trip canonical random secrets",
+            "ok": true
+        },
+        {
+            "test": "014: authenticator drift window and replay rejection",
+            "ok": true
+        },
+        {
+            "test": "014: factor enrollment encrypts secret and hashes all recovery codes",
+            "ok": true
+        },
+        {
+            "test": "014: pending enrollment requires current password and matching session",
+            "ok": true
+        },
+        {
+            "test": "014: factor verification requires transaction",
+            "ok": true
+        },
+        {
+            "test": "014: protected login fails without proof; recovery logs in only once",
+            "ok": true
+        },
+        {
+            "test": "014: enrollment switch does not disable existing second factors",
+            "ok": true
+        },
+        {
+            "test": "014: failed outer transaction restores recovery code",
+            "ok": true
+        },
+        {
+            "test": "014: recovery rotation invalidates old codes and prior sessions",
+            "ok": true
+        },
+        {
+            "test": "014: bad password does not burn a recovery code",
+            "ok": true
+        },
+        {
+            "test": "014: session revocation also works for accounts without second factor",
+            "ok": true
+        },
+        {
+            "test": "014: CLI recovery removes factor and revokes sessions",
+            "ok": true
+        },
+        {
+            "test": "014: guest list price, membership inheritance and integer rounding",
+            "ok": true
+        },
+        {
+            "test": "014: promotion active interval and best price rather than multiplication",
+            "ok": true
+        },
+        {
+            "test": "014: stale rule editor rejected without overwriting",
+            "ok": true
+        },
+        {
+            "test": "014: impossible promotion dates rejected",
+            "ok": true
+        },
+        {
+            "test": "014: checkout snapshot and refund use paid amount after rules change",
+            "ok": true
+        },
+        {
+            "test": "014: default coupon stacking rejection does not consume quota",
+            "ok": true
+        },
+        {
+            "test": "014: scoped coupons enforce item, kind, schedule and membership",
+            "ok": true
+        },
+        {
+            "test": "014: enabled stacking reserves once and snapshot explains both discounts",
+            "ok": true
+        },
+        {
+            "test": "014: disabling pricing restores list price without deleting rules",
+            "ok": true
+        },
+        {
+            "test": "014: free member access price and maximum integer price are exact",
+            "ok": true
+        },
+        {
+            "test": "014: diagnostics verifies rollback and never exposes app secret",
+            "ok": true
+        },
+        {
+            "test": "014: additive v6 restart preserves security and pricing records",
+            "ok": true
+        },
+        {
+            "test": "014: price ceiling rejects increases and rolls back coupon reservations",
+            "ok": true
+        },
+        {
+            "test": "014: password reset leaves enrolled factor active and invalidates sessions",
+            "ok": true
+        },
+        {
+            "test": "014: coupon use and discounted funds roll back on insufficient balance",
+            "ok": true
+        },
+        {
+            "test": "014: zero timed duration can be saved through the common settings validator",
+            "ok": true
+        },
+        {
+            "test": "015: revoked cached session cannot change password and resurrect itself",
+            "ok": false,
+            "error": "RuntimeException: Expected rejection"
+        },
+        {
+            "test": "015: password proof rejects overlong bcrypt input at service boundary",
+            "ok": false,
+            "error": "RuntimeException: Expected rejection"
+        },
+        {
+            "test": "015: profile edit rejects a concurrently suspended cached identity",
+            "ok": false,
+            "error": "RuntimeException: Expected rejection"
+        },
+        {
+            "test": "ledger reconciles all account balances",
+            "ok": true
+        },
+        {
+            "test": "eight concurrent debits: five settle, no overdraft",
+            "ok": true
+        },
+        {
+            "test": "eight concurrent votes from one account leave exactly one vote",
+            "ok": true
+        },
+        {
+            "test": "eight concurrent circle joins make one membership and one charge",
+            "ok": true
+        },
+        {
+            "test": "eight concurrent answer acceptances award held points exactly once",
+            "ok": true
+        },
+        {
+            "test": "post-concurrency asset ledger still reconciles",
+            "ok": true
+        },
+        {
+            "test": "eight concurrent author settlement requests credit one earnings entry",
+            "ok": true
+        },
+        {
+            "test": "eight parallel uses of one recovery code accept exactly once",
+            "ok": true
+        },
+        {
+            "test": "eight parallel purchases compete for one coupon quota without overuse",
+            "ok": true
+        }
+    ],
+    "not_tested": [
+        "MySQL/InnoDB and native PDO when unavailable",
+        "real merchant network or callback delivery",
+        "SMTP network",
+        "real shared hosting",
+        "certificate issuance",
+        "full Zibll feature parity"
+    ]
+}

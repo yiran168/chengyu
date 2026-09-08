@@ -1,0 +1,2020 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>澄屿 0.18.0 · 部署与使用手册</title><style>
+:root{--ink:#183b3e;--muted:#5b7274;--accent:#177f79;--line:#dce8e7;--paper:#fff;--bg:#f3f8f7}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:28px}
+body{overflow-wrap:anywhere;margin:0;background:var(--bg);color:var(--ink);font:16px/1.8 system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}
+a{color:var(--accent);text-underline-offset:4px;overflow-wrap:anywhere}
+.hero{padding:54px max(24px,calc((100vw - 1240px)/2)) 42px;background:linear-gradient(125deg,#143e41,#17645e);color:#fff}
+.brand{letter-spacing:.15em;font-size:12px;text-transform:uppercase;opacity:.85}
+.hero h1{font-size:clamp(30px,4vw,46px);line-height:1.25;letter-spacing:-.03em;margin:20px 0 12px}
+.hero p{max-width:850px;opacity:.9;margin:12px 0}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}.badges span{border:1px solid #ffffff40;background:#ffffff10;border-radius:999px;padding:5px 13px;font-size:13px}
+.shell{max-width:1288px;margin:32px auto;display:grid;grid-template-columns:226px minmax(0,1fr);gap:28px;padding:0 24px}
+.toc{align-self:start;position:sticky;top:20px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px;max-height:calc(100vh - 40px);overflow:auto}
+.toc summary{font-weight:750;cursor:pointer;margin-bottom:12px}.toc a{display:block;text-decoration:none;padding:7px 0;font-size:14px;color:var(--ink)}.toc span{display:inline-block;width:27px;color:var(--accent);font-size:11px}
+main{min-width:0}.chapter,.overview{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:34px 38px;margin-bottom:24px}
+.eyebrow{font-size:11px;letter-spacing:.14em;color:var(--muted);margin:0 0 18px}.eyebrow a{float:right;letter-spacing:0}
+h2{font-size:27px;line-height:1.4;margin:14px 0 20px;letter-spacing:-.025em}h3{font-size:20px;line-height:1.5;margin:30px 0 12px}h4{font-size:18px}
+p{margin:12px 0}li{margin:7px 0}strong{font-weight:700}
+code{font-size:.91em;background:#edf3f2;border:1px solid #e1eae8;padding:1px 5px;border-radius:5px;overflow-wrap:anywhere}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;padding:18px;border-radius:12px;background:#eff5f3;border:1px solid var(--line);line-height:1.7}
+pre code{border:0;padding:0;background:transparent;word-break:normal}
+.table-scroll{max-width:100%;overflow:auto;border:1px solid var(--line);border-radius:12px;margin:18px 0}
+table{width:100%;border-collapse:collapse;font-size:14px;line-height:1.75;min-width:460px}
+th,td{text-align:left;vertical-align:top;padding:12px 14px;border-bottom:1px solid var(--line);overflow-wrap:anywhere}
+th{background:#eef6f4;font-weight:700}tr:last-child td{border-bottom:0}
+blockquote{margin:20px 0;padding:10px 20px;border-left:3px solid var(--accent);background:#f4f9f7}
+.note{border-left:4px solid #cb9b5c;background:#fcf7ef;padding:14px 18px;border-radius:0 10px 10px 0}
+.quicklinks{display:flex;gap:8px;flex-wrap:wrap}.quicklinks a{text-decoration:none;background:#e8f3f0;padding:8px 14px;border-radius:8px;font-size:14px}
+.gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+.preview{display:block;text-decoration:none;border:1px solid var(--line);border-radius:13px;overflow:hidden;background:#fafcfb}
+.preview img{display:block;width:100%;height:210px;object-fit:cover;object-position:top;border-bottom:1px solid var(--line)}
+.preview span{display:block;padding:9px 12px;font-size:13px}
+footer{max-width:1240px;margin:25px auto 50px;padding:0 24px;font-size:13px;color:var(--muted)}
+@media(max-width:900px){.shell{grid-template-columns:1fr;gap:18px}.toc{position:static;max-height:260px}.toc nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 16px}.chapter,.overview{padding:25px}.hero{padding:36px 24px}}
+@media(max-width:500px){.shell{padding:0 12px;margin-top:16px}.chapter,.overview{padding:22px 18px;border-radius:16px}.gallery{grid-template-columns:repeat(2,minmax(0,1fr))}.preview img{height:180px}h2{font-size:23px}.toc{padding:16px}.hero{padding:30px 20px}.eyebrow a{float:none;margin-left:12px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{body{background:#fff;color:#111;font-size:11pt}.hero{background:#fff;color:#111;padding:0}.toc,.quicklinks,.gallery,.eyebrow a{display:none}.shell{display:block;padding:0}.chapter,.overview{border:0;padding:0;break-before:page}.overview{break-before:auto}.table-scroll{overflow:visible}table{min-width:0}a{color:inherit}.badges span{border-color:#aaa}}
+</style></head>
+<body><header class="hero"><div class="brand">CHENGYU / INDEPENDENT PHP SITE</div>
+<h1>澄屿 · 部署与使用手册</h1><p>源码、安装、升级、前后台操作与测试证据，一份可离线阅读的交付说明。</p>
+<div class="badges"><span>版本 0.18.0</span><span>更新于 2026-09-07</span><span>非 WordPress</span><span>30 篇说明 · 123 张实页预览</span></div></header>
+<div class="shell"><aside class="toc"><details open><summary>阅读导航</summary><nav><a href="#chapter-1"><span>01</span>先读这里</a><a href="#chapter-2"><span>02</span>新站安装与部署</a><a href="#chapter-3"><span>03</span>保留数据升级</a><a href="#chapter-4"><span>04</span>后台运营与外观</a><a href="#chapter-5"><span>05</span>动效与曲线</a><a href="#chapter-6"><span>06</span>邮箱、问答与投票</a><a href="#chapter-7"><span>07</span>既有扩展模块</a><a href="#chapter-8"><span>08</span>环境兼容性</a><a href="#chapter-9"><span>09</span>支付与资产</a><a href="#chapter-10"><span>10</span>安全与备份</a><a href="#chapter-11"><span>11</span>功能与缺漏</a><a href="#chapter-12"><span>12</span>实际测试证据</a><a href="#chapter-13"><span>13</span>参考源码与历史</a><a href="#chapter-14"><span>14</span>主机与资料</a><a href="#chapter-15"><span>15</span>架构与扩展</a><a href="#chapter-16"><span>16</span>版本变更</a><a href="#chapter-17"><span>17</span>圈子、悬赏与评价</a><a href="#chapter-18"><span>18</span>开发者测试</a><a href="#chapter-19"><span>19</span>作者收益与阅读发现</a><a href="#chapter-20"><span>20</span>账户安全、定价与自检</a><a href="#chapter-21"><span>21</span>连接与运营</a><a href="#chapter-22"><span>22</span>交易、售后与会员补差</a><a href="#chapter-23"><span>23</span>媒体、语言与页面编排</a><a href="#chapter-24"><span>24</span>English quick start</a><a href="#chapter-25"><span>25</span>0.17 新工作台操作</a><a href="#chapter-26"><span>26</span>账单标准与差异处理</a><a href="#chapter-27"><span>27</span>真实主机验收清单</a><a href="#chapter-28"><span>28</span>历史功能族对照</a><a href="#chapter-29"><span>29</span>0.18 搜索与多包裹</a><a href="#chapter-30"><span>30</span>加密备份与安全恢复</a><a href="#previews"><span>＋</span>页面预览</a></nav></details></aside>
+<main><section class="overview"><p class="eyebrow">BEFORE YOU DEPLOY</p><h2>新站与旧站，走不同的安装路径。</h2>
+<p>新站只上传 <code>site/</code>；已有 0.9.0–0.17.0 先备份，保留配置密钥、数据库与存储，再升级。根目录部署的后台入口为 <code>/admin</code>。</p>
+<p class="note"><strong>不要上传完整交付目录或 INSTALL_KEY.txt。</strong> 本包含真实业务代码，但不等于全部历史子比模块已完成，也没有把未测试的 PHP 版本、原生数据库或真实商户标成通过。</p>
+<div class="quicklinks"><a href="#chapter-29">0.18 新功能</a><a href="#chapter-27">上线验收</a><a href="#chapter-28">历史对照</a><a href="#chapter-22">交易</a><a href="#chapter-23">媒体</a><a href="#chapter-2">新站安装</a><a href="#chapter-3">旧站升级</a><a href="#chapter-5">动效与曲线</a><a href="#chapter-21">连接与运营</a><a href="#chapter-20">安全与定价</a><a href="#chapter-11">缺漏清单</a><a href="#chapter-12">测试证据</a></div></section>
+<article id="chapter-1" class="chapter"><p class="eyebrow">CHAPTER 01 <a href="README.md">分篇源文件</a></p><h2>澄屿 Chengyu 0.18.0</h2>
+<p>独立 PHP 内容、社区与交易网站。基于实际交付的 <strong>0.17.0</strong> 增量开发；数据库目标 <strong>v10</strong>；日期 <strong>2026-09-07</strong>。前台、后台与数据均不依赖 WordPress。不是子比官方产品，也不是全部子比历史版本的完整等价替代。</p>
+<h3>先打开哪一份文件</h3>
+<p>本地打开 <code>START_HERE.html</code> 阅读完整离线手册。部署使用 <code>site/</code> 或同版本 upload.zip；不要把完整交付目录、<code>INSTALL_KEY.txt</code>、<code>tests/</code>、<code>tools/</code>、私有凭据或备份上传到公开目录。上传包根目录直接包含 <code>index.php</code>、<code>admin/</code>、<code>install/</code>、<code>app/</code>、<code>storage/</code>。</p>
+<p>新站访问 <code>/install/</code>，用完整包根目录中的私有安装口令完成安装，确认后台 <code>/admin/</code> 可登录后删除安装器。已有站点不要重新安装；按 <a href="docs/UPGRADE.md">升级说明</a> 保留原配置、密钥、数据库和存储。</p>
+<h3>本版增加了什么</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>本轮能力</th>
+<th>可用入口</th>
+<th>重要边界</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Meilisearch 连接器</td>
+<td>后台搜索工作台、发现设置、前台搜索</td>
+<td>可选外部服务；只发送公开标题、摘要、标签与有效译文；本地再次验权并回退；真实服务未联调</td>
+</tr>
+<tr>
+<td>一个订单多个包裹</td>
+<td>后台物流工作台、用户订单轨迹</td>
+<td>最多20包裹，单独单号、轨迹和修订；没有商品数量分箱、电子面单或多仓管理</td>
+</tr>
+<tr>
+<td>验证邮件六维限流</td>
+<td>后台安全设置</td>
+<td>IP/收件人各10分钟、小时、天，加独立冷却；不是新增短信服务</td>
+</tr>
+<tr>
+<td>加密数据库与本地媒体备份</td>
+<td>后台恢复副本；完整包离线恢复工具</td>
+<td>小站有界请求，默认64MiB；恢复仅空目标、同数据库类型、匹配版本；不是覆盖在线站点按钮</td>
+</tr>
+<tr>
+<td>工作台界面与微交互</td>
+<td>恢复、搜索和包裹页面</td>
+<td>原生表单、响应式、键盘操作、减少动态效果；不保证所有设备固定帧率</td>
+</tr>
+</tbody>
+</table></div>
+<p>先修正 HTTP 大小写重复头、表单体积限制和 HEAD 长度歧义，再增加业务模块；文字 <code>0</code> 的搜索不再被当成空查询。公共 HTTP 校验、交易、权限、语言和表单入口继续复用原服务。</p>
+<h3>环境与测试不是同一件事</h3>
+<p>业务源码面向64位 <strong>PHP7.4–8.5</strong>，不按版本裁剪模块。运行期不要求 Composer、Node、Redis、SSH 或常驻队列。必须具备原生 PDO 数据库驱动、OpenSSL、Fileinfo、Session、可写私有存储等条件。外部支付、搜索和对象存储需要 HTTPS、出站连接与真实凭据。</p>
+<p>本轮实际执行 PHP8.4.23；数据库测试使用测试专用 FFI 适配访问真实 SQLite，不是原生 PDO/MySQL 验收。生产不依赖 FFI。14组 PHP/数据库 CI 配置已附带，未实际全部执行；两家免费主机、VPS装机、真实支付、代付、物流、搜索与云存储均需部署方验收。</p>
+<h3>文档导航</h3>
+<p><a href="docs/DEPLOYMENT.md">部署</a> · <a href="docs/UPGRADE.md">升级</a> · <a href="docs/PLATFORM_018.md">本版操作</a> · <a href="docs/BACKUP_RECOVERY.md">加密备份与恢复</a> · <a href="docs/ACCEPTANCE_018.md">上线验收</a> · <a href="docs/TEST_REPORT.md">实际测试</a> · <a href="docs/FEATURE_MATRIX.md">完整功能与缺口</a> · <a href="docs/HISTORICAL_FEATURES.md">历史功能核对</a> · <a href="docs/REFERENCE_AUDIT.md">参考源码核查</a></p>
+<p>源码体积按实际文件计数记录在 <code>RELEASE.json</code>，没有为达到5MB加入重复代码、字体、原站素材或无用依赖。完整包大部分体积来自可读说明、测试与实际页面截图。</p>
+<p>仍未完成全部支付产品线、全部社交/短信、跨SKU与部分退款、全部可视化小工具、任意画布、完整财务勾兑、直播/转码/HLS/DRM等。详细限制以功能矩阵为准，不以菜单、占位按钮或体积替代验收。</p>
+</article><article id="chapter-2" class="chapter"><p class="eyebrow">CHAPTER 02 <a href="docs/DEPLOYMENT.md">分篇源文件</a></p><h2>安装与部署</h2>
+<p>核查日期：2026-09-07。项目版本：0.18.0。本文描述部署步骤，不代表已登录蓝队云、萌哒云或在真实 VPS 执行过部署。</p>
+<h3>一、免费虚拟主机：推荐 MySQL 安装</h3>
+<h4>1. 在面板准备</h4>
+<p>绑定自己的域名，选 PHP 而不是 ASP。建立一个空数据库并记录数据库主机地址、端口、名称、用户名、密码。数据库名称前缀以主机面板实际值为准，不是自行填写一个不存在的名称。
+启用 HTTPS，并确认浏览器能正常访问，不出现证书警告。本站的支付网关回调必须能从公网访问。</p>
+<p>程序面向 64 位 PHP 7.4–8.5，所有版本使用相同功能；检查 <code>pdo_mysql</code>、OpenSSL、Fileinfo。上线仍建议使用获得安全维护的运行时，而不是把兼容旧语法等同于旧运行时安全。安装器会检测运行时、PDO 驱动和基本写权限，但不等于完整安全审计，也不能提前验证真实支付回调。
+蓝队云官方免费主机说明为 Windows 环境、FTP 上传 wwwroot、无 SSH 和单独环境更换；未明确本套餐 PHP 小版本和 PDO 扩展。萌哒云“免费1”本轮未取得可独立确认的当前官方配置页，不能继续把 PHP 8.2 写成已确认。两者均须以实际面板、安装检测和工单为准；代码不能替主机安装扩展或解除磁盘/网络限额。见 HOSTS_AND_SOURCES.md。</p>
+<h4>2. 上传</h4>
+<p>推荐使用单独的上传 ZIP，在网站根目录解压。或者在本地解压完整包，仅上传 <code>site/</code> 内全部内容，含隐藏文件。根目录应当直接看到：</p>
+<pre><code>index.php
+action.php
+notify.php
+notify-direct.php
+jobs.php
+oauth.php
+media.php
+admin/index.php
+install/index.php
+app/
+assets/
+storage/
+.htaccess
+web.config
+</code></pre>
+<p><strong>不能公开</strong>完整交付 ZIP、INSTALL_KEY.txt、数据库导出、备份、tests、docs、deploy。
+不要覆盖原网站；先备份旧站，使用空站点目录和空数据库。此安装器不会迁移 WordPress 数据，也不提供一键导入旧主题。</p>
+<p>Apache / LiteSpeed 需要正确处理随包 <code>.htaccess</code>。Nginx 不读取 <code>.htaccess</code>，须在面板添加 <code>deploy/nginx.conf.example</code> 中的目录保护规则。IIS 附带 <code>web.config</code>，但未实测；由主机确认配置功能允许、目录浏览关闭且敏感目录不可访问。不要删除防护文件来绕过错误。</p>
+<h4>3. 运行向导</h4>
+<p>打开 <code>/install/</code>，例如：</p>
+<pre><code>https://example.com/install/
+</code></pre>
+<p>填写站点名称、规范网址、安装口令、MySQL 信息和管理员账号。口令来自本地完整包根目录 <code>INSTALL_KEY.txt</code>。它用于避免未安装站点被抢先初始化，不是管理员密码。
+管理员用户名为 3–32 位小写英文字母、数字、下划线，字母开头。密码为 12–72 字节、必须含字母和数字。
+可选择安装原创示例内容和套餐；公开运营前必须检查价格和内容。</p>
+<p>安装器创建数据表和配置文件，但不创建 MySQL 数据库或数据库用户。站点网址必须与当前安装目录一致，不能填带查询参数、片段或其他路径的网址。
+向导成功后登录 <code>/admin</code>。实体目录入口不依赖 WordPress 伪静态。</p>
+<h4>4. 权限与收尾</h4>
+<p><code>app/</code> 安装期间要能由 PHP 写入，以创建 <code>app/config.php</code>；安装后除配置变更或升级外不应继续允许 PHP 修改应用代码。
+<code>storage/</code> 要允许 PHP 创建媒体文件和日志。不要用全站 777 解决权限问题。共享主机文件所有者模型不同，使用主机提供的权限管理。
+<code>app/config.php</code> 自动设置为仅所属用户可读写；不要改为可公开下载的扩展名。
+安装完成且确认能登录后，删除 <code>install/</code>。</p>
+<p>用未登录浏览器实际请求下面的路径，必须被拒绝或返回无敏感内容的 404，不能显示目录、源码或 JSON 种子数据：</p>
+<pre><code>/app/seed.json
+/app/config.php
+/storage/
+/uploads/
+/.htaccess
+</code></pre>
+<p>测试安装器的 PDO 检测与这些 HTTP 路径保护是两个不同的事项，都需要验证。</p>
+<h4>5. 首次后台设置</h4>
+<p>站点身份与联系方式、服务条款、隐私与退款说明 → 外观与布局 → 用户与评论审核 → 内容 / 会员套餐 → 交易与支付 → SMTP。
+蓝队云用户在「站点设置」中设置「主机鸣谢文字」和「主机鸣谢链接」，遵守该套餐页面的页脚链接规则。不要自行删掉主机要求的标识。
+后台系统页能查看 PHP、数据库类型、上传限制、存储写入状态和 HTTPS 网址配置；不能控制主机面板或安装证书。</p>
+<h3>二、已有面板的 VPS</h3>
+<p>用现有面板创建 PHP 站点、绑定域名和证书、建立数据库，再按上述安装。不要运行新 VPS 脚本覆盖面板服务。
+Nginx 的私有路径拒绝规则优先于 PHP 匹配，参见模板；PHP-FPM socket 按面板实际值修改。本站无需通用 <code>try_files ... /index.php</code> 前端控制器重写。
+面板开启强制 HTTPS 后再把安装网址设为 HTTPS。已经安装的站点换域名或 HTTP 切 HTTPS，备份后修改 <code>app/config.php</code> 的 <code>url</code>，保留 <code>secret</code> 与数据库信息，不要重新安装。
+反向代理必须只信任自己控制的代理，并正确传递 HTTPS 状态。不要为了消除登录问题全局信任任意客户端伪造的代理头。</p>
+<h3>三、全新、无面板 VPS</h3>
+<p><code>deploy/install-vps.sh</code> 面向全新 Debian 12+ / Ubuntu 24.04+、root 权限和 systemd 主机。<strong>本次只检查了 Bash 语法，没有实际安装系统包或取得证书。</strong>
+先阅读脚本。它会安装发行版 Caddy、PHP-FPM、PDO 驱动，创建 <code>/var/www/chengyu</code>，写入 Caddy 配置；会拒绝目标目录已存在、常见面板或已运行 Web 服务的环境。它不修改云防火墙、不为你设置 DNS、不卸载现有服务。</p>
+<p>把完整包上传到非 Web 公开目录解压后：</p>
+<pre><code class="language-bash">cd chengyu
+sudo bash deploy/install-vps.sh example.com
+</code></pre>
+<p>将 <code>example.com</code> 换成自己的域名；按提示输入 <code>INSTALL</code>。先使域名 A/AAAA 指向该 VPS，允许公网 TCP 80/443，保证 Caddy 能绑定端口并持续保存证书数据。删除指向错误服务器的 AAAA 记录，而不是反复申请证书。
+完成后浏览器进入 <code>/install/</code>，选 SQLite，填 <code>/var/www/chengyu/private/chengyu.sqlite</code>。私有口令保留在 <code>/var/www/chengyu/INSTALL_KEY.txt</code>，可用 root 读取。也可自行配置 MySQL，脚本没有安装 MySQL 服务器。
+Caddy 的公开域名 HTTPS 申请和续期由 Caddy 管理；不是 PHP 后台调用 ACME。网关服务、DNS 和防火墙必须正常，否则不会凭空获得可用证书。</p>
+<p>验证后，在该脚本部署的特定路径下执行：</p>
+<pre><code class="language-bash">sudo rm -r /var/www/chengyu/site/install
+sudo chown root:www-data /var/www/chengyu/site/app
+sudo chmod 0750 /var/www/chengyu/site/app
+</code></pre>
+<p>这些命令只适用于本脚本创建的路径。不要照搬到不确定的生产路径，不要删除私有数据库或存储。<code>config.php</code> 仍需 PHP 用户能读，媒体存储仍需可写。
+运行日志使用 <code>journalctl -u caddy</code>、<code>journalctl -u php8.3-fpm</code> 等，PHP 服务名按实际安装版本替换。</p>
+<h3>四、IP、端口、子目录</h3>
+<p>根目录部署时 <code>/admin</code> 和 <code>/admin/</code> 都由 Web 服务器的实体目录入口处理；带端口可以使用 <code>http://IP:端口/admin/</code> 进行隔离环境初测。正式登录与充值应使用有效 HTTPS，HTTP 模式无法创建本站在线充值单。
+不能保证主机共享 IP 能直接访问你的虚拟站点，这由面板的站点绑定决定。</p>
+<p>子目录部署时后台是 <code>/子目录/admin/</code>，而不是域名根目录 <code>/admin</code>。要严格满足根目录加 <code>/admin</code>，就把网站放在该域名的文档根目录。Nginx 私有目录规则也要加子目录前缀。本次自动化测试以根目录部署为主，没有完整覆盖所有子目录 / 代理组合。</p>
+<h3>五、常见问题</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>现象</th>
+<th>排查方向</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>显示 PHP 源码或下载 PHP</td>
+<td>立即停止访问并移除公开文件，修复服务器 PHP 解析，检查密钥是否已泄露</td>
+</tr>
+<tr>
+<td>404 /admin</td>
+<td>检查是否多套了一层 site 目录、默认文档是否为 index.php</td>
+</tr>
+<tr>
+<td>PDO 无驱动</td>
+<td>面板启用 pdo_mysql 或 pdo_sqlite，不能通过上传 PHP 包补出原生扩展</td>
+</tr>
+<tr>
+<td>安装写入失败</td>
+<td>配置目录所有者、主机配额、open_basedir、storage 权限</td>
+</tr>
+<tr>
+<td>MySQL 连接失败</td>
+<td>面板给出的真实地址 / 端口 / 账号 / 名称、空库权限、InnoDB 与 utf8mb4</td>
+</tr>
+<tr>
+<td>HTTPS 后登录循环</td>
+<td>规范网址、浏览器 Cookie、代理 HTTPS 状态与实际访问域名是否一致</td>
+</tr>
+<tr>
+<td>上传大小失败</td>
+<td>PHP upload_max_filesize、post_max_size、Web 服务器 body 上限和后台限制需同时允许</td>
+</tr>
+<tr>
+<td>支付返回后没到账</td>
+<td>返回页不发钱；检查服务端异步通知和真实商户账单，见 PAYMENTS.md</td>
+</tr>
+<tr>
+<td>SMTP 找回失败</td>
+<td>主机出站端口、邮件服务授权码、TLS CA 与发信地址授权；从未保证免费主机允许出站 SMTP</td>
+</tr>
+<tr>
+<td>页面空白 / 500</td>
+<td>查看受保护的 storage/errors.php 与服务器日志，保留错误编号，不公开日志</td>
+</tr>
+<tr>
+<td>缺少 SSL 控制权限</td>
+<td>用主机面板或联系主机商；PHP 代码不能替代该权限</td>
+</tr>
+</tbody>
+</table></div>
+<h3>六、升级与迁移</h3>
+<p>0.14.0 按序提供从 0.9.0–0.13.0 到结构 v6 的增量、可重试迁移，详见 UPGRADE.md。没有在线热更新或自动降级回滚，不支持 WordPress 数据库直接导入。
+迁移需要数据库、<code>app/config.php</code>（尤其 secret）、整个 storage 一致备份。域名或绝对存储路径变化后修改配置对应项，检查回调地址和邮件链接，并再次做验收。完整备份不能用用户 / 订单 CSV 导出来代替。</p>
+<h3>七、新增模块上线顺序</h3>
+<p>升级或安装后先检查「模块」中的问答/投票开关，在测试版块发布试帖并用两个普通账号验证权限与结果隐私。后台「动效工作台」可先在本地预览，保存后用另一个浏览器检查默认效果；页面不会因关闭动画而失去付款或下载功能。</p>
+<p>SMTP 先配置、实际收发成功，再开启必填邮箱验证，避免把真实访客挡在注册入口。详见 EMAIL_COMMUNITY.md。需要普通不验证注册时保持该可选开关关闭，所有 PHP 版本遵循同一设置，不是低版本精简模块。</p>
+<p>部署完成不要求开放 SSH、FFI、Python、Node 或测试端口。测试目录仅留本地。安装器只检查基础运行环境，不表示服务器的网络、数据库性能与所有业务已验收。</p>
+<h3>八、安全、定价与主机自检</h3>
+<p>首次上线先到“系统”运行部署自检，确认真实环境的原生 PDO、回滚、加密与写权限。下载报告便于维护，但报告不含公网敏感路径访问检查，不得跳过真实 URL 验收。</p>
+<p>准备好离线恢复码再给管理员启用身份验证器，确认服务器时钟正确。SMTP 密码找回不会移除身份验证器；没有命令权限的免费主机尤其需要事前保管恢复码。完整包的本地恢复脚本不得公开上传。</p>
+<p>先用测试账户/测试商品设置会员价和活动，核对 0/8000/10000 比例含义、单件最高确认额和按成交价退款，再开放促销。详情见 SECURITY_PRICING.md。旧站没有价格规则时不会因升级自动出现优惠。</p>
+</article><article id="chapter-3" class="chapter"><p class="eyebrow">CHAPTER 03 <a href="docs/UPGRADE.md">分篇源文件</a></p><h2>从 0.17.0 升级到 0.18.0</h2>
+<p>实际基线是用户提供的0.17.0完整包，数据库由 <strong>v9到v10</strong>。配置文件中的 <code>schema_version: 1</code> 是配置格式，不能改成10。此程序不导入WordPress或ICU数据库。</p>
+<h3>先备份，再覆盖</h3>
+<ol>
+<li>暂停收款、退款/代付计划任务及用户写入，备份同一时点的数据库、旧代码、<code>app/config.php</code>、其中原始 <code>secret</code>、整个 <code>storage/</code> 及服务器规则。不要用新版本密钥替换旧密钥。SQLite要停止写入或使用一致性备份，不能遗漏WAL。</li>
+<li>在隔离环境先验证恢复。旧0.17没有本版整站快照工具，请使用主机面板/数据库工具备份，不要为了备份先在唯一生产库上升级。</li>
+<li>覆盖上传包的应用文件与资源，保留原配置和存储；旧站不用再次上传 <code>install/</code>。清理OPcache、浏览器和CDN缓存。</li>
+<li>首次请求执行顺序迁移至v10。迁移需要存储可写和数据库建表、加列、索引、改名等权限。MySQL DDL不保证整体事务回滚；失败时停写排查，不能手动提升版本号跳过迁移。</li>
+<li>检查后台系统自检与 <code>ACCEPTANCE_018.md</code>，再恢复交易和受认证的调度。外部搜索默认不启用，不会自动把内容发送出去。</li>
+</ol>
+<h3>数据变更</h3>
+<p>新增 <code>cy_search_outbox</code>、<code>cy_external_search_state</code>、<code>cy_backup_archives</code>。物流表新增 <code>package_key</code>、<code>package_label</code>，从每订单一条改为订单与包裹键联合唯一。旧运单ID、加密单号、轨迹、修订和关联人工事件保留，旧包裹键为 <code>primary</code>。SQLite在事务内重建该表并核对行数；MySQL逐步更新列和唯一索引。</p>
+<p>没有新增账目入账动作，没有自动退款，没有替用户确认收货。多包裹仍附属于原有订单单位；它不是一张订单跨多个商品的装箱分配系统。原退款、会员补差和作者收益限制继续保留。</p>
+<p>邮件发送次数默认IP为3/10分钟、30/小时、150/天，收件人为3/10分钟、原 <code>mail_limit</code> /小时、9/天；另外有60秒收件人冷却。旧 <code>mail_limit</code> 值会保留。各时窗是固定窗口，冷却是实际经过秒数；不是任意滑动窗口统计。已有邮箱验证、密码重置与改邮箱共用额度。</p>
+<h3>备份与恢复区别</h3>
+<p>升级是保留现有数据库继续迁移；离线恢复是把本版加密归档恢复到一个空数据库和全新存储目录。不要将恢复工具指向生产库。恢复后强制维护模式、任务暂停、外部服务关闭并撤销会话；重新启用前核对恢复时间点之后在商户侧实际发生的交易。</p>
+<p>0.18生成的归档要求使用匹配的0.18代码读取。未来升级请同时保存原版本完整源码与归档，不假定所有归档格式跨版本自动兼容。</p>
+<h3>回滚</h3>
+<p>高版本数据库拒绝由旧程序启动。回滚必须停写并恢复同一时点的旧代码、数据库、配置密钥和文件，不可只覆盖回0.17的PHP。数据库回滚无法撤销真实付款、退款、代付、邮件或已经寄出的包裹。</p>
+<p>更早版本保留顺序迁移路径，但本轮直接发布比对基线为0.17，不是所有历史版本生产数据库都经过升级演练。</p>
+</article><article id="chapter-4" class="chapter"><p class="eyebrow">CHAPTER 04 <a href="docs/ADMIN_GUIDE.md">分篇源文件</a></p><h2>前后台运营与外观设置</h2>
+<p>版本 0.17.0。站点先安装，再由自己创建的管理员登录 <code>/admin</code>。权限判断在服务端，普通用户不能通过直接输入后台网址获取管理权限。</p>
+<h3>1. 首次配置</h3>
+<p>站点设置先填写名称、简介、站点标识、联系方式和主机鸣谢；检查隐私/服务/退款说明，不能把默认条款当作适合自己业务的法律文件。新站先限制注册，保留只用于验收的账号。初始化示例可以修改或停用，价格和商品资源都应逐项检查。</p>
+<p>系统页检查运行时、数据库、上传限制、存储和 HTTPS。后台不能为你安装 PHP 扩展、绑定域名或调整主机证书。SMTP 找回需要实际成功发出并收到邮件，保存配置成功不算验证完成。</p>
+<h3>2. 外观与动画</h3>
+<p>「外观」有 Tide、Dusk、Paper、Graphite、Citrus 五类主题，明亮/深色/跟随系统，以及关闭/磨砂/棱镜/流体玻璃。玻璃模糊和圆角、动画时长与曲线、悬浮位移、滚动显现、背景光、粒子、纹理与阅读进度等共享设置。新版另加首屏艺术样式、内容密度和低资源视觉收敛。</p>
+<p>访客通过外观面板选择的偏好会保存在自己的浏览器；后台改的是默认样式，不能保证覆盖已经有个人选择的访客。验收管理员默认效果时使用未设置偏好的浏览器或清除本站偏好。</p>
+<p>强动画与透明表面不一定适合所有设备或内容。使用减少动态效果的系统偏好时，页面会减少非必要动效。深色与手机端分别检查文字对比度、按钮可见性和长标题，不要只看桌面首页。</p>
+<h3>3. 页面结构和导航</h3>
+<p>「布局」设置控制标准布局选项，「布局工作台」负责22个位置的组件编排，支持草稿、发布、最近20次历史及恢复。导航管理可调整内部/外部链接、顺序与显示人群；模块关闭会影响相应导航和服务入口，不应只隐藏菜单却保留写入接口。</p>
+<p>工作台使用可验证的数据组件，不能上传原主题的 PHP 模板。模板、导入文件和跨站内容 ID 的操作见 NEW_MODULES.md。运营者需要保留自己的布局JSON备份；内置历史仅保留20次，不能替代完整备份。详见PLATFORM_017.md。</p>
+<h3>4. 内容、评论与资源</h3>
+<p>内容管理创建文章、帖子、页面或商品，设置分类、标签、摘要、封面、状态、展示时间和访问权限。公开摘要不应填写准备收费的正文；受限正文、私有附件需通过权限字段保护，不能只在前端 CSS 隐藏。</p>
+<p>用户投稿按审核流程处理。评论和举报在审核页处理；可以配置评论展示人群、置顶回复等。用户可点赞、收藏、关注和发送私信，经营者应制定可接受内容规则并及时处理举报。</p>
+<p>媒体上传后应检查类型与访问级别，普通资源不要从公开外链直接替代私有下载。超过主机空间、上传上限或 open_basedir 的问题需要面板调整。后台显示上传成功后，仍应分别用无权限与有权限账号验证下载。</p>
+<h3>5. 会员、任务和资产</h3>
+<p>会员套餐设置等级、期限、价格和启用；VIP 1–3 期限独立。资产、兑换码、签到和任务奖励使用统一账本。管理员调账必须填写可审计原因，不以手改 SQL 代替调账操作。</p>
+<p>注册邀请码按次数和到期配置；生成的明文应即时安全保存。任务不能靠改页面上的数字达成，领取证明从真实评论/投稿/资料等取得。更多限制见 NEW_MODULES.md。</p>
+<p>余额、积分、代币和推荐佣金并非同一种资产，用户转账与提现默认谨慎开启。推荐佣金不是作者出售文章的收入分成。提现在确认外部真实打款后才能后台标记，不能点一下就假装已经付到银行卡。</p>
+<h3>6. 商城与订单</h3>
+<p>数字资源、卡密和实物各有履约方式。规格/卡密从专门页面维护，不通过修改商品展示库存伪造可发卡数量。会员与活动价、优惠券范围在定价工作台和券管理维护；组合优惠按COMMERCE_016.md执行，不等于任意促销规则。</p>
+<p>订单管理用于检查资产扣减、履约、发货、退款申请和审核。0.16起提供四种官方直连及单位订单全额原路退款适配，自动代付仅PayPal Payouts；真实服务和资金仍需联调，详见PAYMENTS.md。0.17的物流轨迹不会自动确认收货，账单导入不会操作资金。</p>
+<h3>7. 日常维护</h3>
+<p>定期核对商户账单、站内订单与流水，处理异常通知、退款、提现和内部佣金负债。定期备份数据库、原配置密钥与存储，并实际恢复到隔离环境。系统清理不能代替备份，也不应删除金融证据来省空间。</p>
+<p>程序没有任意插件执行入口或自动热更新。从 0.9.0 升级看 UPGRADE.md；跨主机迁移需保留 secret、数据库和媒体的一致性，不要重新跑安装器生成新密钥覆盖旧站。</p>
+<h3>新增入口：动效、问答投票与邮箱</h3>
+<p>「动效工作台」(<code>/admin/index.php?tab=motion</code>)：预设、曲线、交错与位移、光点/透视/磁吸、首屏视差、日夜转场和持续装饰，实时预览后保存。预览不自动写入数据库。完整调校说明见 MOTION_GUIDE.md。</p>
+<p>「问答与投票」(<code>/admin/index.php?tab=threads</code>)：查阅讨论类型并进入原内容编辑器。新帖类型普通讨论/问答/投票共用审核与内容权限；投票已有第一票后锁定问题、选项、截止和结果隐私。前台作者或后台内容编辑者可采纳回答，审核拒绝时自动撤销。详细见 EMAIL_COMMUNITY.md。</p>
+<p>「设置 → 邮件」：配置 SMTP，确认实际送达后可开启注册必填邮箱验证。用户改邮箱在其资料页，需要当前密码和新邮箱证明；管理员人工改邮箱不会把它伪装为已验证。</p>
+<p>「设置 → 模块」关闭问答/投票会同时关闭服务端对应入口，不删除历史数据。「设置 → 布局」控制阅读目录，目录仅从当前已授权正文生成。认证用户标记与邮箱已验证不是同一属性。</p>
+<h3>0.12 新入口</h3>
+<p>「圈子与成员」管理加入状态、人工期限与暂停；「积分悬赏」处理未结清积分；「商品评价」审核实际购买用户的文字评分。分类表单增加父级与读/写策略，商品交付类型增加邀请码，投票增加最多选择数量。先看 <code>COMMUNITY_COMMERCE.md</code> 的退款、期限与注册模式限制。</p>
+<p>动效实验室新增物理弹簧响应、刚度/阻尼/质量与实时图；布局设置新增灯箱与原生分享。当前共有 192 项集中设置/13 组，36 项是实验室统一的动效参数。关闭新业务开关不会假装清除已有订单、资产或审计历史。</p>
+<p>手机后台导航有焦点约束和 Escape 关闭；在桌面普通侧栏仍然常驻。灯箱与分享是浏览器增强，不改变后端访问权限。</p>
+<h3>0.13 作者与发现管理</h3>
+<p>在交易设置开启作者分成并配置比例/等待期；用户编辑批准作者并设置独立基点比例。作者收益列表位于 <code>/admin/index.php?tab=creators</code>，提现审核显示来源资产。后台内容编辑的作者定价许可用于控制旧内容能否由作者修改价格；默认不放开旧内容。</p>
+<p>阅读记录全站开关在模块分组，条数限制在用户分组；个人在阅读历史页选择是否保存。后台不提供查看任意用户阅读历史的运营页。搜索联想可独立关闭；关闭增强不必关闭普通搜索。菜单管理可选择创作中心、阅读历史和关注动态。</p>
+<p>新增状态与导航动效同时可以在外观设置和动效实验室管理，定义和保存均由同一个设置服务处理。具体路径和验收见 <code>CREATOR_AND_DISCOVERY.md</code>。</p>
+<h3>0.14 安全、定价与自检</h3>
+<p>前台“安全中心”绑定身份验证器、保存八个恢复码、退出其他登录。管理员也从个人账户入口操作，后台登录同样检查已绑定的第二因素；不是另做一套绕过验证的管理密码。用户设置的“允许新绑定”不等于强制全员启用，关闭它不会解除既有保护。</p>
+<p>“定价工作台”维护内容/商品的三档会员付款比例和限时价格，数字越小越便宜，0 是免费。优惠券可设范围、指定内容、开始时间与最低等级；默认不叠加特别价。价格从统一服务算出，保存后的旧订单不重新计算。</p>
+<p>“系统”底部运行部署自检或下载 JSON。自检是当前主机基础能力核查，报告中需要人工检查的项目必须继续验收，不能把 HTTPS 配置字符串等同证书已部署。</p>
+<p>“布局”控制专注阅读；“动效实验室 → 状态与导航”新增布局重排开关，时间参数可保存 0ms。操作与恢复详见 <code>SECURITY_PRICING.md</code>。</p>
+<h3>0.15.0 补充</h3>
+<p>账号连接、主动查单、永久会员、整车上限、配置快照、徽章和后台分组交互的当前行为、限制与操作请以 <a href="docs/CONNECTIONS_AND_OPERATIONS.md">连接与运营说明</a> 为准。新功能复用现有事务、账户和动效服务，不复制多套入账或身份校验。</p>
+<h3>0.16 新增操作入口</h3>
+<p>交易中心查看总支付与运行有界核付；运费/促销编辑版本化规则；售后/代付处理退换货、原路退款、PayPal Payouts、历史会员权益核对和升级回滚。媒体工作台提供本地分片和私有 S3；翻译编辑器管理中英草稿及审核；布局工作台新增全站/内容插槽及独立页面。</p>
+<p>前后台共用中英偏好；新结算先复核再确认，访客通过随机私密凭据授权而非邮箱检索。操作与限制详见 COMMERCE_016.md、MEDIA_LANGUAGE_BUILDER.md；旧章节的功能缺漏描述属于此前版本，当前范围以 FEATURE_MATRIX.md 为准。</p>
+<h3>0.17 新工作台</h3>
+<p>“课程工作台”管理来源内容、章节、预览与私有资源，前台学习中心提供账户进度和笔记。“搜索索引”提供状态、继续构建及重建，不需要SSH。“物流履约”关联实物订单、手工轨迹及可选快递100。“账单核对”只生成标准CSV差异报告，不等同会计对账或自动改账。“客服工单”处理私有对话、可编辑回复模板和状态。</p>
+<p>前后台语言偏好独立保存；课程标题等商家内容不自动翻译。各模块的权限、数量限制、工作流和验收步骤见PLATFORM_017.md、STATEMENT_FORMAT.md和ACCEPTANCE_017.md。</p>
+<h3>0.18.0 新增入口</h3>
+<p>后台“恢复保险库”用于创建、下载和删除本地加密副本。创建与导出涉及敏感数据，需管理员当前密码，已启用双因素时还需验证码。备份密码不是管理员密码，应用不会替你保存。保存到同一台主机不是异地备份，下载后要验证并移至安全位置。</p>
+<p>后台“搜索索引”保留本地重建，新增远端队列统计、分批加入和单次/受限连续推进。先到站点设置配置搜索引擎、HTTPS 地址、专用索引、服务端密钥及公开元数据同意项；不要把异步受理当成同步完成。</p>
+<p>后台“物流轨迹”按订单选择包裹；已有默认包裹可继续编辑，新增包裹独立拥有运单和事件。买家在物流页切换包裹，不必把两票快递的事件混成一条。</p>
+<p>站点设置包含邮箱验证码多窗口配额、备份体积/保留数；设置范围有服务器端验证。操作顺序、错误处理和真实服务验收见 <code>PLATFORM_018.md</code>、<code>BACKUP_RECOVERY.md</code> 与 <code>ACCEPTANCE_018.md</code>。</p>
+</article><article id="chapter-5" class="chapter"><p class="eyebrow">CHAPTER 05 <a href="docs/MOTION_GUIDE.md">分篇源文件</a></p><h2>动效、曲线与视觉工作台</h2>
+<p>适用 0.17.0（保留早期动效模块说明）。入口：后台导航「动效实验室」，或 <code>/admin/index.php?tab=motion</code>。只有具备设置权限的管理员能够保存。所有动效不参与权限、库存、付款或内容可见性的判断。</p>
+<h3>一、先选择基调，再微调</h3>
+<p>页面顶部有「安静专注」「自然流动」「光感表达」三套预设。点击只改变当前浏览器的预览和表单；<strong>按下保存才写入数据库</strong>。离开页面而不保存不会更改网站默认值；预览也不是另一套演示动画，而是调用网站相同的 <code>CYMotion</code> 引擎。</p>
+<p>安静预设使用 280ms 和较小位移，关闭卡片透视、磁吸、持续装饰等；自然流动预设为 480ms，保留柔和入场、光点与轻透视；光感预设为 650ms，使用弹性曲线并启用更明显的层次。预设只覆盖它列出的相关项，玻璃、主题、纹理及其余配置继续保留，避免意外重置整组外观设置。</p>
+<p>五套配色和玻璃仍在「外观」页面选择。玻璃档位为关闭、磨砂、棱镜、流体；名称是本项目视觉风格，不保证所有浏览器都有真实折射或相同合成效果。颜色模式是明亮、深色、跟随系统；允许访客自选时，本地选择可覆盖站点默认主题，不影响后端业务。</p>
+<h3>二、曲线到底控制什么</h3>
+<p>预置曲线由服务端 <code>Core/Motion.php</code> 唯一定义，并输出给前端与工作台读取，避免两处数值不一致。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>曲线</th>
+<th>参数 cubic-bezier(x1,y1,x2,y2)</th>
+<th>表现</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gentle</td>
+<td>0.22,1,0.36,1</td>
+<td>较快响应、柔和落定</td>
+</tr>
+<tr>
+<td>snappy</td>
+<td>0.2,0.8,0.2,1</td>
+<td>轻快、直接</td>
+</tr>
+<tr>
+<td>elastic</td>
+<td>0.34,1.56,0.64,1</td>
+<td>轻微超出终点再回落</td>
+</tr>
+<tr>
+<td>cinematic</td>
+<td>0.76,0,0.24,1</td>
+<td>起落更明显的缓入缓出</td>
+</tr>
+<tr>
+<td>linear</td>
+<td>0,0,1,1</td>
+<td>匀速</td>
+</tr>
+<tr>
+<td>custom</td>
+<td>自定义四个控制值</td>
+<td>以工作台曲线图与实物预览确认</td>
+</tr>
+</tbody>
+</table></div>
+<p>自定义值以百分数填写：X1/X2 为 0–100，Y1/Y2 为 -100–200。横轴是时间，纵轴是进度；Y 大于 100 可以产生超调。字段经后端白名单和数值范围校验，不接收任意 CSS。工作台 SVG 实时显示控制点、曲线与 CSS 参数，也可点击重播比较持续时间。</p>
+<p>全局时间动画时长 0–1200ms；卡片悬浮位移 0–12px，显现位移 0–40px，交错间隔 0–120ms。同一批入场的累计延迟封顶 360ms，避免下方内容要等很久才显示。弹层关闭会采用更短的离场时间，按钮反馈也不刻意等待整个页面动画结束。</p>
+<h3>三、效果与开关</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>类别</th>
+<th>可调内容</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>入场</td>
+<td>上移、缩放、模糊显现；位移、交错、时长</td>
+<td>IntersectionObserver 检查进入视区，显现后不重复隐藏</td>
+</tr>
+<tr>
+<td>光与深度</td>
+<td>卡片跟随光点、透视、最大倾角 0–8 度、柔和扫光</td>
+<td>面向鼠标/精细指针；触屏不强行模拟悬停</td>
+</tr>
+<tr>
+<td>按钮</td>
+<td>涟漪、磁吸、最大位移 0–12px</td>
+<td>保留正常点击、焦点和表单提交；不会修改业务状态</td>
+</tr>
+<tr>
+<td>首屏</td>
+<td>指针视差、背景光、粒子、纹理、持续装饰</td>
+<td>离屏或标签页隐藏时暂停相应连续装饰</td>
+</tr>
+<tr>
+<td>主题切换</td>
+<td>淡入、圆形展开、滑动</td>
+<td>支持 Document View Transitions 的浏览器增强；不支持则直接切换</td>
+</tr>
+<tr>
+<td>弹层</td>
+<td>入场/离场、Escape 关闭</td>
+<td>基于原生 dialog 与 Web Animations；关闭后恢复原生焦点语义</td>
+</tr>
+<tr>
+<td>阅读</td>
+<td>阅读进度、文章目录</td>
+<td>目录仅从页面已经授权输出的正文标题生成</td>
+</tr>
+</tbody>
+</table></div>
+<p>「页面过渡」现在同时提供页面进入反馈与同源跨文档 View Transition 的条件开启。参与页面都需启用、浏览器需支持；不支持时按正常多页导航。已移除旧的 130ms 链接等待和 160ms 提交后跳转等待，点击不为装饰而人为延迟。它不是 SPA，也不缓存或伪造订单响应。本环境未完成真实浏览器 URL 导航验收，因此跨文档转场不能标为实机通过。</p>
+<h3>四、无障碍与性能优先级</h3>
+<p>系统 <code>prefers-reduced-motion: reduce</code> 优先于后台预设，装饰运动关闭，但购买、下载、表单、权限和全部模块保留。工作台此时仍可编辑保存数值，只是不强制播放预览动画。</p>
+<p>低资源收敛使用浏览器可报告的节流/硬件提示，关闭部分昂贵玻璃与指针效果。不是服务器根据 PHP 版本减少功能，也不是能准确测量所有设备性能的基准测试。无法报告硬件信息时仍按常规配置运行。</p>
+<p>弹簧模式由指针事件激活统一 requestAnimationFrame 调度；只有正在移动或回到静止的元素参与，收敛后自动停止，不留下空闲全局循环。隐藏页面、失焦或减少动态效果会清除待动元素。曲线模式保留原有渐变路径，视觉设置集中在 CSS 自定义属性。内容默认可见，仅在引擎初始化成功后标记等待显现；禁用 JavaScript 不会把正文永久藏起来。减少动态效果与页面隐藏也会取消或暂停相应动画。</p>
+<h3>五、排查</h3>
+<p>保存后效果没变化：确认提示成功，清浏览器/站点静态缓存；查看访客本地主题选择、系统减少动态效果、低资源模式、页面是否在后台，以及设备是否支持精细指针。旧浏览器直接主题切换是预期增强回退，不表示 PHP 缺失该模块。</p>
+<p>感觉晃动：选安静预设，降低透视与悬浮，关闭粒子、持续装饰和磁吸；保留短时按钮反馈。光感预设并非适合所有内容站。</p>
+<p>布局边缘空白：先用真实浏览器检查是否能横向滚动；某些全页截图会包含已经被根元素裁剪的离屏装饰，截图宽度不等于页面实际可滚动宽度。随包截图按真实视口宽度截取，布局测试另行检查 DOM 滚动宽度。</p>
+<p>首次上线用键盘 Tab、Escape 和手机触摸验证导航、表单与弹层，再逐项启用昂贵效果。没有用截图保证“比某个产品更好看”；预设、参数与业务体验需要结合实际内容选择。</p>
+<h3>六、物理弹簧：保留速度，而不是重播一次 easing</h3>
+<p>选择「指针响应 → 弹簧」，调节刚度 40–480、阻尼 8–60、质量 0.40–2.50（表单按百分之一填写 40–250）。自然流动预设为 180/24/1.00；光感表达为 160/17/1.10；安静预设使用曲线路径。</p>
+<p><code>spring.js</code> 解析求解欠阻尼、临界阻尼、过阻尼三种状态。指针目标改变时携带上一次位置和速度，反向移动不会忽然把速度清零；相同真实时间下的结果不依赖简单“每帧乘固定百分比”的帧率近似。运动幅度有视觉限制，并非让卡片任意越界。</p>
+<p>工作台显示阻尼比、响应曲线和采样收敛时间，点击重播时演示使用同一个求解器。刚度大通常跟手更快，阻尼低容易超调，质量增大会改变回落；先选择预设再微调。<strong>全局毫秒时长控制入场/弹层等时间动画，不决定弹簧的自然收敛时间。</strong></p>
+<p>卡片倾斜、悬浮与按钮磁吸共用求解器，正在物理更新的元素不会再叠加 CSS transform 过渡导致“双重拖延”。触屏不强造鼠标悬停；减少动态效果时显示静态可用界面。42 项算法测试验证三类阻尼、分步时间一致性、速度保留、非法输入与参数角点；它不等于所有设备上固定 60/120 帧性能保证。</p>
+<h3>七、折叠、导航与媒体</h3>
+<p>折叠面板使用原生 details 语义，增强模式动画高度可被下一次点击反向打断；完成后取消残留填充效果并清理内联高度，避免打开两次后内容被旧高度裁剪。禁用动效时直接开关，禁用 JavaScript 时仍可用原生控件。</p>
+<p>移动后台导航支持遮罩关闭、Escape、Tab 焦点范围与关闭后恢复触发按钮焦点；打开时后台主内容 inert。桌面不显示只用于手机的菜单按钮。无 JavaScript 时保留可访问侧栏，不把管理导航永久隐藏。</p>
+<p>「布局」中的图片灯箱只从页面已经授权输出的封面/正文图片构建，支持前后切换、计数、键盘、双倍缩放和失败状态；不会从未解锁正文偷偷提取图片。现有 Markdown 并不等价于全功能图库编辑器，主要可对封面及已经渲染的图片增强。部分原生能力缺失时保留原图阅读。</p>
+<p>分享先尝试系统原生分享；不支持时尝试复制，复制也不可用时显示可选择的真实规范链接。用户取消系统分享不会被当成错误反复弹窗。没有加载第三方分享 SDK 或追踪脚本，没有生成海报/二维码的完整功能。</p>
+<p>资料参考：MDN View Transition API，https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API （2026-09-06 核查）。不同浏览器的能力与授权规则需要在实际站点验收。</p>
+<h3>0.13：状态与导航微交互</h3>
+<p>「动效实验室 → 状态与导航」新增三个独立开关：<code>motion_navigation</code>（导航指示线）、<code>motion_feedback</code>（表单/通知反馈）、<code>motion_images</code>（已加载图片显现）。它们仍服从总动效开关、减少动态效果和低资源模式；所有新动画使用 <code>CYMotion.animate</code> 及统一曲线/时长，不维护另一套私有曲线。</p>
+<p>导航指示线根据当前条目、指针和键盘焦点测量位置。用户快速反向切换时从当前可见位置续接，不先闪回原点；关闭该装饰不影响实际链接。动效实验室内有三个状态按钮与通知预览，可立即操作，不需要保存到正式站点。</p>
+<p>表单提交立即防重并设置 <code>aria-busy</code>，真正请求超过 180ms 才出现装饰旋转指示，短请求不闪一下。按钮在失败/完成后恢复原来的禁用状态；失败同时提供文字提示，不能仅靠颜色或摇晃。保存和跳转不等待动画播放完毕。</p>
+<p>通知最多同时 4 条，有明确关闭按钮，文字按文本处理而非 HTML。成功提示约 5 秒、错误约 9 秒后关闭，鼠标停留或键盘焦点进入时暂停；键盘关闭后尽力恢复触发元素焦点。减少动态效果时通知仍可用，仅不播放进出移动。</p>
+<p>搜索结果到达采用轻微显现；图片只在成功加载后装饰，不把 opacity=0 当正文前置条件。失败图片、无 JS、旧浏览器或动画被关闭，不应造成权限已授予内容永久看不见。</p>
+<p>这几项是原生 DOM/WAAPI 渐进增强，不依赖动画框架。后端业务不因不同 PHP 小版本而减少功能；动画支持与具体浏览器能力有关。实际导航转场尚未在当前环境完成真实浏览器 URL 验收，离线截图不证明跨文档转场已通过。</p>
+<h3>0.14：连续布局、专注阅读与报价反馈</h3>
+<p>新增 <code>motion_layout</code>，当前实验室统一管理 36 项参数。布局工作台按组件稳定编号记录正在显示的位置，更新 JSON/DOM 后只做位置变换；再次操作时从当前视觉位置重新测量，避免先跳回旧终点。动画完成、被取消、页面隐藏或减少动态效果时清理，不留 transform 或无意义常驻循环。</p>
+<p>排序保留展开状态和编辑焦点，Alt+上/下键与原来的拖动/按钮并存。屏幕阅读器会听到位置变更；动画关闭后结构修改仍即时完成。它不依赖 PHP 小版本或安装动画框架。</p>
+<p>修复折叠面板把 0ms 当空值并回退到 280ms 的错误。现在后台允许保存 0–1200ms，0ms 下入场直接可见、不保留交错等待。物理弹簧和连续背景有独立参数/开关；希望全部静止时关闭动效总开关或启用系统减少动态效果。</p>
+<p><code>reading_focus</code> 在布局设置控制专注阅读按钮：隐藏侧栏、优化文本宽度，保留正文和购买控件；不做缩放文字的重排动画，只在合适时给轻微透明度反馈。无脚本则保持正常布局。</p>
+<p>报价由服务端生成，再按实际请求状态更新。新请求会取消旧请求，迟到响应不能替换最新金额；失败留下文字反馈并清除忙碌状态。刷新价格不收费，提交不等待动画，安全文本插入不接受接口返回 HTML。</p>
+<h3>0.15.0 补充</h3>
+<p>账号连接、主动查单、永久会员、整车上限、配置快照、徽章和后台分组交互的当前行为、限制与操作请以 <a href="docs/CONNECTIONS_AND_OPERATIONS.md">连接与运营说明</a> 为准。新功能复用现有事务、账户和动效服务，不复制多套入账或身份校验。</p>
+<h3>0.17 工作台与课程视觉</h3>
+<p>新课程卡片使用共享曲线控制悬停抬升、封面缩放；工作台首屏的轨道装饰沿用主题变量。移动端变为单栏，章节目录回到普通文档流。减少动态效果时禁用装饰变换，仍保留阅读、表单、支付和后台操作。未承诺不同显卡/浏览器的固定帧率。</p>
+</article><article id="chapter-6" class="chapter"><p class="eyebrow">CHAPTER 06 <a href="docs/EMAIL_COMMUNITY.md">分篇源文件</a></p><h2>邮箱验证、问答与投票</h2>
+<p>适用 0.11–0.14；本章所述模块最初加入结构 v3，当前数据库已升级 v6。所有管理入口仍在同一个 <code>/admin</code>，无 WordPress 或额外插件依赖。</p>
+<h3>一、邮箱验证码注册</h3>
+<p>后台「设置 → 邮件」填 SMTP 主机、端口、TLS 模式、发件地址、用户名与授权凭据，启用 SMTP。使用邮件服务商给出的参数和授权码；不要使用其他网站的密钥。先用自己的测试邮箱确认实际送达，再启用「注册时要求已验证邮箱」。</p>
+<p>必填邮箱验证不能在 SMTP 未启用时保存。服务端检查发件地址/主机格式，但不能预先保证服务商账户权限、DNS、TLS 证书、出站端口或发件信誉都正常。免费主机阻止 SMTP 连接时，需由主机开放或调整到其支持的合规邮件服务，代码无法越过网络权限。</p>
+<p>启用后，用户在注册页填写邮箱并请求验证码，填写收到的 6 位数字及其余注册信息。证明与注册账号、奖励、邀请码消耗同属业务事务；用户名冲突或邀请码失败不应出现半个账号和已扣邀请次数。没有 JavaScript 时可使用备用发码页，返回注册页继续，必须仍是同一浏览器会话。</p>
+<p>验证码有效 10 分钟；绑定收件人、用途、浏览器会话和适用用户。数据库存带密钥摘要，不存明文验证码与收件邮箱；用户表自然仍需存账户邮箱。5 次错误后该次证明不可再用；验证码检查还有限流。邮件已发送不代表已完成验证；SMTP 接受 DATA 后即以发送完成处理，不会因随后 QUIT 断开让已送达的码失效。</p>
+<h3>二、发送限额与维护</h3>
+<p>注册、改绑和找回密码共用发送额度，不能用不同入口绕过：
+同 IP 10 分钟最多 3 次，单收件人每分钟 1 次；收件人每小时上限取后台邮件发送限制（默认 3），每天上限为其 3 倍。失败尝试也可能消耗发送额度，避免对坏地址或被攻击目标无限重试。前端倒计时只为提示，真正限制在服务器。</p>
+<p>验证码失败次数先独立提交，再返回错误，不会因后续注册事务回滚而清零。成功消费用数据库条件更新确保只消费一次。未使用记录过期后不可验证；管理员维护清理可以移除过期一天以上记录，不清空财务流水。</p>
+<p>邮件会话绑定意味着另一台设备打开注册页后直接输入原码不会通过；退出登录也会清理该会话证明。操作日志不写验证码，第三方 SMTP 日志和邮件箱仍由运营者保护。演示测试 SMTP 仅在本地夹具中使用，不随站点启动。</p>
+<h3>三、修改邮箱及账号安全</h3>
+<p>用户中心资料页：输入新邮箱、当前密码，先向新邮箱发送验证码，再提交修改。服务端重验密码及账号状态，确认邮箱唯一，原子消费证明，记录新邮箱验证时间，并递增会话版本；当前会话刷新，其他旧会话失效。旧找回密码令牌同时作废。</p>
+<p>管理员修改邮箱视为人工变更，邮箱验证时间清零，不伪造用户已经证明拥有邮箱。管理员改密码、改邮箱、封禁或改角色也会吊销未用找回链接。仅修改昵称不会不必要地吊销链接。用户自己修改密码同样吊销旧链接，退出登录清理购物车临时状态、口令内容授权与一次性显示内容。</p>
+<p>「认证用户」是原有人工认证标记，与「邮箱验证时间」不是同一个字段；验证邮箱不意味着法定实名、支付资质或授予管理员权限。当前仍没有短信注册；TOTP/恢复码、第三方OAuth和账号连接已分别在0.14/0.15加入，见SECURITY_PRICING.md及CONNECTIONS_AND_OPERATIONS.md。</p>
+<h3>四、创建问答</h3>
+<p>后台「问答与投票」可查看、筛选并编辑帖子；从发布帖子或前台投稿选择类型「问答」。问答沿用现有正文、版块、内容访问权限、审核和评论机制，不生成另一套绕开权限的内容表。</p>
+<p>用户正常评论作为回答。问题作者或有内容编辑权限的管理员/编辑可以采纳<strong>本帖、审核通过、顶级</strong>回答；不能采纳别的帖子的回答、待审回复或回复中的嵌套回复。重复采纳同一条不会反复通知。采纳回答显示高亮与跳转链接，并排到显示列表前部；审核拒绝已采纳回答时，采纳状态与审核变更在同一事务内清除。</p>
+<p>问答需要开放评论且允许相应用户评论。此版是基础「回答＋采纳」流程，不包含付费悬赏、自动分账、专家服务、付费圈子或答案投票评分。已有采纳回答的帖子不可直接改成其他类型。</p>
+<h3>五、创建投票</h3>
+<p>帖子类型选择「投票」，输入问题、每行一个选项，共 2–10 个互不相同的选项。可设截止时间，支持永不到期；结果可选公开、投票后、结束后。截止值是站点时区下的时间。</p>
+<p>用户需登录、账户可用，帖子已发布且到展示时间，并有该内容及分类的访问权限，才能投票。它是<strong>单选、一账号一票</strong>，不等于能阻止一个自然人注册多个账号。重复提交相同选择幂等成功；改选请求被拒绝，不改变已经记下的选择。</p>
+<p>第一票产生后，问题、选项、截止时间和结果隐私锁定，避免中途篡改。正文、摘要等仍按正常编辑版本保护修改；不能以清空截止时间绕过锁定。没有投票时，可以正常修改选项和截止设置。启用截止时间后，在首次投票前清空字段可恢复永不到期。</p>
+<p>「投票后可见」不会把票数先输出到 HTML 再用 CSS 遮盖；未有权看结果的响应不含总票数与选项计数。「结束后可见」即使已投也要等截止，保存此规则必须填写截止时间；不能创建永远不公布结果的无截止投票。帖子权限同样保护投票问题与结果。</p>
+<p>已投票记录不会因关闭模块删除。模块开关在后台「模块」中控制，服务端写入口也会拒绝，不能靠手工构造请求继续投票。简单采纳/投票不是子比付费圈子全套功能。</p>
+<h3>六、阅读目录与受限评论</h3>
+<p>后台布局开关可控制阅读目录。正文有 Markdown 标题时，前端从已经渲染、已经授权的标题生成锚点；没有标题则不生成空目录。代码不会解析尚未授权的隐藏正文来泄露标题。</p>
+<p>受限文章/帖子的评论列表仅在相应内容权限满足时输出。回复后可见规则需要先允许回复，保留对应评论入口；这是规则自身语义，不是所有会员/密码内容都对访客开放评论。后台评论显示条件仍可叠加限制。</p>
+<h3>0.12 补充</h3>
+<p>原单选数据自动迁移，新增每票最多选择数；完整规则见 <code>COMMUNITY_COMMERCE.md</code>。问答新增可选积分悬赏，采纳与奖励同一事务；旧单选/问答说明中的未实现范围仅描述 0.11 历史状态，以当前功能表为准。邮箱证明与 SMTP 协议本轮未更换，实际外部送达仍需联调。</p>
+</article><article id="chapter-7" class="chapter"><p class="eyebrow">CHAPTER 07 <a href="docs/NEW_MODULES.md">分篇源文件</a></p><h2>新模块操作索引</h2>
+<p>当前动效工作台见 <strong>MOTION_GUIDE.md</strong>；邮箱证明、问答采纳与单选投票见 <strong>EMAIL_COMMUNITY.md</strong>。0.12 新增圈子、积分悬赏、多选、自动邀请码与评价见 <strong>COMMUNITY_COMMERCE.md</strong>。以下为继续保留的 0.10 业务模块。</p>
+<h2>0.10.0 新模块使用说明</h2>
+<p>路径中的“后台”均指根目录部署后的 <code>/admin</code>。管理员或相应管理角色才能修改配置，普通用户看见按钮不等于拥有服务端权限。初装示例只是可编辑样本，不是经营成品或真实交易。</p>
+<h3>一、布局工作台</h3>
+<p>后台进入「布局工作台」，选择首页、文章、社区或商城。布局放在该页面的标准列表区域之前，不替换登录、支付、用户中心等系统页面。</p>
+<p>支持 8 类组件：标题、文本、内容卡片、专题卡片、行动按钮、站点统计、友情链接、间距。可设置标题/安全 Markdown、内容或专题 ID、内部跳转、对齐、普通/玻璃/强调表面、显示设备和入场效果。组件可新增、复制、删除、箭头调序或拖动调序；修改后点击发布保存。内置三套起始组合，可进一步修改。</p>
+<p>每个位置最多 24 个组件。导出文件是 <code>chengyu-layout</code> v1 JSON，服务端限制为 100,000 字节并重新验证所有字段。导入会替换编辑器当前未保存布局，导入前先导出备份。跨站导入必须重新核对内容/专题 ID。布局 JSON 不带支付密钥、数据库密码、HTML 脚本或可执行 PHP；这不是安全运行任意模板代码的沙盒。</p>
+<p>两位管理员同时编辑同一位置时，旧版本保存会收到冲突，不会静默覆盖新修改。无 JavaScript 时仍提供受校验的 JSON 编辑入口。此模块是<strong>结构化组件编排器，不是古腾堡、任意拖拽整站或完整所见即所得设计器</strong>。</p>
+<h3>二、多规格商品与卡密库存</h3>
+<p>在后台创建商品后进入对应「规格」管理。实物和卡密商品可建立最多 100 个 SKU，设置唯一编码、名称、价格、库存、启用与排序；每个规格有自己的库存。页面和购物车会携带明确的规格 ID，不能只传一个随意价格。</p>
+<p>卡密商品从库存页选择对应规格，再按行导入，每批最多 500 行。代码加密保存，重复码全局检查，字面字符串 <code>0</code> 也是有效卡密。卡密库存从未售代码记录同步计算，不把人工库存数字当作可发放卡密。已有未分配规格的未售码时，先处理原库存再切换规格结构，不能让两类库存并行失真。</p>
+<p>前台同一商品的不同规格作为不同购物车条目。购物车最多 20 个条目、总计 100 件；单条卡密/实物数量 1–10，数字授权通常为 1。整车结算使用一个事务，任何商品无权限、售罄或余额不足都会整体回滚，不会只扣钱而留下半张购物车。请求标识与内容指纹用于重复提交保护。</p>
+<p>未发货实物退款回到原规格库存。已发出的卡密即使退款也不重新出售。已有有效数字权益不会重复购买；过期的限时权益可以重新购买。更改商品类型可能破坏历史订单，所以存在销量、库存或规格后受限制。</p>
+<h3>三、VIP 1–3 与有效期</h3>
+<p>后台会员套餐增加等级字段：VIP 1、VIP 2、VIP 3。高等级可访问要求较低等级的会员内容。每个等级独立累计期限，同等级续期从现有到期时间与当前时间的较晚者开始；低等级续费不会顺便延长高级会员。</p>
+<p>内容可配置最低 VIP 等级。后台编辑普通资料不会重置或延长会员；需要管理员明确勾选替换期限才进行对应变更。会员未到期并不自动表示可看一切付费资源，仍按内容自身的访问级别和 VIP 免费规则判定。</p>
+<p>0.9.0 的单层会员升级时保留为 VIP 1。兑换码赠送的原基础 VIP 仍按其既有语义处理，不是任意指定高级套餐的销售系统。</p>
+<h3>四、付费时限、密码、修订与下载</h3>
+<p>内容可设置购买权益天数，0 为永久，非零范围为 1–3650 天。订单保存购买当时的到期时间，后续商品改价/改时长不重写旧订单。到期后的正文与私有附件同样重新检查权限。只有真正付费的内容可通过购买解锁，不能对 VIP、回复或密码内容构造零元订单绕过限制。</p>
+<p>密码内容使用哈希保存密码，错误输入有限流。授权保存在会话，修改密码会让旧授权失效；此功能不是对共享密码防转发的数字版权保护。</p>
+<p>内容编辑使用版本号避免覆盖另一位编辑的更新，并保留最近 20 个文本修订。还原以文本内容为范围，不回退价格、已付款订单、库存或资产账本，不能用于撤销交易。</p>
+<p>私有文件经 <code>media.php</code> 检查权限再输出，支持单段 HTTP Range：固定段、末尾段、开放尾段，合法返回 206，非法或多段返回 416；HEAD 不发送文件正文。私有存储保护前缀不包含在下载内容与长度中。</p>
+<p>后台可以配置每日下载额度及查看下载记录。配额按<strong>已登录用户、当天、不同私有文件</strong>计数；同一天重复获取同一文件及其分段不会重复占用次数，HEAD 不扣次数，管理人员豁免。通过密码获得访问的匿名访客没有稳定用户身份，不能把此额度宣传为对匿名人的可靠日限制。需要身份级配额时使用登录/VIP/购买权限。</p>
+<h3>五、任务中心</h3>
+<p>后台可建立一次性或每日任务，目标来自实际数据：当天签到、通过审核的评论、已发布且到展示时间的文章/帖子、完善个人简介与显示名。积分与经验奖励独立配置。资料完善仅允许一次性任务，避免同一份资料每天无限领奖。</p>
+<p>用户在前台「任务」查看进度并领取，进度未达标不会发放。领取记录、积分账本和经验写入在同一事务内，重复提交不重复发奖。领取过的任务不允许改变目标/周期/奖励规则；停止旧任务后新建规则，防止已发奖励语义变化。此系统没有人工审查任务、外部平台打卡或定时后台自动领奖。</p>
+<h3>六、邀请制注册</h3>
+<p>后台用户设置可启用注册邀请码要求；邀请码在专门管理页生成，单批 1–100 个，每码最多使用 1–1000 次，并配置到期时间。原始邀请码只在生成后的页面展示一次，应立即保存到安全位置。数据库保存带站点密钥的摘要，不能在后台反查明文。</p>
+<p>注册成功和消费邀请码次数处于同一事务，注册失败不会浪费次数；并发使用遵守次数上限。管理员可以停用代码。此模块是<strong>邀请注册</strong>，不是商城购买后自动生成邀请码的商品类型；后者仍未实现。</p>
+<h3>七、专题、友情链接和公告</h3>
+<p>后台通过专属管理页建立专题，关联最多 200 条内容 ID；前台输出前重新检查内容状态和权限，不把未发布正文拼进专题。不同文章、帖子或商品可根据可见性组合。</p>
+<p>友情链接支持名称、描述、分组、顺序和启用，链接只接受安全 HTTP/HTTPS 协议。它不是自动审核站点或检测死链的工具。</p>
+<p>公告支持开始/结束时间、展示人群与内部跳转，按请求时刻判断展示，无需定时任务。到期消失不是服务器已经执行过一个后台定时作业。任务、专题、友情链接等有模块开关；其他运营参数由各管理表单配置。</p>
+<h3>八、发货、确认收货与退款逆向</h3>
+<p>实物订单由后台人工发货，可更正运输信息；所属用户确认收货，重复确认不会重复处理。这里只保存人工填写的数据，不调用物流轨迹 API。</p>
+<p>退款仍是本项目支持的站内购买退款，退回原站内资产，撤销该笔订单权益并保留其他有效订单权益。不是支付宝、微信或银行卡原路退款。</p>
+<p>推荐佣金的退款冲销允许形成内部负债记录，以免推荐人已提现导致买家永远不能退款；负数佣金不等于普通余额可以透支，也不是自动向推荐人的银行卡追回。运营者应审核此情况并人工对账。提现仍为人工审核/人工打款后确认，不是自动代付。</p>
+</article><article id="chapter-8" class="chapter"><p class="eyebrow">CHAPTER 08 <a href="docs/COMPATIBILITY.md">分篇源文件</a></p><h2>PHP、数据库与运行环境兼容性</h2>
+<p>版本 0.18.0。兼容目标与测试事实必须分开理解。</p>
+<h3>PHP 7.4–8.5：同功能、同源码</h3>
+<p>本版使用 PHP 7.4 可表达的语法与运行时接口，延续 0.10.0 对旧支付版本门槛的移除。没有为旧 PHP 设计少功能版本。业务开关由站点设置和权限决定，不由 PHP 小版本决定；HTTPS、扩展和主机权限属于同样的运行条件。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>PHP</th>
+<th>功能目标</th>
+<th>本次实测情况</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>7.4</td>
+<td>与其他版本一致</td>
+<td>未取得此运行时；提供原生数据库 CI 项</td>
+</tr>
+<tr>
+<td>8.0</td>
+<td>与其他版本一致</td>
+<td>未取得此运行时；提供原生数据库 CI 项</td>
+</tr>
+<tr>
+<td>8.1</td>
+<td>与其他版本一致</td>
+<td>未取得此运行时；提供原生数据库 CI 项</td>
+</tr>
+<tr>
+<td>8.2</td>
+<td>与其他版本一致</td>
+<td>未取得此运行时；提供原生数据库 CI 项</td>
+</tr>
+<tr>
+<td>8.3</td>
+<td>与其他版本一致</td>
+<td>未取得此运行时；提供原生数据库 CI 项</td>
+</tr>
+<tr>
+<td>8.4</td>
+<td>与其他版本一致</td>
+<td>8.4.23：语法、核心、本地HTTP及离线浏览器检查；数据库使用测试专用真实 SQLite 适配</td>
+</tr>
+<tr>
+<td>8.5</td>
+<td>与其他版本一致</td>
+<td>未取得此运行时；提供原生数据库 CI 项</td>
+</tr>
+</tbody>
+</table></div>
+<p>没有把源码目标表写成“七个版本全部验收”。<code>.github/workflows/php.yml</code> 配置七个版本与 SQLite / MySQL 组合，共 14 个任务；文件存在不等于远程任务已经执行。运营时仍建议选择获得安全维护的 PHP 版本，当前支持日期以 PHP 官方页面为准：https://www.php.net/supported-versions.php 。</p>
+<h3>生产必需能力</h3>
+<p>64 位 PHP；PDO 及与所选数据库对应的 <code>pdo_mysql</code> 或 <code>pdo_sqlite</code>；OpenSSL；Fileinfo；会话；随机数和密码哈希接口；可以写入专用存储。安装器检查基础能力，但无法改变主机扩展、磁盘配额或出站网络规则。</p>
+<p>MySQL 分支使用 InnoDB、utf8mb4，面向 MySQL 5.7 及以上的语法范围；本环境<strong>没有 MySQL 服务器或原生 PDO 驱动验收证据</strong>。不能把这一设计范围当作 MariaDB 每个版本的兼容认证。数据库账户安装/升级需要建表、改表、索引权限，运行需要正常读写。</p>
+<p>SQLite 生产分支使用原生 PDO，数据库必须在 Web 根目录之外；要求 SQLite 支持本程序使用的 WAL 和事务行为。免费主机无法访问外部私有目录时优先用 MySQL，而不是把 SQLite 放进公开目录再假设扩展名没人知道。</p>
+<p>测试专用 <code>tests/Support/FfiSqlite.php</code> 不属于生产替代驱动，不应上传 <code>tests/</code>，也不要求免费主机打开 FFI。站点不要求安装 Composer、Node、Redis、队列守护、cron 或 SSH。开发测试工具与生产运行依赖分离。</p>
+<h3>HTTPS 与外部服务</h3>
+<p>在线充值一律要求配置有效 HTTPS，并能从公网接收支付通知。没有按 PHP 版本区别放行不安全 HTTP 收款。SMTP 发信依赖出站网络、可验证的 TLS、正确服务商授权；这些不能由本包代替开通。</p>
+<p>虚拟主机使用主机面板安装证书。VPS 附 Caddy 配置和新服务器辅助脚本，符合自动 HTTPS 条件时由 Caddy 处理；没有让 PHP 越权重载别人的 Web 服务。</p>
+<h3>Web 服务和浏览器</h3>
+<p>Apache/LiteSpeed 需允许随包访问控制文件生效；Nginx 合并专门拒绝目录规则；IIS 配置模板未实机验证。根目录部署提供实体 <code>/admin</code>，无 WordPress 重写规则；子目录相应为 <code>/子目录/admin</code>。</p>
+<p>前端面向支持 CSS 自定义属性和现代原生 JavaScript 的浏览器。毛玻璃能力不支持时使用普通表面；减少动态效果偏好会收敛动画，隐藏页面暂停部分背景动效。没有旧版 IE 全功能兼容保证。组件编排可在无 JS 时用经服务端校验的 JSON 入口，网站所有交互并不都具有完整无 JS 等价界面。</p>
+<h3>本轮新增模块的相同运行路径</h3>
+<p><code>Verification</code>、<code>Threads</code>、<code>Motion</code>、<code>Categories</code>、<code>Bounties</code>、<code>Reviews</code>、<code>Creator</code>、<code>Discovery</code>、<code>Pricing</code>、<code>SecondFactor</code>、<code>Totp</code>、<code>Diagnostics</code> 的 PHP 层与现有业务使用相同数据库、密码/随机数、邮件和模板接口，没有按 PHP 小版本关闭模块。前端的 Document View Transitions、IntersectionObserver、Web Animations、玻璃和精细指针是浏览器能力，与 PHP 7.4 或 8.5 无关；不支持某项装饰时保留业务并采用静态/直接切换，不伪造受支持状态。</p>
+<p>参考：PHP 官方维护版本表与迁移指南（维护范围以官方页面实时内容为准）：
+https://www.php.net/supported-versions.php
+https://www.php.net/manual/zh/migration85.php</p>
+<p>旧版本兼容不等于旧版本还受上游安全维护；不因此在代码中限制其业务功能。</p>
+<p>前轮尝试取得原生驱动和其他运行时，但环境的下载/软件源连接未成功，不能把失败安装写成原生测试通过。FFI 测试路径是测试专用退路，生产代码仍只使用 PDO。跨 PHP 版本需要同一份完整回归，不允许以跳过支付、收益、邮件或其他模块来换取绿色状态。</p>
+<p>新代码避免 PHP 8 专用语法和新增运行时函数；这种源码检查只说明兼容目标，不替代每个版本实际执行。7.4/8.0/8.1 的上游安全维护状态与功能兼容是两件事；建议部署到仍获安全维护的版本，但程序不按小版本禁用功能。</p>
+<h3>0.14 的验证增强</h3>
+<p>后台“系统 → 部署自检”可在实际主机按需验证原生 PDO、扩展、加密、整数/中文绑定和数据库回滚，并导出 JSON。它不是七个运行时的全功能测试，也不是公网目录/TLS/支付证据。</p>
+<p>CI 新增原生驱动前置断言：SQLite 任务缺 <code>pdo_sqlite</code> 或 MySQL 任务缺 <code>pdo_mysql</code> 会立即失败，不允许回退测试适配层后标为原生通过。CLI 恢复工具也加入各版本语法检查。14 组配置本轮未执行。</p>
+<p>身份验证器使用 PHP 7.4 已有的 HMAC/随机数/整数/加密接口；价格使用整数与统一事务。没有按小版本关闭安全、定价、支付、作者收益或新视觉配置。旧运行时上游停止安全支持与应用同功能目标仍是两个问题。</p>
+<h3>0.15 外部连接条件</h3>
+<p>新 OAuth、主动查单、快照、永久会员和徽章共用现有 PHP 7.4 语法与接口。第三方连接需 <code>stream_socket_client</code>、OpenSSL、CA、公网 DNS/443，不依赖 cURL、<code>allow_url_fopen</code> 或守护进程。限制出站的主机不会被程序假装为连接成功；请开通主机条件后验收。</p>
+<h3>0.16 共同运行条件</h3>
+<p>新支付/退款/代付/会员/运费/促销/媒体/翻译服务不按 PHP 小版本关功能。出站 API 需要 HTTPS/443、DNS、可信 CA、stream_socket_client 和准确时钟；分片合并需文件锁及约三倍文件大小的空闲峰值空间；S3 需要私有桶、CORS 和条件复制权限。虚拟主机无人值守任务需外部可信调度，后台按钮始终可手动执行。</p>
+<p>数据库迁移 v8，安装格式仍为 1。生产不使用 FFI，缺原生 PDO 应修复主机条件。源码的 PHP 7.4 兼容检查不代替七个版本真实执行，14 组 CI 配置本轮仍未运行。</p>
+<h3>0.17 共同运行条件</h3>
+<p>课程、索引搜索、布局版本、客服和标准账单核对复用原生PDO与PHP7.4语法范围，不要求新增守护进程。索引构建由每次HTTP请求处理10条，前台未构建完成时回退原检索。课程资源大小仍受现有媒体/主机限制。</p>
+<p>快递100查询需要与支付相同的HTTPS出站能力和可用服务凭据，不要求cURL。数据库新增结构v9，安装配置格式仍为1。仅PHP8.4.23实际执行；原生数据库、其他PHP运行时与真实免费主机未被本轮测试结果覆盖。</p>
+</article><article id="chapter-9" class="chapter"><p class="eyebrow">CHAPTER 09 <a href="docs/PAYMENTS.md">分篇源文件</a></p><h2>0.17 支付、退款与代付</h2>
+<p>本软件提供协议实现，不提供商户账户、免签资金通道、经营资质或平台批准。新外部通道默认关闭；<strong>本次未做真实商户联调/实付</strong>。本地签名和响应夹具不是平台认证。</p>
+<h3>两种交易路径</h3>
+<p>原易支付/CodePay：外部充值 → 校验通知/查询 → 站内余额 → 站内资产购买。新 Checkout：复核商品/运费/优惠 → 原子预留库存 → 创建支付总单与单位订单 → 站内余额或官方支付 → 服务器核实后履约。会员补差目前仅走站内资产。</p>
+<p>金额为整数最小单位；不接受科学计数法、浮动尾数或未绑定订单的金额。站点单一法币由 store_currency 决定，发生金融活动后不能改标签充当换汇。无自动汇率转换。支付宝/微信仅 CNY；PayPal 适配 USD/EUR/GBP/HKD/SGD/CAD/AUD，存量人民币站不可为接 PayPal 随意改币种。</p>
+<h3>官方直连接入</h3>
+<p>后台设置 → 官方直连支付（direct_payments），按字段填写自己的密钥、商户/应用编号、平台公钥、环境和通知凭据。必须有有效 HTTPS、公网通知地址、出站 DNS/443 和可信 CA。不要把私钥放在公开目录或工单。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>通道</th>
+<th>已实现形态</th>
+<th>边界</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>支付宝</td>
+<td>RSA2 WAP手机网站或PAGE电脑网站支付，共用查单/关单、退款/查询及app/seller/订单/金额验签</td>
+<td>按选择形态签约；无当面付、证书模式和服务商进件</td>
+</tr>
+<tr>
+<td>微信</td>
+<td>API v3 H5、商户签名、平台验签、通知 AES-GCM、查单/关单/退款</td>
+<td>需 H5 权限/正确域名/公网客户端 IP；无 JSAPI/Native/小程序；自行维护平台公钥与序列号</td>
+</tr>
+<tr>
+<td>Stripe</td>
+<td>Checkout 单次 payment Session、Webhook HMAC、时间窗、金额/币种/交易/环境核验</td>
+<td>无订阅、Connect 拆账或自动争议处置</td>
+</tr>
+<tr>
+<td>PayPal</td>
+<td>Orders v2 创建/批准/服务端 capture、商户/金额绑定、平台核验 webhook、Payments v2 退款</td>
+<td>当前只支持非实物交易，未完成绑定平台收货地址的实物 checkout</td>
+</tr>
+</tbody>
+</table></div>
+<p>通知例：<code>https://你的域名/notify-direct.php?gateway=alipay_direct</code>，其他通道替换为 wechat、stripe、paypal；子目录安装加入实际前缀。Stripe 填对应 endpoint signing secret；PayPal 填对应 webhook ID。测试/正式环境不可混用。支付总单保存加密配置快照，旧单不改用新商户核验。浏览器跳回不是到账依据。</p>
+<h3>原易支付与 CodePay</h3>
+<p>易支付经典 MD5 排序签名仍保留，配置 HTTPS submit.php、pid、共享密钥和真实可用类型；通知 <code>/notify.php?gateway=epay</code>，核对 pid/type/金额/TRADE_SUCCESS/交易号并防重复入账。主动查询需匹配该网关真实经典协议；不是兼容所有同名平台、RSA v2 或任意 JSON 接口。</p>
+<p>CodePay 是旧式 id/type/pay_id/price/param 与 pay_no/money 协议，实验性保留，默认关闭；原厂当前可开通性未确认。拒绝浮动尾数或忽略金额。供应商提供易支付兼容协议时选择易支付，不根据商品名猜协议。</p>
+<h3>售后与原路退款</h3>
+<p>用户从订单申请，管理员以密码及已启用的第二因素审核。支持单位订单退款（含已分摊运费）、退货退款、同 SKU 换货、回寄物流、收货验货后可选恢复库存。已经交付的卡密不回到可销售库存。</p>
+<p>审核后入队：站内资产购买退原资产；官方直连购买调用原通道，不能再额外给钱包加余额。稳定退款号、租约、未知结果先查后重试，验证外部成功后才完成本地回滚。超时保持待核实，不用新的退款号重试。旧充值不会通过商品售后自动退回。</p>
+<p>未实现任意金额部分退款、跨 SKU 补差换货、拒付争议自动仲裁、收费换汇或删除用户已经下载的内容。作者/推荐收益按原单冲回，已转出收益可能形成债务，软件不能自动追回外部现金。</p>
+<h3>主动核付、调度与代付</h3>
+<p>收据页/后台可主动查单；Jobs 在待处理付款、退款与代付中选 1–10 个任务，支持后台、CLI、HMAC POST 及重放拒绝。它是订单级主动核付，<strong>不是</strong>平台日账单下载、手续费核算或银行结算。0.17另有标准CSV账单差异报告，但不自动下载平台原始账单，也不据CSV操作资金。免费主机无人值守需要可信外部调度，不存在自动运行的隐藏常驻进程。</p>
+<p>自动代付只实现 <strong>PayPal Payouts</strong>，需平台批准权限、原申请接收邮箱与相同币种，管理员审款后排队；固定批次键，未知结果继续冻结。支付宝转账、微信商家转账、银行代付未实现。保留人工打款确认，禁止同笔提现同时人工付款和自动执行。</p>
+<h3>实际上线验收</h3>
+<p>自行验证正常付款、重复回调、回调丢失查单、错误金额/商户/币种拒绝、库存不足、过期单、旧密钥快照、越权查询、退款超时/重复退款、提现未知状态。核对平台后台、本站总单/单位单/流水，做公网 TLS、通知、真实小额支付和退款。模拟测试不能替代这些步骤。</p>
+<p>官方资料：
+https://opendocs.alipay.com/open/
+https://pay.weixin.qq.com/doc/v3/merchant/4012791834
+https://docs.stripe.com/api/checkout/sessions
+https://docs.stripe.com/api/refunds
+https://docs.stripe.com/webhooks
+https://developer.paypal.com/docs/api/orders/v2/
+https://developer.paypal.com/docs/api/payments/v2/
+https://developer.paypal.com/docs/api/payments.payouts-batch/v1/
+https://developer.paypal.com/docs/api/webhooks/v1/</p>
+<p>核查日期 2026-09-07，平台开放能力仍以自己的账户/环境为准。</p>
+<p>支付宝设置 <code>alipay_direct_mode=page</code> 使用 <code>alipay.trade.page.pay</code>，业务产品码为 <code>FAST_INSTANT_TRADE_PAY</code>；默认保持wap。官方协议参考：
+https://aipay.alipay.com/docs/ai-web-app-payment-qianyi/api-list/alipay-trade-page-pay.html</p>
+</article><article id="chapter-10" class="chapter"><p class="eyebrow">CHAPTER 10 <a href="docs/SECURITY.md">分篇源文件</a></p><h2>安全、数据与运维说明</h2>
+<p>没有“无漏洞”或通过独立渗透审计的承诺。自动化测试不能代替真实环境配置、安全复核与持续维护。当前版本适合先做隔离验收，再决定开放哪些模块。</p>
+<h3>已实现的主要边界</h3>
+<p>密码使用 PHP password_hash / password_verify。会话开启严格模式，Cookie 使用 HttpOnly、SameSite；规范网址为 HTTPS 时使用 Secure。登录、退出或凭据更改涉及会话防护；服务端用户 session_version 支持使既有会话失效。
+写入请求要求 CSRF，只有支付通知走独立的签名验证流程。业务权限在服务端判断，不能靠隐藏菜单防护。普通用户不能访问管理员页面、读其他用户的订单或私信、拿到未购买的私有附件。
+所有动态数据库参数绑定；表 / 字段标识来自程序控制并验证。输入使用类型 / 长度约束。Markdown 不执行用户 HTML，输出进行转义，外链限制协议。不能据此宣称覆盖全部 XSS 场景或浏览器兼容情况。
+敏感操作包括管理员财务操作及用户转账的相应身份 / 密码校验，日志记录操作而不是把所有密码与完整密钥写入日志。
+登录、注册、发帖、私信、找回邮件等使用频率限制。共享代理、NAT 用户和反向代理部署仍需要人工调整，避免误伤。</p>
+<h3>资产一致性</h3>
+<p>站内资产用整数，不用浮点数表示货币。钱包调整、账本、订单状态、库存与权益在数据库事务中更新；账本唯一幂等键与平台交易号唯一约束防重复结算。
+SQLite 用 BEGIN IMMEDIATE，MySQL 用事务与需要的行锁；MySQL 死锁重试有次数上限。嵌套操作共享外层事务，没有实现嵌套保存点。
+schema 使用索引与唯一约束，但没有声明完整数据库外键；关联一致性由服务层维护。不要直接手工删金融记录或绕过服务层写表。
+8 进程 SQLite 竞争扣款验证过余额不会扣成负数；这不是 MySQL 并发压测、财务审计、分布式部署保证或资金保险。</p>
+<h3>文件与秘密</h3>
+<p>商户密钥、SMTP 密码、订单支付配置快照、卡密及部分支付信息使用应用 secret 加密；secret 位于 <code>app/config.php</code>，丢失后无法恢复原密文内容。管理员账号被控制后仍可能修改配置与执行管理员功能，加密不等于免于账号失陷。
+用户地址簿、正文、普通资料和媒体文件并非全部加密存储。订单地址快照有加密，但不能把整个数据库称作“全量加密”。备份必须按敏感数据保护。</p>
+<p>上传限制 MIME 和大小；普通成员只允许合规图片，不允许 SVG / PHP 等可执行文件。管理员可上传规定的资源类型，应用通过受控下载端点输出。
+实际文件写成随机命名并带 PHP 阻断前缀的存储封套，直连执行会先退出；合法下载由应用去掉封套后输出原始字节。该机制不等于文件内容加密，不替代 Web 服务器拒绝访问 storage。PHP 解析失效时必须立即处理服务器配置。
+Apache <code>.htaccess</code>、Nginx 私有目录规则、Caddy handle 与 IIS web.config 的实际生效情况必须在部署主机检查。本次 HTTP 测试中的私有目录拒绝由测试路由器提供，不能作为这些生产服务器配置已经验证的证据。
+不要把完整交付目录、备份、SQL、INSTALL_KEY、测试适配器或 debug 页面上传到 Web 根目录。</p>
+<h3>安全上线顺序</h3>
+<p>先完成 HTTPS、规范网址、目录访问阻断、文件权限和主机账户安全；删除 install；测试普通用户权限隔离；恢复备份；再测试商户支付，最后开放用户注册与交易。
+现有Google/GitHub/Microsoft OAuth适配、TOTP/恢复码和邮件验证注册；仍没有短信验证或真正实名核验。本版的人工认证标记不是第三方身份认证服务。后台管理员应使用唯一强密码并优先配合主机侧访问控制。
+前端出现余额或价格不能作为授权事实；管理员收款、提现人工流程也必须留外部凭据。金融模块默认关闭的部分不应仅为“功能多”而全部打开。
+不要在支付回调路径加人机验证页面，也不要为了回调方便全局关闭 CSRF、金额校验或 HTTPS。</p>
+<h3>可恢复的备份</h3>
+<p>必须把数据库、app/config.php 的原 secret、整个 storage 作为同一备份集。CSV 导出不是完整备份，没有密码哈希、加密配置和媒体等完整恢复要素。
+MySQL 使用面板的一致性导出，或专业备份工具的事务一致性模式；同时避免备份过程中新增上传造成数据库与媒体不一致。
+SQLite 使用 SQLite 在线备份 API / sqlite3 <code>.backup</code> 或停止写入后正确处理 WAL。不能在活跃写入期间只复制主 <code>.sqlite</code> 文件并忽略 WAL。</p>
+<p>恢复演练：在非公开的新目录 / 数据库准备备份 → 保留相同 secret → 修正绝对路径与规范网址 → 恢复 storage → 验证密码登录、会员权限、购买权益、卡密解密、订单与账本合计、文件下载 → 关闭测试站的真实支付或使用单独测试商户。
+演练成功才可认定备份“可恢复”。演练未在本次真实主机执行。
+不要直接用安装向导重新生成密钥覆盖已有数据库。安装器看到已有用户会拒绝新装；应恢复原 config，而不是删除用户数据绕过它。</p>
+<h3>日志、清理与事件处置</h3>
+<p>异常日志受保护且有大小限制。管理员系统清理处理过期令牌、过期限流项、超时待支付单和按留存期轮转审计；不会清空金融流水。
+收到泄露或异常付款报告：暂停对应入口，保留订单 / 账本 / 主机与网关日志，核对真实商户账单，撤销泄露凭据、使会话失效，复核受影响账户与金额。不要直接删除证据。
+对应用 secret 的更换需要重新加密方案，不可只换一串随机值；商户密钥修改也需要考虑旧订单快照。恢复与升级前都应备份。</p>
+<h3>0.10.0 新模块安全边界</h3>
+<p>布局导入只接受白名单数据，不接收模板脚本，不导出支付或数据库秘密。注册码保存摘要，原始代码显示一次；每次注册与扣次数处于同一事务。密码内容不是身份认证或防传播 DRM。</p>
+<p>私有下载额度按已登录用户的不同文件计算，匿名密码访客不具备同等日配额保证。文本修订还原不改变金融数据。商品或任务存在历史成交/领取后，部分规则不能原地修改，应停用再新建。</p>
+<p>推荐佣金退款冲销可以产生内部负债待人工处理；普通余额、积分、代币仍禁止透支。不得把负佣金当作已经追回到银行卡的事实。升级前读 UPGRADE.md，迁移失败不要手动伪造数据库版本标记。</p>
+<h3>0.11 新安全约束</h3>
+<p>退出登录清空临时会话证明与展示状态，轮换会话 ID 与 CSRF；用户或管理员改变凭据时吊销旧找回令牌。嵌套事务任何异常都会使整笔事务不可提交，不能用外层 catch 偷留下半个财务操作。</p>
+<p>邮箱码 6 位、10 分钟、5 次错误上限，绑定收件人/用途/会话/用户；共用收件人和 IP 发送配额。错误次数先提交，正确消费与业务变更一起提交。数据库不存明文码，但账户邮箱、SMTP 服务商日志仍是个人数据；不把验证邮件作为营销轰炸接口。源码和完整包中不得放生产 SMTP 凭据。</p>
+<p>投票结果在服务端按可见策略裁减，不能只靠前端隐藏；单账号唯一约束不是防止自然人多账号的实名方案。受限内容评论不向无权限者输出；回复后可见规则保留其必须的回复入口。采纳只能指向已审核本帖顶级回答，审核拒绝自动撤销。</p>
+<p>动效输入是受限数值/枚举，不接受任意 JavaScript 或 CSS 字符串，工作台不能编辑付款代码。动画和管理员预览不参与权限判断。截图/静态渲染并未验证生产 CSP、主机访问规则或所有客户端版本。</p>
+<p>本轮没有外部安全机构渗透测试；仍需隔离验收、依赖维护、主机目录保护与完整备份恢复。查看 TEST_REPORT.md 的真实环境边界，不以测试数量代替商业运行安全证明。</p>
+<h3>0.13 补充</h3>
+<p>涉及当前密码确认的敏感动作会重新读取有效用户状态和会话版本，拒绝已经改密/停用的旧会话。用户转账服务对发送方和接收方锁定并重新确认有效状态，不只依赖前台按钮隐藏。</p>
+<p>作者应计收益不是立即可提现的钱：等待期、退款争议、实物收货、重复结算、来源资产负债必须通过服务端校验。不要绕开人工审核直接在数据库标记“已打款”。负收益应按真实账本处理，不删除原记录消除负债。</p>
+<p>阅读历史包含行为数据。应在隐私说明告知用途、容量和退出方式；关闭个人历史会清空记录，但站点原有安全/访问日志并不因此自动删除。后台页面不提供任意用户历史查询，不代表拥有数据库的运营者无法接触数据。</p>
+<p>搜索只输出当前可展示的元数据，浏览器按纯文本生成结果；不在缓存或搜索索引暴露受保护正文。真实浏览器的 CSP/代理缓存和已登录页面隔离需要在部署主机另验。</p>
+<h3>0.14：第二因素、恢复与金额确认</h3>
+<p>密码登录的服务入口也拒绝超过 72 字节的密码，避免 bcrypt 静默截断。停用账户在兑换前由资产服务重新锁定并检查，不能只依赖路由或隐藏按钮。</p>
+<p>第二因素密钥加密保存，恢复码存带站点密钥的摘要；登录时与账户行锁/会话版本共同验证。重复时间步或恢复码拒绝，事务回滚恢复消费。管理操作要求当前密码和相应第二因素；暂停新绑定/重置密码不会移除已启用保护。</p>
+<p>备份必须包含原加密密钥，并妥善保护备份和用户恢复码。恢复旧数据库可能重放旧状态，需要撤销旧会话并重新核对安全与资金。本地恢复脚本只有站点所有者在 Web 根目录外执行，不是 HTTP 后门；脚本完整生产命令路径没有原生 PDO 实机验收，本地服务方法和语法已测。</p>
+<p>报价返回纯文本和整数，前端不插入返回 HTML。结算复算并核验单件最高金额，拒绝时回滚券额度/扣款。预览不保证永久价格或库存，不能把显示“已核对”当“已支付”。</p>
+<p>部署自检需管理员与 CSRF，输出不含商户/数据库密钥或服务器绝对路径。版本信息仍只给可信维护人员；自检通过不替代外部安全审计、真实目录保护和支付验收。</p>
+<h3>0.15.0 补充</h3>
+<p>账号连接、主动查单、永久会员、整车上限、配置快照、徽章和后台分组交互的当前行为、限制与操作请以 <a href="docs/CONNECTIONS_AND_OPERATIONS.md">连接与运营说明</a> 为准。新功能复用现有事务、账户和动效服务，不复制多套入账或身份校验。</p>
+<h3>0.17 新数据边界</h3>
+<p>学习笔记、工单与回复按账户权限隔离，但并非数据库全量加密；持有数据库备份的管理员仍能访问，必须保护备份。运单号和轨迹使用站点secret加密。快递100查询需明确同意发送单号和必要手机号，返回结果核对原运单，且不驱动收货/资金状态。</p>
+<p>搜索只索引公开标题、摘要、标签与有效发布译文；源内容修改/下架后实时条件仍需通过。账单CSV属于不可信输入，严格限定格式、金额、时间与规模，仅生成报告。课程预览会开放对应资源，因此同一资源复用时必须明确授权含义。布局草稿不改线上，恢复仍须最新修订号。</p>
+<p>安全验收新增账户间课程笔记/工单/物流隔离、退款后课程撤权、账单导入不改变资产及轨迹串单拒绝；自动测试不等同独立渗透测试。</p>
+<h3>0.18.0 搜索与加密副本</h3>
+<p>外置搜索只同步公开元数据，不发送付费正文或私人内容。索引是独立公开数据处理边界；配置前确认是否适合向外部服务公开标题/摘要/标签。密钥服务端加密保存，出站复用 HTTPS/地址验证，返回排名不能绕过本站访问权限。停用服务或更换地址不会替你清除旧服务商上的数据。</p>
+<p>恢复副本采用 PBKDF2-SHA256（600000 次）与分块 AES-256-GCM，含顺序/前块标签关联和终止记录，拒绝截断或篡改。密码 16–256 字节；应用不保存备份密码。格式是本项目有限记录协议，不接受 PHP 序列化对象、SQL 语句或任意路径。密码和归档需要分开保存；归档中包含原站 secret、用户哈希、订单、余额等敏感信息，不能公开分享。</p>
+<p>加密不等于可恢复保证，须另存并定期演练。当前只支持同版本、同结构、同数据库类型的独立空目标。MySQL DDL 无法完全事务回滚；失败后丢弃隔离目标再排错，不在运行中的生产数据库重试。恢复后维护模式与 recovery_hold 阻止任务继续，原会话失效；外部资金与旧数据库之间的差异需人工核对。具体命令及限制见 <code>BACKUP_RECOVERY.md</code>。</p>
+</article><article id="chapter-11" class="chapter"><p class="eyebrow">CHAPTER 11 <a href="docs/FEATURE_MATRIX.md">分篇源文件</a></p><h2>0.18.0 功能覆盖与未完成项</h2>
+<p>日期：2026-09-07；实际基线0.17.0；数据库v10。当前版本范围如下，旧报告仅在history目录追溯。生产代码能力与真实服务联调分开记录。</p>
+<h3>0.18本轮新增与增强</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>能力</th>
+<th>实际实现</th>
+<th>明确限制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Meilisearch</td>
+<td>服务端密钥、专用索引、公开元数据替换/删除、异步任务确认、合并队列/租约/重试、权限/版本再核对、本地回退、管理入口和短同步会话</td>
+<td>真实服务未联调；最多200远端候选；无全文正文、全套智能筛选/聚合管理、ES/OpenSearch；需单独部署或购买远端服务</td>
+</tr>
+<tr>
+<td>多包裹</td>
+<td>每订单最多20包裹，独立标签/单号/轨迹/修订/查询缓存，所有者隔离、幂等新建；旧ID保留</td>
+<td>不做数量装箱、跨SKU、多仓、电子面单；不自动收货/结算</td>
+</tr>
+<tr>
+<td>邮箱防滥发</td>
+<td>IP和收件人各10分钟/小时/天额度、原子合并判定、实际冷却秒数</td>
+<td>次数用固定窗口；无新增短信、人机拼图或无限防刷承诺</td>
+</tr>
+<tr>
+<td>加密快照</td>
+<td>固定应用表一致性数据库读、可选完成的本地媒体、独立密码、认证加密、文件校验、管理员/TOTP复验、保留数量</td>
+<td>默认64MiB/约20秒有界请求；不是云桶/源码/配置密码备份，也非定时异地灾备</td>
+</tr>
+<tr>
+<td>离线恢复</td>
+<td>全归档预验证、空目标检查、可信结构、同引擎恢复、文件校验、旧密钥保留、会话撤销/维护/任务暂停</td>
+<td>仅匹配版本CLI；无网页在线覆盖恢复；MySQL/PDO和真实主机待实测</td>
+</tr>
+<tr>
+<td>工作台细节</td>
+<td>中英文、包裹卡/选中标记、恢复工作台、键盘原生表单、轻量指针柔光、减少动态效果</td>
+<td>原创演示截图不是生产部署，帧率依设备</td>
+</tr>
+</tbody>
+</table></div>
+<h3>原有功能保留</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>功能族</th>
+<th>当前实现</th>
+<th>明确边界</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>内容与社区</td>
+<td>文章、帖子、页面、分类继承、标签、摘要、Markdown、修订冲突、审核、问答采纳、投票、评论、举报、圈子、积分悬赏</td>
+<td>不是古腾堡生态、完整社交动态或复杂版主系统；没有现金多人悬赏</td>
+</tr>
+<tr>
+<td>账户与安全</td>
+<td>注册/登录、找回、邮箱验证、邀请、TOTP/恢复码、撤销会话、审计、资料、关注、收藏、私信、通知、徽章；Google/GitHub/Microsoft OAuth 适配</td>
+<td>没有所有社交平台、短信/WebAuthn；OAuth 真实应用未联调</td>
+</tr>
+<tr>
+<td>内容权限</td>
+<td>公开/登录/VIP/付费/回复/密码访问，付费有效期，私有附件、配额、Range，作者收益与推荐佣金</td>
+<td>不提供 DRM；数字副本离线传播无法靠网站彻底阻止；有条件的收益结算不是通用分账</td>
+</tr>
+<tr>
+<td>商城基础</td>
+<td>商品、SKU、加密卡密、自动邀请码、库存、购物车、真实购买评价、地址、发货/收货</td>
+<td>不是多商家、多仓或任意属性组合商城；0.18另增多包裹轨迹</td>
+</tr>
+<tr>
+<td>资产</td>
+<td>余额/积分/代币整数流水、奖励、兑换、转账、优惠券、来源分离的提现冻结</td>
+<td>不做隐式换汇、链上资产、银行或托管服务</td>
+</tr>
+<tr>
+<td>外观与运营</td>
+<td>五主题、明暗/跟随系统、玻璃层、弹簧/贝塞尔动效实验室、键盘焦点、目录/专注阅读、专题、任务、公告、链接、导航、加密配置快照</td>
+<td>不保证所有设备固定帧率；配置快照不是整站文件及数据库备份</td>
+</tr>
+</tbody>
+</table></div>
+<h3>交易、会员与售后</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>能力</th>
+<th>已落地</th>
+<th>限制或未联调内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>访客购买</td>
+<td>邮箱联系方式、随机私密通行证、订单柜台、收据、权限、售后、显式账号认领</td>
+<td>邮箱不能单独查询；凭证不自动邮件发送；会员须登录；通行证丢失需人工核实</td>
+</tr>
+<tr>
+<td>结算</td>
+<td>20 行/100 单位上限，服务端重新计价、幂等、库存及卡密预留、逐单位订单、共同支付收据</td>
+<td>单一站点结算币种；不支持混合支付</td>
+</tr>
+<tr>
+<td>运费/促销</td>
+<td>固定/按件/按克重量、地区、首续单位、满额包邮；满减、比例、每N件、买X送Y、阶梯、组合及叠加规则</td>
+<td>地区是商家代码；不自动添加赠品；单券仅单单位；无拼团/拍卖/秒杀排队</td>
+</tr>
+<tr>
+<td>售后</td>
+<td>退款、退货退款、同SKU换货、凭证、审核、寄回、验收、回库、补发及版本冲突保护</td>
+<td>无跨SKU补差、任意部分金额退款、独立多次补发、退货面单</td>
+</tr>
+<tr>
+<td>永久会员/补差</td>
+<td>VIP 1–3、永久套餐、实际付款权益批次、剩余价值折算、保留到期日或新周期、跨级、签名报价、退款回滚保护</td>
+<td>补差用站内资产；不是任意组合权益套餐；历史价值不猜测</td>
+</tr>
+<tr>
+<td>支付宝</td>
+<td>RSA2 WAP；PAGE电脑网站支付（自0.17保留）；共用查单、通知验签、退款</td>
+<td>非证书模式/当面付/所有产品线；真实签约和商户待验收</td>
+</tr>
+<tr>
+<td>微信支付</td>
+<td>API v3 H5、签名/平台验签、AES-GCM通知、查单及退款协议</td>
+<td>无JSAPI/Native/小程序/服务商多商户；真实联调与密钥轮换由部署方验证</td>
+</tr>
+<tr>
+<td>Stripe/PayPal</td>
+<td>Stripe Checkout；PayPal Orders v2 捕获及Webhook；查询/退款适配</td>
+<td>PayPal本版仅数字商品；无CNY换汇；非订阅/分账；真实资金未测</td>
+</tr>
+<tr>
+<td>逐单查单/退款</td>
+<td>后台、CLI或签名调度；审批后固定退款号、租约、未知状态保留、确认后资产及权限回滚</td>
+<td>单订单单位全额；历史充值不自动原路退；需要真实调度</td>
+</tr>
+<tr>
+<td>自动代付</td>
+<td>审核后的 PayPal Payouts、固定批次、状态查询和原来源冻结</td>
+<td>无支付宝/微信企业付款、银行卡代付；不是代替顾客付购物单</td>
+</tr>
+</tbody>
+</table></div>
+<h3>0.17保留的运营能力（0.18变更已注明）</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>能力</th>
+<th>保留实现与本版变化</th>
+<th>明确限制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>索引搜索</td>
+<td>可选跨数据库倒排索引；英文词/CJK相邻二元组；标题/标签/摘要权重，多词组合、有效译文、分批构建和同步更新</td>
+<td>不索引正文与私密数据；不是专业中文分词、拼音纠错/同义词/语义搜索；0.18另接Meilisearch，未接ES/OpenSearch；无大规模压测</td>
+</tr>
+<tr>
+<td>课程</td>
+<td>来源文章/数字商品的权限继承，章节、预览、私有资源、原生MP4/MP3播放、个人进度和笔记、退款撤权</td>
+<td>无考试/证书/防刷学时/直播/转码/HLS/DRM；保存为明确点击，不是自动云同步；每课程最多500章节</td>
+</tr>
+<tr>
+<td>布局版本</td>
+<td>原有22位置/11区块；草稿独立、发布、放弃、最近20发布快照、恢复与修订冲突检查</td>
+<td>不是任意像素画布；不能执行PHP/JS或WordPress小工具；布局恢复不恢复被删资源</td>
+</tr>
+<tr>
+<td>物流轨迹</td>
+<td>已支付实物订单绑定、加密单号/轨迹、人工事件、快递100按需查询、间隔和串单检查、所有者权限</td>
+<td>外部接口待真实联调；0.18另增多包裹；仍无电子面单、多仓、退件独立轨迹；不会自动收货</td>
+</tr>
+<tr>
+<td>账单级差异报告</td>
+<td>标准CSV导入、账期/字段/金额校验、重复导入保护、支付/退款对比、双向缺单及差异、重新核对</td>
+<td><strong>仅报告，不自动入账/退款</strong>；不是四渠道原始账单自动下载/手续费/税款/汇兑/银行勾兑；上限2000行/2MiB/31天</td>
+</tr>
+<tr>
+<td>客服工单</td>
+<td>登录用户与本人订单、私有线程、管理员回复、可编辑模板、优先级、状态、通知、幂等和冲突保护</td>
+<td>无工单附件、多坐席指派/SLA/外部同步；每单1000回复，按50分页</td>
+</tr>
+<tr>
+<td>独立语言偏好</td>
+<td>前后台可分别保存中文/英文，沿用统一翻译入口、默认语言和浏览器协商</td>
+<td>自定义内容不自动翻译；不是所有第三方文案的全站实时机器翻译</td>
+</tr>
+</tbody>
+</table></div>
+<h3>媒体、国际化与部署</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>能力</th>
+<th>已实现</th>
+<th>限制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>内容译文</td>
+<td>中英编辑、修订、草稿/审核发布、原文变更隐藏旧译文，可选LibreTranslate</td>
+<td>需要外部服务和明确发送确认；不发送受保护正文；不承诺免费无限量或翻译准确率</td>
+</tr>
+<tr>
+<td>媒体续传</td>
+<td>256KiB本地分片、缺片续传、逐片校验、配额、所有权、保护封装、完成幂等</td>
+<td>本地受磁盘/执行时间限制；不等同S3多段续传或转码</td>
+</tr>
+<tr>
+<td>对象存储</td>
+<td>SigV4私有S3兼容、浏览器暂存PUT、类型及大小检查、条件复制、短时签名</td>
+<td>S3/R2协议范围；无原生OSS/COS；远程PUT不是多段断点续传；真实账号未联调</td>
+</tr>
+<tr>
+<td>PHP与主机</td>
+<td>同一PHP7.4–8.5源码，不按版本裁剪功能；无WordPress/运行期Composer/Node/Redis/常驻队列依赖；Apache/IIS/Nginx/Caddy/VPS说明</td>
+<td>实际仅PHP8.4.23；原生PDO/MySQL、两免费主机、14组CI和VPS装机未实测；主机必须有必要扩展/权限/HTTPS</td>
+</tr>
+</tbody>
+</table></div>
+<h3>仍未覆盖的差距</h3>
+<p>不能把以上“有限实现”扩大成“全部子比模块已完成”。仍缺：全部官方/第三方社交登录与短信渠道、全部短信与验证供应商、全部智能搜索筛选与集群管理、全部可视化小工具、任意画布、原生OSS/COS、直播/转码/HLS/DRM、跨SKU/部分退款、多仓/面单、拼团/拍卖/秒杀排队、原始账单自动下载及完整财务对账、支付宝/微信企业付款、自动异地整站备份/灾备、WordPress数据迁移等。</p>
+<p>历史版本对照见 <code>HISTORICAL_FEATURES.md</code>，参考源码审阅方式见 <code>REFERENCE_AUDIT.md</code>。未实现功能没有添加假成功按钮或空驱动宣称可用。</p>
+</article><article id="chapter-12" class="chapter"><p class="eyebrow">CHAPTER 12 <a href="docs/TEST_REPORT.md">分篇源文件</a></p><h2>0.18.0 实际测试与交付记录</h2>
+<p>日期：2026-09-07。实际基线是本会话上传的 <strong>0.17.0</strong> 完整包，当前数据库 v10。历史 0.17 报告保存在 <code>history/0.17.0/TEST_REPORT.md</code>；不要将历史结果当成本轮执行。本报告不构成全部功能覆盖、独立安全审计或服务商认证。</p>
+<h3>本轮实际结果</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结果</th>
+<th>方法与证据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>原 0.17 核心基线重新执行</td>
+<td>511/511</td>
+<td><code>evidence/018/baseline-017.json</code>，原包隔离执行</td>
+</tr>
+<tr>
+<td>0.18 核心、业务和协议回归</td>
+<td>558/558</td>
+<td><code>evidence/018/core-final.json</code>，PHP 8.4.23，FFI 调用真实 SQLite</td>
+</tr>
+<tr>
+<td>本地真实 HTTP 请求</td>
+<td>804/804</td>
+<td><code>evidence/018/http-final.json</code>，requests 访问本地 PHP 服务</td>
+</tr>
+<tr>
+<td>离线浏览器布局与交互</td>
+<td>498/498</td>
+<td><code>evidence/018/visual-final.json</code>，真实 PHP HTML，内联资源，Chromium set_content</td>
+</tr>
+<tr>
+<td>解析式弹簧数值检查</td>
+<td>42/42</td>
+<td><code>evidence/018/spring.txt</code>，Node</td>
+</tr>
+<tr>
+<td>语法检查</td>
+<td>255 PHP、16 JavaScript、1 Shell 通过</td>
+<td><code>evidence/018/lint.json</code>；不代表其他 PHP 版本实际运行</td>
+</tr>
+<tr>
+<td>真实浏览器 URL 访问</td>
+<td>1 次尝试、0 次通过</td>
+<td><code>evidence/018/browser-live.json</code>，ERR_BLOCKED_BY_ADMINISTRATOR</td>
+</tr>
+</tbody>
+</table></div>
+<p>手册和压缩包在生成后另行核验：<code>docs/manual-checks.json</code>、包外 <code>chengyu-0.18.0-package-verification.json</code>。不能将尚未完成的检查提前写成通过；最终数字以这些文件为准。不同套件共享业务路径，不可相加当成独立功能数量。</p>
+<p>当前共 123 张实页截图，本轮新增 13 张；既有截图并非全部重新输出。新页面检查覆盖 320、390、768、1440 宽度、中文和英文、减少动态效果、表单及键盘焦点。新截图来自原创演示数据，没有使用 ICU 用户数据或素材。全套离线布局和交互断言已重新执行。</p>
+<h3>先发现问题，再修改和回归</h3>
+<p>统一 HTTP 客户端复现并修正三个问题：大小写不同的同名请求头、urlencoded 请求缺少统一 1 MiB 体积限制、HEAD 响应绕开冲突传输长度检查。修复前后三项记录分别为 <code>transport-before.json</code> 与 <code>transport-after.json</code>。同时修正搜索词字符串 <code>0</code> 被空值判断忽略的问题。</p>
+<p>新增回归覆盖七组验证码配额原子扣减与冷却；外置搜索公开元数据/有效译文、删除、异步任务验真、修订竞争、退避、权限与本地回退；多包裹归属、版本冲突、重复提交、独立轨迹及迁移保留旧数据；加密归档错误密码、篡改、截断、路径穿越、空目标保护、真实账户/余额/本地媒体恢复和恢复后的暂停开关。</p>
+<p>备份专项 19 项在 <code>backup-working.json</code> 中通过，已被纳入最终 558 项，不能再额外计数。恢复服务实际使用测试适配器建立独立目标、写入数据和媒体；这不是 MySQL、原生 PDO 或服务商环境中的恢复证明。</p>
+<p>测试开发过程保留了失败证据：早期测试仍把结构版本写死为 9；备份表目录遗漏两个既有业务表，已修正目录；HTTP 测试的错误状态预期与现有 403 约定不符，以及不同测试组复用管理员触发原有敏感操作配额。后者只在测试夹具中清空配额状态隔离测试组，没有放松生产限流。最终失败数为零，不隐去早期失败过程。</p>
+<p>视觉检查发现新备份页 <code>.recovery-grid</code> 与旧双因素恢复码布局重名，已改用 <code>.recovery-vault-grid</code>，保留旧样式，并增加两项隔离断言。之后重新运行全部离线浏览器检查，生成最终新页面截图。</p>
+<h3>运行时、数据库和浏览器边界</h3>
+<p>实际执行 PHP <strong>8.4.23</strong>。环境没有原生 pdo_mysql/pdo_sqlite 验收条件，数据库通过测试专用 FFI 适配调用真实 libsqlite3，能执行 SQL、事务及隔离恢复，但不能证明原生 PDO 行为或 MySQL/InnoDB 分支正确。</p>
+<p>生产仍使用原生 PDO，不引入 FFI 替代驱动，不要求用户主机启用 FFI；测试目录不在上传包。七 PHP 版本 × 两种原生数据库的 14 组 CI 配置已保留，本轮没有执行。安装/运行不按 PHP 小版本裁剪业务模块。</p>
+<p>浏览器实际 URL 导航受到环境策略阻止；set_content 不验证公网 Cookie/CSP/TLS、浏览器跳转、真实跨文档动画、支付跳回或服务器目录访问规则。HTTP 请求套件确实经过本地 PHP 服务，但其中目录保护由测试路由实现，不是 IIS/Apache/Nginx/Caddy 实机规则验收。</p>
+<h3>未完成的外部验收</h3>
+<p>没有登录蓝队云/萌哒云或实装 VPS，没有申请证书。Meilisearch、快递100、真实商户支付/退款/代付、OAuth、外部 SMTP、S3/R2、LibreTranslate 均未用真实账号联调。接口成功状态来自协议夹具，不是线上服务商认证。原生 MySQL 备份及 MySQL DDL 失败清理分支未实测；恢复到免费主机的面板导入步骤也没有实机通过证据。</p>
+<p>没有大规模负载、百万内容检索、巨大数据库/媒体归档测试。备份限体积/时间，外置搜索需要独立服务与出站 HTTPS。原版与本版仍不等于子比全部历史模块，剩余范围见 <code>FEATURE_MATRIX.md</code>。</p>
+<h3>源码与交付证据</h3>
+<p>ICU 三分卷实际访问 13,652 个条目，索引 952 个主题目录文本文件，针对 8 个文件进行结构阅读，没有执行旧 PHP 或导入旧数据库。952 的口径包含部分主题内 vendor 文本；不是 952 个业务文件全部逐行审计。相关记录在 <code>evidence/018/reference-*.json</code>。</p>
+<p>生产与参考大于 150 字节文件的整文件 SHA-256 相同数为 0，见 <code>reference-production-comparison.json</code>。这仅是整文件重复检查，不是法律风险鉴定。未交付参考代码、数据库、字体、原站素材或商户密钥。</p>
+<p>版本、文件变化、源码体积在 <code>RELEASE.json</code> 与 <code>docs/source-changes-018.json</code>。完整包清单和上传包解压语法验证由 <code>tools/package_release.py</code> 实际生成；网站上传包不包含私有安装口令、已安装配置或运行时数据。</p>
+</article><article id="chapter-13" class="chapter"><p class="eyebrow">CHAPTER 13 <a href="docs/REFERENCE_AUDIT.md">分篇源文件</a></p><h2>0.18 ICU分卷与官方历史核查记录</h2>
+<p>核查日期2026-09-07。本轮不是只复用前次报告：三个RAR分卷重新通过libarchive连续读取，主题文本在独立私有核查目录提取，未运行旧站PHP、导入原数据库或使用任何原站密钥。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>项目</th>
+<th>实际结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>输入</td>
+<td>www.taojinge.icu_20260522_175206.part1.rar / part2.rar / part3.rar</td>
+</tr>
+<tr>
+<td>归档遍历</td>
+<td>13,652条目</td>
+</tr>
+<tr>
+<td>主题文本索引</td>
+<td>952个文件，包含主题目录内相关文本依赖；路径、长度、SHA-256在evidence/018/reference-index.json</td>
+</tr>
+<tr>
+<td>主题头</td>
+<td>Version7.8；这是上传副本自述，不证明未经改动的官方原版</td>
+</tr>
+<tr>
+<td>定向阅读</td>
+<td>8个实际文件，记录函数名、行号和摘要；不是952文件逐行审计</td>
+</tr>
+<tr>
+<td>官方历史</td>
+<td>早期V1–V5档案的可见正文、V6–V9后续日志，最新V9.1（2026-09-01）；缺失正文如实标注</td>
+</tr>
+</tbody>
+</table></div>
+<h3>读了哪些方向</h3>
+<p>参考搜索聚合/用户搜索、验证码入口、签到/连续奖励、用户等级、提现、会员永久和升级计算、组件类及菜单类。定向文件包含 <code>inc/functions/zib-search.php</code>、<code>action/captcha.php</code>、<code>inc/functions/user/user-checkin.php</code>、<code>inc/functions/user/user-level.php</code>、<code>inc/widgets/widget-class.php</code>、<code>zibpay/functions/zibpay-withdraw.php</code>、<code>zibpay/functions/zibpay-vip.php</code> 和 <code>inc/codestar-framework/classes/nav-menu-options.class.php</code>。</p>
+<p>两条初始猜测路径未找到，没有将它们算作已审阅。实际成功记录在 <code>evidence/018/reference-reviewed.json</code>。只把路径、摘要和函数索引放入交付证据，不分发参考代码原文。</p>
+<h3>从核对得到的变化</h3>
+<p>已存在的等级、签到、会员补差和有条件导航不重复编写。针对官方近期能力与本工程缺口，新增Meilisearch服务端连接、IP/收件人六维验证码发送限制、多包裹履约视图，以及用户要求的可验证备份/恢复。不同代码入口继续复用本工程权限、CSRF、HTTP和账目服务。</p>
+<p>参考主题依赖WordPress。澄屿继续采用独立PHP架构；没有移入主题/插件源码、图片、字体、原站数据库、用户资料或商户密钥，也不移除/伪造对方授权流程。生产文件与参考文本的整文件摘要交叉检查会写入 <code>evidence/018/reference-production-comparison.json</code>；该检查只能证明不存在整文件完全相同内容，不能代替专业授权或法律审查。</p>
+<h3>无法由本报告推出的结论</h3>
+<p>不意味着所有历史版本和第三方插件均已实现、不意味着每行代码经过安全审计、不意味着未完成的实时服务已联网验收。不能称为子比官方、官方授权版或作零法律风险承诺。上线内容、品牌、素材和商户资质仍由部署方依法取得。</p>
+<p>官网来源与功能对照见 <code>HISTORICAL_FEATURES.md</code>，交付范围与仍缺模块见 <code>FEATURE_MATRIX.md</code>。</p>
+</article><article id="chapter-14" class="chapter"><p class="eyebrow">CHAPTER 14 <a href="docs/HOSTS_AND_SOURCES.md">分篇源文件</a></p><h2>主机条件与资料</h2>
+<p>核查日期 2026-09-07。没有登录用户的蓝队云/萌哒云账号，也没有实际部署VPS；本轮以当前会话文件与用户说明为依据，不声称读取了额外项目记忆。</p>
+<h3>蓝队云免费虚拟主机</h3>
+<p>官方《免费虚拟主机常见问题》页面日期2025-03-06，本轮重新取得正文：
+https://notify.landui.com/help/show-12693</p>
+<p>该说明列出Windows环境、不支持单独更换运行环境；用FTP而不是SSH，上传至 <code>wwwroot</code>；域名绑定及数据库访问依面板要求操作。免费续期和页脚鸣谢等也以服务商当前规则为准。</p>
+<p>这篇说明没有证明你的具体实例已经满足64位PHP、PDO、OpenSSL、Fileinfo、HTTPS、出站DNS/443及配额要求。请先运行安装检测、询问服务商或查看实际面板。随包IIS规则并非蓝队云实机通过证明。<code>app/</code> 与 <code>storage/</code> 防公开访问必须实际检查，不要删除保护文件绕过500错误后就上线收款。</p>
+<h3>萌哒云“免费1”</h3>
+<p>本轮未取得能准确对应该套餐的当前官方配置正文，不能指定它一定是PHP8.2或其他版本。根目录、PHP版本、数据库、扩展、SSL、出站网络、空间、文件大小及计划任务限制以实际面板为准。程序没有为该套餐设置功能精简版，但也不能突破主机未提供的能力。</p>
+<h3>免费主机使用方式</h3>
+<p>上传包内文件直接放进站点根目录，保留隐藏文件和目录保护规则。新站访问 <code>/install/</code>；完整包里的私有安装口令只在本地保存。旧站保留 <code>app/config.php</code>、<code>secret</code>、数据库与全部 <code>storage/</code>，按 <code>UPGRADE.md</code> 升级，不重装。</p>
+<p>运行时不需要Composer、Node、Redis、SSH或常驻进程。索引可通过后台分批构建，工单/课程/手工物流用普通HTTP请求即可。官方支付、物流查询、翻译和对象存储仍需要服务账号、HTTPS和出站网络；真正自动推进资金任务需要定时触发，否则使用后台按钮。</p>
+<h3>VPS，有面板或无面板</h3>
+<p>已有宝塔/1Panel等面板：建立PHP站点、数据库和证书，按模板合并Nginx/Apache保护规则，不运行“新机安装脚本”覆盖已有环境。Caddy示例同样须检查PHP-FPM socket与实际目录。</p>
+<p>无面板全新VPS提供 <code>deploy/install-vps.sh</code> 和对应服务模板。本次只做脚本语法检查，未装机、改防火墙或申请证书。先阅读脚本、备份原配置，用专用低权限站点用户部署，不把教程默认路径当作所有发行版的保证。</p>
+<h3>上线必须通过的检查</h3>
+<p>按 <code>ACCEPTANCE_018.md</code> 验证真实原生PDO连接、私有目录不可下载、HTTPS、CSRF/会话、上传、支付通知、退款和备份恢复。所有PHP版本使用同一业务源码；本轮只实际运行PHP8.4.23。14组原生数据库CI已经提供但未执行，不能写成全部通过。</p>
+<p>接口一手资料见 <code>PAYMENTS.md</code>、<code>MEDIA_LANGUAGE_BUILDER.md</code> 和 <code>PLATFORM_017.md</code>。外部文档不是对本工程的认证或保证。</p>
+<h3>0.18.0 外置搜索与恢复特别说明</h3>
+<p>Meilisearch 是可选独立服务。普通免费虚拟主机不需要安装它才能运行本站，继续使用本地检索；要启用远程模式，需你另有实例，并通过有效公网 HTTPS/443 提供专用索引。本程序不直接连接内网或 7700 端口，避免后台配置成为内网探测入口。</p>
+<p>恢复保险库可以在站点后台创建、下载受体积和时间限制的加密副本。恢复工具不开放公网 HTTP 入口。蓝队云官方同时说明数据库只支持面板在线管理，不支持远程连接，连接地址为 localhost/127.0.0.1。因此无 SSH 主机不能假定从本地直接连生产数据库恢复；需先在独立同类型数据库环境中恢复并验证，再按服务商面板 SQL 导入及 FTP 上传流程迁移。没有该环境时保留原生面板备份作为恢复路线。详见 <code>BACKUP_RECOVERY.md</code>；本轮没有在两家主机实际执行这些步骤。</p>
+<p>本轮公开资料核查日期 2026-09-07。蓝队云来源仍为本页上方官方 FAQ；萌哒云免费1的准确套餐配置未取得可靠官方正文。所列“免运行期 Composer/Node/Redis”不等于保证任何不满足 PHP/数据库/扩展条件的免费主机均可运行。</p>
+</article><article id="chapter-15" class="chapter"><p class="eyebrow">CHAPTER 15 <a href="docs/ARCHITECTURE.md">分篇源文件</a></p><h2>结构、DRY 与扩展</h2>
+<h3>入口与服务</h3>
+<p><code>index.php</code> / <code>admin/index.php</code> 分别处理前后台读取，<code>action.php</code> 处理带权限与 CSRF 的写入，<code>notify.php</code> 验证外部支付通知，<code>media.php</code> 输出授权媒体；<code>feed.php</code> 和 <code>sitemap.php</code> 提供公开 XML。<code>app/bootstrap.php</code> 统一配置、错误处理和会话；<code>App.php</code> 组装业务服务。</p>
+<pre><code>app/
+  Core/       PDO 数据库、增量迁移、设置、输入、加密、Markdown
+  Services/   Auth / Wallet / Commerce / Payment / Content / Media
+              Membership / Inventory / Cart / Tasks / Invitations
+              Catalog / Layout / Mailer / Activity / Admin
+              Categories / Bounties / Reviews / Threads / Verification
+              Creator / Discovery / Pricing / SecondFactor
+  Http/       Actions / SiteController / AdminController
+  Views/      前后台模板与共享组件
+  settings.php
+  schema.php
+  lang/zh-CN.json
+</code></pre>
+<p>全局设置统一由 <code>settings.php</code> 和版本增量定义组成，默认值与字段数记录在RELEASE.json；本轮另加 <code>settings018.php</code>，保留 <code>settings017.php</code>。默认值、类型范围、后台表单、保存验证与前台读取复用同一键。任务、专题、SKU、套餐、布局等是业务对象，不硬塞成数百个彼此关联的全局配置项。</p>
+<p>5 种主题共用业务服务和组件，只改变变量与小范围排版。支付验证、库存扣减、账本写入、内容授权不复制到每个主题。SVG 几何封面与图标属于本项目原创代码素材，不依赖 CDN、在线字体或图片服务。</p>
+<h3>新版 DRY 边界</h3>
+<p><code>Inventory</code> 是规格选择、库存消费/恢复、卡密同步和导入的共用入口；<code>Cart</code> 复用 <code>Commerce</code> 的购买规则，不再维护另一套可分叉的扣款代码。<code>Membership</code> 管理独立等级期限，内容与媒体复用同一访问判定。</p>
+<p><code>Catalog</code> 对专题、链接、公告使用受限实体定义和共用管理路径，不开放客户端传入任意 SQL 表名。<code>Layout</code> 只接受固定 JSON 格式和字段白名单。<code>Tasks</code> 从实际数据取得完成证明，领取和资产调整共用事务。<code>Invitations</code> 只保存摘要，次数消耗在注册事务中。</p>
+<p>控制器做输入解析、权限和路由，服务层维护业务不变量，视图输出已授权数据；不能在模板中直接修改账本。基础数据库和活动日志统一复用，但不把语义不同的余额、邀请码和库存强行做成同一个抽象。</p>
+<h3>金融与并发</h3>
+<p>余额、推荐佣金与作者收益以整数分保存，积分/站内代币为整数。所有资产通过 <code>Wallet::adjust</code> 和业务事务，带与业务记录绑定的幂等键。请求指纹阻止将同一个结算标识复用于不同购物车。付款、库存、卡密、权益与退款一起设计。</p>
+<p>MySQL 用 InnoDB 行锁，SQLite 用事务和忙等；嵌套调用共享外层事务，任一嵌套调用抛错都会标记 rollback-only，外层捕获异常也不能提交部分变更。金额和数量验证在写入前完成，事务内避免不可回滚的网络发信。唯一约束不是错误处理的替代品：正常重试返回已有结果，冲突数据应报错。</p>
+<p>推荐佣金逆向可能形成内部欠账，以保证已经提现的推荐收益不阻塞买家退款；普通用户资产仍不能超支。免费主机上没有分布式事务或多节点锁的保证。</p>
+<h3>数据库结构升级</h3>
+<p><code>schema.php</code> 创建基础表，<code>Core/Migrations.php</code> 增量升级到结构v9（v8交易表、v9运营表另见本篇补充）；v2 新增 13 张表，v3 新增 4 张表；v4 新增 4 张表及分类/投票/邀请码字段；v5 新增收益与历史两张表、作者/隐私/提现来源字段及媒体关联索引；v6 新增身份验证器与价格规则表、券范围字段；v7 新增身份连接、查询记录、配置快照、徽章与授予五张表。新装和升级共用迁移，不把升级逻辑仅写进安装器。数据库 <code>cy_settings._schema_version</code> 在全部迁移完成后才更新。</p>
+<p>用私有文件锁串行化单站迁移；新增表/列先判定存在，可重试。MySQL DDL 不能被应用事务整体回滚，因此失败恢复需要备份和重试设计。配置文件的 <code>schema_version</code> 是安装格式标记，不是当前数据库迁移版本。</p>
+<p>生产使用 PDO；本环境的 FFI SQLite 是测试工具，不能替代原生 PDO/MySQL 验收。开发者应运行随包 CI 矩阵并保留原生数据库测试结果，再扩展 SQL 或调整锁顺序。</p>
+<h3>扩展方法</h3>
+<p>新增设置：字段定义、中文标签、读取点和非法值测试一起提交。新增主题：扩展允许值与样式变量，验证移动端、深色、减少动态效果和文字对比度。新增业务：先定义权限/事务/逆向流程，再接前后台。</p>
+<p>新增支付网关需核对其真实官方协议、签名、金额单位、交易状态和重试语义，再加入固定样例和真实商户联调。不能因名称中有“易支付”或“码支付”就复用另一个平台的参数。</p>
+<p>新增订单类型必须同时处理履约、下载、库存、取消、退款和推荐佣金逆向。新增数据库版本先有一致性备份与迁移测试。修改公共组件应同时跑旧测试与新增边界用例，而不是删除不通过的旧测试。</p>
+<h3>运行边界</h3>
+<p>定时发布和公告通过读取时判断时间，不是可靠后台调度平台。没有自动主动支付对账、消息队列、全文检索集群或多节点共享会话实现。需要高并发或大型媒体时应独立设计基础设施，不能从源码体积推断免费主机容量。</p>
+<p>浏览器动效遵循减少动态效果；低资源模式只收敛视觉负载，不限制购买或后台业务。客户端偏好存在 localStorage，管理员默认存在数据库，互不冒充。示例内容可编辑，不代表真实访客数据。</p>
+<h3>0.11 服务与浏览器边界</h3>
+<p><code>Verification</code> 统一验证码哈希、发送限额、用途/会话绑定、失败次数与证明消费；注册、改绑和找回密码共用发送配额。失败尝试在独立验证事务提交之后才抛错；成功证明在账户业务事务消费，避免失败注册把证明永久扣掉。SMTP 网络发送在数据库事务之外，发送失败不留下可消费证明。密码修改和管理员凭据变更同步吊销旧找回链接。</p>
+<p><code>Threads</code> 管理讨论类型、投票选项、结果隐私与采纳，保存复用 Content 的版本/事务；读写复用 Content 的访问检查。投票同时依赖账户/内容锁与唯一约束，重复提交不产生多票。采纳和审核均先锁同一内容再锁评论，减少相反锁序；审核否决同步清理采纳标志。</p>
+<p><code>Core/Motion.php</code> 是预置曲线与预设的单一来源，<code>settings.php</code> 管理字段范围，视图将允许的公开数值输出为转义 JSON；前端不再维护第二张曲线表。<code>Settings::savePartial</code> 复用整组验证并保留未修改字段，不由动效页重置其他外观。</p>
+<p><code>motion.js</code> 管理显现、指针反馈、原生弹层与主题转场；<code>motion-studio.js</code> 只负责编辑器参数、曲线显示和重播，调用同一引擎。<code>features.js</code> 邮箱请求复用 <code>app.js</code> 的 CYUI 请求和反馈层，不复制 CSRF/错误转换流程。样式变量共用，主题不复制业务模板。</p>
+<p>浏览器的增强是渐进式：内容本来可见，JS 成功初始化后才加入等待显现状态；动画开关从不决定业务授权。减少动态效果优先，指针仅在事件后调度帧，无全局常驻指针渲染循环。后台保存始终经过服务端输入校验、CSRF、权限和审计。</p>
+<h3>0.12 的新增边界</h3>
+<p><code>Categories</code> 负责树结构校验、继承阅读/发布条件与成员有效期；<code>Content::access</code> 再检查分类，避免调用方只传入原始内容行时漏掉父级门禁。前台是否显示按钮不是授权来源。</p>
+<p>圈子加入和自动邀请码是 <code>Commerce</code> 的订单分支，不各自建立第二份扣款系统；<code>Invitations</code> 继续以摘要验证，交付码通过既有加密服务保存。<code>Reviews</code> 锁定购买订单并通过关联有效订单计算公开评分；<code>Bounties</code> 使用已有 Wallet 幂等键托管/发奖/退回，采纳与发奖同事务。</p>
+<p>旧单选的 <code>cy_poll_votes</code> 表保留一账号一票约束，选择集合位于 <code>cy_poll_choices</code>；迁移回填可重试。结果查询按投票人数统计而非选择行数。数据库死锁/锁等待超时在最外层事务有限重试，业务副作用不得移到事务回调内的外部网络。</p>
+<p>动效的曲线与字段属于 <code>Core/Motion.php</code>，解析弹簧属于 <code>assets/spring.js</code>，前台与实验室共用。<code>interactions.js</code> 管理具体控件与焦点，不另复制后台/前台弹簧算法。CSS 按主题变量工作，避免主题各自维护 JS。</p>
+<h3>0.13 维护边界</h3>
+<p><code>Creator</code> 集中管理作者收益的应计、结算、退款逆向与转换；<code>Commerce</code> 在订单事务内调用，<code>Wallet</code> 是唯一资产账本边界。前后台收益列表共用 <code>income_rows</code>，避免显示与统计规则分叉。锁顺序以订单 → 收益 → 作者为主，提现使用原来源资产；原生 MySQL 的并发和死锁重试仍需专门运行矩阵。</p>
+<p><code>Discovery</code> 管理本人阅读状态与检索建议，关注/历史列表重用 <code>Content::feed</code> 的中央可见性过滤，不复制另一套忽略分类权限的 SQL。阅读容量有明确上限，搜索建议只暴露公开字段。</p>
+<p>新 JS 拆成 <code>discovery.js</code> 与 <code>feedback.js</code>，UI 网络状态与业务权限分离；运动仍交给 <code>motion.js</code> / <code>spring.js</code>。无构建依赖、无外部 CDN 脚本、无前端保存的支付密钥。服务器输出遵循统一转义，搜索 DOM 使用 textContent，不执行响应里的标记。</p>
+<h3>0.14 的复用边界</h3>
+<p><code>Pricing</code> 只做受限整数计价/优惠券验证和规则保存，会员资格继续调用 <code>Membership</code>，不另造会员缓存或资产账本。预览不预留券；真正核销必须在 <code>Commerce</code> 交易里调用 reserve 路径。SKU、卡片、购物车和订单保存共用同一计算入口；最高确认金额不是客户端指定成交价。</p>
+<p><code>SecondFactor</code> 按账户→认证记录的锁顺序复用 Wallet 的有效账户锁、Crypto、Activity 和会话版本。TOTP 数学放在独立 <code>Core/Totp</code>，HTTP 入口只处理输入/证明传递；现有 Auth 登录在账户事务中调用验证，避免两个入口实现不同验证规则。恢复码只保存摘要，明文短暂放在当前用户会话且消费后清除。</p>
+<p><code>Diagnostics</code> 以管理员按需执行的检查集合输出，不借运行检查执行任意 SQL 或外部命令；回滚探针写入随机短期键并验证不存在。只报告当前被检查的基础能力，不将测试适配器冒充生产驱动。</p>
+<p><code>refinement.js</code> 复用 <code>CYMotion</code> 的时长、曲线、减少动态效果与清理语义。布局编号是稳定键，内容仍由原 Layout 校验；报价不创建客户端私有计价公式，服务端返回整数和安全展示文字。CSS 使用现有颜色/表面变量，新页面不复制业务代码。</p>
+<p>这些边界便于扩展，但不构成任意插件加载平台；新增财务模块仍需事务、幂等、权限、退款和并发回归，不能只增加按钮。</p>
+<h3>0.15.0 补充</h3>
+<p>账号连接、主动查单、永久会员、整车上限、配置快照、徽章和后台分组交互的当前行为、限制与操作请以 <a href="docs/CONNECTIONS_AND_OPERATIONS.md">连接与运营说明</a> 为准。新功能复用现有事务、账户和动效服务，不复制多套入账或身份校验。</p>
+<h3>0.16 新服务边界</h3>
+<p>Checkout 复用 Commerce 的单位订单、账本、库存和履约；GuestOrders 是令牌限定的购买身份，不是常规登录。Shipping/Promotions 通过 Rulebooks 验证修订号；Membership 用实际付款权益批次和签名短时报价。</p>
+<p>DirectPayments 调度同一 Gateway 接口；Refunds/Payouts 使用固定请求号、租约、未知结果核实，外部 HTTP 位于数据库事务之外，确认事实才进入本地原子回滚。Jobs 只做有界调度，不隐藏常驻服务。</p>
+<p>Uploads 复用 Media 的类型与落盘校验；ObjectStorage 复用 S3 签名和 HttpClient，暂存验证后条件复制为正式 key。Translations 绑定源版本及自身 revision，受保护正文不外传；Locale 是统一界面翻译入口，搜索复用公开访问条件。</p>
+<h3>0.17 可维护性边界</h3>
+<p><code>Navigation</code> 集中前后台路由/模块白名单，<code>PlatformActions</code> 在动作分发前统一权限和限流，<code>PlatformPages</code> 负责新增读取入口。<code>SearchIndex</code>只处理公开元数据索引，不另造内容权限；<code>Learning</code>继承Content访问与Media交付；<code>Tracking</code>关联Commerce订单，不另建收货状态机；<code>Reconciliation</code>只读交易凭证、写差异报告；<code>SupportDesk</code>管理工单自身的版本与幂等键。</p>
+<p><code>Migration017</code>为v9新增表/索引，重复执行有防护，保留发布布局快照。运行数据与测试专用FFI隔离。视图共享 <code>platform_header</code>、<code>tracking_timeline</code>、<code>support_thread</code> 等模板；2524键语言包通过Locale统一读取，前后台作用域独立。外部物流HTTP请求不长时间持有数据库锁，回写前重新校验修订号。</p>
+<p>课程/工单操作、索引重建与布局编辑使用普通HTTP请求；服务器没有隐式后台守护程序。功能边界不是靠PHP小版本分支裁剪，而是由权限、业务设置和主机能力决定。</p>
+<h3>0.18.0 复用与边界</h3>
+<p><code>HttpClient::request</code> 统一传输校验，JSON、form、HEAD 共用重复头、请求体和响应分帧约束。<code>Activity::rateMany</code> 一次事务预留验证码全部配额，不在每种收件场景复制限流逻辑。</p>
+<p><code>RemoteSearch</code> 使用合并 outbox、租约及修订号处理远程异步任务，所有网络调用在数据库短事务之外；<code>Content</code> 复用既有列表权限与本地回退，不信任远程结果直接展示内容。<code>Tracking</code> 的包裹与旧订单/售后分离，轨迹不能直接操作钱包。</p>
+<p><code>SnapshotSchema</code> 保存源代码控制的表目录；<code>Database::snapshot</code> 提供一致性读取；<code>EncryptedArchive</code> 管理加密记录；<code>SnapshotReader</code> 统一校验、inspect 与恢复读取；<code>Backups</code> 只负责管理员创建/目录/下载，<code>Recovery</code> 负责 CLI 空目标恢复。浏览器页面不具备执行任意 SQL、任意路径提取或覆盖生产库的能力。</p>
+<p><code>Migration018</code> 由既有迁移入口调用，v10 保留 v9 运单并添加包裹键；目标数据库比当前代码新时仍拒绝启动。MySQL/SQLite 共用服务，不按 PHP 7.4–8.5 分叉业务。</p>
+</article><article id="chapter-16" class="chapter"><p class="eyebrow">CHAPTER 16 <a href="docs/CHANGELOG.md">分篇源文件</a></p><h2>0.17.0 / 2026-09-07</h2>
+<h3>0.18.0 — 2026-09-07</h3>
+<p>基于实际 0.17.0，数据库增量 v10。先复跑 511 项原核心基线。</p>
+<ul>
+<li>修复统一 HTTP 客户端的大小写重复请求头、表单体积限制与 HEAD 长度歧义；修复关键词 <code>0</code>。</li>
+<li>新增 Meilisearch 公共元数据连接、合并同步队列、异步确认/修订竞争保护、受限后台推进和本地权限回查。</li>
+<li>实物订单最多 20 个包裹，分别维护运单与轨迹；保留旧运单，新增版本/归属/幂等检查。</li>
+<li>新增加密恢复保险库、数据库一致性快照、可选本地媒体和空目标 CLI 恢复；恢复后暂停任务/对外服务。不是自动异地灾备。</li>
+<li>邮箱验证码同 IP/收件人的 10 分钟/小时/日限流与冷却原子处理。</li>
+<li>新工作台响应式视觉、指针光效、减少动态效果、双语；修复备份与双因素区域样式冲突。</li>
+<li>当前执行结果：核心 558/558，本地 HTTP 804/804，离线浏览器 498/498，弹簧 42/42。PHP 8.4.23/测试 FFI SQLite；原生 PDO、MySQL、多版本、线上外部服务未验收。</li>
+</ul>
+<p>以实际0.16.0完整包为基线，数据库从v8增量迁移至v9，不覆盖同名旧版本。</p>
+<ul>
+<li>修复访客影子账号进入会员人数统计、译文元数据查询过量取正文、媒体失败清理时Windows句柄未关闭、编排页canonical丢失位置等问题。</li>
+<li>新增便携倒排索引、分批重建、权重排序及修订/译文联动，公开元数据与受保护正文分离。</li>
+<li>布局增加独立草稿、发布、放弃、20次历史恢复和并发版本冲突保护。</li>
+<li>新增课程/章节/预览/私有资源/私人笔记与进度，复用内容权限、退款撤权和媒体交付。</li>
+<li>新增物流轨迹、手工事件和快递100查询适配；加密单号/轨迹、限流及串单检查，不自动确认收货。</li>
+<li>新增标准CSV账单差异报告，校验账期、金额、交易号和状态，幂等导入且不操作资金。</li>
+<li>新增前后台客服工单、模板、通知、状态与优先级，所有者权限与重复提交/修订保护。</li>
+<li>独立前后台语言、支付宝PAGE模式、集中导航白名单、共享新工作台/课程视觉，动态文案补译。</li>
+<li>重新读取ICU三分卷并取得官方早期及最新日志，形成有证据边界的历史功能族对照。完整缺口和真实测试方法见当前功能矩阵与报告。</li>
+</ul>
+<p>以下是保留的历史记录；历史版本“未完成”表述只代表当时状态，以当前FEATURE_MATRIX.md为准。</p>
+<h2>0.15.0 / 2026-09-06</h2>
+<ul>
+<li>修复已撤销会话改密、超长 bcrypt 截断密码二次确认、停用账户缓存资料更新。</li>
+<li>新增带有网络边界保护的 HTTPS 传输层，三家授权码登录共用状态/PKCE/绑定/本地账户保护。</li>
+<li>易支付查单与通知共用入账，查询审计、快照密钥、精确金额与原域约束。并发时 changed 返回本次是否真正入账，不仅根据最终 paid 状态猜测。</li>
+<li>永久会员、重复权益购买保护、单件币种确认与整车三资产上限回滚。</li>
+<li>加密配置快照导入/导出/差异/恢复、社区徽章全链路与对应前后台。</li>
+<li>分组后台导航、搜索恢复、Alt+/ 快捷键、新卡片与有限次图标动效，共用曲线与降动态策略。</li>
+<li>结构 v7；原站保留配置、密钥、数据库和存储升级，不重新安装。</li>
+</ul>
+<h2>版本记录</h2>
+<h3>0.14.0 · 2026-09-06</h3>
+<p><strong>先修错。</strong> 原 300 项核心通过后增加三条失败复现：低等级首次开通借用高级到期时间、停用账户兑换码、登录服务接受超过 bcrypt 上限的密码；修复后 303 项通过。浏览器回归发现 0ms 被折叠逻辑回退到默认值，改用统一时长，并允许后台保存零时长、清除其入场交错等待。</p>
+<p><strong>安全中心。</strong> RFC 6238 SHA1 时间型认证、密钥加密、恢复码摘要、重放保护、绑定/轮换/解除、会话撤销与审计；密码找回和暂停新绑定不移除已有保护。恢复工具只供 Web 根目录外本地命令使用，不提供 HTTP 万能解除。</p>
+<p><strong>共用计价。</strong> VIP 三档付款比例、限时优惠、较低价格择优、高级继承低级优惠；券范围/目标/开始/会员门槛、叠加开关、事务核销。列表、SKU、购物车、试算与成交共用 Pricing；原 Commerce 不再维护重复券计算。订单保存实际价格快照，单件确认上限保护和退款原额回退。</p>
+<p><strong>前后台。</strong> 新账户安全中心、定价工作台、订单优惠说明和报价反馈。连续布局重排保留组件键、展开状态和焦点，支持 Alt+方向键与播报；专注阅读不改权限和购买路径。低资源/减少动态效果时只收敛装饰。</p>
+<p><strong>部署能力。</strong> 新后台自检实际检查驱动、扩展、加密、参数绑定、回滚与存储，JSON 不含密钥和路径。CI 增加原生驱动硬校验，避免 FFI 回退被算作原生通过。生产不引入 Composer/Node/FFI 依赖。</p>
+<p><strong>迁移与边界。</strong> v6；179 项集中设置，36 项动效参数。保留旧数据/密钥，旧订单不重算。339 核心、458 本地 HTTP、263 离线浏览器、42 弹簧检查通过；原生数据库、多 PHP、真实主机和商户仍未完整验收。</p>
+<h3>0.13.0 · 2026-09-06</h3>
+<p><strong>先修复再扩展。</strong> 在 0.12 基线通过后增加失败复现：密码确认使用陈旧缓存、私有附件关联只检查前 100 条、底层转账接受停用发送方；修复并保留回归。管理员置顶不存在评论返回明确错误，提现确认重新检查退款后的来源资产负债，迁移创建索引改为查询原生索引清单后判定。</p>
+<p><strong>作者收益。</strong> 新增独立 <code>earnings</code> 资产、订单比例/等待期快照、推荐佣金扣除后的净额应计、批量合资格结算、重复/并发保护、退款撤销/冲回和负收益。可选收益转余额；人工提现记录保存原资产来源，驳回正确退回。旧订单不补分成。</p>
+<p><strong>付费投稿。</strong> 管理员批准作者/独立比例；获准作者可设余额付费文章/帖子，仍需审核；旧管理员价格默认受保护。新增真实创作中心与后台作者收益列表，共用记录模板，不复制账本规则。</p>
+<p><strong>内容发现。</strong> 本人阅读记录、进度、容量裁剪、关闭并清空；关注作者内容流；同权限检索建议、200ms 防抖、IME、过期响应失效、键盘导航和文本安全渲染。</p>
+<p><strong>视觉交互。</strong> 统一引擎驱动导航指示线、表单反馈、图片显现；通知限制数量、可关闭、暂停计时和焦点恢复；异步表单延后显示忙碌装饰但不延后请求/响应。修复 search 输入框拦截 Escape、未关闭弹框的行为。动效实验室新预览区和 3 个开关。初始化隐藏页状态，尊重减少动态效果与全局时长 0。</p>
+<p><strong>迁移与交付。</strong> 结构 v5；174 项集中设置、35 项动效参数。原生数据库/全部 PHP/真实主机仍未验收，详见测试报告，不将离线浏览器结果冒充公网通过。</p>
+<h3>0.12.0 — 2026-09-06</h3>
+<p>基于可读取的 0.11.0 源码继续维护。先增加失败复现测试、修复，再扩展业务与前后台。</p>
+<h3>修复</h3>
+<p>普通作者编辑内容时保留管理员设置的价格资产/金额、有效期、VIP 门槛、口令、库存/交付参数、精选/置顶、发布时间和私有资源等受保护字段。管理更新不存在记录返回 404，不再假装成功。</p>
+<p>登录在事务内校验当前密码哈希；并发改密后不再用陈旧哈希覆盖新密码。分类树限制父子类型、循环和深度，有内容或子级的分类不能改型破坏继承。折叠动画完成取消残留填充与内联高度，快速反向也按最后一次意图落定。</p>
+<p>圈子成员管理增加超过 50 条后的分页，商品评价和成员列表复用统一分页组件并保留筛选上下文。</p>
+<p>移除链接和提交后跳转的人为等待；修正移动后台/桌面菜单触发、焦点和无 JavaScript 可访问性。新增中文标签与表单提示。</p>
+<h3>业务</h3>
+<p>分类继承读/写权限、圈子发现/加入/到期/成员管理/退款；积分悬赏托管/采纳发奖/过期领取/管理员退回；单选升级多选与旧票回填；购买后自动生成邀请码及注册次数/退款逆向；经购买验证的评分与审核、退款后剔除公开评价。</p>
+<p>新增 Categories、Bounties、Reviews 共用服务，扩展 Commerce、Threads、Invitations，而不是新建重复钱包/支付逻辑。数据库结构 v4，增加四表及相应字段。新增管理入口和 164 项/12 组设置。</p>
+<h3>动效</h3>
+<p>解析式物理弹簧与贝塞尔双路径；32 项统一动效参数，刚度/阻尼/质量、速度连续、欠/临界/过阻尼图与共同预览。指针动画收敛即停止，减少动态/隐藏页面清理。补充已授权图片灯箱、原生分享回退、反向折叠和移动导航键盘闭环。</p>
+<h3>验证</h3>
+<p>264 核心、326 本地 HTTP、171 离线浏览器、42 弹簧算法、121 PHP 与 8 JS 语法通过；34 张程序页面截图。测试数据库为真实 SQLite 测试适配，非原生 PDO/MySQL。PHP 8.4.23 实际运行，7.4–8.5 同路径但其他版本/14 组原生 CI 未执行；真实浏览器 URL 导航被策略阻止。</p>
+<p>不是全历史模块完整复刻，剩余缺口与外部环境验收见当前功能表和测试报告。</p>
+<hr/>
+<h2>0.11.0 — 2026-09-06</h2>
+<p>基线为本项目 0.10.0 完整包。先修已发现问题，再扩展模块；不是导入用户的原主题。</p>
+<h3>修复</h3>
+<p>退出登录清理所有临时授权与一次性展示内容；嵌套事务失败不允许被外层捕获后继续提交。用户改密/改邮箱与管理员改密码、邮箱、角色或状态时，吊销未用找回链接；仅改昵称不误吊销。管理员改邮箱清除验证时间。</p>
+<p>受限内容的评论不再绕过正文权限输出；保留回复后可见的必要回复入口。审核拒绝已采纳回答时同步清除采纳标志。SMTP 已收到 DATA 成功后，不因 QUIT 阶段断开误判为发送失败。</p>
+<p>异步提交与历史返回只恢复原本由提交过程临时禁用的按钮，不解禁原本禁用的控件；主题偏好在实际应用新主题后写入，避免异步转场保存旧值。截图不再因焦点或平滑滚动拍到中途页面位置。</p>
+<h3>新增</h3>
+<p>邮箱验证码注册与改绑、单次证明、用途/会话绑定、发送与验证限额；问答采纳与审核联动；一账号一票的单选投票、截止/结果隐私与首票后的选项锁定；可见正文阅读目录。</p>
+<p>动效工作台、三套预设、五条预置曲线及自定义三次贝塞尔、曲线图/数值预览；统一的入场交错、卡片光点/透视、按钮磁吸、扫光、首屏视差、主题转场和弹层反馈。系统减少动态效果优先；低资源、触屏、离屏/隐藏状态做相应收敛。</p>
+<h3>工程与说明</h3>
+<p>新增 Verification、Threads、Motion，数据库结构 v3。曲线定义从 PHP 单一来源输出，设置部分保存复用整组验证；不复制主题业务。增加并发投票、验证码、本地 TLS SMTP HTTP 流程与浏览器动效测试。附新操作说明、当前测试证据和失败/未验收边界。</p>
+<p>未实现完整付费圈、作者销售分成、第三方登录/短信、全套国际支付/自动原路退款、全部商城售后、全站自由设计和任意主机的自动证书部署。PHP 7.4–8.5 是相同功能目标，不是全版本实测声明。</p>
+<hr/>
+<h2>版本变更</h2>
+<h3>0.10.0 — 2026-09-06</h3>
+<p>基于实际交付的澄屿 0.9.0 源码继续开发，不是另一个未找到的同名 ZIP。</p>
+<h4>优先修复</h4>
+<p>移除 PHP 8.2 以下创建充值单的版本门槛，保留 HTTPS 与协议安全校验。修复对非付费内容构造零元订单绕过会员/回复/密码权限的路径。后台普通资料编辑不再隐式延长高级会员。</p>
+<p>输入的数组/标量、密码零字节与长度、无 mbstring 时 UTF-8 截断等统一验证。登录切换清理旧购物车和密码授权、刷新 CSRF。新结构的内容、修订、布局和履约长字段避免只用 MySQL 64KB TEXT 上限。</p>
+<p>库存操作集中到服务层，卡密存量实时同步，购物车整体事务和指纹重试保护；退款按原规格恢复未发货库存，已发卡不复卖。推荐佣金冲销不会因已提现而阻塞买家退款，保留人工债务对账边界。</p>
+<h4>新业务</h4>
+<p>实物/卡密多规格；三级独立期限会员；付费内容有效期；密码内容与文本修订；下载流水、日配额与单段断点续传；任务中心；邀请注册；专题、友情链接、公告；确认收货和物流信息更正。</p>
+<h4>新界面</h4>
+<p>加入布局工作台、三套起始组合、安全 JSON 导入/导出、组件调序/复制/设备显隐/入场效果。新增首屏艺术样式和密度选项，优化主题、玻璃、动效、后台导航搜索、移动表单。131 项设置/12 组，15 张实际页面预览。</p>
+<h4>升级与验证</h4>
+<p>增量迁移结构 v2，可重试但不提供自动降级。核心 158/158、本地 HTTP 199/199、浏览器 58/58、95 个 PHP 文件语法通过。七 PHP 版本 × 两原生数据库 CI 文件已提供但未远程执行；本地数据库为真实 SQLite 测试适配，非原生 PDO/MySQL。详见测试报告。</p>
+<h3>0.9.0 — 基线记录</h3>
+<p>提供独立内容社区、资产和轻量商城、5 主题及基本部署文档。原证据为核心 82、本地 HTTP 115、浏览器 26 项；这些只是历史基线，不是当前版本测试数。已知的版本支付门槛和单层会员/单规格限制在 0.10.0 中调整，未实现项以新版功能表为准。</p>
+<h4>0.15.0 发布前补充：保留严格 CSP 的外部继续页面</h4>
+<p>静态核查发现，原生表单直接 303 到外部服务可能受 <code>form-action 'self'</code> 限制；这是依据 CSP 文档识别的兼容风险，不冒称在本环境真实浏览器中复现。新增共享 HTTPS 目标校验与同源继续页，覆盖社交登录和收银台；无脚本时提供可操作链接，脚本可用时立即导航。拒绝非 HTTPS、URL 凭据、控制字符、片段和超长目标，不开放任意 URL 转发路由。新增 9 项核心检查和 14 项本地 HTTP 检查，全部保留既有断言。</p>
+<h3>0.16.0 / 2026-09-06</h3>
+<p>在 0.15.0 工程上增加访客收银台/总单、四种官方支付协议、按单核付/退款、PayPal Payouts、永久与剩余价值补差、运费/组合优惠、退货退款/同 SKU 换货、本地分片/私有 S3、中英/译文审核、多词相关度搜索、22 个页面插槽及交易/媒体后台。</p>
+<p>修复较新数据库被旧代码接受、访客购买身份与登录边界、会员退款覆盖后授权益、签到回归、CLI 任务配置路径、任务端点状态码、新侧栏样式被基础 panel 规则覆盖导致移动端偏移。增加权限、幂等、协议、未知结果和媒体验证。</p>
+<p>新外部服务默认关闭，真实商户/主机/云存储尚未验收；不是所有子比功能等价交付。</p>
+</article><article id="chapter-17" class="chapter"><p class="eyebrow">CHAPTER 17 <a href="docs/COMMUNITY_COMMERCE.md">分篇源文件</a></p><h2>0.12 社区与交易模块使用说明</h2>
+<p>本章只描述源码已经实现的范围。后台管理路径均以根目录部署为例；部分危险或需要运营规则的功能默认关闭，启用前先设置价格、说明与审核。</p>
+<h3>一、分类层级与圈子</h3>
+<p>后台「分类/版块」设置父级。层级最多 8 级，不允许循环、跨内容类型父子关系；已有内容或子节点的分类不能直接改成另一类型。上级与本级阅读条件同时生效，不是“子级开放就绕过父级”。</p>
+<p>阅读条件：公开、登录、指定最低 VIP、圈子成员；发布条件：登录、指定最低 VIP、成员、编辑/管理员。发布限制和阅读限制是独立设置。分类继承由共用 <code>Categories</code> 服务执行，文章详情、列表筛选、购买、评论、正文访问和私有下载均通过服务端判断；编辑/管理员有管理访问权。</p>
+<p>把社区版块设为圈子，配置是否开放加入、站内资产、价格与天数。0 金额为免费加入；余额是整数分，积分/代币为整数。前台有圈子发现页、圈子详情、加入表单及成员到期提示。<code>/admin/index.php?tab=circles</code> 管理圈子成员，可人工给予期限或暂停成员资格，修改写审计日志。</p>
+<p><strong>不是定期订阅扣款</strong>：有效成员不可提前购买续期；到期后可再次加入。每笔成功订单有独立期限，退款只撤销对应订单授予的有效权益，人工期限/其他有效订单不被误删。成员暂停不自动退款，管理员要单独处理争议。不得把本圈子付款视为绕过父级权限；父级要求仍需满足。</p>
+<p>关闭新加入不会删除历史权益；单独关闭整个圈子模块将阻止新的加入行为。取消/退款仍走订单处理，不能靠删除分类清除交易历史。</p>
+<h3>二、积分悬赏问答</h3>
+<p>后台「模块」启用积分、问答及悬赏，设置最高悬赏积分。悬赏默认关闭；本版仅站内积分，没有现金悬赏/代付/多人分配。</p>
+<p>问题作者可为自己已发布、未采纳的问题托管 1–30 天积分。托管时即扣除可用积分并生成唯一记录；余额不足整体回滚。一个问题只保留一段悬赏历史，本版不支持追加或退款后重新悬赏。</p>
+<p>作者/编辑采纳同帖已审核顶级回答时，同一事务把积分发给回答作者、更新采纳状态并写日志；不能奖励自己、已停用账号或过期悬赏。重复请求不会再次发奖；已发奖不能改奖另一个回答。</p>
+<p>过期未发奖由作者在问题页点击退回；管理员可在 <code>/admin/index.php?tab=bounties</code> 提前人工退回并留痕。关闭新悬赏后，历史未结清积分仍可退回。<strong>不需要计划任务，也不是自动到期退款服务</strong>；运营者须处理待结清记录。</p>
+<p>回答后来被驳回时，采纳展示撤销，但历史积分奖励不自动扣回；重新审核/再次采纳也不重复付款。争议由管理员结合日志人工处理。</p>
+<h3>三、单选与多选投票</h3>
+<p>发布帖子选择投票，填 2–10 个不同选项，设置最多可选数量 1–选项数。1 是单选，大于 1 是多选。结果可以始终可见、投票后可见、截止后可见；截止后可见必须有有效截止时间。</p>
+<p>每账号一张不可修改的票；选项顺序不同但集合相同的重试返回原结果，不产生新票。提交重复选项、越限或别的投票的选项都会被拒绝。第一票之后锁定选项、题目、隐私规则、最大选择数与截止时间，避免投票后改规则。</p>
+<p>分母是投票人数，不是选择总数，因此多选百分比之和可能大于 100%。未达到结果显示条件时服务端不返回票数，不是仅靠 CSS 隐藏。旧单选数据迁移后继续使用，不丢票。</p>
+<h3>四、购买后自动生成邀请码</h3>
+<p>后台「模块」启用自动邀请码商品（默认关闭）；编辑商品，将交付类型设为邀请码，配置每个码允许使用次数、购买后有效天数、价格、库存和交付说明。适用于单规格商品，本版不提供邀请码 SKU 组合。</p>
+<p>结算在同一事务中扣款/扣库存、生成随机邀请码、保存验证摘要并加密保存交付内容。用户在自己的订单里查看，管理员按订单权限处理；每次支付通知或幂等重试不会生成第二份码。</p>
+<p>要强制邀请码注册，必须把后台注册方式切为「仅邀请码注册」；开放注册不会要求或消耗该码。邀请码原文只在交付记录受控展示，注册验证依摘要和次数进行，多个注册竞争次数不会超用。</p>
+<p>未使用的码支持站内退款并同步停用；已经消耗次数的码拒绝自动退款，转人工争议处理。已经生成交付的码不会回到可售库存，也不会把同一个码卖给另一位买家。退款去向仍是原站内资产，不会自动调用支付宝/微信原路退款。</p>
+<h3>五、经购买验证的商品评价</h3>
+<p>后台启用商品评价，默认需要审核。实际购买成功的用户可对该商品提交 1–5 星、最多 2000 字的文字评价；每个用户/商品最多一条，再次提交为修改。修改后按当前审核设置重新进入待审，不绕过审核。</p>
+<p><code>/admin/index.php?tab=reviews</code> 审核。公开列表只统计已批准评价、仍有效的对应购买订单和正常账号；订单退款后该评价不再进入公开评分/列表，历史记录保留供审计。不能向没有购买的用户开放“已购评价”标记。</p>
+<p>本版没有图片追评、商家回复、评价积分奖励、虚构评价导入或虚假销量；展示的数量与平均分从数据库实时查询，不可在后台填一个假的数字。</p>
+<h3>六、页面与配置</h3>
+<p>圈子入口：<code>/index.php?r=circles</code>，详情 <code>/index.php?r=circle&amp;id=分类ID</code>。积分悬赏与评价在对应文章/商品页面显示，不能单独绕开内容权限访问内部资料。</p>
+<p>前台表单全部使用现有登录、CSRF、参数验证与事务；普通用户不能调用后台成员/退款/审核接口。管理员、编辑权限依接口区分，不能只根据按钮是否可见判断授权。后台集中设置与具体业务对象分开维护，不把每个圈子的价格硬编码成全局设置。</p>
+</article><article id="chapter-18" class="chapter"><p class="eyebrow">CHAPTER 18 <a href="tests/README.md">分篇源文件</a></p><h2>开发者测试与复现</h2>
+<p>这些文件只供隔离开发环境使用，<strong>不要上传到 Web 根目录，不要对生产数据运行测试</strong>。生产应用不需要 Python、Node、Playwright、FFI、proc_open 或测试服务器。</p>
+<h3>环境</h3>
+<p>PHP CLI 与正常生产扩展；核心测试优先使用原生 pdo_sqlite。没有此驱动时会尝试测试专用 FFI/libsqlite3 适配，只用于验证真实 SQLite 事务，不等于原生 PDO 测试。FFI 可能需要 <code>php -d ffi.enable=1</code>，不得因此要求免费主机启用 FFI。</p>
+<p>HTTP 测试需要 Python 3、requests、beautifulsoup4。浏览器测试另外需要 playwright、Pillow 及可用 Chromium，脚本可用 <code>CY_CHROMIUM</code> 环境变量指定可执行文件，默认 <code>/usr/bin/chromium</code>。Node 用于脚本语法检查与独立弹簧算法测试，不参与生产运行。</p>
+<p>在自己的隔离开发环境按工具官方文档安装依赖。例如：</p>
+<pre><code class="language-bash">python -m pip install requests beautifulsoup4 playwright pillow
+</code></pre>
+<p>程序运行本身没有这一步。</p>
+<h3>核心回归</h3>
+<p>在完整包根目录：</p>
+<pre><code class="language-bash">php tests/run.php &gt; core-results.json
+</code></pre>
+<p>返回码非零表示有失败，应同时阅读 stderr 与 JSON 明细。默认创建随机临时目录/数据库，用后清理；包含多进程竞争余额、最后一件 SKU 和同一账号投票、圈子加入与悬赏发奖的测试，不要屏蔽 proc_open 后仍宣称该部分已测。</p>
+<p>原生 MySQL 模式仅用于自己专门的测试服务器：</p>
+<pre><code class="language-bash">export CY_TEST_MYSQL_HOST=127.0.0.1
+export CY_TEST_MYSQL_PORT=3306
+export CY_TEST_MYSQL_USER=your_test_user
+export CY_TEST_MYSQL_PASSWORD=your_test_password
+php tests/run.php &gt; mysql-results.json
+</code></pre>
+<p>测试会新建随机命名的 <code>chengyu_test_*</code> 数据库，结束时删除；账号需要创建/删除该测试库的权限。<strong>不要使用生产地址或生产管理账号</strong>。脚本不接受指定已有数据库名，也不读取生产 <code>app/config.php</code>，但仍应隔离凭据和网络。不要把真实密码写入源码或提交仓库。</p>
+<h3>本地 HTTP</h3>
+<pre><code class="language-bash">python tests/http_smoke.py &gt; http-results.json
+</code></pre>
+<p>复制干净 <code>site/</code> 到临时目录，动态选择本地端口，走安装器并使用完整包根目录安装口令创建临时管理员，再运行实际 HTTP 操作。源目录若有已安装的 config.php 会拒绝。此服务器的目录保护由专用测试路由提供，不代表 Apache/Nginx 已验证。</p>
+<p>0.11 的 <code>http_motion_community.py</code> 会启动 <code>smtp_fixture.py</code> 的本地 TLS SMTP 夹具，覆盖验证码注册和改绑。开发机需可运行 OpenSSL CLI 生成临时自签证书，测试在临时 PHP 进程信任该证书；生产代码仍校验证书，不放宽外部 TLS。夹具不会向互联网发信。不要将测试信任证书、临时站点或邮件日志上传。</p>
+<h3>浏览器与截图</h3>
+<pre><code class="language-bash">python tests/run_visual.py &gt; visual-results.json
+</code></pre>
+<p>自动准备临时站点与随机管理员密码、种入原创示例数据、运行 PHP 服务器，结束后删除临时数据。正常输出为 JSON；截图默认写到 <code>docs/previews/</code>，可用 <code>CY_VISUAL_OUT</code> 指定其他目录。会覆盖同名预览图，不覆盖网站业务数据。</p>
+<p>底层 <code>visual_snapshots.py</code> 从本地 HTTP 获取真实 HTML，内联源码里的 CSS/JS/SVG，再用 Chromium set_content；它不是公网浏览器导航测试。直接调用该底层脚本需要自行提供隔离站点地址、管理员环境变量，推荐使用上面的自动临时站点入口，避免遗留测试账号。</p>
+<h3>实际浏览器 URL 导航</h3>
+<pre><code class="language-bash">python tests/run_live_browser.py &gt; live-browser-results.json
+</code></pre>
+<p>这是一项独立入口，尝试在浏览器直接访问临时站点 URL，执行真实表单、Cookie 和资源加载。当前交付环境的访问策略阻止本地 URL 导航，结果为 <code>ERR_BLOCKED_BY_ADMINISTRATOR</code>，不是测试通过；失败证据已经保存。只能在允许此类访问的隔离开发环境运行，不应绕过安全策略，也不能把 <code>run_visual.py</code> 的 set_content 结果当作它的替代通过证据。</p>
+<h3>静态检查与 CI</h3>
+<pre><code class="language-bash">find site tests tools -name '*.php' -print0 | xargs -0 -n 1 php -l
+node --check site/assets/app.js
+node --check site/assets/boot.js
+node --check site/assets/studio.js
+node --check site/assets/motion.js
+node --check site/assets/motion-studio.js
+node --check site/assets/features.js
+node --check site/assets/spring.js
+node --check site/assets/interactions.js
+node --check site/assets/discovery.js
+node --check site/assets/feedback.js
+node --check site/assets/refinement.js
+node --check site/assets/connections.js
+node tests/spring.test.js
+bash -n deploy/install-vps.sh
+</code></pre>
+<p><code>.github/workflows/php.yml</code> 包含 7.4/8.0/8.1/8.2/8.3/8.4/8.5 与原生 SQLite/MySQL 组合，MySQL 使用隔离容器。CI 文件中的密码只是临时容器夹具，不是站点默认管理员密码；切勿把它用到生产。</p>
+<p>本次交付已实测的结果和缺少的原生矩阵证据，以 <code>docs/TEST_REPORT.md</code> 为准。代码修改后应重新保存新的证据，不直接沿用旧 JSON 的通过数量。</p>
+<h3>重建离线说明书</h3>
+<p>Markdown 是说明书的维护源；修改后在开发环境安装 <code>markdown-it-py</code> 与 <code>beautifulsoup4</code>，运行：</p>
+<pre><code class="language-bash">python tools/build_manual.py
+</code></pre>
+<p>它会重建根目录 START_HERE.html，引用 docs/previews 中的实际截图。该工具不需要上传到网站，不会修改站点业务代码或数据库。发布前应重新生成文件清单和 ZIP 校验值。</p>
+<h3>0.12 扩展文件</h3>
+<p><code>reliability_012.php</code> 保存作者编辑等错误回归；<code>community_commerce_012.php</code> 验证圈子/悬赏/多选/邀请码/评价；<code>concurrency_012.php</code> 与 <code>community_worker.php</code> 验证多进程幂等。主核心入口自动包含它们，不必对每个片段单独调用。</p>
+<p><code>http_012.py</code> 由 HTTP 主套件加载；<code>visual_012.py</code> 由浏览器主套件加载。片段依赖主套件的临时站点上下文，不能当作独立服务器直接执行。<code>seed_012.php</code> 只创建原创测试内容，绝对不要运行在正式数据库上。</p>
+<p><code>node tests/spring.test.js</code> 输出 JSON 并以失败退出码报告；测试解析求解器而非截图外观，修改物理参数/算法时应与 DOM 套件一起重跑。CI 增加前端语法和该算法测试，但本次未执行远程 CI。</p>
+<h3>0.13 扩展文件</h3>
+<p><code>reliability_013.php</code> 保留三个先失败后修复的边界回归；<code>creator_discovery_013.php</code> 验证收益计算、资格、冻结/退款/负债、作者定价保护、历史隔离/容量和搜索过滤；<code>concurrency_013.php</code> 与 <code>creator_worker.php</code> 验证 8 进程结算同一收入只入账一次。</p>
+<p><code>http_013.py</code> 由 HTTP 主入口加载，覆盖作者批准、付费投稿、审核、真实购买、结算、提现驳回、退款、本人记录、搜索和新动效设置。HTTP 日志还检查 Parse error，不能只看状态码把模板错误算作正常。</p>
+<p><code>visual_013.py</code> 由离线浏览器入口加载。收益/历史等截图来自测试库实际业务操作；搜索 IME、乱序、关闭失效和 DOM 安全部分使用模拟 fetch，只测试浏览器交互，不替代 <code>http_013.py</code> 的真实服务端请求。搜索预览图使用隔离站点真实 HTTP 搜索返回的公开标题；时序测试使用的模拟响应仍不当成浏览器真实网络验证。</p>
+<p><code>seed_013.php</code> 只在隔离截图站点创建原创样例和模拟资金的真实订单数据，不包含真实营业额，不应写入生产。<code>CY_VISUAL_TRACE=1</code> 可以把每项进度输出到 stderr，stdout 保留 JSON，便于诊断长测试而不影响机器读取。</p>
+<p>所有新增文件仍由统一入口运行，不要单独执行依赖测试上下文的片段；不要把产出中的临时站点、邮件、凭据或数据库留在公开目录。</p>
+<h3>0.14 扩展与原生驱动约束</h3>
+<p><code>reliability_014.php</code> 保留三条修复回归；<code>security_pricing_014.php</code> 运行 RFC 向量、绑定/重放/恢复/会话、整数会员/活动价、券/上限/退款、回滚、自检和 v6 重启迁移测试。<code>concurrency_014.php</code> 与 <code>security_worker.php</code> 验证八进程争抢一枚恢复码/一个券名额，只成功一次。</p>
+<p><code>http_014.py</code> 在主套件临时站点实际提交表单、改变会话、核对一次性代码展示、设置价格/券、购买/改价/退款和下载诊断。<code>visual_014.py</code> 验证新界面、专注阅读、乱序报价、键盘重排/焦点/展开状态、0ms 与无脚本的非规格购买路径；模拟 fetch 仅用于时序测试，不声称它是浏览器真实网络。</p>
+<p><code>seed_014.php</code> 只建立原创测试商品和规则；预览中的价格与订单不是实际营业数据。所有片段由原统一入口加载，不单独执行。<code>CY_HTTP_TRACE=1</code> 可输出无凭据的步骤进度到 stderr，JSON 仍在 stdout。</p>
+<p>CI 增加 EXPECTED_DRIVER 前置验证，缺少任务要求的原生驱动直接失败，不能使用 FFI 后算原生通过。核心测试在本地缺驱动时仍可显式用测试适配层，但输出会标明；14 组远程任务本次尚未执行。生产包不包含测试适配器。</p>
+<p><code>tools/recover-authenticator.php</code> 是实际站点所有者的本地应急工具，不是测试脚本；不要对生产用户为了测试而运行。普通语法检查包含该文件；安全服务的 CLI 恢复方法在核心套件中验证，完整生产命令需实际原生环境验收。</p>
+<h3>0.15 连接、运营与安全回归</h3>
+<p><code>reliability_015.php</code> 保留三个先失败再修复的会话/密码/资料边界；<code>integrations_015.php</code> 验证三家身份协议、PKCE、账号归属、第二因素、HTTPS 响应解析、主动查单、永久会员、整车上限、配置快照及徽章。</p>
+<p><code>concurrency_015.php</code> 与 <code>connection_worker.php</code> 启动独立进程，对同一充值单同时执行四次查单与四次通知，以及八次相同徽章授予。所有片段由 <code>run.php</code> 自动加载，不单独运行。</p>
+<p>三家 OAuth 和新支付查询使用受控协议响应，不使用真实商户或真实应用。测试传输注入只允许 CLI / CLI-server；生产路径使用验证证书与地址的 HTTPS 连接，不能将夹具通过当成外部平台已联调。</p>
+<p><code>http_015.py</code> 验证新管理权限、密码证明、快照附件下载与 multipart 上传、修订冲突、永久套餐实际交易与整车原子回滚。HTTP 主入口使用最终的 INSTALL_KEY.txt；旋转安装口令后需重新验证。</p>
+<p><code>visual_015.py</code> 验证分组导航、快捷键、移动菜单、有限图标运动和配置/身份表单。set_content 会保留旧文档监听器，涉及媒体偏好反复切换的运动段落使用新浏览器页面上下文，避免将历史监听干扰当成新页面行为。</p>
+<p><code>seed_015.php</code> 创建明显的测试平台占位配置、原创徽章、设置快照和永久套餐，仅写入临时站点。启用占位按钮只为检查界面，HTTP 站点实际 OAuth 请求会因 HTTPS 要求拒绝，不存在演示成功登录后门。不会向互联网发送这些测试凭据。</p>
+<h3>0.16 回归</h3>
+<p>commerce_016.php/platform_016.php 覆盖交易、权限、未知结果、支付协议及媒体；http_016.py 覆盖真实本机 HTTP 下单/退款/访客、multipart 分片、翻译/规则/页面、HMAC 重放和分发的 CLI 工具。visual_016.py 用实际 PHP HTML 经 Chromium set_content 检查四种宽度、语言及原生表单，不是浏览器直接 URL 导航。</p>
+<p>HTTP/截图脚手架关闭本机 cli-server OPcache，确保安装/配置变更下一请求可见；生产升级仍需自行清 OPcache。登录测试按 action=login 定位，减少动画测试等待浏览器偏好变化事件，不以固定 60ms 代替事件到达。原生 CI 驱动前置断言保留，不允许测试适配器伪装原生通过。当前计数以 TEST_REPORT.md 为准，evidence/history 只是历史。</p>
+<h3>0.17 regression additions</h3>
+<p><code>platform_017.php</code> adds search/privacy, live course permissions, draft/history, shipment matching, report-only statement import and support ownership/version tests. <code>http_017.py</code> exercises the actual action and page routes. <code>visual_017.py</code> creates original course/ticket data, checks 320/390/768/1440px layouts, independent locales, templates, hover and reduced motion. It remains an offline browser suite, not a successful full browser navigation test.</p>
+<p>Include <code>node --check site/assets/platform.js</code> and <code>node --check site/assets/media-workbench.js</code> in manual syntax runs. New screenshots and JSON counts must be regenerated from the actual final source, rather than copied from prior releases.</p>
+<h3>0.18.0 新增测试与实际证据</h3>
+<p>新增 <code>platform_018.php</code>、<code>backups_018.php</code>、<code>http_018.py</code>、<code>visual_018.py</code> 和原创 <code>seed_018.php</code>。它们接入原有完整测试入口，不替换旧测试。证据在 <code>../docs/evidence/018/</code>：core-final 558/558、http-final 804/804、visual-final 498/498、spring 42/42。backup-working 的 19 项属于 core-final 子集，不重复计数。</p>
+<p>测试使用原生 PDO 不可用时的专用 FFI/真实 SQLite 适配；生产代码不使用该替代层。MySQL/原生PDO CI 14 组未执行。外部搜索、支付与物流的网络协议是夹具，不是真实服务联调。HTTP 新测试组清空测试数据库中的限流记录以隔离连续敏感操作，生产限制保持不变。</p>
+<p>真实浏览器导航被环境 ERR_BLOCKED_BY_ADMINISTRATOR 阻断，离线 set_content 结果不能当成公网浏览器全链路。备份恢复专项确实在隔离测试目标重建数据和媒体，但没有 MySQL/真实主机恢复证据。详见当前 <code>../docs/TEST_REPORT.md</code>。</p>
+</article><article id="chapter-19" class="chapter"><p class="eyebrow">CHAPTER 19 <a href="docs/CREATOR_AND_DISCOVERY.md">分篇源文件</a></p><h2>作者收益、阅读历史与关注发现</h2>
+<p>适用 0.13.0–0.14.0。新模块无 WordPress、队列、cron 或额外生产依赖；与旧模块共用数据库、权限、钱包和前后台模板。下面的默认值只适用于未被管理员修改的站点。</p>
+<h3>一、开启作者经营</h3>
+<p>先到 <code>/admin</code> → 系统设置 → 交易与资产分组，开启「作者收益分成」；配置默认分成比例和等待天数。对应设置键为 <code>creator_income_enabled</code>、<code>creator_share_bps</code>、<code>creator_hold_days</code>。比例以基点保存：8000 = 80%，不是 8000%。</p>
+<p>在用户管理中编辑指定作者，打开作者资格。<code>creator_bps=-1</code> 使用站点默认；0 表示该作者不产生新分成；0–10000 是其独立比例。关闭资格阻止新分成和新的作者自定价，已有收益和历史条款不会被删除。</p>
+<p>作者打开个人中心的「创作中心」：
+<code>/index.php?r=creator</code>。
+创作中心提供真实收益摘要、订单收益明细、合资格结算、可选余额转换及提现入口，不是演示金额。后台 <code>/admin/index.php?tab=creators</code> 查看所有作者收益，可按作者 ID 筛选；作者资格在用户管理维护，提现在提现审核管理。</p>
+<p>付费投稿使用 <code>/index.php?r=write</code>。获准作者可对自己的文章或帖子设置余额价格、选择付费保护，将收费内容放入「受保护正文」，提交后仍需管理员审核。公开正文和摘要始终公开，不应放入秘密内容。旧文章只有管理员勾选「允许获准作者管理此价格」后才允许作者修改原定价，避免重置管理员已有规则。</p>
+<p>这不是多商家商城入驻。普通作者原有上传权限没有扩大为任意私有文件/视频；普通作者上传图片，受限资源文件继续由有权限的管理员管理。作者不能自行设置所有 SKU、库存、会员特价或支付资产。</p>
+<h3>二、收益如何计算</h3>
+<p>仅针对实际已支付、余额计价、金额大于零、作者当时具有资格且买家不是作者自己的内容订单。积分/代币购买、免费订单、购买会员和加入圈子，不产生本模块的内容作者收益。</p>
+<p>公式（内部单位为分，最终向下取整）：</p>
+<pre><code class="language-text">可分成基数 = 实付金额 - 本单实际推荐佣金
+作者收益 = floor(可分成基数 × 作者比例 / 10000)
+</code></pre>
+<p>例如实付 100 元、推荐佣金 10 元、作者比例 80%，作者收益是 72 元，剩余 18 元是这两项扣除后的站内差额；这不代表扣除了网关手续费、税费、运营成本或退款损失。</p>
+<p>订单创建时保存作者、实际基数、比例、收益、可结算时间快照。以后调整站点比例/等待期、作者资格、文章作者或价格，不追溯改写旧单。升级前订单不批量追补作者分成，也不把原推荐佣金转换成作者收入。</p>
+<p>推荐佣金 <code>commission</code> 与作者收益 <code>earnings</code> 是两种独立账本资产；订单后分成与退款都在现有交易事务内执行，不靠仅显示前台数字完成。</p>
+<h3>三、结算与提现</h3>
+<p>付费后先显示「待结算」。到达等待期、订单仍已付且没有正在处理的退款，才可结算。实物订单还必须确认收货。作者点击「结算符合条件的收益」，每次最多 50 条，逐订单核验并记入收益资产；超过 50 条可以继续点击，不需要后台常驻队列。</p>
+<p>重复点击、重复请求和并发结算不会重复入账。已结算收入统计是历史累计，不等于当前可用收益：提现、转换和退款会改变可用资产。</p>
+<p>可选「收益转余额」默认关闭。开启后作者须验证当前密码，按 1:1 将可用收益转入余额，形成对应转出/转入流水；同一请求不重复处理。转换是单向的，余额不是可提现资产，不提供余额反向换收益。</p>
+<p>提现需另外启用钱包和提现功能。申请时选择推荐佣金或作者收益作为来源，填写真实收款说明并验证密码；申请冻结所选资产，驳回退回同一种资产，不能混入其他资产。外部转账由管理员人工完成后确认，程序不会自动调用支付宝/微信代付。手续费、经营合规、实名和税务需要运营方自行处理。</p>
+<h3>四、退款和负收益</h3>
+<p>待结算订单退款，收益变为已冲回，不向作者发钱。已结算后退款，会冲回该订单的作者收益；原订单退款与冲回在同一事务中，重试不重复扣回。关闭分成功能也不能阻止历史订单退款冲回。</p>
+<p>如果作者已转换或提现，冲回可能使 <code>earnings</code> 为负。程序保留这笔负债，不为了让数字好看而偷偷挪用买家退款、删除流水或回写旧订单。后续收益先弥补负债；负收益不能继续转出或申请该资产提现。</p>
+<p>提现审核确认前会再次检查所选收益资产，若退款造成该来源余额为负，会阻止标记打款完成。管理员应先处理冻结申请、退款争议和真实转账状态。已经在外部打出的款项无法由本程序自动追回，不能把恢复数据库当成撤回真实支付。</p>
+<p>建议在业务规则中设置合理的等待期、退款窗口、作者协议和风控核验。本模块是记账/结算实现，不是持牌支付托管服务。</p>
+<h3>五、阅读记录与隐私</h3>
+<p>站点模块开关 <code>reading_history_enabled</code> 默认开启；容量 <code>reading_history_limit</code> 默认每人 200 条，范围 20–500。记录仅在登录且页面正文已授权输出后写入，不靠访问未解锁标题创建“已读”。</p>
+<p>前台 <code>/index.php?r=history</code> 只查询本人数据，提供卡片、进度、删除单条、清空和个人关闭。个人关闭同时清空历史，不影响收藏；后台没有查看任意用户阅读历史的页面。管理员/数据库运维人员仍可能从其权限读取数据库，不能把“本人页面隔离”宣传为对站点运营者端到端加密。</p>
+<p>浏览器按阅读高度估算 0–100% 进度，首次与节流滚动时提交，最多约 45 秒一次，页面隐藏时尽力补交。进度只增不减；它不是阅读证明、任务领奖证据、课程考试记录，也不自动把滚动条恢复到精确段落。关闭页面瞬间的网络可能未送达，因此进度是尽力记录，不承诺每个像素都保存。</p>
+<p>记录容量在后续记录时裁剪，不需要 cron。无 JavaScript 时可以查看和管理历史，但不会自动采集滚动进度。</p>
+<h3>六、关注动态与搜索</h3>
+<p>关注动态 <code>/index.php?r=following</code> 依照当前用户已关注作者的内容生成，继续执行原有发布、分类和权限过滤；取消关注后下一次读取即变更。它是按作者聚合的时间列表，不是 WebSocket 消息流或社交推荐算法，也不会在列表里泄露收费正文。</p>
+<p>搜索联想默认随搜索模块开启。<code>search_suggestions_enabled</code> 独立控制弹框增强；至少输入 2 个字符，延迟 200ms 合并输入，最多展示 6 条。中文输入法在组词阶段不发请求；迟到的旧响应不能覆盖新结果，关闭弹框会使未完成查询失效。</p>
+<p>联想使用原有内容检索，只取标题、公开摘要和标签等当前可展示元数据；不检索受保护正文。部分内容公开标题可以作为购买入口展示，这不代表已解锁正文。没有外部搜索服务依赖，不等于 Meilisearch 的分词、纠错、权重和大规模索引能力。</p>
+<p>上下键选择，Enter 打开选中结果，Escape 先清空结果再关闭搜索；没有 JavaScript 仍可使用原来的页面搜索表单。请求失败不伪造结果。浏览器组件测试包含模拟乱序响应，而真实 HTTP 套件单独测试了服务端搜索权限、开关和结果字段。</p>
+<h3>七、设置与验收</h3>
+<p>新导航目标「创作中心、阅读历史、关注动态」可在后台菜单管理选择；模块关闭时入口随导航权限隐藏，直接访问仍执行服务端开关校验。</p>
+<p>先用隔离账号验收「批准作者 → 付费投稿 → 审核 → 买家购买 → 等待/结算 → 提现驳回 → 退款冲回」，核对所有资产流水和订单状态。再测试其他作者无法结算别人的收益、其他账号看不到阅读历史、关闭记录后无新增、关闭模块后接口拒绝。真实商户付款与人工打款必须另外小额验证。</p>
+</article><article id="chapter-20" class="chapter"><p class="eyebrow">CHAPTER 20 <a href="docs/SECURITY_PRICING.md">分篇源文件</a></p><h2>账户安全、会员定价与部署自检（0.14 基础，0.15 更新）</h2>
+<p>本章对应可实际操作的前后台模块。业务实现独立，不依赖 WordPress、短信平台、第三方二维码网站、任务队列或新增常驻进程。</p>
+<h3>一、账户安全中心</h3>
+<p>前台登录后进入“我的 → 安全中心”，实际路由为 <code>/index.php?r=security</code>。后台用户也使用相同账户与登录验证；可以从后台进入前台个人中心操作。全站设置在“用户”分组控制是否允许<strong>新绑定</strong>。</p>
+<h4>绑定时间型身份验证器</h4>
+<p>输入当前密码后开始绑定。页面显示密钥，在自己的身份验证器中选择“手动输入密钥/时间型”：<strong>SHA1、6 位、30 秒</strong>。本项目不生成远程二维码，也不会把密钥发给二维码网站。不要把密钥、截图或生成的验证码发送给客服或其他人。</p>
+<p>待绑定流程 10 分钟过期，且绑定当前账户、会话版本。再次输入当前密码与验证器中的当前验证码完成启用。成功后会撤销其他会话，本浏览器继续登录，并显示 <strong>8 个恢复码</strong>。</p>
+<p>恢复码只展示一次、每个只能使用一次；先保存在与密码分离的离线安全位置再离开。数据库中保存其带站点密钥的摘要，不保存可直接使用的明文；身份验证器密钥使用站点加密服务保存为密文。</p>
+<h4>登录与防重放</h4>
+<p>已绑定用户在正常登录表单填写密码，并在“身份验证器或恢复码”栏提供证明。没有绑定的账户仍按原密码流程登录。</p>
+<p>采用当前时间步前后各一个窗口容忍时钟偏差。绑定时刚用过的码已经被消费，立即再做受保护操作时要等待下一个时间步，或者使用尚未消费的恢复码。已接受的时间步不能再次使用；恢复码在同一账户事务锁下只消费一次，外层事务失败会恢复消费状态。</p>
+<p>服务器和验证器时钟需同步。不要为方便而把验证窗口无限扩大。恢复码无自动到期日，但可以轮换、解除绑定或在恢复后重新绑定；被泄露时立即处置。</p>
+<h4>管理与恢复</h4>
+<p>“替换恢复码”要求当前密码与当前第二因素，生成八个新码，旧码全部立即失效；“解除绑定”也要求两项验证。“退出其他登录”在已绑定时同样要求第二因素，撤销其他会话但保留当前浏览器。</p>
+<p><strong>邮箱找回密码不会移除身份验证器；关闭全站新绑定入口也不会跳过已启用的保护。</strong> 没有设置一个可从 HTTP 调用的管理员万能解除接口。</p>
+<p>手机丢失但有恢复码：用恢复码登录，在安全中心使用另一枚恢复码完成解绑或轮换，再绑定新设备。两个操作不能重复使用同一个码。</p>
+<p>手机与恢复码都丢失：站点所有者可在有本地命令权限的环境，备份后使用完整包中、Web 根目录之外的工具：</p>
+<pre><code class="language-bash">php tools/recover-authenticator.php /absolute/path/to/site USER_ID CONFIRM-REVOKE-ALL-SESSIONS
+</code></pre>
+<p>该命令读取已安装站点配置，移除指定用户的身份验证器、递增会话版本并写审计；不修改密码。必须由有文件/数据库管理权限的站点所有者执行，不能把此工具复制到网站公开目录。免费主机没有命令权限时，应事前妥善保存恢复码；丢失后向可信主机管理员申请本地恢复，不提供绕过面板权限的 Web 后门。</p>
+<p>本版没有强制全员绑定、硬件通行密钥、WebAuthn、登录设备地理识别或短信；0.15 新增三家第三方登录，见 CONNECTIONS_AND_OPERATIONS.md。TOTP 不是防钓鱼硬件凭据；不要据此承诺账户绝不会失窃。安全中心显示最近 20 条本人 <code>account.*</code> 审计，而不是任意用户的登录设备清单。</p>
+<p>标准与算法测试参考：RFC 6238，https://www.rfc-editor.org/rfc/rfc6238.html 。本轮验证 SHA1 标准向量、窗口、重放、恢复码并发以及实际 HTTP 登录流程，没有宣称所有外部身份验证器产品均完成实机联调。</p>
+<h3>二、定价工作台</h3>
+<p>后台进入“定价工作台”，路由 <code>/admin/index.php?tab=pricing</code>。只有管理权限可以修改；普通作者没有因此获得改站点促销规则的权限。</p>
+<p>左侧列出近期 300 条可选内容；较旧内容可直接填内容编号。右侧配置 VIP 1–3 的付款比例与限时活动。页面使用规则修订号，另一窗口先保存后，旧窗口提交会报冲突而不是静默覆盖。</p>
+<h4>金额与比例</h4>
+<p>商品基础价格和 SKU 价格仍在原内容/规格管理页面设置。这里的比例是<strong>实际支付部分，以万分之一填写</strong>：</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>填写</th>
+<th>含义</th>
+<th>基础金额 1000 分的结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10000</td>
+<td>原价</td>
+<td>1000 分</td>
+</tr>
+<tr>
+<td>8000</td>
+<td>付原价 80%，即八折</td>
+<td>800 分</td>
+</tr>
+<tr>
+<td>6000</td>
+<td>付原价 60%，即六折</td>
+<td>600 分</td>
+</tr>
+<tr>
+<td>0</td>
+<td>免费</td>
+<td>0</td>
+</tr>
+</tbody>
+</table></div>
+<p>低于最小资产单位的部分向下取整，所有运算使用整数。余额单位为分，积分/代币使用原有最小单位，不用浮点货币计算。</p>
+<p>高等级继承较低等级中更优惠的比例。VIP 3 的配置若比 VIP 1 更贵，VIP 3 仍可使用 VIP 1 的低价；不是让高等级反而多付钱。会员资格仍由现有有效期限/开关决定。</p>
+<p>会员价和限时活动价<strong>择低，不连乘</strong>。例如基础 100 元、会员付 80%、活动付 85%，该会员付 80 元，而不是 68 元。无会员访客看到当前活动 85 元，但仍需登录和满足权限才能购买。</p>
+<p>活动价低于原价时必须填写合法开始、结束时间，结束晚于开始。日期按应用当前时区解释（本包默认 <code>Asia/Shanghai</code>）。区间为开始包含、结束不包含；请求时即时计算，不需要 cron，也不提前预约库存。下次请求自然恢复当时应有的价格。</p>
+<p>关闭“会员与限时定价”或停用单条规则会恢复基础计价，不删除原规则，不重算旧订单。VIP 免费访问规则仍是内容权限的一部分，不能用报价接口绕过它。</p>
+<h4>优惠券</h4>
+<p>券新增可选范围：全部、内容、会员套餐；可指定单个内容编号、开始时间和最低会员等级。原有到期、全站次数、最低金额及每账户一次限制仍保留。券仅用于余额计价，不能对积分、代币或零价订单硬套金额券。</p>
+<p>默认不允许券叠加已经生效的会员价或限时价。开启“优惠券叠加”后，<strong>单张券</strong>在当前特别价格上扣减；不是多张券相叠、满赠或跨店活动。</p>
+<p>券额度锁定和次数增加发生在真正购买事务中。报价接口不消耗券；购买金额超上限、余额不足或其他后续步骤失败，预留次数随事务回滚。已用券的历史使用记录不会因退款自动变成“从未使用”。</p>
+<h4>页面报价与成交快照</h4>
+<p>单件购买页面先由服务端输出实际价格，JavaScript 不是显示金额的唯一来源。选择规格或输入优惠券后可点“核对优惠”；异步请求取消、防抖与序号校验防止旧响应覆盖新确认，返回文字以文本插入。</p>
+<p>报价只供确认，不锁定价格、不预留库存、不扣款。提交仍由服务器重新计算。支持的单件购买表单携带最高确认金额：最终应付更高时返回 409 并不扣款，要求重新核对；金额更低时正常按更低值扣款。篡改这个上限不能强迫服务器用低价成交，只能造成拒绝。</p>
+<p>**边界：**购物车页面汇总也用同一计价器，实际整车购买在事务中重新计价，0.15 已增加按三种资产分别校验的整车最高确认金额，超限整单回滚。禁用 JavaScript 的多规格表单仍可提交真实购买，却没有在切换选项时同步最高确认金额的增强逻辑；应核对选项与最终订单，不能把单件增强说成所有入口都锁价。购物车暂不提供优惠券输入。</p>
+<p>新订单保存基础金额、会员等级、来源、比例、规则编号/修订号与券扣减快照。退款按原订单实际支付额退回站内资产，后续调价不改变旧单；作者收益与推荐佣金也沿用实际订单金额。没有把页面临时试算写成支付已成功。</p>
+<p>本版不提供按会员等级填写固定绝对售价、升级补差/剩余天数折算、访客购买、阶梯量价、秒杀排队/库存预占、满赠/多券叠加、复杂运费或自动支付平台退款。</p>
+<h3>三、部署自检</h3>
+<p>后台“系统”中运行“部署自检”。通过有管理权限的 POST 和 CSRF 校验启动，也可下载 JSON；有频率限制并写审计，不对外提供公开 phpinfo。</p>
+<p>自检实际执行：运行时及 64 位检查、PDO 是否原生、基础扩展、AES-GCM 加解密、密码哈希、中文/64 位整数参数绑定、临时行写入后回滚并验证不存在。MySQL 在有权限时额外检查应用表是否 InnoDB；检查存储是否可写、配置网址是否 HTTPS。</p>
+<p>导出不包含商户密钥、数据库密码、用户资料或服务器绝对路径。报告仍含软件版本等运维信息，应只发给可信维护人员。<code>pass</code> 是该条本次检查成功，<code>warning</code> 是能力/证据不足，<code>manual</code> 需要真实部署人工验证。</p>
+<p>自检<strong>不会</strong>主动向外部商户发钱、发邮件、申请证书或扫描公网目录；配置写着 HTTPS 不代表证书已有效。需要另查 <code>/app/</code>、<code>/storage/</code> 等敏感路径访问保护、TLS、上传执行限制、真实收款和邮件。测试适配器会明确显示非原生警告，不能拿它当 PDO/MySQL 认证。</p>
+<p>这项基础自检不是对所有 PHP 小版本的全模块测试，也不会修复主机配额、扩展缺失或面板权限。生产不依赖测试 FFI，不要求为自检开通 shell、进程执行或网络下载能力。</p>
+<h3>四、专注阅读与布局重排</h3>
+<p>“布局”分组新增专注阅读按钮开关。启用后已授权文章/商品正文页可隐藏侧栏并调整阅读宽度，再次点击恢复；不改正文权限、不删除购买控件、不保存额外个人跟踪数据。无 JavaScript 时使用正常布局。</p>
+<p>动效实验室新增“布局重排”开关。编辑器按稳定组件编号测量旧位置和新位置，只动画位置偏移；连续反向操作从正在显示的位置接上，结束后清理变换。展开状态、编辑焦点与实际 JSON 顺序一并保留。</p>
+<p>可用原有拖动/上下按钮，也可在组件内按 Alt+上/下方向键。位置变更提供屏幕阅读器播报；关闭动画或系统减少动态效果时仍立即重排并保存正确顺序，不减业务功能。</p>
+<p>全局时长允许 0–1200ms。0 表示这些时间动画立即完成，入场不保留交错等待；物理弹簧和持续装饰由各自开关及物理参数控制。要完全静止，请关闭动效总开关或使用系统减少动态效果，不把 0ms 与关闭所有连续装饰混为一谈。</p>
+</article><article id="chapter-21" class="chapter"><p class="eyebrow">CHAPTER 21 <a href="docs/CONNECTIONS_AND_OPERATIONS.md">分篇源文件</a></p><h2>0.15.0 账号连接、主动查单与配置快照</h2>
+<p>这是真实业务代码的使用说明，不是外部平台已完成联调的证明。新功能不按 PHP 小版本关闭，但网络、密钥、证书和平台审核条件必须真实满足。</p>
+<h3>1. 统一入口</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>位置</th>
+<th>地址</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>后台连接中心</td>
+<td><code>/admin/index.php?tab=integrations</code></td>
+</tr>
+<tr>
+<td>社交登录配置</td>
+<td><code>/admin/index.php?tab=settings&amp;group=connections</code></td>
+</tr>
+<tr>
+<td>配置快照</td>
+<td><code>/admin/index.php?tab=configuration</code></td>
+</tr>
+<tr>
+<td>徽章管理</td>
+<td><code>/admin/index.php?tab=badges</code></td>
+</tr>
+<tr>
+<td>用户安全中心</td>
+<td><code>/index.php?r=security</code></td>
+</tr>
+<tr>
+<td>公开徽章展馆</td>
+<td><code>/index.php?r=badges</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>子目录部署需在路径前加子目录。后台已按工作台、创作、社区、交易、体验分组，搜索框支持 Alt+/ 定位，清空搜索后恢复原分组状态。无 JavaScript 时仍可用原生折叠与链接。</p>
+<h3>2. Google / GitHub / Microsoft 登录</h3>
+<p>在对应平台创建 Web 应用，使用自己的 client ID 和 client secret。后台连接中心会显示按实际站点网址生成的回调地址，必须原样登记，例如：</p>
+<pre><code class="language-text">https://your-domain.example/oauth.php?provider=google
+https://your-domain.example/oauth.php?provider=github
+https://your-domain.example/oauth.php?provider=microsoft
+</code></pre>
+<p>先确认安装配置中的站点 URL 是真实 HTTPS，再保存密钥并开启总开关和单个平台开关。测试应用请按平台规则添加测试账号；外部应用未发布时不等于所有访客都能授权。</p>
+<p>Google 请求 <code>openid profile</code>，GitHub 请求 <code>read:user</code>，Microsoft 使用 <code>common</code> 端点和 Graph <code>User.Read</code>。Microsoft 应用的账户类型需允许实际登录的个人或组织账户；组织策略可能要求管理员同意。这三个驱动不是任意 OIDC、GitHub Enterprise、QQ、微信或抖音登录适配器。</p>
+<p>**已有用户：**先用本地密码登录，到安全中心绑定；需验证当前密码，已开启双重验证时还需验证器或恢复码。**新用户：**授权后仍需完成本地用户名、邮箱、密码和条款；站点的邀请码、邮箱验证与注册限额仍然生效。</p>
+<p>不会仅因外部账号和本地账号邮箱相同就合并。已绑定身份的登录也不会跳过本地双重验证。不持久保存访问令牌或刷新令牌；身份以平台、应用和稳定标识的摘要关联，不用显示名判断身份。授权 state 和完成凭据 10 分钟后失效，共用 PKCE S256。</p>
+<p>解绑需当前密码与已启用的第二因素，并撤销其他旧会话。这仅删除本站关联，不代替用户在平台安全页撤销应用授权。关闭新登录开关不会删除原关联；用户仍可用本地密码登录后解绑。</p>
+<p>主机需允许出站 TLS socket、DNS 和公网 443，配置正确 CA 信任。程序不需 cURL、Composer 或 <code>allow_url_fopen</code>，也不会在连接失败时关闭证书校验。不跟随跨域重定向，拒绝内网端点和非 443 端口，限制响应大小与超时。域名 DNS 当前通过 IPv4 解析；纯 IPv6 DNS 主机需另行适配与验收。</p>
+<h3>3. 易支付主动查单</h3>
+<p>适用于经典易支付余额充值订单，不是所有同名支付网关通用接口。在易支付设置中开启主动查询，填入商户提供的 API 地址，通常是 <code>https://gateway.example/api.php</code>。它必须与订单原收银台同 HTTPS 域名，不含查询参数。程序发送 <code>act=order</code>、<code>pid</code>、<code>key</code>、<code>out_trade_no</code>。</p>
+<p>用户在本人订单页点击查单，管理员也可在连接中心输入订单编号检查。服务端校验商户、订单、支付通道、精确金额和已支付状态后，调用与异步通知相同的入账服务。回调与查单竞争、重复查单不重复加钱。未支付、超时和信息不匹配都不会假装成功。</p>
+<p>使用原订单的商户与密钥快照；查询地址也随新订单保存。旧订单未保存地址时可使用当前地址，仍必须满足原网关同域约束。已过期充值单如有真实付款证据可恢复入账，不用于有稀缺库存的商品预留。</p>
+<p>每单每分钟最多 6 次，每操作账户每小时 30 次，已入账订单直接返回当前状态。查询结果和审计不记录密钥。这是按需查单，不是定时全量对账、自动退款、代付或 CodePay 主动查询。请先用自己的商户完成真实小额与重复通知验收。</p>
+<h3>4. 加密配置快照</h3>
+<p>快照只包含集中设置，不包含用户、商品、订单、资产、布局数据、附件或 <code>app/config.php</code>。**它不是整站备份。**数据库只保留最近 30 份，重要版本请及时导出并离线保存。</p>
+<p>先保存基线快照，再修改设置。恢复前预览差异，密钥只显示已隐藏标记，不输出原文。输入当前密码及已开启的第二因素后恢复，系统会先自动保存当前配置。如预览后有人修改设置，恢复将拒绝，需重新核对。</p>
+<p>导入和导出同样需身份二次确认。<code>.cysettings</code> 档案使用原站 <code>secret</code> 加密，只能由保留原密钥的站点打开；不是新建其他站点的可移植主题包。损坏、伪造、非本站密钥、超过 400KB 或含未知版本设置的档案会被拒绝。恢复使用与平时保存相同的校验和事务，不直接执行任意 SQL。</p>
+<h3>5. 永久会员与价格确认</h3>
+<p>后台会员套餐的天数填 0 表示永久，1–3650 表示指定天数。系统使用明确的永久标记时间 <code>253402214400</code>，不是简单给十年。前台显示永久，三个等级仍保持各自期限。永久高级会员不能重复付款买同级或更低级的重复权益；同级临时授予不会缩短永久权益。永久会员不自动获得所有付费内容，仍尊重内容自己的权限规则。</p>
+<p>本版不按剩余天数自动补差升级，不自动原路退回会员订单。价格确认现在同时带上币种与金额；整车为余额、积分、代币分别提交最高确认额，服务端重算后超额会回滚整单。这不是锁价或预留库存；价格上涨时刷新核对后重新提交。旧的自定义表单如不提交上限字段，不自动获得该确认保护。</p>
+<h3>6. 社区徽章</h3>
+<p>管理员创建徽章，选择固定安全图标、配色、排序和启用状态，再按用户 ID 授予。到期时间留空表示不自动到期。同人同徽章仅一条，更新期限不重复新建。可撤销指定用户的徽章，或停用整个徽章。徽章最多 200 种，后台近期授予列表显示 30 条，其余记录可按用户与徽章 ID 撤销。</p>
+<p>公开展馆与个人页排除过期授予、停用徽章和停用账户。徽章只是社区荣誉，不改变角色、会员、资产、下载或管理权限。暂无按任务自动发放规则，不把手工荣誉等同法定身份认证。</p>
+<p>徽章与连接图标使用有限次动效，不连续空转；尊重共用曲线、时长、扫光开关、减少动态效果和低资源模式。不强制用户等动画播完才进行交易。</p>
+<h3>7. 故障排查与验收</h3>
+<p>回调不匹配：核对站点 URL、子目录、HTTPS、端口和应用登记的完整地址。不要在一次授权中修改应用密钥，配置变化会使该次授权失效。会话丢失：确认同一浏览器、Cookie、同一域名及反向代理策略；不以关闭 state 检查修复。</p>
+<p>TLS 失败：核对主机出站权限、时间、DNS、OpenSSL 和 CA；不禁用证书校验。主动查单被拒绝：先确认是经典协议、充值订单、原商户密钥仍有效，以及网关是否启用查询接口。不要根据付款截图或返回 URL 手动伪造入账通知。</p>
+<p>本地协议夹具已检查这些分支，但不是真实平台授权。上线前应实测三家平台的注册、绑定、登录、双重验证与解绑，主动查单与通知重复到达，以及配置快照和整站备份的各自恢复。</p>
+<p>协议参考（核查 2026-09-06）：</p>
+<ul>
+<li>https://developers.google.com/identity/protocols/oauth2/web-server</li>
+<li>https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps</li>
+<li>https://learn.microsoft.com/en-us/graph/auth-v2-user</li>
+<li>https://epay.lyew.com/doc/v1_legacy_api.html</li>
+</ul>
+<h3>原生表单与外部跳转</h3>
+<p>本站继续保持 <code>form-action 'self'</code>，不会为社交登录或支付放开任意域名提交。异步表单收到经过服务生成的外部地址后由浏览器导航；无 JavaScript 的原生表单则结束为一个同源 200 继续页面，而不是直接返回外部 303。继续页在脚本可用时立即导航，没有人为倒计时；脚本不可用时保留真正的 HTTPS 链接，显示目标域名，并设置 no-store、no-referrer 和 noindex。订单继续支付入口也复用此页面。</p>
+<p>继续页不是支付成功页，不会触发入账；只有已校验的回调或主动查单能确认支付。它不是接受任意 <code>target</code> 参数的公开转发接口。原生 POST 刷新仍由原订单幂等键防止重复建单。此行为已经通过本地 HTTP 检查；当前环境不能完成真实浏览器跨站导航，仍需要在实际域名验收。</p>
+<p>设计依据：MDN 对 form-action 后续重定向的浏览器差异说明：https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/form-action 。</p>
+</article><article id="chapter-22" class="chapter"><p class="eyebrow">CHAPTER 22 <a href="docs/COMMERCE_016.md">分篇源文件</a></p><h2>0.16 交易、物流、会员与任务操作手册</h2>
+<p>先在隔离测试站操作。真实支付、代付、翻译和对象存储默认关闭。开关开启并不代表外部服务已开通；不能用伪造成功回调验收收款。</p>
+<h3>一、首次启用的顺序</h3>
+<p>先在“设置 → 统一结算”确认站点结算币种。默认 CNY；订单或资金活动出现后禁止随意更换，避免把人民币余额改成美元余额。没有自动换汇。旧 CNY 站点不应为开 PayPal 直接篡改数据库币种。</p>
+<p>确认商品使用余额计价、真实库存、交付说明、退款政策。积分／代币保留原来的站内购买流程。新结算一次最多 20 行、100 单位；数字权限与会员不作为重复批量商品。交易拆成逐单位订单，共享一次外部付款，便于单位级售后。</p>
+<p>先使用站内钱包或免费商品验收；再开一个直连测试渠道；验证付款、重复通知、超时查询、交付、退款和对账后才启用生产凭证。外部服务操作文档见 PAYMENTS.md。</p>
+<h3>二、访客下单与找单</h3>
+<p>访客填写联系邮箱、选择商品并复核总额。确认后系统生成随机 64 位十六进制私密通行证，保存在该浏览会话，并可从“访客订单”展开查看／复制。任何持有者都能访问这组购买记录，因此应像密码一样保存。</p>
+<p>通行证不是登录账号，不赋予资料、管理、会员或社区登录权限。邮箱只用于联系方式，不允许只凭邮箱枚举订单，也不会自动发送通行证邮件。丢失后由商家核对真实付款证据人工处理，不提供知道邮箱即可重置的捷径。</p>
+<p>访客付款可用已配置的官方渠道；非零金额不能借用不存在的站内余额。会员购买要求正式账号。已有账号可登录后显式“认领访客购买”；必须确认，且存在未解决的待支付单时不可认领。认领成功后旧通行证失效。</p>
+<h3>三、运费模板</h3>
+<p>后台“运费与促销”维护模板，并把模板绑定到实物商品。重量单位为克；金额单位为站点最小货币单位，例如 CNY 的分。示例可直接用于模板的 JSON 输入：</p>
+<pre><code class="language-json">{"mode":"weight","default":{"first":1000,"first_fee":800,"step":500,"step_fee":300,"free_above":19900},"zones":{"CN-XZ":{"first":1000,"first_fee":2000,"step":500,"step_fee":800,"free_above":0}}}
+</code></pre>
+<p>含义：普通地区首 1000 克 8 元，每增加 500 克加 3 元，达到模板内商品应付 199 元免邮；CN-XZ 使用独立费率。<code>free_above:0</code> 表示不启用满额免邮，不是无条件免费。</p>
+<p>按件设置 <code>mode:"piece"</code>，首件、续件分别用 <code>first</code>、<code>step</code> 表示。固定运费设置 <code>mode:"fixed"</code>。<code>default:null</code> 配合限定 <code>zones</code> 可以拒绝未列地区；没有默认也没有地区是无效模板。地区代码由你定义并告知买家，例如 CN-GD；地址中的自由文字不会自动地理编码。</p>
+<p>相同模板的实物商品合并计费，再按订单单位分摊；退款按照当时快照的金额处理，不按今天的新运费规则重算。若关闭运费模块或商品未绑定模板，应在运营前确认是否符合你的包邮规则，不要误开零运费。</p>
+<h3>四、组合优惠</h3>
+<p>规则带 <code>group</code>。同组只采用对买家更有利的一条，不同组按确定次序在剩余金额上叠加。所有折扣使用整数，分摊后的单位金额之和等于订单金额。</p>
+<pre><code class="language-json">{"type":"threshold_fixed","group":"order","min_amount":10000,"discount":1000,"item_ids":[]}
+</code></pre>
+<p>满 100 元减 10 元。以下是第二件半价：</p>
+<pre><code class="language-json">{"type":"nth","group":"quantity","min_amount":0,"nth":2,"discount_bps":5000,"item_ids":[12]}
+</code></pre>
+<p><code>discount_bps</code> 是减免的万分比，5000 为减半；<code>item_ids</code> 为空表示不按商品 ID 限定，非空只匹配所列商品。其他类型的完整字段模板可在后台“运费与促销”选择示例并编辑，服务端会再次验证类型、数值、作用范围和修订号。</p>
+<p>“买 X 送 Y”是现有购物篮的价格优惠，不会凭空给订单添加赠品，不是拼团。优惠券只允许单单位、已登录用户使用，并遵守原有叠加限制。发布促销前应测试同组、跨组、会员价、券、运费和库存同时存在的组合。</p>
+<h3>五、售后与原路退款</h3>
+<p>买家在收据页发起退款、退货退款或换货，并填写原因；可以关联属于自己的媒体作为证据。默认申请窗口为 30 天，可后台调整。实物已发货的退货应选择寄回流程，不把“已发货”直接当作未履约取消。</p>
+<p>后台“售后与退款”要求管理员密码，启用双重验证的账户还需验证码。审核通过：仅退款进入退款队列；退货退款／换货进入等待寄回。买家填写运单，商家检查收货并选择是否可再次销售。换货仅支持同商品同 SKU；检查库存后再录入补发运单，买家确认收货后完成。状态和修订号防止旧页面重复审核。</p>
+<p>退款以一个单位订单的全部成交额为准，包含它分摊的运费。本版不提供任意金额部分退款或按政策自动扣除退货邮费。站内钱包支付退回原站内资产；直连支付进入原网关退款，<strong>不同时给站内余额入账</strong>。确认外部成功后才撤销交付权益、处理库存／邀请码、冲回收益和佣金。已发卡密不会自动重新出售；已使用邀请码阻止自动退款。</p>
+<p>网络超时是“不确定”，不是失败或成功。退款会保留固定退款号，后续先查询；不能手动把未知退款改成已完成以消除红色状态。确认为失败的单保留商家处理记录；在商户后台查清资金后由受控人工流程解决，勿直接修改金额或订单状态。</p>
+<p>旧版“订单 → 退款”仍用于原来的站内订单；新统一结算单导向新售后入口。外部充值退款和普通会员整单撤销不在这套商品自动售后范围。</p>
+<h3>六、永久会员与补差</h3>
+<p>套餐天数为 0 表示永久，VIP 1–3 仍各自记录期限。本版新购会员会记录付款权益批次，补差依赖该批次而不是猜测用户当前等级。有限期批次的可抵扣价值按剩余时间比例向下取整；永久批次按后台保留价值万分比折算。</p>
+<p>两个模式：“新周期”购买目标套餐的新完整期限；“保留到期日”在当前有效期限内升级。最终抵扣不超过目标应付价值，超出的残值不退现金、不另存余额。只能向更高级升级；永久批次不会被错误降成有限期，永久升级要求适当的永久目标套餐。报价带签名与 5 分钟时效，付款时再次验证会员、套餐和来源批次，旧标签页不能沿用已变化权益的报价。</p>
+<p>例如源年卡 100 元、剩余约 180／365 天，可抵扣约 49.31 元；目标新年卡 200 元，新周期应付约 150.69 元。实际代码按秒、最小货币单位计算，以页面最终报价为准。保留到期日模式还会按同一剩余期限折算目标价格，不能套用新周期示例。</p>
+<p>本版补差结算走站内资产；普通新会员套餐可用统一外部支付。历史订单需后台核验其实际付款、开始时间与截止时间后导入可追溯批次；导入不是人工制造新权益。补差退款仅退本次补付款，并核对权益是否仍属于该次升级；之后人工授予或再购买的权益不会被覆盖。复杂混合券包、组合服务权益与所有历史规则不属于本版支持范围。</p>
+<h3>七、主动查单、自动任务与代付</h3>
+<p>后台“交易控制台”可查单；“售后与退款”可处理退款和提现任务。普通页面浏览不悄悄批量调用外部付款 API。任务执行器一次处理 1–10 项，支付、退款、代付按最久未处理项推进；没有强制常驻队列。</p>
+<p>VPS 可使用完整包里的 <code>tools/run_jobs.php</code>，调用方法见脚本自身提示。共享主机可由你控制的调度器向 <code>jobs.php</code> 发送签名 POST：JSON 正文如 <code>{"limit":1}</code>，请求头 <code>X-CY-Time</code> 为 Unix 秒、<code>X-CY-Nonce</code> 为随机 32 位十六进制、<code>X-CY-Signature</code> 为下列字符串的 HMAC-SHA256 十六进制摘要：</p>
+<pre><code class="language-text">时间戳 + "\n" + nonce + "\n" + SHA256(原始请求正文)
+</code></pre>
+<p>密钥来自后台“自动任务”的 jobs_secret，至少 32 字符；时间差不超过 300 秒，同一时间戳与 nonce 不能重放。不要把密钥放进 URL，也不要把它交给不可信免费定时平台。本包附 <code>tools/trigger_jobs.php</code>，在可运行 PHP 的可信机器上生成签名请求，不要求站点本身有 SSH。</p>
+<p>自动代付仅实现 PayPal Payouts。需要商户申请相应权限、站点使用其支持币种、收款邮箱准确。管理员审核提现并再次证明身份后才排队；查询不明时保留冻结，既不重复发起新批次，也不释放资金。作者收益与推荐佣金的来源继续隔离。并未提供支付宝企业付款、微信商家转账、银行卡代付或替用户代付购物订单。</p>
+<h3>八、上线验收清单</h3>
+<p>用独立测试账户完成：库存不足、价格变化、重复点击、重复通知、访客换浏览器、通行证失效、优惠叠加、禁止地区、部分单位售后、寄回和换货、退款查询超时、代付超时、不同会员期限、永久升级以及退款后权限。用真实商户允许的小额测试核对支付平台与站内账目；不得仅看本站显示“成功”。</p>
+</article><article id="chapter-23" class="chapter"><p class="eyebrow">CHAPTER 23 <a href="docs/MEDIA_LANGUAGE_BUILDER.md">分篇源文件</a></p><h2>中英文、内容翻译、页面编排与媒体</h2>
+<h3>一、中英文切换</h3>
+<p>前台顶栏和后台侧栏都有 EN／中文按钮，通过带 CSRF 的 POST 保存偏好；刷新后保留，会话及作用域明确的 <code>cy_locale_site</code> / <code>cy_locale_admin</code> cookie 不提供模板路径输入。后台“国际化”可以设置默认语言、是否协商浏览器语言及是否展示切换入口。0.17起前台、后台分别保存偏好；旧统一偏好仅作兼容回退。</p>
+<p>界面使用统一语言入口 <code>Locale</code> 和 <code>app/lang/zh-CN.json</code>。英文为代码键值，中文为语言包。商家自定义的品牌、导航、商品名称、条款、正文不会被擅自自动翻译；语义不同但中文相同的短标签可能共享反向映射，发布前仍应校对自己常用页面。</p>
+<h3>二、内容翻译与隐私</h3>
+<p>后台“内容译文”选择内容与目标语言，可保存草稿或发布。译文只覆盖公开标题、摘要和正文；受保护正文保持原版，不向翻译服务发送。译文绑定原文编辑版本，原文一旦变更，旧译文不再展示或参与检索，需校对后重新发布。</p>
+<p>可选 LibreTranslate HTTPS <code>/translate</code> 兼容服务。填写完整 API 地址和可选密钥，勾选发送公开文本的确认后生成草稿。默认没有第三方地址，不会自动把全站文章上传。服务商可能收费或有配额；请自己确认数据处理条款。自动翻译不处理过长字段，不保证代码、专有词、法律或交易文案准确；人工审核后再发布。</p>
+<p>搜索采用公开元数据与有效译文。0.17新增可分批构建的便携倒排索引，支持英文词与CJK相邻字符组合、多词AND与相关性排序；未完成构建时回退legacy元数据查询。不会检索付费正文或绕过栏目限制，仍不是Meilisearch/OpenSearch。详见PLATFORM_017.md。</p>
+<h3>三、全站编排</h3>
+<p>后台“布局工作台”可选 22 个插槽：home、articles、forum、shop；global_before／global_after；article_before／article_after；page_before／page_after；page1–page12。独立页面地址为：</p>
+<pre><code class="language-text">/index.php?r=landing&amp;slot=page1
+</code></pre>
+<p>11 种区块：标题、文字、内容、专题、行动按钮、统计、链接、留白、首屏、问答、媒体。支持排序、复制、导入／导出、设备与外观配置；访客／会员／VIP 条件在服务器决定，不是仅用 CSS 隐藏机密内容。</p>
+<p>问答区块每行写“问题|答案”，最多 20 条。媒体区块使用已存在的媒体 ID，遵守媒体访问权限。按钮选择落地页时配置对应 pageN。给区块取稳定且唯一的 ID；系统也给 DOM 标识加插槽前缀，避免全局和页面内同名冲突。</p>
+<p>0.17新增独立草稿、发布、放弃和最近20次发布历史；恢复会创建新版本并检测并发冲突。它仍是安全结构化编排，不提供任意PHP/JS注入或无限自由画布。用户上传的商业主题模板不能直接导入。已存在独立内容“页面”的正文与 page1–page12 编排页是不同入口。</p>
+<h3>四、本地分片上传</h3>
+<p>后台“媒体工作台”选择本地续传模式，选择文件并开始。每片为 256 KiB，逐片校验，最后按原顺序拼装并执行统一 MIME／尺寸校验；缺片不能发布，相同片重复发送不增加媒体记录。可暂停、选回同一个文件并继续，浏览器仅记住任务标识和文件指纹，不保存文件正文或存储密钥。</p>
+<p>默认最大文件 256 MiB、未完成总配额 512 MiB，每个管理账户最多 8 个未完成任务；可以调小。不是主机保证容量。为拼装和正式文件需保留约三倍文件大小再加余量，且单次完成阶段仍受 PHP 执行时间限制。免费 1 GB 空间不适合存放多个大视频；优先小文件验收或使用对象存储。</p>
+<p>仅管理权限可使用工作台，普通用户仍走原来的受限上传。允许的资源类型包括图片、文本、PDF、ZIP、MP4、MP3；SVG／可执行脚本不作为可公开执行文件接受。临时片和本地正式文件都用受保护封装，仍需保持目录拒绝访问规则。</p>
+<p>未完成任务到期后要在工作台取消，释放配额和临时片；没有声称已实现自动清理守护服务。大文件续传不等于视频转码、直播、HLS 或 DRM。</p>
+<h3>五、S3／R2 私有对象存储</h3>
+<p>后台设置完整 HTTPS 桶端点、桶名、区域、访问密钥、私钥、前缀和可选会话令牌。两种端点形式：桶域名形式，或者服务域名后加 <code>/桶名</code>。AWS 区域必须和桶一致；R2 通常使用其要求的区域值 <code>auto</code>，以账户配置和官方文档为准。</p>
+<p>示例仅为形态，不是可用凭证：</p>
+<pre><code class="language-text">AWS: https://your-bucket.s3.your-region.amazonaws.com
+R2:  https://your-account.r2.cloudflarestorage.com/your-bucket
+prefix: chengyu
+</code></pre>
+<p><strong>必须把桶设为私有并关闭公开读取。</strong> 预签名并不会把原本公开的桶变私有。授予应用所需前缀的读、写和 CopyObject 所需权限，避免根账户权限；密钥变更前做好旧文件访问迁移。配置快照保留在每条媒体记录里，改站点新密钥不会自动迁移所有旧记录。</p>
+<p>浏览器先上传到 <code>prefix/staging/随机ID</code>，短期 PUT 签名绑定类型、长度及任务。服务端验证 HEAD、样本、类型与 ETag，再条件复制到不可由该 PUT 链接覆盖的 <code>prefix/media/随机ID</code>，最后登记正式媒体。即使暂存 PUT 链接被重用，也不能覆盖已发布的正式对象；复制响应丢失可查询正式对象后恢复，不重建媒体记录。</p>
+<p>跨域规则须允许你的网站<strong>准确来源</strong>，允许 PUT／GET／HEAD 和签名要求的 <code>content-type</code>、<code>x-amz-meta-cy-id</code> 等请求头；按供应商规则处理预检，暴露 ETag 等必要响应头。不要为省事给所有不可信来源开放写入。站点 CSP 仅放行当前配置的存储来源，变更端点后要验证旧链接和播放器。</p>
+<p>给 staging 前缀设置至少一天后的生命周期清理，别误删 media 正式前缀。对象上传完成后临时对象不会自动删除，未设置生命周期会额外占存储。本版对象直传是单次 PUT，不是 S3 multipart 断点续传；本地续传与对象直传是两条不同路径。</p>
+<p>下载先经过本站权限校验，之后得到约 120 秒的短签名链接。有效期内该链接仍是持有者可访问的能力，不能阻止购买者转发或保存文件；退款不能收回已经下载的副本。不要把签名 URL 长期写进公开文章。没有宣称 DRM。</p>
+<p>协议参考（核查 2026-09-06）：
+https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html
+https://docs.aws.amazon.com/AmazonS3/latest/developerguide/sigv4-query-string-auth.html
+https://developers.cloudflare.com/r2/api/s3/api/
+https://docs.libretranslate.com/guides/api_usage/</p>
+<p>这些是协议依据；本包只完成离线签名／响应夹具和本地站点测试，未登录你的真实 S3／R2／翻译服务验收。</p>
+<h3>0.17 课程化组织</h3>
+<p>媒体可关联课程章节，按来源文章/数字商品的购买、VIP、有效期和下架状态重新判权。免费预览意味着章节资源可访问，不要误复用收费资源。个人笔记/进度明确点击保存；没有转码、直播、证书或防刷学时。流程见PLATFORM_017.md。</p>
+</article><article id="chapter-24" class="chapter"><p class="eyebrow">CHAPTER 24 <a href="docs/EN_QUICKSTART.md">分篇源文件</a></p><h2>Chengyu 0.18.0 — English quick start</h2>
+<p>This release extends the uploaded <strong>0.17.0</strong> independent PHP application. Database schema is <strong>v10</strong>; the installation configuration format remains 1. It is not WordPress and does not contain the proprietary reference theme. Complete historical feature equivalence is not claimed.</p>
+<h3>Install or upgrade</h3>
+<p>Upload only the upload ZIP contents into the public website root. Keep the complete package, tests, recovery tools and INSTALL_KEY.txt private. Open <code>/install/</code>, supply the private installation key, your database and administrator credentials. Remove the installer after successful installation. Required: 64-bit PHP, native PDO MySQL or SQLite, OpenSSL, Fileinfo, writable protected storage and effective web-server directory restrictions. SQLite must be outside the public web root.</p>
+<p>For an existing site, pause writes and scheduled financial jobs; consistently back up the database, code, original app/config.php, its secret and all storage. Preserve configuration and storage while updating. Do not reinstall. Rollback requires matching database/code/secrets/storage and reconciliation of money already moved externally.</p>
+<p>PHP 7.4–8.5 use the same business paths. Only PHP 8.4.23 was actually executed here, with a test-only adapter to real SQLite, not native PDO/MySQL. Runtime Composer, Node, Redis, FFI, SSH and permanent workers are not required. The optional CLI recovery workflow needs a separate compatible local/VPS environment when the shared host has no SSH.</p>
+<h3>New workspaces</h3>
+<p><strong>External search:</strong> optional Meilisearch over validated public HTTPS on port 443. Use a dedicated index beginning with cy_, an index-scoped server-side key and explicit consent to publish public search metadata. No paid bodies, private notes or support messages are indexed. Enqueue bounded batches and process the outbox from the admin panel; accepted asynchronous tasks are not marked complete until confirmed. Local permissions and content versions are rechecked after remote ranking, and local search remains the fallback. Changing servers leaves old remote data under the operator's control. This is not the full Meilisearch facets/synonyms administration UI.</p>
+<p><strong>Multiple parcels:</strong> up to 20 independently tracked parcels per paid physical order, including revisions, duplicate-submission protection and ownership checks. Each parcel has its own manual/provider events. This does not allocate item quantities, print shipping labels, manage warehouses or automatically confirm receipt or settle money.</p>
+<p><strong>Recovery vault:</strong> password-protected database snapshots with optional completed local media, bounded by size and execution time. Download the archive and keep its independent password separately. Source code, database connection password, unfinished uploads and cloud object bytes are not included. The encrypted archive contains the original application secret and sensitive account/commerce data; treat both archive and password as confidential.</p>
+<p>Use <code>tools/recover-backup.php</code> only in a separate private CLI environment. It authenticates the whole archive before writing and requires an empty target, the same application/schema version and the same database engine. Read the password on standard input, not as a command-line argument. Restore defaults to maintenance mode, pauses jobs and disables external services; verify balances, credentials and original cloud buckets before re-enabling. This is not a cross-engine converter, automatic offsite backup or one-click live-site overwrite. See BACKUP_RECOVERY.md for exact commands and failure cleanup.</p>
+<p><strong>Verification limits:</strong> independent IP/recipient fixed-window limits for ten minutes, one hour and one day, plus a true elapsed cooldown. All checks reserve quota atomically. This extends email verification only; it does not add missing SMS providers.</p>
+<h3>Existing features and limits</h3>
+<p>Courses, private progress/notes, layout drafts/history, support tickets, local indexed search, normalized CSV reconciliation, Alipay WAP/PAGE, WeChat H5, Stripe Checkout and PayPal digital checkout remain. PayPal Payouts requires review and a real account. Financial tasks need actual scheduling or manual admin execution. No implicit currency conversion is performed.</p>
+<p>Frontend and admin locale preferences are independent; merchant-authored content is not automatically translated. The new workspaces support Chinese/English and reduced-motion preferences. Third-party services, native databases, real shared hosts, full browser URL navigation and all seven PHP runtimes were not verified here. Use ACCEPTANCE_018.md before accepting real payments.</p>
+<p>See PLATFORM_018.md, BACKUP_RECOVERY.md, FEATURE_MATRIX.md and TEST_REPORT.md. Read START_HERE.html from the complete package for the full offline manual.</p>
+</article><article id="chapter-25" class="chapter"><p class="eyebrow">CHAPTER 25 <a href="docs/PLATFORM_017.md">分篇源文件</a></p><h2>0.17.0 新模块操作手册</h2>
+<p>本版基于 0.16.0，数据库目标 v9。下面描述已接入界面的功能，不表示真实服务账号已经联调。旧交易/会员/售后说明继续见 <code>COMMERCE_016.md</code>。</p>
+<h3>1. 搜索索引：后台 → 搜索索引</h3>
+<p>先到设置的检索分组选择 portable。后台索引页显示当前游标、内容数和词条数。点击“继续构建”会逐批处理，每个请求 10 条；当前页面最多连续 100 批后暂停，再点击可接着处理。关闭页面不会启动后台守护进程，已完成的游标保留。无 JavaScript 可点击单批按钮。</p>
+<p>重建会清空旧索引并从头开始。重建完成前，前台自动使用原有元数据搜索；完成后使用倒排索引。大站在业务低峰重建，检查数据库空间和执行时间。管理员发布/编辑内容、审核译文时同步相关索引，不必每次全量重建。</p>
+<p>索引只包含公开标题、摘要、标签及当前有效发布译文，不索引正文、付费正文、章节、私信、工单或笔记。查询时仍检查在线发布状态、原文修订、栏目与模块权限。搜索支持英文词和中日韩文字相邻二元组，不等同于语言学分词、拼音纠错、同义词或 Meilisearch/Elasticsearch。后台可切回 legacy。尚未验证十万/百万内容性能。</p>
+<h3>2. 课程：后台 → 课程工作台</h3>
+<p>先创建一篇文章或数字商品，设置真实的阅读/购买/VIP权限与价格，再创建课程并填入该内容 ID。课程保存后固定使用此来源，不允许随意更换造成历史购买错绑。每个来源最多一个课程。</p>
+<p>课程可先存草稿；填入课程标题、公开说明，再创建章节。章节支持 Markdown、顺序、时长、发布状态、免费预览与一个私有资源 ID。资源需先在媒体工作台上传为私有 MP4、MP3、PDF、ZIP 或纯文本。最多 500 章节，课程侧栏暂显示最新 100 课程；较早课程可按 ID 打开。</p>
+<p>“免费预览”明确公开本章节及其资源，不是只公开标题。不要在预览和付费章节中复用同一个私有文件，除非确实希望公开。已有公开媒体不能填入私有资源字段。</p>
+<p>前台 <code>/index.php?r=courses</code> 为学习中心，课程详情显示章节，<code>r=learn&amp;id=章节ID</code> 为阅读页。未购买用户只能看允许预览的章节。购买、会员资格和有效期沿用来源内容权限，成功退款后撤销对应购买权限；下架课程/章节也会重新校验。管理员/编辑可查看草稿。</p>
+<p>登录用户可保存进度、完成标记与私人笔记。媒体暂停会填入当前位置，必须点击保存才同步到账户；不在后台自动监听学习。多设备同时编辑时后保存的旧版本会被拒绝，先刷新再合并笔记。“完成”是用户自报，不是考试、证书或防刷学时。访客购买可读已授权内容，但保存学习记录需要注册账号。</p>
+<p>本版不是直播、HLS、转码、DRM、自动字幕、测验或证书平台。使用原生 MP4/MP3 播放器和现有 Range/对象短时链接。</p>
+<h3>3. 页面编排：草稿、发布、历史</h3>
+<p>原有 22 个位置与 11 种区块继续可用。后台编排页增加草稿状态和版本信息。“保存草稿”仅保存编辑状态；“发布”才更新线上 JSON。“放弃草稿”不会撤销已发布页面。</p>
+<p>每个位置保存最近 20 次发布快照。选择历史恢复会产生一个新发布版本，保留操作审计；不是倒改版本号。当前存在旧草稿时，恢复会将它标记为过期，避免覆盖线上新内容。多人同时编辑发生冲突时先重载，对照内容后再保存，不要重复点击强行覆盖。</p>
+<p>恢复布局只恢复结构化布局，不恢复已删除文章、媒体或站点设置。本版仍是安全区块编排，不是任意像素画布；不能执行任意 PHP、JavaScript 或第三方 WordPress 小工具。前台导航可选择课程、学习记录和客服入口，沿用原有公开/登录/VIP/认证显示条件。</p>
+<h3>4. 物流：后台 → 物流履约</h3>
+<p>填入已支付实物单位订单 ID、承运商代码和单号保存。沿用原订单发货检查，不给未付款、非实物或不允许再次发货的订单绕过限制。再次修改需要当前修订版本；单号改变会清除旧轨迹，避免两个包裹串单。</p>
+<p>手工轨迹需填含时区时间，例如 <code>2026-09-07T10:00:00+08:00</code>，以及简短说明。单个运单最多 200 条人工记录。订单拥有者从订单/收据进入轨迹页；别人的账号无法查看。</p>
+<p>需要快递100时，在交易设置中选择 kuaidi100，填写自己的 customer 与 key。key 使用现有加密设置存储。查询时勾选同意发送单号及必要手机号，再点击刷新。顺丰/丰网需填写符合渠道要求的寄件或收件手机号。请向服务商确认具体格式、开通权限与额度。</p>
+<p>最小查询间隔默认 900 秒，可在 300–86400 秒之间调整。缺少必填手机号不会占用间隔；已发出的请求即便失败也保留间隔，防止连续请求产生费用。结果须匹配承运商和单号，网络请求返回后还要核对原修订版本。电话只随本次查询发送，不由该模块另外持久化；轨迹与单号使用站点密钥加密。</p>
+<p>物流接口结果只作信息展示，不自动收货、退款或释放收益。人工记录和承运商记录分别标明来源。没有电子面单、多包裹、多仓、退件独立轨迹或换货差价计算。没有后台持续轮询；接口密钥与真实轨迹本轮未联调。</p>
+<h3>5. 账单：后台 → 账单核对</h3>
+<p>此模块与“逐单主动查支付状态”是两件事。下载你自己商户后台的账单，依据 <code>STATEMENT_FORMAT.md</code> 转成标准格式，再粘贴或上传 UTF-8 CSV。最多 2 MiB、2000 行，账期最长 31 天，金额使用未扣渠道手续费的最小货币单位整数。</p>
+<p>导入时填写渠道、含时区的开始/结束时间。开始包含、结束不包含；同一账期、渠道与文件摘要重复导入返回原批次。核对结果区分仅账单存在、仅本地存在、金额/币种/交易号/状态/入账凭证/时间范围不一致。</p>
+<p>处理差异前去原渠道查单核实。点击重新核对只重读当前本地记录。上传的 CSV 是不可信输入，不能据此更改订单、余额、退款或代付。此模块不自动下载四家账单，也不处理手续费、税款、汇兑、银行账户勾兑或完整会计总账。</p>
+<h3>6. 客服：前台 → 客服工单；后台 → 客服工单</h3>
+<p>启用支持模块后，已注册用户可创建工单，填写主题、正文及可选的本人订单 ID。访客影子账号不能冒充注册用户开工单。正常用户仅能读取本人工单和回复，管理员可在后台处理。</p>
+<p>管理员回复后状态变为等待用户；用户回复后重新打开。用户可关闭/重开自己的工单；管理员还可标记解决和设置紧急优先级。关闭状态不允许直接回复，必须重开。回复带版本检查，重复提交键与内容绑定，网络重试不会生成重复回复。</p>
+<p>模板仅自动填入可编辑文本，不自动发送。管理员回复会生成站内通知，不代表配置了邮件或短信。每个工单最多 1000 回复，分 50 条分页；后台模板最多 100 个。没有附件工单、多人坐席分配、SLA工时统计或外部工单平台同步。</p>
+<h3>7. 中英文与支付宝电脑网站支付</h3>
+<p>前台和后台语言按钮分别保存偏好，切换后台英文不会把前台一起改成英文。旧版偏好作为兼容回退；站点默认语言与可选浏览器协商沿用原设置。自定义课程名、商品文案和商家自己写的内容不会仅凭界面切换自动翻译。内容翻译仍需审核发布；自动翻译是可选外部服务。</p>
+<p>官方支付设置新增支付宝体验 <code>wap/page</code>。wap 为手机网站支付，page 使用 <code>alipay.trade.page.pay</code> 与 <code>FAST_INSTANT_TRADE_PAY</code>；同一服务的查单、通知验签、退款与幂等逻辑继续复用。不是微信 Native，也不包括支付宝当面付、证书模式或所有产品线。切换前先确认商户签约权限并做真实沙箱/小额验收。</p>
+<h3>8. 界面和部署验收</h3>
+<p>新工作台复用主题颜色、焦点、表单和动画体系；课程卡片有悬停抬升与封面缩放，工作台轨道装饰使用统一曲线，系统减少动态效果偏好会关闭装饰变换。手机变为单栏，章节目录不固定遮挡内容。后台仍保留无 JavaScript 的原生提交路径。</p>
+<p>新增后台入口及前台链接已接入现有导航，没有放只显示菜单却没有控制器的按钮。正式上线按 <code>ACCEPTANCE_017.md</code> 逐项验证，尤其是自己主机上的原生 PDO、目录保护、HTTPS、公网通知和外部服务条件。</p>
+</article><article id="chapter-26" class="chapter"><p class="eyebrow">CHAPTER 26 <a href="docs/STATEMENT_FORMAT.md">分篇源文件</a></p><h2>标准化账单格式与差异处理</h2>
+<p>本模块用于人工准备数据后的只读核对，不是会计软件，不会改变资产。禁止把不明来源的文件当作支付成功依据。</p>
+<p>CSV 必须是 UTF-8（可带 UTF-8 BOM），英文逗号分隔，表头严格如下：</p>
+<pre><code class="language-csv">event_type,reference,trade_id,currency,amount_minor,state,event_at
+payment,LOCAL_SALE_NO,PROVIDER_TRADE_ID,CNY,100,succeeded,2026-09-07T10:00:00+08:00
+refund,LOCAL_REFUND_NO,PROVIDER_REFUND_ID,CNY,100,succeeded,2026-09-07T11:00:00+08:00
+</code></pre>
+<p>这里的号码是格式示例，不是真实交易。不要直接用示例“核对”生产账单。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>规则</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>event_type</td>
+<td>payment 或 refund</td>
+</tr>
+<tr>
+<td>reference</td>
+<td>payment 对应 cy_sales.sale_no；refund 对应 cy_refunds.refund_no，不是网站单位子订单 order_no</td>
+</tr>
+<tr>
+<td>trade_id</td>
+<td>渠道交易号或退款号。成功行必须非空；允许字母数字和 . _ : -，最长 191</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>CNY、USD、EUR、GBP、HKD、SGD、CAD、AUD；本模块只处理这些两位小数币种</td>
+</tr>
+<tr>
+<td>amount_minor</td>
+<td>非负整数，不含千分位、货币符号或小数点。100 表示该币种 1.00；最大 12 位</td>
+</tr>
+<tr>
+<td>state</td>
+<td>succeeded、pending 或 failed</td>
+</tr>
+<tr>
+<td>event_at</td>
+<td>ISO 8601，必须有秒和时区，如 Z 或 +08:00；不能使用含糊的本地时间</td>
+</tr>
+</tbody>
+</table></div>
+<p>reference 最长 80 位，只接受字母数字开头及 . _ : -。拒绝公式前缀和不合法引用。每个导入文件，同一 event_type+reference 只接受一行；先选定同一事件的最终状态，再导入。文件最多 2 MiB、2000 条，跨度不超过 31 天。包含窗口起点，不包含窗口终点。</p>
+<p>必须先把服务商导出列转换成上面的名称与含义。绝不能把“到账净额”当作订单毛额、把人民币转换后金额贴上美元币种、把支付交易号当作退款号。时区要与导出账期一致。渠道会在支付后产生退款记录；二者分别对应 payment/refund。</p>
+<p>核对优先级：不存在 → 币种 → 金额 → 交易号 → 状态 → 入账/退款凭证 → 完成时间。一个行显示当前首先遇到的差异，修正原因后可重新核对。仅本地存在可能是导出范围、时间边界或平台延迟，也可能是真正缺失；先核实，不能直接判定资金丢失。</p>
+<p>本地反向扫描超过 2000 条缺失记录时会拒绝这个范围，缩小账期后再导入。比较使用站点支付成功和退款更新时间，不保证与渠道清算日一致。“匹配”只表示这些字段一致，不代表银行清算、平台争议或退款终局已核验。</p>
+<p>数据库只保存规范化行、文件摘要和核对结果，不保存原始 CSV 文件。审核账号仍可读取交易引用，应最小化后台权限。若需要原始账单留档，请保存在 Web 根目录之外的受控存储。</p>
+<p>操作复核：先做一个正确样本，再分别修改一项金额/币种/交易号/状态/时间，确认报告识别；重复导入应回到同一批次；所有这些操作后余额和订单不应发生变化。</p>
+</article><article id="chapter-27" class="chapter"><p class="eyebrow">CHAPTER 27 <a href="docs/ACCEPTANCE_018.md">分篇源文件</a></p><h2>0.18 上线前实机验收</h2>
+<p>本地测试报告不能替代本页。先用不涉及真实资金的隔离站点操作，保留故障记录与恢复副本。</p>
+<h3>安装、保护与版本</h3>
+<p>确认64位PHP、原生PDO驱动、OpenSSL、Fileinfo、Session及可写存储。程序版本0.18、数据库v10、配置格式1。旧站必须保留原 <code>secret</code>。不要为绕过错误删除 <code>app/</code>、<code>storage/</code> 等保护规则；访问配置、日志、备份和媒体封装路径时不应输出私密数据。后台仅管理员/对应角色可访问，上传包不能含私有安装口令或测试文件。</p>
+<h3>共用功能回归</h3>
+<p>验证旧账户和TOTP、钱包账目、会员永久权益和补差、付费正文/附件、访客通行证、购物车计价、原库存/卡密、物流、退款审批、作者收益冻结及导航权限。双语分别设置并刷新前后台；不得把日志或私密付费内容发送给搜索或翻译服务。</p>
+<h3>本轮增量</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>操作</th>
+<th>验收标准</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>搜索文字0、中文和英文词</td>
+<td>不误当空查询，当前可读内容正确显示</td>
+</tr>
+<tr>
+<td>Meilisearch同步一篇内容</td>
+<td>收到taskUid时未完成，任务成功后查询可用；改版/下架后本站不会显示旧权限内容</td>
+</tr>
+<tr>
+<td>关闭远端服务</td>
+<td>本地检索仍工作；后台失败留在队列，没有假成功</td>
+</tr>
+<tr>
+<td>两个包裹与同键重试</td>
+<td>两个独立单号/轨迹；相同新建请求不会第三次建包裹</td>
+</tr>
+<tr>
+<td>非订单所有者查看物流</td>
+<td>返回拒绝/不存在，不显示收件信息与轨迹</td>
+</tr>
+<tr>
+<td>验证邮件连续发送</td>
+<td>IP/收件人额度与冷却同时生效，拒绝不消耗无关额度</td>
+</tr>
+<tr>
+<td>后台备份与下载</td>
+<td>需CSRF及当前密码/TOTP；文件非明文；普通用户不可取得</td>
+</tr>
+<tr>
+<td>错误密码、改坏文件</td>
+<td>离线检查拒绝，不能写入目标库</td>
+</tr>
+<tr>
+<td>恢复到空目标</td>
+<td>账户、长整数余额、卡密、媒体正确；维护/任务暂停、会话撤销；原站不受影响</td>
+</tr>
+<tr>
+<td>恢复到非空目标</td>
+<td>拒绝覆盖</td>
+</tr>
+<tr>
+<td>手机/平板/桌面</td>
+<td>320/390/768/1440宽度无横向遮挡，键盘可操作，减少动态效果有效</td>
+</tr>
+</tbody>
+</table></div>
+<h3>真实支付与服务</h3>
+<p>分别使用你实际签约的支付宝/微信/Stripe/PayPal产品，在其允许的测试或小额验收环境确认创建、通知验签、主动查单、拒绝假金额、重复通知、超时未知状态、原路退款和代付状态。不把mock协议测试当商户联调。实际账户不支持的支付产品线不要强行启用。</p>
+<p>外部调度要验证认证、网络可达和执行记录；免费主机没有可靠调度时，只能人工推进，不能承诺无人值守及时完成。出站DNS/443、服务证书、存储CORS/对象访问、物流查询和翻译提供商应分别检测。</p>
+<p>本轮未实测所有PHP版本、原生PDO/MySQL、两家免费主机、VPS新机脚本和公网浏览器流程。CI文件不是通过记录。高版本数据库回滚必须同步恢复代码和数据库，不可只换旧文件。</p>
+</article><article id="chapter-28" class="chapter"><p class="eyebrow">CHAPTER 28 <a href="docs/HISTORICAL_FEATURES.md">分篇源文件</a></p><h2>ICU7.8、官方早期档案至V9.1功能核对</h2>
+<p>核查日期2026-09-07。目标是发现功能缺口，而不是照抄主题实现、发布宣传或WordPress接口。状态“已有”仅指本工程存在对应模块，不表示完整等价或真实商户验收。</p>
+<h3>本轮实际来源</h3>
+<p>重新连续读取用户ICU三个RAR分卷，遍历13,652个归档条目，对主题目录952个文本文件建立路径/大小/摘要索引。主题头Version7.8；8个目标文件有符号/行号及定向控制流程核查记录，并未逐行审计所有952个文件。细节见 <code>REFERENCE_AUDIT.md</code>。</p>
+<p>官网早期档案[A]自述V1.0–V5.9，当前可见独立条目主要为V2.0–V5.7，不声称取得全部V1.x和每个缺失小版本的正文。后续日志[B]核对V6–V9版本族和可见功能条目，最新V9.1为2026-09-01。直接抓取官网个别页面超时，采用官方域名搜索缓存补充；缓存可见内容与安装运行每个版本不是同一件事。</p>
+<h3>功能族与当前差距</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>参考演进</th>
+<th>澄屿实现</th>
+<th>尚不等价的部分</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>V2–V3 内容付费、会员、邮件与账户绑定 [A]</td>
+<td>内容访问、下载、会员等级/永久、邮件验证、OAuth连接</td>
+<td>非全部登录或支付渠道；没有WordPress生态兼容层</td>
+</tr>
+<tr>
+<td>V4 导航、列表、SEO、链接与搜索记录 [A]</td>
+<td>标签/分类/专题、导航权限、链接、SEO、浏览器搜索历史</td>
+<td>全套小工具、海报、滑块拼图未等价</td>
+</tr>
+<tr>
+<td>V5 验证、资源配额、媒体与配置备份 [A]</td>
+<td>资源配额、加密配置快照、媒体/课程；0.18另增数据库/本地媒体加密归档</td>
+<td>无全短信供应商；没有自动异地灾备和所有剧集嵌入样式</td>
+</tr>
+<tr>
+<td>V6 论坛、身份、等级、徽章、免密及风控 [B]</td>
+<td>论坛/圈子、问答投票、等级、徽章、审核、邀请、TOTP</td>
+<td>版主/圈主所有权限组合、微信全套功能、全部聚合认证未等价</td>
+</tr>
+<tr>
+<td>V7 会员与创作、支付、续传和视频交互 [B,ICU]</td>
+<td>会员成本补差、作者收益、PayPal、资产转账、分片上传和动效</td>
+<td>复杂现金多人悬赏、原主题视频形态与插件不完整</td>
+</tr>
+<tr>
+<td>V8.2+ 实物商城、访客与物流 [B]</td>
+<td>SKU、卡密、访客数字购买、运费、同SKU售后；0.18多包裹</td>
+<td>非访客实物、数量装箱、跨SKU补差、多仓、面单、全促销组合</td>
+</tr>
+<tr>
+<td>V8.5 外置智能搜索 [B,C]</td>
+<td>0.18新增Meilisearch搜索/替换/删除/任务确认，本地再次验权和故障回退</td>
+<td>非全文正文、本站纠错/同义词配置、全部关联筛选计数、搜索集群管理</td>
+</tr>
+<tr>
+<td>V8.7 权限期限与圈子 [B]</td>
+<td>内容有效期、下载配额、付费圈子</td>
+<td>全部超额购买及圈主收益/发布阅读组合未等价</td>
+</tr>
+<tr>
+<td>V8.8–V9.0 国际化与海外服务 [B]</td>
+<td>独立中英偏好、译文审核、Stripe、Google/GitHub/Microsoft适配</td>
+<td>非所有分享/登录、自动整站翻译、多币自动换汇</td>
+</tr>
+<tr>
+<td>V9.1 抖音、验证码防滥发、条件菜单 [B]</td>
+<td>0.18补IP/收件人六个窗口及冷却；条件菜单原来已有，不重复宣称新增</td>
+<td>抖音未接；邮件限流不等于短信通道或所有邮件自动多语</td>
+</tr>
+<tr>
+<td>用户额外需求</td>
+<td>课程/笔记、工单、标准CSV差异、布局草稿/历史、0.18备份恢复</td>
+<td>不是全部子比历史主题附属插件，更不是WordPress源码克隆</td>
+</tr>
+</tbody>
+</table></div>
+<h3>本轮核对后的开发取舍</h3>
+<p>发现既有导航已支持公开、登录、VIP与认证条件，因此没有重复建一套菜单。新搜索复用内容修订和权限入口，不把私密正文交给外部服务；包裹依附现有交易；验证码共用一套原子限流；备份读取固定业务表并用同一验证器进行检查和恢复。没有增加空驱动、假对账或假退款按钮。</p>
+<p>仍未完成全部社交与短信、全部支付产品线/企业付款、部分退款与跨SKU售后、全小工具/任意画布、原始账单自动拉取与会计勾兑、原生OSS/COS、直播/转码/HLS/DRM、自动异地备份及WordPress迁移。详情以 <code>FEATURE_MATRIX.md</code> 为准。</p>
+<h3>官方来源</h3>
+<p>[A] https://www.zibll.com/14960.html — 早期更新档案</p>
+<p>[B] https://www.zibll.com/375.html 及官方评论分页同文 https://www.zibll.com/375.html/comment-page-4 — 后续更新日志</p>
+<p>[C] https://www.zibll.com/43082.html — Meilisearch配置与功能说明</p>
+<p>[D] https://www.zibll.com/pay-zibll — 当前产品功能族</p>
+<p>[E] https://www.zibll.com/zibll_word — 官方教程目录</p>
+<p>本表为概要比较，未复制发行日志全文；历史档案标题不等于每个版本已穷尽，源码体积也不能代表功能完整度。</p>
+</article><article id="chapter-29" class="chapter"><p class="eyebrow">CHAPTER 29 <a href="docs/PLATFORM_018.md">分篇源文件</a></p><h2>0.18 搜索、包裹与安全工作台</h2>
+<p>本章仅说明本轮增量。旧课程、工单、账单与布局版本仍参见 <code>PLATFORM_017.md</code>；支付与售后参见 <code>COMMERCE_016.md</code>。</p>
+<h3>外置 Meilisearch</h3>
+<p>后台“设置 / 发现”选择 <code>meilisearch</code>，填写公开可达的HTTPS接口、专用 <code>cy_</code> 前缀索引和服务端API密钥，确认同意发送公开元数据和用户搜索词。服务必须在另一个可运行搜索进程的服务器或托管服务上；免费共享主机只运行PHP连接器，不需要在主机安装Docker。服务成本、数据处理与访问配额由你与提供商决定。</p>
+<p>接口只接受HTTPS、443端口和公共IP解析，不能填localhost、私网、带用户名密码或查询参数的地址。VPS上的同机服务也需经受保护的HTTPS入口接入；不能关闭校验去访问内网。API密钥只留在服务端，给该专用索引配置搜索、文档写入/删除和任务读取所需的最小权限，不使用公开主密钥。</p>
+<p>在“搜索工作台”先点击“加入下一批25篇”，逐批建立同步队列。然后“处理一个到期任务”，或启动一次最多12次请求的短同步会话。关闭或隐藏页面会停止继续发请求；队列在数据库保留。请求受理后不标记完成，之后必须取得远端任务成功状态；失败保留并退避重试。长时间无人管理需配置真实调度，并开启 <code>meili_jobs</code>；没有调度就不能保证及时同步。</p>
+<p>同一文档变化会合并到同一队列项，并记录版本。只同步可匿名列出的已发布内容：标题、摘要、标签、当前有效中英译文标题与摘要。正文、付费正文、私信、账户、订单、笔记和工单不发送。归档、下架或权限变化会排队删除。</p>
+<p>搜索最多取得200个远端候选，返回本站重新核对ID、内容版本、当前权限、栏目和发布时间，再与本地命中合并；本地结果总量决定分页，不直接信任远端总数。远端故障自动使用本地检索。仍支持用户获准访问的受限栏目本地匹配。</p>
+<p>这不是所有子比智能筛选的等价实现：没有本站同义词/纠错管理界面、全文正文导出、分类聚合计数、OpenSearch/Elasticsearch或语义向量服务。远端同义词等参数须在专用搜索服务管理。切换供应商或禁用同步不会自动清空旧供应商的数据，必须单独删除旧索引。</p>
+<p>服务端遵循官方POST搜索、全量文档替换和异步任务查询协议，见 <code>HOSTS_AND_SOURCES.md</code>。本轮采用协议桩测试，没有真实Meilisearch实例联网联调或大型索引压测。</p>
+<h3>一个订单多个包裹</h3>
+<p>在后台物流工作台填写已支付实物订单ID，添加第一包裹。之后可“添加另一个包裹”，设置标签、承运商代码与单号。每个包裹有单独轨迹、版本和查询时间；订单最多20个包裹。同一订单重复承运商/单号会被拒绝。相同新建请求重试不会重复建包裹。</p>
+<p>切换顶部包裹卡可查看或修改指定包裹。变更运单只清除该包裹旧轨迹，不影响其他包裹。人工更新需含时区的时间、文字说明；远端快递100查询保留原签约、显式同意、间隔和单号匹配检查。</p>
+<p>用户从订单进入物流，仅可查看自己的订单。不要以某一包裹的“已签收”自动推断整个订单完成；用户应收到所有包裹后才确认收货。物流变化不自动改余额、退款或结算。</p>
+<p>这是多运单与轨迹管理，不包含每箱商品数量分配、跨SKU换货、多仓库存、电子面单、退件独立轨迹或承运商自动订阅。</p>
+<h3>邮箱验证码防滥发</h3>
+<p>后台安全设置可分别限制同IP/同收件人的10分钟、小时、天发送数，并设置收件人实际冷却秒数。邮箱经统一标准化后计数。七个限制在同一事务中判定，拒绝请求不额外消耗其他未超限额度。</p>
+<p>六个次数时窗采用固定窗口，冷却时间连续计算，所以不能简单通过跨分钟边界绕过最小发送间隔。站点所有相关验证码用途共享收件人额度。它不等于新增阿里云/腾讯云短信、图形拼图验证或所有消息发送的反垃圾保护。被限流时等待窗口到期；不要在生产数据库清空限流表绕过保护。</p>
+<h3>界面与动画</h3>
+<p>恢复副本、搜索同步和多包裹页共享既有主题、色彩和曲线。包裹卡使用短距离悬停、选中标记和键盘焦点；恢复工作台有分层徽记。指针柔光仅在精细指针、启用动效且页面可见时运行，每个表面最多一个待执行动画帧，没有空闲无限循环。</p>
+<p>关闭动效或系统选择减少动态效果后，新增位移和柔光停止。主要操作使用原生POST表单，JavaScript只增强体验；不是没有JavaScript就不能操作。后台与前台语言偏好仍分别保存。</p>
+<p>加密备份的创建、下载、恢复和免费主机限制请阅读 <code>BACKUP_RECOVERY.md</code>。</p>
+</article><article id="chapter-30" class="chapter"><p class="eyebrow">CHAPTER 30 <a href="docs/BACKUP_RECOVERY.md">分篇源文件</a></p><h2>加密数据库、本地媒体与离线恢复</h2>
+<p>**先在隔离环境完成一次恢复演练，再依赖备份。**这是0.18小站的手动一致性快照，不是跨机灾备、热备、高可用或自动覆盖正在运行的网站。</p>
+<h3>备份包含什么</h3>
+<p>归档包含当前支持的77张数据表的记录、应用/数据库版本、原站点URL和用于解密旧数据的原始站点 <code>secret</code>。账户、密码哈希、订单、余额、付费权限、卡密、设置中的加密凭据等都属于敏感数据。可选包含已经完成的本地媒体封装文件。</p>
+<p>排除备份目录本身、限流、密码重置/邮箱挑战、未完成上传任务与分片。也不包含程序源码、数据库连接密码、服务器配置、TLS证书、PHP会话文件、S3/R2远程对象实际字节。远程对象仅有数据库指向信息；云桶需要独立备份。数据库专用触发器、视图或用户另装插件表不在这个固定应用格式内。</p>
+<p>请同时保存匹配版本源码、服务器规则和目标数据库配置。数据库类型必须匹配：MySQL归档恢复到MySQL，SQLite恢复到SQLite，不作跨引擎转换。</p>
+<h3>后台创建与下载</h3>
+<p>进入后台“恢复副本”，输入单独的16–256字节备份密码、再次输入确认，选择是否含本地媒体，再提供当前管理员密码与已启用的TOTP/恢复码。确认归档包含敏感数据后创建。下载和删除也要求当前凭据复验，不能仅凭登录Cookie执行。</p>
+<p>归档使用PBKDF2-SHA256派生独立密钥和逐记录AES-256-GCM认证加密；每条记录绑定序号、前一记录认证标记与头部，末尾清单用于检测截断、乱序或追加。解析只接受已知表名和严格的本地文件键，不执行归档里的SQL、PHP或序列化对象。</p>
+<p>服务器文件使用随机名称、PHP停止执行封装与私有目录权限；下载移除封装，扩展名为 <code>.cybackup</code>。下载前检查目录记录的SHA-256。将归档移出服务器，密码放在另一安全位置。文件和密码同时丢失无法恢复；不得放进源码仓库或普通邮件。</p>
+<p>默认归档上限64MiB、保留最近3份成功副本；可在安全设置调到8–512MiB、1–10份。创建请求有最多约20秒的安全预算，并提前考虑主机执行时间；大站、慢主机或大媒体请用主机/数据库备份工具，不反复提高超时硬撑。只读一致性事务会持有快照，操作时尽量停写。</p>
+<p>失败不生成成功目录记录，并清理正常异常路径的临时文件；进程被强杀可能留下保护封装文件，需要管理员核对目录后清理。损坏副本下载校验失败时不要删除最后一份其他完好副本。当前界面删除同样要求文件可验证，严重损坏的孤立文件通过主机文件管理核对后移除。</p>
+<h3>离线检查</h3>
+<p>将完整包解压到本地可信环境或隔离VPS。工具只接受CLI，不能通过浏览器运行，<code>tools/</code> 不放到网站公开目录。下例应用目录为 <code>/srv/chengyu/site</code>，没有连接生产站点：</p>
+<pre><code class="language-sh">php /srv/chengyu/tools/recover-backup.php inspect /srv/chengyu/site /private/copy.cybackup
+</code></pre>
+<p>工具从标准输入读取备份密码，不把密码写进命令参数或历史记录。普通终端可能回显输入；类Unix终端可使用关闭回显的方法：</p>
+<pre><code class="language-sh">old=$(stty -g) || exit 1
+trap 'stty "$old"' EXIT HUP INT TERM
+stty -echo
+php /srv/chengyu/tools/recover-backup.php inspect /srv/chengyu/site /private/copy.cybackup
+stty "$old"
+trap - EXIT HUP INT TERM
+</code></pre>
+<p>随后输入备份密码并回车。不要把密码作为工具第三/第四参数。自动化输入只能来自权限严格的私有文件或秘密管理器，完成后按你的密钥制度销毁。Windows终端可使用私有标准输入文件；不要套用 <code>stty</code>。</p>
+<p>检查输出只包含版本、数据库类型、记录/文件数等摘要，不输出原密钥和私密记录。错误密码、认证标签变化、路径穿越或不完整末尾会直接拒绝。</p>
+<h3>恢复到空目标</h3>
+<p>准备同类型空数据库，创建一个仅在本地可信目录的PHP连接文件，例如 <code>/private/target-database.php</code>：</p>
+<pre><code class="language-php">&lt;?php
+return [
+    'driver' =&gt; 'mysql',
+    'host' =&gt; '127.0.0.1',
+    'port' =&gt; 3306,
+    'name' =&gt; 'chengyu_rehearsal',
+    'user' =&gt; 'rehearsal_user',
+    'password' =&gt; 'REPLACE_WITH_TARGET_DATABASE_PASSWORD',
+];
+</code></pre>
+<p>SQLite用 <code>['driver'=&gt;'sqlite','path'=&gt;'/private/new-site.sqlite']</code>。该PHP文件由你本地编写，不来自陌生上传，因为工具会读取执行它。恢复存储目录与输出配置文件必须尚不存在，而它们的父目录必须存在。</p>
+<pre><code class="language-sh">php /srv/chengyu/tools/recover-backup.php restore /srv/chengyu/site /private/copy.cybackup /private/target-database.php /srv/restored-storage /private/recovered-config.php CONFIRM-EMPTY-TARGET
+</code></pre>
+<p>使用上节相同的标准输入方式输入密码。工具先完整验证归档，再检测空库，从当前可信代码建立结构、事务写入数据、逐片恢复并核对媒体，最后生成新的私有配置。已有任何数据表会拒绝。MySQL DDL不能全部回滚；失败可能留下空表或未发布目标数据，重新演练应换一个干净目标，不能把半恢复站点直接上线。</p>
+<p>工具输出配置保留旧 <code>secret</code>，使用你指定的新数据库与存储。将恢复代码、配置与目录放到隔离站点后确认路径，谨慎把配置移为 <code>app/config.php</code>。恢复后的维护模式/任务暂停及远端开关必须保持，直到核对完成。</p>
+<h3>恢复后必须核对</h3>
+<p>旧账户/TOTP、余额与流水、订单和待退款/代付状态、卡密可解密、原付费权限、本地媒体校验、S3桶访问和原站点URL都要检查。所有旧会话已撤销，需重新登录。数据库只恢复到快照时刻，不会撤销快照之后真实发生的商户退款、提现、发货、邮件或下载。</p>
+<p>外部支付/邮件/身份连接等开关会关闭，计划任务被 <code>recovery_hold</code> 拦截，调度密钥清空。手工重配真实服务前，在商户侧核对待处理单；检查结束后才重新生成调度凭据、恢复服务、关闭维护与任务暂停。不要盲目重试所有历史任务。</p>
+<p>仅数据库归档不会还原本地媒体字节，需另行恢复原始 <code>storage/blobs</code>。完整媒体归档在缺少已登记本地文件时会失败，而不是静默漏文件。远程存储不在归档内，仍需原桶或独立恢复。</p>
+<h3>免费主机没有SSH怎么办</h3>
+<p>创建和下载小型归档在后台完成，不要求SSH、Composer或ZipArchive。<strong>本版恢复工具没有网页执行入口</strong>，不能宣传为免费主机一键整站在线恢复。</p>
+<p>可在本地/隔离VPS的相同数据库环境验证归档并恢复，然后用该环境的数据库管理工具导出，再通过主机数据库面板导入；通过FTP传回恢复媒体与配置。蓝队云官方说明数据库只支持面板管理、不支持外部远程连接，不能假设本地CLI可直连它的数据库。真实数据迁移前仍优先采用主机的原生整站备份与还原。</p>
+<p>程序从不为PHP7.4关闭备份或为8.5另开一套功能；实际能力取决于扩展、数据库权限、内存、执行时间和磁盘。原生MySQL/PDO与真实主机恢复尚待你按验收清单演练。</p>
+</article>
+<article id="previews" class="chapter"><p class="eyebrow">ACTUAL APPLICATION PREVIEWS</p><h2>真实页面预览</h2><p>由本项目临时站点生成 HTML 并在 Chromium 渲染。点击查看原图，截图来自原创示例数据，不是生产数据或概念海报。</p><div class="gallery"><a class="preview" href="docs/previews/home-desktop.png"><img loading="lazy" src="docs/previews/home-desktop.png" alt="首页 · 桌面"><span>首页 · 桌面</span></a><a class="preview" href="docs/previews/home-mobile.png"><img loading="lazy" src="docs/previews/home-mobile.png" alt="首页 · 手机"><span>首页 · 手机</span></a><a class="preview" href="docs/previews/home-dusk-dark.png"><img loading="lazy" src="docs/previews/home-dusk-dark.png" alt="暮色 · 深色"><span>暮色 · 深色</span></a><a class="preview" href="docs/previews/home-paper.png"><img loading="lazy" src="docs/previews/home-paper.png" alt="纸笺主题"><span>纸笺主题</span></a><a class="preview" href="docs/previews/home-graphite.png"><img loading="lazy" src="docs/previews/home-graphite.png" alt="石墨主题"><span>石墨主题</span></a><a class="preview" href="docs/previews/home-citrus.png"><img loading="lazy" src="docs/previews/home-citrus.png" alt="柑橘主题"><span>柑橘主题</span></a><a class="preview" href="docs/previews/admin-desktop.png"><img loading="lazy" src="docs/previews/admin-desktop.png" alt="后台 · 桌面"><span>后台 · 桌面</span></a><a class="preview" href="docs/previews/admin-mobile.png"><img loading="lazy" src="docs/previews/admin-mobile.png" alt="后台 · 手机"><span>后台 · 手机</span></a><a class="preview" href="docs/previews/motion-studio-desktop.png"><img loading="lazy" src="docs/previews/motion-studio-desktop.png" alt="动效实验室 · 桌面"><span>动效实验室 · 桌面</span></a><a class="preview" href="docs/previews/motion-studio-mobile.png"><img loading="lazy" src="docs/previews/motion-studio-mobile.png" alt="动效实验室 · 手机"><span>动效实验室 · 手机</span></a><a class="preview" href="docs/previews/poll-desktop.png"><img loading="lazy" src="docs/previews/poll-desktop.png" alt="社区投票"><span>社区投票</span></a><a class="preview" href="docs/previews/poll-results.png"><img loading="lazy" src="docs/previews/poll-results.png" alt="投票结果"><span>投票结果</span></a><a class="preview" href="docs/previews/question-desktop.png"><img loading="lazy" src="docs/previews/question-desktop.png" alt="问答与采纳"><span>问答与采纳</span></a><a class="preview" href="docs/previews/question-mobile.png"><img loading="lazy" src="docs/previews/question-mobile.png" alt="问答 · 手机"><span>问答 · 手机</span></a><a class="preview" href="docs/previews/threads-admin.png"><img loading="lazy" src="docs/previews/threads-admin.png" alt="问答投票管理"><span>问答投票管理</span></a><a class="preview" href="docs/previews/settings-desktop.png"><img loading="lazy" src="docs/previews/settings-desktop.png" alt="外观设置"><span>外观设置</span></a><a class="preview" href="docs/previews/layout-studio-desktop.png"><img loading="lazy" src="docs/previews/layout-studio-desktop.png" alt="布局工作台"><span>布局工作台</span></a><a class="preview" href="docs/previews/layout-studio-mobile.png"><img loading="lazy" src="docs/previews/layout-studio-mobile.png" alt="布局工作台 · 手机"><span>布局工作台 · 手机</span></a><a class="preview" href="docs/previews/collections-desktop.png"><img loading="lazy" src="docs/previews/collections-desktop.png" alt="专题"><span>专题</span></a><a class="preview" href="docs/previews/tasks-desktop.png"><img loading="lazy" src="docs/previews/tasks-desktop.png" alt="任务中心"><span>任务中心</span></a><a class="preview" href="docs/previews/variants-desktop.png"><img loading="lazy" src="docs/previews/variants-desktop.png" alt="规格管理"><span>规格管理</span></a><a class="preview" href="docs/previews/composed-articles-desktop.png"><img loading="lazy" src="docs/previews/composed-articles-desktop.png" alt="自定义文章布局"><span>自定义文章布局</span></a><a class="preview" href="docs/previews/circles-desktop.png"><img loading="lazy" src="docs/previews/circles-desktop.png" alt="圈子发现 · 桌面"><span>圈子发现 · 桌面</span></a><a class="preview" href="docs/previews/circles-mobile.png"><img loading="lazy" src="docs/previews/circles-mobile.png" alt="圈子发现 · 手机"><span>圈子发现 · 手机</span></a><a class="preview" href="docs/previews/circle-desktop.png"><img loading="lazy" src="docs/previews/circle-desktop.png" alt="圈子详情 · 桌面"><span>圈子详情 · 桌面</span></a><a class="preview" href="docs/previews/circle-mobile.png"><img loading="lazy" src="docs/previews/circle-mobile.png" alt="圈子详情 · 手机"><span>圈子详情 · 手机</span></a><a class="preview" href="docs/previews/bounty-desktop.png"><img loading="lazy" src="docs/previews/bounty-desktop.png" alt="积分悬赏 · 桌面"><span>积分悬赏 · 桌面</span></a><a class="preview" href="docs/previews/bounty-mobile.png"><img loading="lazy" src="docs/previews/bounty-mobile.png" alt="积分悬赏 · 手机"><span>积分悬赏 · 手机</span></a><a class="preview" href="docs/previews/multi-poll-desktop.png"><img loading="lazy" src="docs/previews/multi-poll-desktop.png" alt="多选投票"><span>多选投票</span></a><a class="preview" href="docs/previews/product-reviews-desktop.png"><img loading="lazy" src="docs/previews/product-reviews-desktop.png" alt="真实购买评价"><span>真实购买评价</span></a><a class="preview" href="docs/previews/admin-circles-desktop.png"><img loading="lazy" src="docs/previews/admin-circles-desktop.png" alt="圈子成员管理"><span>圈子成员管理</span></a><a class="preview" href="docs/previews/admin-bounties-desktop.png"><img loading="lazy" src="docs/previews/admin-bounties-desktop.png" alt="悬赏管理"><span>悬赏管理</span></a><a class="preview" href="docs/previews/admin-reviews-desktop.png"><img loading="lazy" src="docs/previews/admin-reviews-desktop.png" alt="评价审核"><span>评价审核</span></a><a class="preview" href="docs/previews/image-lightbox-desktop.png"><img loading="lazy" src="docs/previews/image-lightbox-desktop.png" alt="图片灯箱"><span>图片灯箱</span></a><a class="preview" href="docs/previews/creator-studio-desktop.png"><img loading="lazy" src="docs/previews/creator-studio-desktop.png" alt="创作中心 · 桌面"><span>创作中心 · 桌面</span></a><a class="preview" href="docs/previews/creator-studio-mobile.png"><img loading="lazy" src="docs/previews/creator-studio-mobile.png" alt="创作中心 · 手机"><span>创作中心 · 手机</span></a><a class="preview" href="docs/previews/creator-admin-desktop.png"><img loading="lazy" src="docs/previews/creator-admin-desktop.png" alt="作者收益后台"><span>作者收益后台</span></a><a class="preview" href="docs/previews/history-desktop.png"><img loading="lazy" src="docs/previews/history-desktop.png" alt="阅读历史 · 桌面"><span>阅读历史 · 桌面</span></a><a class="preview" href="docs/previews/history-mobile.png"><img loading="lazy" src="docs/previews/history-mobile.png" alt="阅读历史 · 手机"><span>阅读历史 · 手机</span></a><a class="preview" href="docs/previews/following-desktop.png"><img loading="lazy" src="docs/previews/following-desktop.png" alt="关注动态"><span>关注动态</span></a><a class="preview" href="docs/previews/search-palette-desktop.png"><img loading="lazy" src="docs/previews/search-palette-desktop.png" alt="搜索交互 · 桌面"><span>搜索交互 · 桌面</span></a><a class="preview" href="docs/previews/search-palette-mobile.png"><img loading="lazy" src="docs/previews/search-palette-mobile.png" alt="搜索交互 · 手机"><span>搜索交互 · 手机</span></a><a class="preview" href="docs/previews/security-desktop.png"><img loading="lazy" src="docs/previews/security-desktop.png" alt="安全中心 · 桌面"><span>安全中心 · 桌面</span></a><a class="preview" href="docs/previews/security-mobile.png"><img loading="lazy" src="docs/previews/security-mobile.png" alt="安全中心 · 手机"><span>安全中心 · 手机</span></a><a class="preview" href="docs/previews/pricing-studio-desktop.png"><img loading="lazy" src="docs/previews/pricing-studio-desktop.png" alt="定价工作台 · 桌面"><span>定价工作台 · 桌面</span></a><a class="preview" href="docs/previews/pricing-studio-mobile.png"><img loading="lazy" src="docs/previews/pricing-studio-mobile.png" alt="定价工作台 · 手机"><span>定价工作台 · 手机</span></a><a class="preview" href="docs/previews/pricing-product-desktop.png"><img loading="lazy" src="docs/previews/pricing-product-desktop.png" alt="优惠商品 · 桌面"><span>优惠商品 · 桌面</span></a><a class="preview" href="docs/previews/pricing-product-mobile.png"><img loading="lazy" src="docs/previews/pricing-product-mobile.png" alt="优惠商品 · 手机"><span>优惠商品 · 手机</span></a><a class="preview" href="docs/previews/reading-focus-desktop.png"><img loading="lazy" src="docs/previews/reading-focus-desktop.png" alt="专注阅读"><span>专注阅读</span></a><a class="preview" href="docs/previews/integrations-desktop.png"><img loading="lazy" src="docs/previews/integrations-desktop.png" alt="连接中心"><span>连接中心</span></a><a class="preview" href="docs/previews/integrations-mobile.png"><img loading="lazy" src="docs/previews/integrations-mobile.png" alt="连接中心 / 手机"><span>连接中心 / 手机</span></a><a class="preview" href="docs/previews/configuration-desktop.png"><img loading="lazy" src="docs/previews/configuration-desktop.png" alt="配置快照"><span>配置快照</span></a><a class="preview" href="docs/previews/configuration-mobile.png"><img loading="lazy" src="docs/previews/configuration-mobile.png" alt="配置快照 / 手机"><span>配置快照 / 手机</span></a><a class="preview" href="docs/previews/badges-admin-desktop.png"><img loading="lazy" src="docs/previews/badges-admin-desktop.png" alt="徽章管理"><span>徽章管理</span></a><a class="preview" href="docs/previews/badges-admin-mobile.png"><img loading="lazy" src="docs/previews/badges-admin-mobile.png" alt="徽章管理 / 手机"><span>徽章管理 / 手机</span></a><a class="preview" href="docs/previews/badges-desktop.png"><img loading="lazy" src="docs/previews/badges-desktop.png" alt="徽章展馆"><span>徽章展馆</span></a><a class="preview" href="docs/previews/badges-mobile.png"><img loading="lazy" src="docs/previews/badges-mobile.png" alt="徽章展馆 / 手机"><span>徽章展馆 / 手机</span></a><a class="preview" href="docs/previews/connections-security-desktop.png"><img loading="lazy" src="docs/previews/connections-security-desktop.png" alt="账号连接"><span>账号连接</span></a><a class="preview" href="docs/previews/connections-security-mobile.png"><img loading="lazy" src="docs/previews/connections-security-mobile.png" alt="账号连接 / 手机"><span>账号连接 / 手机</span></a><a class="preview" href="docs/previews/lifetime-membership-desktop.png"><img loading="lazy" src="docs/previews/lifetime-membership-desktop.png" alt="永久会员"><span>永久会员</span></a><a class="preview" href="docs/previews/lifetime-membership-mobile.png"><img loading="lazy" src="docs/previews/lifetime-membership-mobile.png" alt="永久会员 / 手机"><span>永久会员 / 手机</span></a><a class="preview" href="docs/previews/connected-login-desktop.png"><img loading="lazy" src="docs/previews/connected-login-desktop.png" alt="社交登录"><span>社交登录</span></a><a class="preview" href="docs/previews/connected-login-mobile.png"><img loading="lazy" src="docs/previews/connected-login-mobile.png" alt="社交登录 / 手机"><span>社交登录 / 手机</span></a><a class="preview" href="docs/previews/checkout-desktop.png"><img loading="lazy" src="docs/previews/checkout-desktop.png" alt="checkout / desktop"><span>checkout / desktop</span></a><a class="preview" href="docs/previews/checkout-mobile.png"><img loading="lazy" src="docs/previews/checkout-mobile.png" alt="checkout / mobile"><span>checkout / mobile</span></a><a class="preview" href="docs/previews/checkout-review-desktop.png"><img loading="lazy" src="docs/previews/checkout-review-desktop.png" alt="checkout / review / desktop"><span>checkout / review / desktop</span></a><a class="preview" href="docs/previews/checkout-review-mobile.png"><img loading="lazy" src="docs/previews/checkout-review-mobile.png" alt="checkout / review / mobile"><span>checkout / review / mobile</span></a><a class="preview" href="docs/previews/commerce-console-desktop.png"><img loading="lazy" src="docs/previews/commerce-console-desktop.png" alt="commerce / console / desktop"><span>commerce / console / desktop</span></a><a class="preview" href="docs/previews/commerce-console-mobile.png"><img loading="lazy" src="docs/previews/commerce-console-mobile.png" alt="commerce / console / mobile"><span>commerce / console / mobile</span></a><a class="preview" href="docs/previews/composed-page-desktop.png"><img loading="lazy" src="docs/previews/composed-page-desktop.png" alt="composed / page / desktop"><span>composed / page / desktop</span></a><a class="preview" href="docs/previews/composed-page-mobile.png"><img loading="lazy" src="docs/previews/composed-page-mobile.png" alt="composed / page / mobile"><span>composed / page / mobile</span></a><a class="preview" href="docs/previews/course-overview-desktop.png"><img loading="lazy" src="docs/previews/course-overview-desktop.png" alt="course / overview / desktop"><span>course / overview / desktop</span></a><a class="preview" href="docs/previews/course-overview-mobile.png"><img loading="lazy" src="docs/previews/course-overview-mobile.png" alt="course / overview / mobile"><span>course / overview / mobile</span></a><a class="preview" href="docs/previews/course-studio-desktop.png"><img loading="lazy" src="docs/previews/course-studio-desktop.png" alt="course / studio / desktop"><span>course / studio / desktop</span></a><a class="preview" href="docs/previews/course-studio-english.png"><img loading="lazy" src="docs/previews/course-studio-english.png" alt="course / studio / english"><span>course / studio / english</span></a><a class="preview" href="docs/previews/course-studio-mobile.png"><img loading="lazy" src="docs/previews/course-studio-mobile.png" alt="course / studio / mobile"><span>course / studio / mobile</span></a><a class="preview" href="docs/previews/guest-desk-desktop.png"><img loading="lazy" src="docs/previews/guest-desk-desktop.png" alt="guest / desk / desktop"><span>guest / desk / desktop</span></a><a class="preview" href="docs/previews/guest-desk-mobile.png"><img loading="lazy" src="docs/previews/guest-desk-mobile.png" alt="guest / desk / mobile"><span>guest / desk / mobile</span></a><a class="preview" href="docs/previews/layout-draft-desktop.png"><img loading="lazy" src="docs/previews/layout-draft-desktop.png" alt="layout / draft / desktop"><span>layout / draft / desktop</span></a><a class="preview" href="docs/previews/layout-draft-mobile.png"><img loading="lazy" src="docs/previews/layout-draft-mobile.png" alt="layout / draft / mobile"><span>layout / draft / mobile</span></a><a class="preview" href="docs/previews/learning-library-dark.png"><img loading="lazy" src="docs/previews/learning-library-dark.png" alt="learning / library / dark"><span>learning / library / dark</span></a><a class="preview" href="docs/previews/learning-library-desktop.png"><img loading="lazy" src="docs/previews/learning-library-desktop.png" alt="learning / library / desktop"><span>learning / library / desktop</span></a><a class="preview" href="docs/previews/learning-library-mobile.png"><img loading="lazy" src="docs/previews/learning-library-mobile.png" alt="learning / library / mobile"><span>learning / library / mobile</span></a><a class="preview" href="docs/previews/learning-progress-desktop.png"><img loading="lazy" src="docs/previews/learning-progress-desktop.png" alt="learning / progress / desktop"><span>learning / progress / desktop</span></a><a class="preview" href="docs/previews/learning-progress-mobile.png"><img loading="lazy" src="docs/previews/learning-progress-mobile.png" alt="learning / progress / mobile"><span>learning / progress / mobile</span></a><a class="preview" href="docs/previews/lesson-reader-desktop.png"><img loading="lazy" src="docs/previews/lesson-reader-desktop.png" alt="lesson / reader / desktop"><span>lesson / reader / desktop</span></a><a class="preview" href="docs/previews/lesson-reader-mobile.png"><img loading="lazy" src="docs/previews/lesson-reader-mobile.png" alt="lesson / reader / mobile"><span>lesson / reader / mobile</span></a><a class="preview" href="docs/previews/logistics-workspace-desktop.png"><img loading="lazy" src="docs/previews/logistics-workspace-desktop.png" alt="logistics / workspace / desktop"><span>logistics / workspace / desktop</span></a><a class="preview" href="docs/previews/logistics-workspace-mobile.png"><img loading="lazy" src="docs/previews/logistics-workspace-mobile.png" alt="logistics / workspace / mobile"><span>logistics / workspace / mobile</span></a><a class="preview" href="docs/previews/media-workbench-desktop.png"><img loading="lazy" src="docs/previews/media-workbench-desktop.png" alt="media / workbench / desktop"><span>media / workbench / desktop</span></a><a class="preview" href="docs/previews/media-workbench-english.png"><img loading="lazy" src="docs/previews/media-workbench-english.png" alt="media / workbench / english"><span>media / workbench / english</span></a><a class="preview" href="docs/previews/media-workbench-mobile.png"><img loading="lazy" src="docs/previews/media-workbench-mobile.png" alt="media / workbench / mobile"><span>media / workbench / mobile</span></a><a class="preview" href="docs/previews/page-builder-desktop.png"><img loading="lazy" src="docs/previews/page-builder-desktop.png" alt="page / builder / desktop"><span>page / builder / desktop</span></a><a class="preview" href="docs/previews/page-builder-mobile.png"><img loading="lazy" src="docs/previews/page-builder-mobile.png" alt="page / builder / mobile"><span>page / builder / mobile</span></a><a class="preview" href="docs/previews/parcel-journey-desktop.png"><img loading="lazy" src="docs/previews/parcel-journey-desktop.png" alt="parcel / journey / desktop"><span>parcel / journey / desktop</span></a><a class="preview" href="docs/previews/parcel-journey-mobile.png"><img loading="lazy" src="docs/previews/parcel-journey-mobile.png" alt="parcel / journey / mobile"><span>parcel / journey / mobile</span></a><a class="preview" href="docs/previews/parcels-console-desktop.png"><img loading="lazy" src="docs/previews/parcels-console-desktop.png" alt="parcels / console / desktop"><span>parcels / console / desktop</span></a><a class="preview" href="docs/previews/parcels-console-mobile.png"><img loading="lazy" src="docs/previews/parcels-console-mobile.png" alt="parcels / console / mobile"><span>parcels / console / mobile</span></a><a class="preview" href="docs/previews/recovery-vault-dark.png"><img loading="lazy" src="docs/previews/recovery-vault-dark.png" alt="recovery / vault / dark"><span>recovery / vault / dark</span></a><a class="preview" href="docs/previews/recovery-vault-desktop.png"><img loading="lazy" src="docs/previews/recovery-vault-desktop.png" alt="recovery / vault / desktop"><span>recovery / vault / desktop</span></a><a class="preview" href="docs/previews/recovery-vault-english.png"><img loading="lazy" src="docs/previews/recovery-vault-english.png" alt="recovery / vault / english"><span>recovery / vault / english</span></a><a class="preview" href="docs/previews/recovery-vault-mobile.png"><img loading="lazy" src="docs/previews/recovery-vault-mobile.png" alt="recovery / vault / mobile"><span>recovery / vault / mobile</span></a><a class="preview" href="docs/previews/safety-controls-desktop.png"><img loading="lazy" src="docs/previews/safety-controls-desktop.png" alt="safety / controls / desktop"><span>safety / controls / desktop</span></a><a class="preview" href="docs/previews/safety-controls-mobile.png"><img loading="lazy" src="docs/previews/safety-controls-mobile.png" alt="safety / controls / mobile"><span>safety / controls / mobile</span></a><a class="preview" href="docs/previews/search-connector-desktop.png"><img loading="lazy" src="docs/previews/search-connector-desktop.png" alt="search / connector / desktop"><span>search / connector / desktop</span></a><a class="preview" href="docs/previews/search-connector-english.png"><img loading="lazy" src="docs/previews/search-connector-english.png" alt="search / connector / english"><span>search / connector / english</span></a><a class="preview" href="docs/previews/search-connector-mobile.png"><img loading="lazy" src="docs/previews/search-connector-mobile.png" alt="search / connector / mobile"><span>search / connector / mobile</span></a><a class="preview" href="docs/previews/search-workspace-desktop.png"><img loading="lazy" src="docs/previews/search-workspace-desktop.png" alt="search / workspace / desktop"><span>search / workspace / desktop</span></a><a class="preview" href="docs/previews/search-workspace-mobile.png"><img loading="lazy" src="docs/previews/search-workspace-mobile.png" alt="search / workspace / mobile"><span>search / workspace / mobile</span></a><a class="preview" href="docs/previews/service-console-desktop.png"><img loading="lazy" src="docs/previews/service-console-desktop.png" alt="service / console / desktop"><span>service / console / desktop</span></a><a class="preview" href="docs/previews/service-console-mobile.png"><img loading="lazy" src="docs/previews/service-console-mobile.png" alt="service / console / mobile"><span>service / console / mobile</span></a><a class="preview" href="docs/previews/shipping-studio-desktop.png"><img loading="lazy" src="docs/previews/shipping-studio-desktop.png" alt="shipping / studio / desktop"><span>shipping / studio / desktop</span></a><a class="preview" href="docs/previews/shipping-studio-mobile.png"><img loading="lazy" src="docs/previews/shipping-studio-mobile.png" alt="shipping / studio / mobile"><span>shipping / studio / mobile</span></a><a class="preview" href="docs/previews/statement-workspace-desktop.png"><img loading="lazy" src="docs/previews/statement-workspace-desktop.png" alt="statement / workspace / desktop"><span>statement / workspace / desktop</span></a><a class="preview" href="docs/previews/statement-workspace-mobile.png"><img loading="lazy" src="docs/previews/statement-workspace-mobile.png" alt="statement / workspace / mobile"><span>statement / workspace / mobile</span></a><a class="preview" href="docs/previews/support-conversation-desktop.png"><img loading="lazy" src="docs/previews/support-conversation-desktop.png" alt="support / conversation / desktop"><span>support / conversation / desktop</span></a><a class="preview" href="docs/previews/support-conversation-mobile.png"><img loading="lazy" src="docs/previews/support-conversation-mobile.png" alt="support / conversation / mobile"><span>support / conversation / mobile</span></a><a class="preview" href="docs/previews/support-desk-desktop.png"><img loading="lazy" src="docs/previews/support-desk-desktop.png" alt="support / desk / desktop"><span>support / desk / desktop</span></a><a class="preview" href="docs/previews/support-desk-mobile.png"><img loading="lazy" src="docs/previews/support-desk-mobile.png" alt="support / desk / mobile"><span>support / desk / mobile</span></a><a class="preview" href="docs/previews/support-workspace-desktop.png"><img loading="lazy" src="docs/previews/support-workspace-desktop.png" alt="support / workspace / desktop"><span>support / workspace / desktop</span></a><a class="preview" href="docs/previews/support-workspace-mobile.png"><img loading="lazy" src="docs/previews/support-workspace-mobile.png" alt="support / workspace / mobile"><span>support / workspace / mobile</span></a><a class="preview" href="docs/previews/translation-editor-desktop.png"><img loading="lazy" src="docs/previews/translation-editor-desktop.png" alt="translation / editor / desktop"><span>translation / editor / desktop</span></a><a class="preview" href="docs/previews/translation-editor-mobile.png"><img loading="lazy" src="docs/previews/translation-editor-mobile.png" alt="translation / editor / mobile"><span>translation / editor / mobile</span></a></div></article>
+</main></div><footer>澄屿 0.18.0 · 本说明与分篇 Markdown 同步生成。离线使用时保持 docs/previews 相对目录不变。代码许可见 LICENSE。</footer></body></html>

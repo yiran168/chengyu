@@ -1,0 +1,14 @@
+{
+  "mode": "Actual Chromium navigation to local PHP URLs, real forms/CSP/cookies; not an external production host",
+  "total": 1,
+  "passed": 0,
+  "failed": 1,
+  "tests": [
+    {
+      "test": "live browser suite completed",
+      "ok": false,
+      "detail": "Error('Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:34639/\\nCall log:\\n  - navigating to \"http://127.0.0.1:34639/\", waiting until \"networkidle\"\\n')"
+    }
+  ],
+  "javascript_errors": []
+}

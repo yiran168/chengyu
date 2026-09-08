@@ -1,0 +1,17 @@
+[
+    {
+        "name": "duplicate-case-header",
+        "rejected": false,
+        "transport_called": true
+    },
+    {
+        "name": "oversized-form",
+        "rejected": false,
+        "transport_called": true
+    },
+    {
+        "name": "ambiguous-head",
+        "rejected": false,
+        "transport_called": true
+    }
+]

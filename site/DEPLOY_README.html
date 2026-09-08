@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>澄屿 0.18.0 · 部署与使用手册</title><style>
+:root{--ink:#183b3e;--muted:#5b7274;--accent:#177f79;--line:#dce8e7;--paper:#fff;--bg:#f3f8f7}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:28px}
+body{overflow-wrap:anywhere;margin:0;background:var(--bg);color:var(--ink);font:16px/1.8 system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}
+a{color:var(--accent);text-underline-offset:4px;overflow-wrap:anywhere}
+.hero{padding:54px max(24px,calc((100vw - 1240px)/2)) 42px;background:linear-gradient(125deg,#143e41,#17645e);color:#fff}
+.brand{letter-spacing:.15em;font-size:12px;text-transform:uppercase;opacity:.85}
+.hero h1{font-size:clamp(30px,4vw,46px);line-height:1.25;letter-spacing:-.03em;margin:20px 0 12px}
+.hero p{max-width:850px;opacity:.9;margin:12px 0}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}.badges span{border:1px solid #ffffff40;background:#ffffff10;border-radius:999px;padding:5px 13px;font-size:13px}
+.shell{max-width:1288px;margin:32px auto;display:grid;grid-template-columns:226px minmax(0,1fr);gap:28px;padding:0 24px}
+.toc{align-self:start;position:sticky;top:20px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px;max-height:calc(100vh - 40px);overflow:auto}
+.toc summary{font-weight:750;cursor:pointer;margin-bottom:12px}.toc a{display:block;text-decoration:none;padding:7px 0;font-size:14px;color:var(--ink)}.toc span{display:inline-block;width:27px;color:var(--accent);font-size:11px}
+main{min-width:0}.chapter,.overview{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:34px 38px;margin-bottom:24px}
+.eyebrow{font-size:11px;letter-spacing:.14em;color:var(--muted);margin:0 0 18px}.eyebrow a{float:right;letter-spacing:0}
+h2{font-size:27px;line-height:1.4;margin:14px 0 20px;letter-spacing:-.025em}h3{font-size:20px;line-height:1.5;margin:30px 0 12px}h4{font-size:18px}
+p{margin:12px 0}li{margin:7px 0}strong{font-weight:700}
+code{font-size:.91em;background:#edf3f2;border:1px solid #e1eae8;padding:1px 5px;border-radius:5px;overflow-wrap:anywhere}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;padding:18px;border-radius:12px;background:#eff5f3;border:1px solid var(--line);line-height:1.7}
+pre code{border:0;padding:0;background:transparent;word-break:normal}
+.table-scroll{max-width:100%;overflow:auto;border:1px solid var(--line);border-radius:12px;margin:18px 0}
+table{width:100%;border-collapse:collapse;font-size:14px;line-height:1.75;min-width:460px}
+th,td{text-align:left;vertical-align:top;padding:12px 14px;border-bottom:1px solid var(--line);overflow-wrap:anywhere}
+th{background:#eef6f4;font-weight:700}tr:last-child td{border-bottom:0}
+blockquote{margin:20px 0;padding:10px 20px;border-left:3px solid var(--accent);background:#f4f9f7}
+.note{border-left:4px solid #cb9b5c;background:#fcf7ef;padding:14px 18px;border-radius:0 10px 10px 0}
+.quicklinks{display:flex;gap:8px;flex-wrap:wrap}.quicklinks a{text-decoration:none;background:#e8f3f0;padding:8px 14px;border-radius:8px;font-size:14px}
+.gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+.preview{display:block;text-decoration:none;border:1px solid var(--line);border-radius:13px;overflow:hidden;background:#fafcfb}
+.preview img{display:block;width:100%;height:210px;object-fit:cover;object-position:top;border-bottom:1px solid var(--line)}
+.preview span{display:block;padding:9px 12px;font-size:13px}
+footer{max-width:1240px;margin:25px auto 50px;padding:0 24px;font-size:13px;color:var(--muted)}
+@media(max-width:900px){.shell{grid-template-columns:1fr;gap:18px}.toc{position:static;max-height:260px}.toc nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 16px}.chapter,.overview{padding:25px}.hero{padding:36px 24px}}
+@media(max-width:500px){.shell{padding:0 12px;margin-top:16px}.chapter,.overview{padding:22px 18px;border-radius:16px}.gallery{grid-template-columns:repeat(2,minmax(0,1fr))}.preview img{height:180px}h2{font-size:23px}.toc{padding:16px}.hero{padding:30px 20px}.eyebrow a{float:none;margin-left:12px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{body{background:#fff;color:#111;font-size:11pt}.hero{background:#fff;color:#111;padding:0}.toc,.quicklinks,.gallery,.eyebrow a{display:none}.shell{display:block;padding:0}.chapter,.overview{border:0;padding:0;break-before:page}.overview{break-before:auto}.table-scroll{overflow:visible}table{min-width:0}a{color:inherit}.badges span{border-color:#aaa}}
+</style></head>
+<body><header class="hero"><div class="brand">CHENGYU / INDEPENDENT PHP SITE</div>
+<h1>澄屿 · 部署与使用手册</h1><p>源码、安装、升级、前后台操作与测试证据，一份可离线阅读的交付说明。</p>
+<div class="badges"><span>版本 0.18.0</span><span>更新于 2026-09-07</span><span>非 WordPress</span><span>8 chapters / screenshots in complete ZIP</span></div></header>
+<div class="shell"><aside class="toc"><details open=""><summary>阅读导航</summary><nav><a href="#chapter-1"><span>01</span>先读这里</a><a href="#chapter-2"><span>02</span>新站安装与部署</a><a href="#chapter-3"><span>03</span>保留数据升级</a><a href="#chapter-8"><span>08</span>环境兼容性</a><a href="#chapter-11"><span>11</span>功能与缺漏</a><a href="#chapter-27"><span>27</span>真实主机验收清单</a><a href="#chapter-29"><span>29</span>0.18 搜索与多包裹</a><a href="#chapter-30"><span>30</span>加密备份与安全恢复</a></nav></details></aside>
+<main><section class="overview"><p class="eyebrow">BEFORE YOU DEPLOY</p><h2>新站与旧站，走不同的安装路径。</h2>
+<p>新站只上传 <code>site/</code>；已有 0.9.0–0.17.0 先备份，保留配置密钥、数据库与存储，再升级。根目录部署的后台入口为 <code>/admin</code>。</p>
+<p class="note"><strong>不要上传完整交付目录或 INSTALL_KEY.txt。</strong> 本包含真实业务代码，但不等于全部历史子比模块已完成，也没有把未测试的 PHP 版本、原生数据库或真实商户标成通过。</p>
+<div class="quicklinks"><a href="#chapter-29">0.18 新功能</a><a href="#chapter-27">上线验收</a><a href="#chapter-2">新站安装</a><a href="#chapter-3">旧站升级</a><a href="#chapter-11">缺漏清单</a></div></section>
+<article class="chapter" id="chapter-1"><p class="eyebrow">CHAPTER 01 </p><h2>澄屿 Chengyu 0.18.0</h2>
+<p>独立 PHP 内容、社区与交易网站。基于实际交付的 <strong>0.17.0</strong> 增量开发；数据库目标 <strong>v10</strong>；日期 <strong>2026-09-07</strong>。前台、后台与数据均不依赖 WordPress。不是子比官方产品，也不是全部子比历史版本的完整等价替代。</p>
+<h3>先打开哪一份文件</h3>
+<p>本地打开 <code>START_HERE.html</code> 阅读完整离线手册。部署使用 <code>site/</code> 或同版本 upload.zip；不要把完整交付目录、<code>INSTALL_KEY.txt</code>、<code>tests/</code>、<code>tools/</code>、私有凭据或备份上传到公开目录。上传包根目录直接包含 <code>index.php</code>、<code>admin/</code>、<code>install/</code>、<code>app/</code>、<code>storage/</code>。</p>
+<p>新站访问 <code>/install/</code>，用完整包根目录中的私有安装口令完成安装，确认后台 <code>/admin/</code> 可登录后删除安装器。已有站点不要重新安装；按 <a href="#chapter-3">升级说明</a> 保留原配置、密钥、数据库和存储。</p>
+<h3>本版增加了什么</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>本轮能力</th>
+<th>可用入口</th>
+<th>重要边界</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Meilisearch 连接器</td>
+<td>后台搜索工作台、发现设置、前台搜索</td>
+<td>可选外部服务；只发送公开标题、摘要、标签与有效译文；本地再次验权并回退；真实服务未联调</td>
+</tr>
+<tr>
+<td>一个订单多个包裹</td>
+<td>后台物流工作台、用户订单轨迹</td>
+<td>最多20包裹，单独单号、轨迹和修订；没有商品数量分箱、电子面单或多仓管理</td>
+</tr>
+<tr>
+<td>验证邮件六维限流</td>
+<td>后台安全设置</td>
+<td>IP/收件人各10分钟、小时、天，加独立冷却；不是新增短信服务</td>
+</tr>
+<tr>
+<td>加密数据库与本地媒体备份</td>
+<td>后台恢复副本；完整包离线恢复工具</td>
+<td>小站有界请求，默认64MiB；恢复仅空目标、同数据库类型、匹配版本；不是覆盖在线站点按钮</td>
+</tr>
+<tr>
+<td>工作台界面与微交互</td>
+<td>恢复、搜索和包裹页面</td>
+<td>原生表单、响应式、键盘操作、减少动态效果；不保证所有设备固定帧率</td>
+</tr>
+</tbody>
+</table></div>
+<p>先修正 HTTP 大小写重复头、表单体积限制和 HEAD 长度歧义，再增加业务模块；文字 <code>0</code> 的搜索不再被当成空查询。公共 HTTP 校验、交易、权限、语言和表单入口继续复用原服务。</p>
+<h3>环境与测试不是同一件事</h3>
+<p>业务源码面向64位 <strong>PHP7.4–8.5</strong>，不按版本裁剪模块。运行期不要求 Composer、Node、Redis、SSH 或常驻队列。必须具备原生 PDO 数据库驱动、OpenSSL、Fileinfo、Session、可写私有存储等条件。外部支付、搜索和对象存储需要 HTTPS、出站连接与真实凭据。</p>
+<p>本轮实际执行 PHP8.4.23；数据库测试使用测试专用 FFI 适配访问真实 SQLite，不是原生 PDO/MySQL 验收。生产不依赖 FFI。14组 PHP/数据库 CI 配置已附带，未实际全部执行；两家免费主机、VPS装机、真实支付、代付、物流、搜索与云存储均需部署方验收。</p>
+<h3>文档导航</h3>
+<p><a href="#chapter-2">部署</a> · <a href="#chapter-3">升级</a> · <a href="#chapter-29">本版操作</a> · <a href="#chapter-30">加密备份与恢复</a> · <a href="#chapter-27">上线验收</a> · 实际测试 · <a href="#chapter-11">完整功能与缺口</a> · 历史功能核对 · 参考源码核查</p>
+<p>源码体积按实际文件计数记录在 <code>RELEASE.json</code>，没有为达到5MB加入重复代码、字体、原站素材或无用依赖。完整包大部分体积来自可读说明、测试与实际页面截图。</p>
+<p>仍未完成全部支付产品线、全部社交/短信、跨SKU与部分退款、全部可视化小工具、任意画布、完整财务勾兑、直播/转码/HLS/DRM等。详细限制以功能矩阵为准，不以菜单、占位按钮或体积替代验收。</p>
+</article><article class="chapter" id="chapter-2"><p class="eyebrow">CHAPTER 02 </p><h2>安装与部署</h2>
+<p>核查日期：2026-09-07。项目版本：0.18.0。本文描述部署步骤，不代表已登录蓝队云、萌哒云或在真实 VPS 执行过部署。</p>
+<h3>一、免费虚拟主机：推荐 MySQL 安装</h3>
+<h4>1. 在面板准备</h4>
+<p>绑定自己的域名，选 PHP 而不是 ASP。建立一个空数据库并记录数据库主机地址、端口、名称、用户名、密码。数据库名称前缀以主机面板实际值为准，不是自行填写一个不存在的名称。
+启用 HTTPS，并确认浏览器能正常访问，不出现证书警告。本站的支付网关回调必须能从公网访问。</p>
+<p>程序面向 64 位 PHP 7.4–8.5，所有版本使用相同功能；检查 <code>pdo_mysql</code>、OpenSSL、Fileinfo。上线仍建议使用获得安全维护的运行时，而不是把兼容旧语法等同于旧运行时安全。安装器会检测运行时、PDO 驱动和基本写权限，但不等于完整安全审计，也不能提前验证真实支付回调。
+蓝队云官方免费主机说明为 Windows 环境、FTP 上传 wwwroot、无 SSH 和单独环境更换；未明确本套餐 PHP 小版本和 PDO 扩展。萌哒云“免费1”本轮未取得可独立确认的当前官方配置页，不能继续把 PHP 8.2 写成已确认。两者均须以实际面板、安装检测和工单为准；代码不能替主机安装扩展或解除磁盘/网络限额。见 HOSTS_AND_SOURCES.md。</p>
+<h4>2. 上传</h4>
+<p>推荐使用单独的上传 ZIP，在网站根目录解压。或者在本地解压完整包，仅上传 <code>site/</code> 内全部内容，含隐藏文件。根目录应当直接看到：</p>
+<pre><code>index.php
+action.php
+notify.php
+notify-direct.php
+jobs.php
+oauth.php
+media.php
+admin/index.php
+install/index.php
+app/
+assets/
+storage/
+.htaccess
+web.config
+</code></pre>
+<p><strong>不能公开</strong>完整交付 ZIP、INSTALL_KEY.txt、数据库导出、备份、tests、docs、deploy。
+不要覆盖原网站；先备份旧站，使用空站点目录和空数据库。此安装器不会迁移 WordPress 数据，也不提供一键导入旧主题。</p>
+<p>Apache / LiteSpeed 需要正确处理随包 <code>.htaccess</code>。Nginx 不读取 <code>.htaccess</code>，须在面板添加 <code>deploy/nginx.conf.example</code> 中的目录保护规则。IIS 附带 <code>web.config</code>，但未实测；由主机确认配置功能允许、目录浏览关闭且敏感目录不可访问。不要删除防护文件来绕过错误。</p>
+<h4>3. 运行向导</h4>
+<p>打开 <code>/install/</code>，例如：</p>
+<pre><code>https://example.com/install/
+</code></pre>
+<p>填写站点名称、规范网址、安装口令、MySQL 信息和管理员账号。口令来自本地完整包根目录 <code>INSTALL_KEY.txt</code>。它用于避免未安装站点被抢先初始化，不是管理员密码。
+管理员用户名为 3–32 位小写英文字母、数字、下划线，字母开头。密码为 12–72 字节、必须含字母和数字。
+可选择安装原创示例内容和套餐；公开运营前必须检查价格和内容。</p>
+<p>安装器创建数据表和配置文件，但不创建 MySQL 数据库或数据库用户。站点网址必须与当前安装目录一致，不能填带查询参数、片段或其他路径的网址。
+向导成功后登录 <code>/admin</code>。实体目录入口不依赖 WordPress 伪静态。</p>
+<h4>4. 权限与收尾</h4>
+<p><code>app/</code> 安装期间要能由 PHP 写入，以创建 <code>app/config.php</code>；安装后除配置变更或升级外不应继续允许 PHP 修改应用代码。
+<code>storage/</code> 要允许 PHP 创建媒体文件和日志。不要用全站 777 解决权限问题。共享主机文件所有者模型不同，使用主机提供的权限管理。
+<code>app/config.php</code> 自动设置为仅所属用户可读写；不要改为可公开下载的扩展名。
+安装完成且确认能登录后，删除 <code>install/</code>。</p>
+<p>用未登录浏览器实际请求下面的路径，必须被拒绝或返回无敏感内容的 404，不能显示目录、源码或 JSON 种子数据：</p>
+<pre><code>/app/seed.json
+/app/config.php
+/storage/
+/uploads/
+/.htaccess
+</code></pre>
+<p>测试安装器的 PDO 检测与这些 HTTP 路径保护是两个不同的事项，都需要验证。</p>
+<h4>5. 首次后台设置</h4>
+<p>站点身份与联系方式、服务条款、隐私与退款说明 → 外观与布局 → 用户与评论审核 → 内容 / 会员套餐 → 交易与支付 → SMTP。
+蓝队云用户在「站点设置」中设置「主机鸣谢文字」和「主机鸣谢链接」，遵守该套餐页面的页脚链接规则。不要自行删掉主机要求的标识。
+后台系统页能查看 PHP、数据库类型、上传限制、存储写入状态和 HTTPS 网址配置；不能控制主机面板或安装证书。</p>
+<h3>二、已有面板的 VPS</h3>
+<p>用现有面板创建 PHP 站点、绑定域名和证书、建立数据库，再按上述安装。不要运行新 VPS 脚本覆盖面板服务。
+Nginx 的私有路径拒绝规则优先于 PHP 匹配，参见模板；PHP-FPM socket 按面板实际值修改。本站无需通用 <code>try_files ... /index.php</code> 前端控制器重写。
+面板开启强制 HTTPS 后再把安装网址设为 HTTPS。已经安装的站点换域名或 HTTP 切 HTTPS，备份后修改 <code>app/config.php</code> 的 <code>url</code>，保留 <code>secret</code> 与数据库信息，不要重新安装。
+反向代理必须只信任自己控制的代理，并正确传递 HTTPS 状态。不要为了消除登录问题全局信任任意客户端伪造的代理头。</p>
+<h3>三、全新、无面板 VPS</h3>
+<p><code>deploy/install-vps.sh</code> 面向全新 Debian 12+ / Ubuntu 24.04+、root 权限和 systemd 主机。<strong>本次只检查了 Bash 语法，没有实际安装系统包或取得证书。</strong>
+先阅读脚本。它会安装发行版 Caddy、PHP-FPM、PDO 驱动，创建 <code>/var/www/chengyu</code>，写入 Caddy 配置；会拒绝目标目录已存在、常见面板或已运行 Web 服务的环境。它不修改云防火墙、不为你设置 DNS、不卸载现有服务。</p>
+<p>把完整包上传到非 Web 公开目录解压后：</p>
+<pre><code class="language-bash">cd chengyu
+sudo bash deploy/install-vps.sh example.com
+</code></pre>
+<p>将 <code>example.com</code> 换成自己的域名；按提示输入 <code>INSTALL</code>。先使域名 A/AAAA 指向该 VPS，允许公网 TCP 80/443，保证 Caddy 能绑定端口并持续保存证书数据。删除指向错误服务器的 AAAA 记录，而不是反复申请证书。
+完成后浏览器进入 <code>/install/</code>，选 SQLite，填 <code>/var/www/chengyu/private/chengyu.sqlite</code>。私有口令保留在 <code>/var/www/chengyu/INSTALL_KEY.txt</code>，可用 root 读取。也可自行配置 MySQL，脚本没有安装 MySQL 服务器。
+Caddy 的公开域名 HTTPS 申请和续期由 Caddy 管理；不是 PHP 后台调用 ACME。网关服务、DNS 和防火墙必须正常，否则不会凭空获得可用证书。</p>
+<p>验证后，在该脚本部署的特定路径下执行：</p>
+<pre><code class="language-bash">sudo rm -r /var/www/chengyu/site/install
+sudo chown root:www-data /var/www/chengyu/site/app
+sudo chmod 0750 /var/www/chengyu/site/app
+</code></pre>
+<p>这些命令只适用于本脚本创建的路径。不要照搬到不确定的生产路径，不要删除私有数据库或存储。<code>config.php</code> 仍需 PHP 用户能读，媒体存储仍需可写。
+运行日志使用 <code>journalctl -u caddy</code>、<code>journalctl -u php8.3-fpm</code> 等，PHP 服务名按实际安装版本替换。</p>
+<h3>四、IP、端口、子目录</h3>
+<p>根目录部署时 <code>/admin</code> 和 <code>/admin/</code> 都由 Web 服务器的实体目录入口处理；带端口可以使用 <code>http://IP:端口/admin/</code> 进行隔离环境初测。正式登录与充值应使用有效 HTTPS，HTTP 模式无法创建本站在线充值单。
+不能保证主机共享 IP 能直接访问你的虚拟站点，这由面板的站点绑定决定。</p>
+<p>子目录部署时后台是 <code>/子目录/admin/</code>，而不是域名根目录 <code>/admin</code>。要严格满足根目录加 <code>/admin</code>，就把网站放在该域名的文档根目录。Nginx 私有目录规则也要加子目录前缀。本次自动化测试以根目录部署为主，没有完整覆盖所有子目录 / 代理组合。</p>
+<h3>五、常见问题</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>现象</th>
+<th>排查方向</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>显示 PHP 源码或下载 PHP</td>
+<td>立即停止访问并移除公开文件，修复服务器 PHP 解析，检查密钥是否已泄露</td>
+</tr>
+<tr>
+<td>404 /admin</td>
+<td>检查是否多套了一层 site 目录、默认文档是否为 index.php</td>
+</tr>
+<tr>
+<td>PDO 无驱动</td>
+<td>面板启用 pdo_mysql 或 pdo_sqlite，不能通过上传 PHP 包补出原生扩展</td>
+</tr>
+<tr>
+<td>安装写入失败</td>
+<td>配置目录所有者、主机配额、open_basedir、storage 权限</td>
+</tr>
+<tr>
+<td>MySQL 连接失败</td>
+<td>面板给出的真实地址 / 端口 / 账号 / 名称、空库权限、InnoDB 与 utf8mb4</td>
+</tr>
+<tr>
+<td>HTTPS 后登录循环</td>
+<td>规范网址、浏览器 Cookie、代理 HTTPS 状态与实际访问域名是否一致</td>
+</tr>
+<tr>
+<td>上传大小失败</td>
+<td>PHP upload_max_filesize、post_max_size、Web 服务器 body 上限和后台限制需同时允许</td>
+</tr>
+<tr>
+<td>支付返回后没到账</td>
+<td>返回页不发钱；检查服务端异步通知和真实商户账单，见 PAYMENTS.md</td>
+</tr>
+<tr>
+<td>SMTP 找回失败</td>
+<td>主机出站端口、邮件服务授权码、TLS CA 与发信地址授权；从未保证免费主机允许出站 SMTP</td>
+</tr>
+<tr>
+<td>页面空白 / 500</td>
+<td>查看受保护的 storage/errors.php 与服务器日志，保留错误编号，不公开日志</td>
+</tr>
+<tr>
+<td>缺少 SSL 控制权限</td>
+<td>用主机面板或联系主机商；PHP 代码不能替代该权限</td>
+</tr>
+</tbody>
+</table></div>
+<h3>六、升级与迁移</h3>
+<p>0.14.0 按序提供从 0.9.0–0.13.0 到结构 v6 的增量、可重试迁移，详见 UPGRADE.md。没有在线热更新或自动降级回滚，不支持 WordPress 数据库直接导入。
+迁移需要数据库、<code>app/config.php</code>（尤其 secret）、整个 storage 一致备份。域名或绝对存储路径变化后修改配置对应项，检查回调地址和邮件链接，并再次做验收。完整备份不能用用户 / 订单 CSV 导出来代替。</p>
+<h3>七、新增模块上线顺序</h3>
+<p>升级或安装后先检查「模块」中的问答/投票开关，在测试版块发布试帖并用两个普通账号验证权限与结果隐私。后台「动效工作台」可先在本地预览，保存后用另一个浏览器检查默认效果；页面不会因关闭动画而失去付款或下载功能。</p>
+<p>SMTP 先配置、实际收发成功，再开启必填邮箱验证，避免把真实访客挡在注册入口。详见 EMAIL_COMMUNITY.md。需要普通不验证注册时保持该可选开关关闭，所有 PHP 版本遵循同一设置，不是低版本精简模块。</p>
+<p>部署完成不要求开放 SSH、FFI、Python、Node 或测试端口。测试目录仅留本地。安装器只检查基础运行环境，不表示服务器的网络、数据库性能与所有业务已验收。</p>
+<h3>八、安全、定价与主机自检</h3>
+<p>首次上线先到“系统”运行部署自检，确认真实环境的原生 PDO、回滚、加密与写权限。下载报告便于维护，但报告不含公网敏感路径访问检查，不得跳过真实 URL 验收。</p>
+<p>准备好离线恢复码再给管理员启用身份验证器，确认服务器时钟正确。SMTP 密码找回不会移除身份验证器；没有命令权限的免费主机尤其需要事前保管恢复码。完整包的本地恢复脚本不得公开上传。</p>
+<p>先用测试账户/测试商品设置会员价和活动，核对 0/8000/10000 比例含义、单件最高确认额和按成交价退款，再开放促销。详情见 SECURITY_PRICING.md。旧站没有价格规则时不会因升级自动出现优惠。</p>
+</article><article class="chapter" id="chapter-3"><p class="eyebrow">CHAPTER 03 </p><h2>从 0.17.0 升级到 0.18.0</h2>
+<p>实际基线是用户提供的0.17.0完整包，数据库由 <strong>v9到v10</strong>。配置文件中的 <code>schema_version: 1</code> 是配置格式，不能改成10。此程序不导入WordPress或ICU数据库。</p>
+<h3>先备份，再覆盖</h3>
+<ol>
+<li>暂停收款、退款/代付计划任务及用户写入，备份同一时点的数据库、旧代码、<code>app/config.php</code>、其中原始 <code>secret</code>、整个 <code>storage/</code> 及服务器规则。不要用新版本密钥替换旧密钥。SQLite要停止写入或使用一致性备份，不能遗漏WAL。</li>
+<li>在隔离环境先验证恢复。旧0.17没有本版整站快照工具，请使用主机面板/数据库工具备份，不要为了备份先在唯一生产库上升级。</li>
+<li>覆盖上传包的应用文件与资源，保留原配置和存储；旧站不用再次上传 <code>install/</code>。清理OPcache、浏览器和CDN缓存。</li>
+<li>首次请求执行顺序迁移至v10。迁移需要存储可写和数据库建表、加列、索引、改名等权限。MySQL DDL不保证整体事务回滚；失败时停写排查，不能手动提升版本号跳过迁移。</li>
+<li>检查后台系统自检与 <code>ACCEPTANCE_018.md</code>，再恢复交易和受认证的调度。外部搜索默认不启用，不会自动把内容发送出去。</li>
+</ol>
+<h3>数据变更</h3>
+<p>新增 <code>cy_search_outbox</code>、<code>cy_external_search_state</code>、<code>cy_backup_archives</code>。物流表新增 <code>package_key</code>、<code>package_label</code>，从每订单一条改为订单与包裹键联合唯一。旧运单ID、加密单号、轨迹、修订和关联人工事件保留，旧包裹键为 <code>primary</code>。SQLite在事务内重建该表并核对行数；MySQL逐步更新列和唯一索引。</p>
+<p>没有新增账目入账动作，没有自动退款，没有替用户确认收货。多包裹仍附属于原有订单单位；它不是一张订单跨多个商品的装箱分配系统。原退款、会员补差和作者收益限制继续保留。</p>
+<p>邮件发送次数默认IP为3/10分钟、30/小时、150/天，收件人为3/10分钟、原 <code>mail_limit</code> /小时、9/天；另外有60秒收件人冷却。旧 <code>mail_limit</code> 值会保留。各时窗是固定窗口，冷却是实际经过秒数；不是任意滑动窗口统计。已有邮箱验证、密码重置与改邮箱共用额度。</p>
+<h3>备份与恢复区别</h3>
+<p>升级是保留现有数据库继续迁移；离线恢复是把本版加密归档恢复到一个空数据库和全新存储目录。不要将恢复工具指向生产库。恢复后强制维护模式、任务暂停、外部服务关闭并撤销会话；重新启用前核对恢复时间点之后在商户侧实际发生的交易。</p>
+<p>0.18生成的归档要求使用匹配的0.18代码读取。未来升级请同时保存原版本完整源码与归档，不假定所有归档格式跨版本自动兼容。</p>
+<h3>回滚</h3>
+<p>高版本数据库拒绝由旧程序启动。回滚必须停写并恢复同一时点的旧代码、数据库、配置密钥和文件，不可只覆盖回0.17的PHP。数据库回滚无法撤销真实付款、退款、代付、邮件或已经寄出的包裹。</p>
+<p>更早版本保留顺序迁移路径，但本轮直接发布比对基线为0.17，不是所有历史版本生产数据库都经过升级演练。</p>
+</article><article class="chapter" id="chapter-8"><p class="eyebrow">CHAPTER 08 </p><h2>PHP、数据库与运行环境兼容性</h2>
+<p>版本 0.18.0。兼容目标与测试事实必须分开理解。</p>
+<h3>PHP 7.4–8.5：同功能、同源码</h3>
+<p>本版使用 PHP 7.4 可表达的语法与运行时接口，延续 0.10.0 对旧支付版本门槛的移除。没有为旧 PHP 设计少功能版本。业务开关由站点设置和权限决定，不由 PHP 小版本决定；HTTPS、扩展和主机权限属于同样的运行条件。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>PHP</th>
+<th>功能目标</th>
+<th>本次实测情况</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>7.4</td>
+<td>与其他版本一致</td>
+<td>未取得此运行时；提供原生数据库 CI 项</td>
+</tr>
+<tr>
+<td>8.0</td>
+<td>与其他版本一致</td>
+<td>未取得此运行时；提供原生数据库 CI 项</td>
+</tr>
+<tr>
+<td>8.1</td>
+<td>与其他版本一致</td>
+<td>未取得此运行时；提供原生数据库 CI 项</td>
+</tr>
+<tr>
+<td>8.2</td>
+<td>与其他版本一致</td>
+<td>未取得此运行时；提供原生数据库 CI 项</td>
+</tr>
+<tr>
+<td>8.3</td>
+<td>与其他版本一致</td>
+<td>未取得此运行时；提供原生数据库 CI 项</td>
+</tr>
+<tr>
+<td>8.4</td>
+<td>与其他版本一致</td>
+<td>8.4.23：语法、核心、本地HTTP及离线浏览器检查；数据库使用测试专用真实 SQLite 适配</td>
+</tr>
+<tr>
+<td>8.5</td>
+<td>与其他版本一致</td>
+<td>未取得此运行时；提供原生数据库 CI 项</td>
+</tr>
+</tbody>
+</table></div>
+<p>没有把源码目标表写成“七个版本全部验收”。<code>.github/workflows/php.yml</code> 配置七个版本与 SQLite / MySQL 组合，共 14 个任务；文件存在不等于远程任务已经执行。运营时仍建议选择获得安全维护的 PHP 版本，当前支持日期以 PHP 官方页面为准：https://www.php.net/supported-versions.php 。</p>
+<h3>生产必需能力</h3>
+<p>64 位 PHP；PDO 及与所选数据库对应的 <code>pdo_mysql</code> 或 <code>pdo_sqlite</code>；OpenSSL；Fileinfo；会话；随机数和密码哈希接口；可以写入专用存储。安装器检查基础能力，但无法改变主机扩展、磁盘配额或出站网络规则。</p>
+<p>MySQL 分支使用 InnoDB、utf8mb4，面向 MySQL 5.7 及以上的语法范围；本环境<strong>没有 MySQL 服务器或原生 PDO 驱动验收证据</strong>。不能把这一设计范围当作 MariaDB 每个版本的兼容认证。数据库账户安装/升级需要建表、改表、索引权限，运行需要正常读写。</p>
+<p>SQLite 生产分支使用原生 PDO，数据库必须在 Web 根目录之外；要求 SQLite 支持本程序使用的 WAL 和事务行为。免费主机无法访问外部私有目录时优先用 MySQL，而不是把 SQLite 放进公开目录再假设扩展名没人知道。</p>
+<p>测试专用 <code>tests/Support/FfiSqlite.php</code> 不属于生产替代驱动，不应上传 <code>tests/</code>，也不要求免费主机打开 FFI。站点不要求安装 Composer、Node、Redis、队列守护、cron 或 SSH。开发测试工具与生产运行依赖分离。</p>
+<h3>HTTPS 与外部服务</h3>
+<p>在线充值一律要求配置有效 HTTPS，并能从公网接收支付通知。没有按 PHP 版本区别放行不安全 HTTP 收款。SMTP 发信依赖出站网络、可验证的 TLS、正确服务商授权；这些不能由本包代替开通。</p>
+<p>虚拟主机使用主机面板安装证书。VPS 附 Caddy 配置和新服务器辅助脚本，符合自动 HTTPS 条件时由 Caddy 处理；没有让 PHP 越权重载别人的 Web 服务。</p>
+<h3>Web 服务和浏览器</h3>
+<p>Apache/LiteSpeed 需允许随包访问控制文件生效；Nginx 合并专门拒绝目录规则；IIS 配置模板未实机验证。根目录部署提供实体 <code>/admin</code>，无 WordPress 重写规则；子目录相应为 <code>/子目录/admin</code>。</p>
+<p>前端面向支持 CSS 自定义属性和现代原生 JavaScript 的浏览器。毛玻璃能力不支持时使用普通表面；减少动态效果偏好会收敛动画，隐藏页面暂停部分背景动效。没有旧版 IE 全功能兼容保证。组件编排可在无 JS 时用经服务端校验的 JSON 入口，网站所有交互并不都具有完整无 JS 等价界面。</p>
+<h3>本轮新增模块的相同运行路径</h3>
+<p><code>Verification</code>、<code>Threads</code>、<code>Motion</code>、<code>Categories</code>、<code>Bounties</code>、<code>Reviews</code>、<code>Creator</code>、<code>Discovery</code>、<code>Pricing</code>、<code>SecondFactor</code>、<code>Totp</code>、<code>Diagnostics</code> 的 PHP 层与现有业务使用相同数据库、密码/随机数、邮件和模板接口，没有按 PHP 小版本关闭模块。前端的 Document View Transitions、IntersectionObserver、Web Animations、玻璃和精细指针是浏览器能力，与 PHP 7.4 或 8.5 无关；不支持某项装饰时保留业务并采用静态/直接切换，不伪造受支持状态。</p>
+<p>参考：PHP 官方维护版本表与迁移指南（维护范围以官方页面实时内容为准）：
+https://www.php.net/supported-versions.php
+https://www.php.net/manual/zh/migration85.php</p>
+<p>旧版本兼容不等于旧版本还受上游安全维护；不因此在代码中限制其业务功能。</p>
+<p>前轮尝试取得原生驱动和其他运行时，但环境的下载/软件源连接未成功，不能把失败安装写成原生测试通过。FFI 测试路径是测试专用退路，生产代码仍只使用 PDO。跨 PHP 版本需要同一份完整回归，不允许以跳过支付、收益、邮件或其他模块来换取绿色状态。</p>
+<p>新代码避免 PHP 8 专用语法和新增运行时函数；这种源码检查只说明兼容目标，不替代每个版本实际执行。7.4/8.0/8.1 的上游安全维护状态与功能兼容是两件事；建议部署到仍获安全维护的版本，但程序不按小版本禁用功能。</p>
+<h3>0.14 的验证增强</h3>
+<p>后台“系统 → 部署自检”可在实际主机按需验证原生 PDO、扩展、加密、整数/中文绑定和数据库回滚，并导出 JSON。它不是七个运行时的全功能测试，也不是公网目录/TLS/支付证据。</p>
+<p>CI 新增原生驱动前置断言：SQLite 任务缺 <code>pdo_sqlite</code> 或 MySQL 任务缺 <code>pdo_mysql</code> 会立即失败，不允许回退测试适配层后标为原生通过。CLI 恢复工具也加入各版本语法检查。14 组配置本轮未执行。</p>
+<p>身份验证器使用 PHP 7.4 已有的 HMAC/随机数/整数/加密接口；价格使用整数与统一事务。没有按小版本关闭安全、定价、支付、作者收益或新视觉配置。旧运行时上游停止安全支持与应用同功能目标仍是两个问题。</p>
+<h3>0.15 外部连接条件</h3>
+<p>新 OAuth、主动查单、快照、永久会员和徽章共用现有 PHP 7.4 语法与接口。第三方连接需 <code>stream_socket_client</code>、OpenSSL、CA、公网 DNS/443，不依赖 cURL、<code>allow_url_fopen</code> 或守护进程。限制出站的主机不会被程序假装为连接成功；请开通主机条件后验收。</p>
+<h3>0.16 共同运行条件</h3>
+<p>新支付/退款/代付/会员/运费/促销/媒体/翻译服务不按 PHP 小版本关功能。出站 API 需要 HTTPS/443、DNS、可信 CA、stream_socket_client 和准确时钟；分片合并需文件锁及约三倍文件大小的空闲峰值空间；S3 需要私有桶、CORS 和条件复制权限。虚拟主机无人值守任务需外部可信调度，后台按钮始终可手动执行。</p>
+<p>数据库迁移 v8，安装格式仍为 1。生产不使用 FFI，缺原生 PDO 应修复主机条件。源码的 PHP 7.4 兼容检查不代替七个版本真实执行，14 组 CI 配置本轮仍未运行。</p>
+<h3>0.17 共同运行条件</h3>
+<p>课程、索引搜索、布局版本、客服和标准账单核对复用原生PDO与PHP7.4语法范围，不要求新增守护进程。索引构建由每次HTTP请求处理10条，前台未构建完成时回退原检索。课程资源大小仍受现有媒体/主机限制。</p>
+<p>快递100查询需要与支付相同的HTTPS出站能力和可用服务凭据，不要求cURL。数据库新增结构v9，安装配置格式仍为1。仅PHP8.4.23实际执行；原生数据库、其他PHP运行时与真实免费主机未被本轮测试结果覆盖。</p>
+</article><article class="chapter" id="chapter-11"><p class="eyebrow">CHAPTER 11 </p><h2>0.18.0 功能覆盖与未完成项</h2>
+<p>日期：2026-09-07；实际基线0.17.0；数据库v10。当前版本范围如下，旧报告仅在history目录追溯。生产代码能力与真实服务联调分开记录。</p>
+<h3>0.18本轮新增与增强</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>能力</th>
+<th>实际实现</th>
+<th>明确限制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Meilisearch</td>
+<td>服务端密钥、专用索引、公开元数据替换/删除、异步任务确认、合并队列/租约/重试、权限/版本再核对、本地回退、管理入口和短同步会话</td>
+<td>真实服务未联调；最多200远端候选；无全文正文、全套智能筛选/聚合管理、ES/OpenSearch；需单独部署或购买远端服务</td>
+</tr>
+<tr>
+<td>多包裹</td>
+<td>每订单最多20包裹，独立标签/单号/轨迹/修订/查询缓存，所有者隔离、幂等新建；旧ID保留</td>
+<td>不做数量装箱、跨SKU、多仓、电子面单；不自动收货/结算</td>
+</tr>
+<tr>
+<td>邮箱防滥发</td>
+<td>IP和收件人各10分钟/小时/天额度、原子合并判定、实际冷却秒数</td>
+<td>次数用固定窗口；无新增短信、人机拼图或无限防刷承诺</td>
+</tr>
+<tr>
+<td>加密快照</td>
+<td>固定应用表一致性数据库读、可选完成的本地媒体、独立密码、认证加密、文件校验、管理员/TOTP复验、保留数量</td>
+<td>默认64MiB/约20秒有界请求；不是云桶/源码/配置密码备份，也非定时异地灾备</td>
+</tr>
+<tr>
+<td>离线恢复</td>
+<td>全归档预验证、空目标检查、可信结构、同引擎恢复、文件校验、旧密钥保留、会话撤销/维护/任务暂停</td>
+<td>仅匹配版本CLI；无网页在线覆盖恢复；MySQL/PDO和真实主机待实测</td>
+</tr>
+<tr>
+<td>工作台细节</td>
+<td>中英文、包裹卡/选中标记、恢复工作台、键盘原生表单、轻量指针柔光、减少动态效果</td>
+<td>原创演示截图不是生产部署，帧率依设备</td>
+</tr>
+</tbody>
+</table></div>
+<h3>原有功能保留</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>功能族</th>
+<th>当前实现</th>
+<th>明确边界</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>内容与社区</td>
+<td>文章、帖子、页面、分类继承、标签、摘要、Markdown、修订冲突、审核、问答采纳、投票、评论、举报、圈子、积分悬赏</td>
+<td>不是古腾堡生态、完整社交动态或复杂版主系统；没有现金多人悬赏</td>
+</tr>
+<tr>
+<td>账户与安全</td>
+<td>注册/登录、找回、邮箱验证、邀请、TOTP/恢复码、撤销会话、审计、资料、关注、收藏、私信、通知、徽章；Google/GitHub/Microsoft OAuth 适配</td>
+<td>没有所有社交平台、短信/WebAuthn；OAuth 真实应用未联调</td>
+</tr>
+<tr>
+<td>内容权限</td>
+<td>公开/登录/VIP/付费/回复/密码访问，付费有效期，私有附件、配额、Range，作者收益与推荐佣金</td>
+<td>不提供 DRM；数字副本离线传播无法靠网站彻底阻止；有条件的收益结算不是通用分账</td>
+</tr>
+<tr>
+<td>商城基础</td>
+<td>商品、SKU、加密卡密、自动邀请码、库存、购物车、真实购买评价、地址、发货/收货</td>
+<td>不是多商家、多仓或任意属性组合商城；0.18另增多包裹轨迹</td>
+</tr>
+<tr>
+<td>资产</td>
+<td>余额/积分/代币整数流水、奖励、兑换、转账、优惠券、来源分离的提现冻结</td>
+<td>不做隐式换汇、链上资产、银行或托管服务</td>
+</tr>
+<tr>
+<td>外观与运营</td>
+<td>五主题、明暗/跟随系统、玻璃层、弹簧/贝塞尔动效实验室、键盘焦点、目录/专注阅读、专题、任务、公告、链接、导航、加密配置快照</td>
+<td>不保证所有设备固定帧率；配置快照不是整站文件及数据库备份</td>
+</tr>
+</tbody>
+</table></div>
+<h3>交易、会员与售后</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>能力</th>
+<th>已落地</th>
+<th>限制或未联调内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>访客购买</td>
+<td>邮箱联系方式、随机私密通行证、订单柜台、收据、权限、售后、显式账号认领</td>
+<td>邮箱不能单独查询；凭证不自动邮件发送；会员须登录；通行证丢失需人工核实</td>
+</tr>
+<tr>
+<td>结算</td>
+<td>20 行/100 单位上限，服务端重新计价、幂等、库存及卡密预留、逐单位订单、共同支付收据</td>
+<td>单一站点结算币种；不支持混合支付</td>
+</tr>
+<tr>
+<td>运费/促销</td>
+<td>固定/按件/按克重量、地区、首续单位、满额包邮；满减、比例、每N件、买X送Y、阶梯、组合及叠加规则</td>
+<td>地区是商家代码；不自动添加赠品；单券仅单单位；无拼团/拍卖/秒杀排队</td>
+</tr>
+<tr>
+<td>售后</td>
+<td>退款、退货退款、同SKU换货、凭证、审核、寄回、验收、回库、补发及版本冲突保护</td>
+<td>无跨SKU补差、任意部分金额退款、独立多次补发、退货面单</td>
+</tr>
+<tr>
+<td>永久会员/补差</td>
+<td>VIP 1–3、永久套餐、实际付款权益批次、剩余价值折算、保留到期日或新周期、跨级、签名报价、退款回滚保护</td>
+<td>补差用站内资产；不是任意组合权益套餐；历史价值不猜测</td>
+</tr>
+<tr>
+<td>支付宝</td>
+<td>RSA2 WAP；PAGE电脑网站支付（自0.17保留）；共用查单、通知验签、退款</td>
+<td>非证书模式/当面付/所有产品线；真实签约和商户待验收</td>
+</tr>
+<tr>
+<td>微信支付</td>
+<td>API v3 H5、签名/平台验签、AES-GCM通知、查单及退款协议</td>
+<td>无JSAPI/Native/小程序/服务商多商户；真实联调与密钥轮换由部署方验证</td>
+</tr>
+<tr>
+<td>Stripe/PayPal</td>
+<td>Stripe Checkout；PayPal Orders v2 捕获及Webhook；查询/退款适配</td>
+<td>PayPal本版仅数字商品；无CNY换汇；非订阅/分账；真实资金未测</td>
+</tr>
+<tr>
+<td>逐单查单/退款</td>
+<td>后台、CLI或签名调度；审批后固定退款号、租约、未知状态保留、确认后资产及权限回滚</td>
+<td>单订单单位全额；历史充值不自动原路退；需要真实调度</td>
+</tr>
+<tr>
+<td>自动代付</td>
+<td>审核后的 PayPal Payouts、固定批次、状态查询和原来源冻结</td>
+<td>无支付宝/微信企业付款、银行卡代付；不是代替顾客付购物单</td>
+</tr>
+</tbody>
+</table></div>
+<h3>0.17保留的运营能力（0.18变更已注明）</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>能力</th>
+<th>保留实现与本版变化</th>
+<th>明确限制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>索引搜索</td>
+<td>可选跨数据库倒排索引；英文词/CJK相邻二元组；标题/标签/摘要权重，多词组合、有效译文、分批构建和同步更新</td>
+<td>不索引正文与私密数据；不是专业中文分词、拼音纠错/同义词/语义搜索；0.18另接Meilisearch，未接ES/OpenSearch；无大规模压测</td>
+</tr>
+<tr>
+<td>课程</td>
+<td>来源文章/数字商品的权限继承，章节、预览、私有资源、原生MP4/MP3播放、个人进度和笔记、退款撤权</td>
+<td>无考试/证书/防刷学时/直播/转码/HLS/DRM；保存为明确点击，不是自动云同步；每课程最多500章节</td>
+</tr>
+<tr>
+<td>布局版本</td>
+<td>原有22位置/11区块；草稿独立、发布、放弃、最近20发布快照、恢复与修订冲突检查</td>
+<td>不是任意像素画布；不能执行PHP/JS或WordPress小工具；布局恢复不恢复被删资源</td>
+</tr>
+<tr>
+<td>物流轨迹</td>
+<td>已支付实物订单绑定、加密单号/轨迹、人工事件、快递100按需查询、间隔和串单检查、所有者权限</td>
+<td>外部接口待真实联调；0.18另增多包裹；仍无电子面单、多仓、退件独立轨迹；不会自动收货</td>
+</tr>
+<tr>
+<td>账单级差异报告</td>
+<td>标准CSV导入、账期/字段/金额校验、重复导入保护、支付/退款对比、双向缺单及差异、重新核对</td>
+<td><strong>仅报告，不自动入账/退款</strong>；不是四渠道原始账单自动下载/手续费/税款/汇兑/银行勾兑；上限2000行/2MiB/31天</td>
+</tr>
+<tr>
+<td>客服工单</td>
+<td>登录用户与本人订单、私有线程、管理员回复、可编辑模板、优先级、状态、通知、幂等和冲突保护</td>
+<td>无工单附件、多坐席指派/SLA/外部同步；每单1000回复，按50分页</td>
+</tr>
+<tr>
+<td>独立语言偏好</td>
+<td>前后台可分别保存中文/英文，沿用统一翻译入口、默认语言和浏览器协商</td>
+<td>自定义内容不自动翻译；不是所有第三方文案的全站实时机器翻译</td>
+</tr>
+</tbody>
+</table></div>
+<h3>媒体、国际化与部署</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>能力</th>
+<th>已实现</th>
+<th>限制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>内容译文</td>
+<td>中英编辑、修订、草稿/审核发布、原文变更隐藏旧译文，可选LibreTranslate</td>
+<td>需要外部服务和明确发送确认；不发送受保护正文；不承诺免费无限量或翻译准确率</td>
+</tr>
+<tr>
+<td>媒体续传</td>
+<td>256KiB本地分片、缺片续传、逐片校验、配额、所有权、保护封装、完成幂等</td>
+<td>本地受磁盘/执行时间限制；不等同S3多段续传或转码</td>
+</tr>
+<tr>
+<td>对象存储</td>
+<td>SigV4私有S3兼容、浏览器暂存PUT、类型及大小检查、条件复制、短时签名</td>
+<td>S3/R2协议范围；无原生OSS/COS；远程PUT不是多段断点续传；真实账号未联调</td>
+</tr>
+<tr>
+<td>PHP与主机</td>
+<td>同一PHP7.4–8.5源码，不按版本裁剪功能；无WordPress/运行期Composer/Node/Redis/常驻队列依赖；Apache/IIS/Nginx/Caddy/VPS说明</td>
+<td>实际仅PHP8.4.23；原生PDO/MySQL、两免费主机、14组CI和VPS装机未实测；主机必须有必要扩展/权限/HTTPS</td>
+</tr>
+</tbody>
+</table></div>
+<h3>仍未覆盖的差距</h3>
+<p>不能把以上“有限实现”扩大成“全部子比模块已完成”。仍缺：全部官方/第三方社交登录与短信渠道、全部短信与验证供应商、全部智能搜索筛选与集群管理、全部可视化小工具、任意画布、原生OSS/COS、直播/转码/HLS/DRM、跨SKU/部分退款、多仓/面单、拼团/拍卖/秒杀排队、原始账单自动下载及完整财务对账、支付宝/微信企业付款、自动异地整站备份/灾备、WordPress数据迁移等。</p>
+<p>历史版本对照见 <code>HISTORICAL_FEATURES.md</code>，参考源码审阅方式见 <code>REFERENCE_AUDIT.md</code>。未实现功能没有添加假成功按钮或空驱动宣称可用。</p>
+</article><article class="chapter" id="chapter-27"><p class="eyebrow">CHAPTER 27 </p><h2>0.18 上线前实机验收</h2>
+<p>本地测试报告不能替代本页。先用不涉及真实资金的隔离站点操作，保留故障记录与恢复副本。</p>
+<h3>安装、保护与版本</h3>
+<p>确认64位PHP、原生PDO驱动、OpenSSL、Fileinfo、Session及可写存储。程序版本0.18、数据库v10、配置格式1。旧站必须保留原 <code>secret</code>。不要为绕过错误删除 <code>app/</code>、<code>storage/</code> 等保护规则；访问配置、日志、备份和媒体封装路径时不应输出私密数据。后台仅管理员/对应角色可访问，上传包不能含私有安装口令或测试文件。</p>
+<h3>共用功能回归</h3>
+<p>验证旧账户和TOTP、钱包账目、会员永久权益和补差、付费正文/附件、访客通行证、购物车计价、原库存/卡密、物流、退款审批、作者收益冻结及导航权限。双语分别设置并刷新前后台；不得把日志或私密付费内容发送给搜索或翻译服务。</p>
+<h3>本轮增量</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>操作</th>
+<th>验收标准</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>搜索文字0、中文和英文词</td>
+<td>不误当空查询，当前可读内容正确显示</td>
+</tr>
+<tr>
+<td>Meilisearch同步一篇内容</td>
+<td>收到taskUid时未完成，任务成功后查询可用；改版/下架后本站不会显示旧权限内容</td>
+</tr>
+<tr>
+<td>关闭远端服务</td>
+<td>本地检索仍工作；后台失败留在队列，没有假成功</td>
+</tr>
+<tr>
+<td>两个包裹与同键重试</td>
+<td>两个独立单号/轨迹；相同新建请求不会第三次建包裹</td>
+</tr>
+<tr>
+<td>非订单所有者查看物流</td>
+<td>返回拒绝/不存在，不显示收件信息与轨迹</td>
+</tr>
+<tr>
+<td>验证邮件连续发送</td>
+<td>IP/收件人额度与冷却同时生效，拒绝不消耗无关额度</td>
+</tr>
+<tr>
+<td>后台备份与下载</td>
+<td>需CSRF及当前密码/TOTP；文件非明文；普通用户不可取得</td>
+</tr>
+<tr>
+<td>错误密码、改坏文件</td>
+<td>离线检查拒绝，不能写入目标库</td>
+</tr>
+<tr>
+<td>恢复到空目标</td>
+<td>账户、长整数余额、卡密、媒体正确；维护/任务暂停、会话撤销；原站不受影响</td>
+</tr>
+<tr>
+<td>恢复到非空目标</td>
+<td>拒绝覆盖</td>
+</tr>
+<tr>
+<td>手机/平板/桌面</td>
+<td>320/390/768/1440宽度无横向遮挡，键盘可操作，减少动态效果有效</td>
+</tr>
+</tbody>
+</table></div>
+<h3>真实支付与服务</h3>
+<p>分别使用你实际签约的支付宝/微信/Stripe/PayPal产品，在其允许的测试或小额验收环境确认创建、通知验签、主动查单、拒绝假金额、重复通知、超时未知状态、原路退款和代付状态。不把mock协议测试当商户联调。实际账户不支持的支付产品线不要强行启用。</p>
+<p>外部调度要验证认证、网络可达和执行记录；免费主机没有可靠调度时，只能人工推进，不能承诺无人值守及时完成。出站DNS/443、服务证书、存储CORS/对象访问、物流查询和翻译提供商应分别检测。</p>
+<p>本轮未实测所有PHP版本、原生PDO/MySQL、两家免费主机、VPS新机脚本和公网浏览器流程。CI文件不是通过记录。高版本数据库回滚必须同步恢复代码和数据库，不可只换旧文件。</p>
+</article><article class="chapter" id="chapter-29"><p class="eyebrow">CHAPTER 29 </p><h2>0.18 搜索、包裹与安全工作台</h2>
+<p>本章仅说明本轮增量。旧课程、工单、账单与布局版本仍参见 <code>PLATFORM_017.md</code>；支付与售后参见 <code>COMMERCE_016.md</code>。</p>
+<h3>外置 Meilisearch</h3>
+<p>后台“设置 / 发现”选择 <code>meilisearch</code>，填写公开可达的HTTPS接口、专用 <code>cy_</code> 前缀索引和服务端API密钥，确认同意发送公开元数据和用户搜索词。服务必须在另一个可运行搜索进程的服务器或托管服务上；免费共享主机只运行PHP连接器，不需要在主机安装Docker。服务成本、数据处理与访问配额由你与提供商决定。</p>
+<p>接口只接受HTTPS、443端口和公共IP解析，不能填localhost、私网、带用户名密码或查询参数的地址。VPS上的同机服务也需经受保护的HTTPS入口接入；不能关闭校验去访问内网。API密钥只留在服务端，给该专用索引配置搜索、文档写入/删除和任务读取所需的最小权限，不使用公开主密钥。</p>
+<p>在“搜索工作台”先点击“加入下一批25篇”，逐批建立同步队列。然后“处理一个到期任务”，或启动一次最多12次请求的短同步会话。关闭或隐藏页面会停止继续发请求；队列在数据库保留。请求受理后不标记完成，之后必须取得远端任务成功状态；失败保留并退避重试。长时间无人管理需配置真实调度，并开启 <code>meili_jobs</code>；没有调度就不能保证及时同步。</p>
+<p>同一文档变化会合并到同一队列项，并记录版本。只同步可匿名列出的已发布内容：标题、摘要、标签、当前有效中英译文标题与摘要。正文、付费正文、私信、账户、订单、笔记和工单不发送。归档、下架或权限变化会排队删除。</p>
+<p>搜索最多取得200个远端候选，返回本站重新核对ID、内容版本、当前权限、栏目和发布时间，再与本地命中合并；本地结果总量决定分页，不直接信任远端总数。远端故障自动使用本地检索。仍支持用户获准访问的受限栏目本地匹配。</p>
+<p>这不是所有子比智能筛选的等价实现：没有本站同义词/纠错管理界面、全文正文导出、分类聚合计数、OpenSearch/Elasticsearch或语义向量服务。远端同义词等参数须在专用搜索服务管理。切换供应商或禁用同步不会自动清空旧供应商的数据，必须单独删除旧索引。</p>
+<p>服务端遵循官方POST搜索、全量文档替换和异步任务查询协议，见 <code>HOSTS_AND_SOURCES.md</code>。本轮采用协议桩测试，没有真实Meilisearch实例联网联调或大型索引压测。</p>
+<h3>一个订单多个包裹</h3>
+<p>在后台物流工作台填写已支付实物订单ID，添加第一包裹。之后可“添加另一个包裹”，设置标签、承运商代码与单号。每个包裹有单独轨迹、版本和查询时间；订单最多20个包裹。同一订单重复承运商/单号会被拒绝。相同新建请求重试不会重复建包裹。</p>
+<p>切换顶部包裹卡可查看或修改指定包裹。变更运单只清除该包裹旧轨迹，不影响其他包裹。人工更新需含时区的时间、文字说明；远端快递100查询保留原签约、显式同意、间隔和单号匹配检查。</p>
+<p>用户从订单进入物流，仅可查看自己的订单。不要以某一包裹的“已签收”自动推断整个订单完成；用户应收到所有包裹后才确认收货。物流变化不自动改余额、退款或结算。</p>
+<p>这是多运单与轨迹管理，不包含每箱商品数量分配、跨SKU换货、多仓库存、电子面单、退件独立轨迹或承运商自动订阅。</p>
+<h3>邮箱验证码防滥发</h3>
+<p>后台安全设置可分别限制同IP/同收件人的10分钟、小时、天发送数，并设置收件人实际冷却秒数。邮箱经统一标准化后计数。七个限制在同一事务中判定，拒绝请求不额外消耗其他未超限额度。</p>
+<p>六个次数时窗采用固定窗口，冷却时间连续计算，所以不能简单通过跨分钟边界绕过最小发送间隔。站点所有相关验证码用途共享收件人额度。它不等于新增阿里云/腾讯云短信、图形拼图验证或所有消息发送的反垃圾保护。被限流时等待窗口到期；不要在生产数据库清空限流表绕过保护。</p>
+<h3>界面与动画</h3>
+<p>恢复副本、搜索同步和多包裹页共享既有主题、色彩和曲线。包裹卡使用短距离悬停、选中标记和键盘焦点；恢复工作台有分层徽记。指针柔光仅在精细指针、启用动效且页面可见时运行，每个表面最多一个待执行动画帧，没有空闲无限循环。</p>
+<p>关闭动效或系统选择减少动态效果后，新增位移和柔光停止。主要操作使用原生POST表单，JavaScript只增强体验；不是没有JavaScript就不能操作。后台与前台语言偏好仍分别保存。</p>
+<p>加密备份的创建、下载、恢复和免费主机限制请阅读 <code>BACKUP_RECOVERY.md</code>。</p>
+</article><article class="chapter" id="chapter-30"><p class="eyebrow">CHAPTER 30 </p><h2>加密数据库、本地媒体与离线恢复</h2>
+<p>**先在隔离环境完成一次恢复演练，再依赖备份。**这是0.18小站的手动一致性快照，不是跨机灾备、热备、高可用或自动覆盖正在运行的网站。</p>
+<h3>备份包含什么</h3>
+<p>归档包含当前支持的77张数据表的记录、应用/数据库版本、原站点URL和用于解密旧数据的原始站点 <code>secret</code>。账户、密码哈希、订单、余额、付费权限、卡密、设置中的加密凭据等都属于敏感数据。可选包含已经完成的本地媒体封装文件。</p>
+<p>排除备份目录本身、限流、密码重置/邮箱挑战、未完成上传任务与分片。也不包含程序源码、数据库连接密码、服务器配置、TLS证书、PHP会话文件、S3/R2远程对象实际字节。远程对象仅有数据库指向信息；云桶需要独立备份。数据库专用触发器、视图或用户另装插件表不在这个固定应用格式内。</p>
+<p>请同时保存匹配版本源码、服务器规则和目标数据库配置。数据库类型必须匹配：MySQL归档恢复到MySQL，SQLite恢复到SQLite，不作跨引擎转换。</p>
+<h3>后台创建与下载</h3>
+<p>进入后台“恢复副本”，输入单独的16–256字节备份密码、再次输入确认，选择是否含本地媒体，再提供当前管理员密码与已启用的TOTP/恢复码。确认归档包含敏感数据后创建。下载和删除也要求当前凭据复验，不能仅凭登录Cookie执行。</p>
+<p>归档使用PBKDF2-SHA256派生独立密钥和逐记录AES-256-GCM认证加密；每条记录绑定序号、前一记录认证标记与头部，末尾清单用于检测截断、乱序或追加。解析只接受已知表名和严格的本地文件键，不执行归档里的SQL、PHP或序列化对象。</p>
+<p>服务器文件使用随机名称、PHP停止执行封装与私有目录权限；下载移除封装，扩展名为 <code>.cybackup</code>。下载前检查目录记录的SHA-256。将归档移出服务器，密码放在另一安全位置。文件和密码同时丢失无法恢复；不得放进源码仓库或普通邮件。</p>
+<p>默认归档上限64MiB、保留最近3份成功副本；可在安全设置调到8–512MiB、1–10份。创建请求有最多约20秒的安全预算，并提前考虑主机执行时间；大站、慢主机或大媒体请用主机/数据库备份工具，不反复提高超时硬撑。只读一致性事务会持有快照，操作时尽量停写。</p>
+<p>失败不生成成功目录记录，并清理正常异常路径的临时文件；进程被强杀可能留下保护封装文件，需要管理员核对目录后清理。损坏副本下载校验失败时不要删除最后一份其他完好副本。当前界面删除同样要求文件可验证，严重损坏的孤立文件通过主机文件管理核对后移除。</p>
+<h3>离线检查</h3>
+<p>将完整包解压到本地可信环境或隔离VPS。工具只接受CLI，不能通过浏览器运行，<code>tools/</code> 不放到网站公开目录。下例应用目录为 <code>/srv/chengyu/site</code>，没有连接生产站点：</p>
+<pre><code class="language-sh">php /srv/chengyu/tools/recover-backup.php inspect /srv/chengyu/site /private/copy.cybackup
+</code></pre>
+<p>工具从标准输入读取备份密码，不把密码写进命令参数或历史记录。普通终端可能回显输入；类Unix终端可使用关闭回显的方法：</p>
+<pre><code class="language-sh">old=$(stty -g) || exit 1
+trap 'stty "$old"' EXIT HUP INT TERM
+stty -echo
+php /srv/chengyu/tools/recover-backup.php inspect /srv/chengyu/site /private/copy.cybackup
+stty "$old"
+trap - EXIT HUP INT TERM
+</code></pre>
+<p>随后输入备份密码并回车。不要把密码作为工具第三/第四参数。自动化输入只能来自权限严格的私有文件或秘密管理器，完成后按你的密钥制度销毁。Windows终端可使用私有标准输入文件；不要套用 <code>stty</code>。</p>
+<p>检查输出只包含版本、数据库类型、记录/文件数等摘要，不输出原密钥和私密记录。错误密码、认证标签变化、路径穿越或不完整末尾会直接拒绝。</p>
+<h3>恢复到空目标</h3>
+<p>准备同类型空数据库，创建一个仅在本地可信目录的PHP连接文件，例如 <code>/private/target-database.php</code>：</p>
+<pre><code class="language-php">&lt;?php
+return [
+    'driver' =&gt; 'mysql',
+    'host' =&gt; '127.0.0.1',
+    'port' =&gt; 3306,
+    'name' =&gt; 'chengyu_rehearsal',
+    'user' =&gt; 'rehearsal_user',
+    'password' =&gt; 'REPLACE_WITH_TARGET_DATABASE_PASSWORD',
+];
+</code></pre>
+<p>SQLite用 <code>['driver'=&gt;'sqlite','path'=&gt;'/private/new-site.sqlite']</code>。该PHP文件由你本地编写，不来自陌生上传，因为工具会读取执行它。恢复存储目录与输出配置文件必须尚不存在，而它们的父目录必须存在。</p>
+<pre><code class="language-sh">php /srv/chengyu/tools/recover-backup.php restore /srv/chengyu/site /private/copy.cybackup /private/target-database.php /srv/restored-storage /private/recovered-config.php CONFIRM-EMPTY-TARGET
+</code></pre>
+<p>使用上节相同的标准输入方式输入密码。工具先完整验证归档，再检测空库，从当前可信代码建立结构、事务写入数据、逐片恢复并核对媒体，最后生成新的私有配置。已有任何数据表会拒绝。MySQL DDL不能全部回滚；失败可能留下空表或未发布目标数据，重新演练应换一个干净目标，不能把半恢复站点直接上线。</p>
+<p>工具输出配置保留旧 <code>secret</code>，使用你指定的新数据库与存储。将恢复代码、配置与目录放到隔离站点后确认路径，谨慎把配置移为 <code>app/config.php</code>。恢复后的维护模式/任务暂停及远端开关必须保持，直到核对完成。</p>
+<h3>恢复后必须核对</h3>
+<p>旧账户/TOTP、余额与流水、订单和待退款/代付状态、卡密可解密、原付费权限、本地媒体校验、S3桶访问和原站点URL都要检查。所有旧会话已撤销，需重新登录。数据库只恢复到快照时刻，不会撤销快照之后真实发生的商户退款、提现、发货、邮件或下载。</p>
+<p>外部支付/邮件/身份连接等开关会关闭，计划任务被 <code>recovery_hold</code> 拦截，调度密钥清空。手工重配真实服务前，在商户侧核对待处理单；检查结束后才重新生成调度凭据、恢复服务、关闭维护与任务暂停。不要盲目重试所有历史任务。</p>
+<p>仅数据库归档不会还原本地媒体字节，需另行恢复原始 <code>storage/blobs</code>。完整媒体归档在缺少已登记本地文件时会失败，而不是静默漏文件。远程存储不在归档内，仍需原桶或独立恢复。</p>
+<h3>免费主机没有SSH怎么办</h3>
+<p>创建和下载小型归档在后台完成，不要求SSH、Composer或ZipArchive。<strong>本版恢复工具没有网页执行入口</strong>，不能宣传为免费主机一键整站在线恢复。</p>
+<p>可在本地/隔离VPS的相同数据库环境验证归档并恢复，然后用该环境的数据库管理工具导出，再通过主机数据库面板导入；通过FTP传回恢复媒体与配置。蓝队云官方说明数据库只支持面板管理、不支持外部远程连接，不能假设本地CLI可直连它的数据库。真实数据迁移前仍优先采用主机的原生整站备份与还原。</p>
+<p>程序从不为PHP7.4关闭备份或为8.5另开一套功能；实际能力取决于扩展、数据库权限、内存、执行时间和磁盘。原生MySQL/PDO与真实主机恢复尚待你按验收清单演练。</p>
+</article>
+
+</main></div><footer>Chengyu 0.18.0 | Standalone instructions. Screenshots, test evidence and source are in the complete package.</footer></body></html>

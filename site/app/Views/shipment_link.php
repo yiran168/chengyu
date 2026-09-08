@@ -1,0 +1,1 @@
+<?php if($s->enabled('tracking') && $a->db->one('SELECT id FROM cy_shipments WHERE order_id=?',[(int)$order['id']])): ?><a class="btn secondary small" href="<?= e(url('tracking',['id'=>$order['id']])) ?>"><?= icon('box') ?><?= t('Shipment timeline') ?></a><?php endif ?>

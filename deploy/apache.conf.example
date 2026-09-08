@@ -1,0 +1,13 @@
+# Configure PHP-FPM or mod_php separately using your distribution / panel.
+# The bundled .htaccess files must be retained and honored.
+<VirtualHost *:80>
+    ServerName example.com
+    DocumentRoot /var/www/chengyu/site
+    DirectoryIndex index.php
+    <Directory /var/www/chengyu/site>
+        Options -Indexes
+        AllowOverride All
+        Require all granted
+    </Directory>
+</VirtualHost>
+# Enable HTTPS via your panel or Apache's certificate tooling before launch.

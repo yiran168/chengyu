@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /app/
+Disallow: /storage/
+Disallow: /install/
+Disallow: /action.php
+Disallow: /notify.php

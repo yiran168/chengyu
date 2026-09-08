@@ -1,0 +1,83 @@
+{
+    "total": 19,
+    "passed": 19,
+    "failed": 0,
+    "tests": [
+        {
+            "test": "018 backup table registry matches all installed application tables",
+            "ok": true
+        },
+        {
+            "test": "018 backup create rejects non-administrators and short passwords",
+            "ok": true
+        },
+        {
+            "test": "018 consistent encrypted database and media backup completes",
+            "ok": true
+        },
+        {
+            "test": "018 archive can be inspected after stripping the protected storage envelope",
+            "ok": true
+        },
+        {
+            "test": "018 encrypted archive rejects a wrong password",
+            "ok": true
+        },
+        {
+            "test": "018 encrypted archive rejects a truncated completion marker",
+            "ok": true
+        },
+        {
+            "test": "018 encrypted archive rejects a modified authentication tag",
+            "ok": true
+        },
+        {
+            "test": "018 encrypted archive rejects data after a valid completion marker",
+            "ok": true
+        },
+        {
+            "test": "018 backup file retrieval remains administrator-only",
+            "ok": true
+        },
+        {
+            "test": "018 archive parser rejects a signed but unsupported table identifier",
+            "ok": true
+        },
+        {
+            "test": "018 archive parser rejects a signed path traversal file",
+            "ok": true
+        },
+        {
+            "test": "018 archive writer enforces its byte budget",
+            "ok": true
+        },
+        {
+            "test": "018 recovery refuses a nonempty database before changing data",
+            "ok": true
+        },
+        {
+            "test": "018 recovery verifies before creating any tables or storage",
+            "ok": true
+        },
+        {
+            "test": "018 complete recovery preserves money, site-key encryption and media; disables remote jobs",
+            "ok": true
+        },
+        {
+            "test": "018 a missing local file aborts complete media backup without a success record",
+            "ok": true
+        },
+        {
+            "test": "018 database-only archive clearly reports omitted local bytes",
+            "ok": true
+        },
+        {
+            "test": "018 backup retention keeps the latest successful copy only",
+            "ok": true
+        },
+        {
+            "test": "018 deleting a recovery copy removes file and catalog entry",
+            "ok": true
+        }
+    ]
+}

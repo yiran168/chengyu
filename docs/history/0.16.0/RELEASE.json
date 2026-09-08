@@ -1,0 +1,110 @@
+{
+  "project": "Chengyu",
+  "version": "0.16.0",
+  "release_date": "2026-09-06",
+  "baseline": "0.15.0",
+  "site_files": 220,
+  "added_site_files": 45,
+  "modified_site_files": 35,
+  "removed_site_files": 0,
+  "settings_fields": 244,
+  "settings_groups": 18,
+  "motion_settings_fields": 36,
+  "database_schema_version": 8,
+  "installation_config_format_version": 1,
+  "target_php_versions": [
+    "7.4",
+    "8.0",
+    "8.1",
+    "8.2",
+    "8.3",
+    "8.4",
+    "8.5"
+  ],
+  "same_feature_paths_for_target_php_versions": true,
+  "runtime_php_verified": "8.4.23",
+  "production_database_interface": "native PDO MySQL / PDO SQLite",
+  "tested_database": "test-only FFI / actual libsqlite3 (NOT native PDO)",
+  "php_syntax_files": 216,
+  "javascript_syntax_files": 13,
+  "screenshots": 84,
+  "manual_chapters": 24,
+  "ci_native_matrix_jobs": 14,
+  "ci_matrix_executed": false,
+  "native_pdo_verified": false,
+  "mysql_verified": false,
+  "production_uses_ffi": false,
+  "real_shared_hosts_verified": false,
+  "live_payments_verified": false,
+  "live_object_storage_verified": false,
+  "live_translation_service_verified": false,
+  "external_smtp_provider_verified": false,
+  "smtp_local_tls_fixture_verified": true,
+  "browser_url_navigation_verified": false,
+  "browser_url_navigation_obstruction": "ERR_BLOCKED_BY_ADMINISTRATOR",
+  "offline_visual_method": "HTTP-rendered PHP HTML + inlined assets; Chromium set_content",
+  "vps_bootstrap_executed": false,
+  "public_certificate_issued": false,
+  "uploaded_reference_theme_version": "7.8",
+  "uploaded_reference_targeted_text_files": 827,
+  "reference_archive_entries_visited": 13652,
+  "all_reference_files_reviewed_line_by_line": false,
+  "all_historical_zibll_features": false,
+  "all_historical_distributions_downloaded_or_installed": false,
+  "official_reference_latest_observed": "V9.1 / 2026-09-01",
+  "early_archive_full_text_retrieved_this_round": false,
+  "no_proprietary_reference_source_included": true,
+  "identical_reference_files_over_150_bytes": 0,
+  "official_protocol_adapters": [
+    "Alipay RSA2 WAP",
+    "WeChat Pay API v3 H5",
+    "Stripe Checkout payment",
+    "PayPal Orders v2 digital checkout"
+  ],
+  "automated_payout_adapters": [
+    "PayPal Payouts"
+  ],
+  "external_oauth_providers": [
+    "google",
+    "github",
+    "microsoft"
+  ],
+  "external_oauth_live_apps_verified": false,
+  "native_driver_ci_guard": true,
+  "cli_jobs_command_verified_with_test_adapter": true,
+  "signed_job_endpoint_and_replay_verified": true,
+  "supports_implicit_currency_conversion": false,
+  "supports_independent_frontend_admin_locale": false,
+  "layout_slots": 22,
+  "layout_block_types": 11,
+  "documentation": {
+    "start": "START_HERE.html",
+    "upgrade": "docs/UPGRADE.md",
+    "features": "docs/FEATURE_MATRIX.md",
+    "tests": "docs/TEST_REPORT.md",
+    "commerce": "docs/COMMERCE_016.md",
+    "payments": "docs/PAYMENTS.md",
+    "media_language_builder": "docs/MEDIA_LANGUAGE_BUILDER.md",
+    "english": "docs/EN_QUICKSTART.md"
+  },
+  "integration": {
+    "passed": 470,
+    "total": 470,
+    "failed": 0
+  },
+  "http": {
+    "passed": 630,
+    "total": 630,
+    "failed": 0
+  },
+  "offline_visual": {
+    "passed": 372,
+    "total": 372,
+    "failed": 0
+  },
+  "analytic_spring": {
+    "passed": 42,
+    "total": 42,
+    "failed": 0
+  }
+}

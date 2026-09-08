@@ -1,0 +1,4 @@
+<?php partial('platform_header',['title'=>$title,'kicker'=>'FOLLOW THE JOURNEY','symbol'=>'box','subtitle'=>'Follow every parcel without mixing its timeline with another delivery.']); ?>
+<nav class="parcel-deck section" aria-label="<?= t('Order parcels') ?>"><?php foreach($parcels as $n=>$p): ?><a class="panel parcel-card <?= (int)$shipment['id']===(int)$p['id']?'is-selected':'' ?>" href="<?= e(url('tracking',['id'=>$shipment['order_id'],'parcel'=>$p['id']])) ?>" <?= (int)$shipment['id']===(int)$p['id']?'aria-current="page"':'' ?>><span class="parcel-index"><?= sprintf('%02d',$n+1) ?></span><strong><?= e($p['package_label']?:tr('Parcel').' '.($n+1)) ?></strong><small><?= e($p['carrier'].' / '.$p['tracking_number']) ?></small></a><?php endforeach ?></nav>
+<p class="hint"><?= t('Confirm receipt only after all parcels in this order have arrived. Carrier updates never move your funds.') ?></p>
+<?php partial('tracking_timeline',['shipment'=>$shipment]); ?>

@@ -1,0 +1,36 @@
+{
+  "version": "0.17.0",
+  "runtime_files_excluding_deploy_readme": 247,
+  "upload_files": 248,
+  "installed_config_included": false,
+  "private_installer_key_only_in_complete": true,
+  "reference_exact_file_matches": 0,
+  "font_files_included": false,
+  "symlinks_included": false,
+  "bytecode_excluded": true,
+  "core": {
+    "passed": 511,
+    "total": 511,
+    "failed": 0
+  },
+  "http": {
+    "passed": 744,
+    "total": 744,
+    "failed": 0
+  },
+  "offline_browser": {
+    "passed": 456,
+    "total": 456,
+    "failed": 0
+  },
+  "spring": {
+    "passed": 42,
+    "total": 42,
+    "failed": 0
+  },
+  "php_syntax": 242,
+  "javascript_syntax": 14,
+  "manual_chapters": 28,
+  "screenshots": 110,
+  "archive_verification": "See external chengyu-0.17.0-package-verification.json after build."
+}

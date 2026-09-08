@@ -1,0 +1,763 @@
+PASS installer rejects wrong private key
+PASS installer creates configuration and schema
+PASS installer locked after installation
+PASS anonymous GET /
+PASS anonymous GET /index.php?r=articles
+PASS anonymous GET /index.php?r=forum
+PASS anonymous GET /index.php?r=shop
+PASS anonymous GET /index.php?r=membership
+PASS anonymous GET /index.php?r=article&id=1
+PASS anonymous GET /index.php?r=article&id=4
+PASS anonymous GET /index.php?r=product&id=9
+PASS anonymous GET /index.php?r=register
+PASS anonymous GET /index.php?r=login
+PASS anonymous GET /index.php?r=terms
+PASS anonymous GET /index.php?r=rankings
+PASS anonymous GET /index.php?r=user&id=1
+PASS anonymous GET /index.php?r=search&q=does-not-exist
+PASS anonymous GET /admin/
+PASS asset app.css
+PASS asset app.js
+PASS asset boot.js
+PASS asset favicon.svg
+PASS asset cover-1.svg
+PASS asset cover-2.svg
+PASS asset cover-3.svg
+PASS asset cover-4.svg
+PASS asset cover-5.svg
+PASS asset cover-6.svg
+PASS valid XML feed.php
+PASS valid XML sitemap.php
+PASS unauthenticated private page redirects to login
+PASS POST missing CSRF rejected
+PASS action login 
+PASS action login 
+PASS admin tab dashboard
+PASS admin tab contents
+PASS admin tab users
+PASS admin tab orders
+PASS admin tab settings
+PASS admin tab categories
+PASS admin tab plans
+PASS admin tab coupons
+PASS admin tab navigation
+PASS admin tab vouchers
+PASS admin tab stock
+PASS admin tab moderation
+PASS admin tab ledger
+PASS admin tab media
+PASS admin tab system
+PASS admin tab withdrawals
+PASS admin tab logs
+PASS admin tab edit_content
+PASS settings group site
+PASS settings group appearance
+PASS settings group layout
+PASS settings group modules
+PASS settings group community
+PASS settings group commerce
+PASS settings group epay
+PASS settings group codepay
+PASS settings group email
+PASS settings group security
+PASS settings group seo
+PASS save appearance group
+PASS backend theme affects frontend
+PASS action register 
+PASS action register 
+PASS ordinary user blocked from admin
+PASS action admin_settings 
+PASS action checkin 
+PASS action checkin 
+PASS authenticated route profile
+PASS authenticated route wallet
+PASS authenticated route orders
+PASS authenticated route favorites
+PASS authenticated route notifications
+PASS authenticated route messages
+PASS authenticated route write
+PASS authenticated route cart
+PASS private resource upload
+PASS publish real paid content
+PASS protected body excluded from guest HTML
+PASS guest cannot download private attachment
+PASS unpaid user cannot download private attachment
+PASS action buy content
+PASS buyer sees protected body
+PASS buyer receives private file
+PASS other user cannot borrow entitlement
+PASS SVG upload blocked
+PASS member image upload
+PASS public image served byte for byte
+PASS action comment 
+PASS action reaction favorite
+PASS action follow 
+PASS action message 
+PASS recipient sees private message
+PASS unrelated admin messages page does not leak private message
+PASS action report 
+PASS action cart_add 
+PASS action cart_checkout 
+PASS action address_save 
+PASS address in owner profile
+PASS return URL cannot credit money
+PASS forged HTTP callback rejected
+PASS test router denies private path /app/config.php
+PASS test router denies private path /app/seed.json
+PASS test router denies private path /storage/errors.php
+PASS test router denies private path /storage/blobs/
+PASS test router denies private path /uploads/
+PASS blob PHP envelope stops before payload
+PASS blob PHP envelope stops before payload
+PASS security headers applied
+PASS new admin tab variants
+PASS new admin tab denies ordinary user variants
+PASS new admin tab collections
+PASS new admin tab denies ordinary user collections
+PASS new admin tab links
+PASS new admin tab denies ordinary user links
+PASS new admin tab announcements
+PASS new admin tab denies ordinary user announcements
+PASS new admin tab tasks
+PASS new admin tab denies ordinary user tasks
+PASS new admin tab invitations
+PASS new admin tab denies ordinary user invitations
+PASS new admin tab downloads
+PASS new admin tab denies ordinary user downloads
+PASS new admin tab builder
+PASS new admin tab denies ordinary user builder
+PASS layout editor slot home
+PASS layout editor slot articles
+PASS layout editor slot forum
+PASS layout editor slot shop
+PASS new frontend route collections
+PASS new frontend route links
+PASS new frontend route tasks
+PASS studio asset studio.css
+PASS studio asset studio.js
+PASS action admin_content article
+PASS action buy content
+PASS blocked VIP bypass did not leak body
+PASS action admin_content article
+PASS action content_unlock 
+PASS action content_unlock 
+PASS password unlock renders protected body
+PASS password grant belongs to its session
+PASS array form field returns controlled 400
+PASS action admin_layout 
+PASS layout renders published block
+PASS action admin_layout 
+PASS action admin_layout 
+PASS action admin_layout 
+PASS conflicting update preserves published layout
+PASS action admin_catalog 
+PASS collection deduplicates members
+PASS collection page renders
+PASS action admin_catalog 
+PASS directory frontend shows approved link
+PASS action admin_catalog 
+PASS action admin_catalog 
+PASS login announcement excluded from guest HTML
+PASS login announcement shown to member
+PASS action admin_task 
+PASS action task_claim 
+PASS action task_claim 
+PASS HTTP task retry only credits once
+PASS task frontend shows configured task
+PASS action admin_invitation 
+PASS invitation shown after issue
+PASS invitation plaintext shown once
+PASS save group security register_limit
+PASS save group users registration_mode
+PASS action register 
+PASS action register 
+PASS invitation usage committed with account
+PASS save group users registration_mode
+PASS action admin_content product
+PASS action admin_variant 
+PASS action admin_variant 
+PASS action cart_add 
+PASS action cart_add 
+PASS cart keeps two SKU lines
+PASS action cart_checkout 
+PASS checkout uses server SKU prices
+PASS checkout decrements each SKU
+PASS action order_receive 
+PASS action admin_ship 
+PASS action admin_ship 
+PASS action order_receive 
+PASS action order_receive 
+PASS receipt persists once
+PASS authorized HTTP byte range
+PASS authorized suffix range
+PASS range cannot bypass download authorization
+PASS HEAD sends only headers
+PASS invalid HTTP range returns 416
+PASS download logged once per file per member
+PASS new admin screen motion
+PASS new admin screen denies user motion
+PASS new admin screen threads
+PASS new admin screen denies user threads
+PASS motion resource available motion.js
+PASS motion resource available motion.css
+PASS motion resource available features.js
+PASS motion resource available motion-studio.js
+PASS motion inspector saves shared schema
+PASS motion configuration rendered into actual frontend
+PASS motion save does not reset unrelated theme
+PASS action admin_motion 
+PASS action admin_content thread
+PASS locked content does not leak approved comments
+PASS action content_unlock 
+PASS authorized comment can be read
+PASS action logout 
+PASS logout revokes password-based comment grant
+PASS action login 
+PASS action admin_content thread
+PASS poll has real POST form and no private counts
+PASS action poll_vote 
+PASS action poll_vote 
+PASS action poll_vote 
+PASS action poll_vote 
+PASS duplicate HTTP votes create one row
+PASS voter can see results
+PASS other account cannot see private results
+PASS action admin_content thread
+PASS action comment 
+PASS action answer_accept 
+PASS action admin_moderate 
+PASS action answer_accept 
+PASS action answer_accept 
+PASS accepted answer rendered and anchored
+PASS action admin_moderate 
+PASS rejecting an answer clears accepted state
+PASS save group email smtp_enabled,smtp_host,smtp_port,smtp_security,smtp_from,email_registration_required
+PASS mandatory code visible in registration form
+PASS action email_code_request 
+PASS SMTP TLS receiver got the real verification message
+PASS action email_code_request 
+PASS action register 
+PASS action register 
+PASS verified registration persisted proof timestamp
+PASS action email_code_request 
+PASS email change message traversed local TLS SMTP
+PASS action email_change 
+PASS action email_change 
+PASS email change saved and current session still works
+PASS standalone no-script verification route works
+PASS save group email email_registration_required,smtp_enabled
+PASS disabled verification page is blocked
+PASS 0.12 admin circles
+PASS 0.12 admin denies ordinary user circles
+PASS 0.12 admin bounties
+PASS 0.12 admin denies ordinary user bounties
+PASS 0.12 admin reviews
+PASS 0.12 admin denies ordinary user reviews
+PASS 0.12 asset spring.js
+PASS 0.12 asset interactions.js
+PASS 0.12 asset interactions.css
+PASS 0.12 asset community.css
+PASS save group community circles_enabled,bounties_enabled,bounty_max
+PASS save group commerce reviews_enabled,reviews_review,invitation_products_enabled
+PASS action admin_wallet 
+PASS action admin_wallet 
+PASS action admin_entity thread
+PASS action admin_content thread
+PASS circle directory is available
+PASS circle public introduction excludes restricted posts
+PASS private circle direct URL denied
+PASS private circle search excludes title
+PASS action buy circle
+PASS action buy circle
+PASS circle HTTP retries debit exactly once
+PASS joined circle exposes authorized body
+PASS action admin_circle_member 
+PASS manual suspension revokes direct access
+PASS action admin_circle_member 
+PASS removing suspension restores paid term
+PASS action refund 
+PASS action admin_refund 
+PASS refunded circle loses access
+PASS circle refund returns original points
+PASS action admin_entity thread
+PASS action admin_content thread
+PASS multiple selection uses real native checkboxes
+PASS PHP array ballot accepted through real HTTP
+PASS reordered ballot retry remains idempotent
+PASS one ballot and two choices stored
+PASS nested ballot values rejected
+PASS action admin_content thread
+PASS action bounty_fund 
+PASS action bounty_fund 
+PASS action comment 
+PASS action answer_accept 
+PASS action admin_moderate 
+PASS action answer_accept 
+PASS action answer_accept 
+PASS accepted bounty pays answerer only once
+PASS awarded bounty rendered
+PASS action admin_bounty_release 
+PASS action admin_content product
+PASS action review_save 
+PASS action buy content
+PASS action review_save 
+PASS pending purchase review hidden from public
+PASS action admin_review 
+PASS action admin_review 
+PASS approved purchase review published
+PASS action refund 
+PASS action admin_refund 
+PASS refunded review disappears from public
+PASS action admin_content product
+PASS action buy content
+PASS invitation product stores generated code metadata
+PASS invitation code appears only in owners order history
+PASS action refund 
+PASS action admin_refund 
+PASS refunded invitation is revoked in storage
+PASS save group appearance motion_response,spring_stiffness,spring_damping,spring_mass,motion_disclosures
+PASS spring controls render validated same frontend configuration
+PASS native cross-document transition opt-in present
+PASS manual member listing exposes next page after fifty rows
+PASS manual member pagination preserves selected circle
+PASS second manual member page contains remaining row
+PASS 0.13 admin creators
+PASS creator finance screen denies normal users
+PASS 0.13 asset discovery.css
+PASS 0.13 asset discovery.js
+PASS 0.13 asset feedback.js
+PASS 0.13 authenticated history
+PASS 0.13 anonymous history requires login
+PASS 0.13 authenticated following
+PASS 0.13 anonymous following requires login
+PASS creator route starts disabled
+PASS save group commerce creator_income_enabled,creator_share_bps,creator_hold_days,creator_balance_conversion,withdrawals_enabled,withdraw_min
+PASS action admin_user 
+PASS author approval persisted
+PASS creator dashboard completes with HTTP 200
+PASS creator center renders settlement and conversion controls
+PASS approved author sees paid visibility and price input
+PASS action content_save article
+PASS paid author submission awaits moderation
+PASS action admin_content article
+PASS action admin_wallet 
+PASS unpaid buyer never receives creator protected body
+PASS action buy content
+PASS action buy content
+PASS creator HTTP purchase makes exactly one income record
+PASS paid creator body visible only after entitlement
+PASS action creator_settle 
+PASS action creator_settle 
+PASS real HTTP settlement credits once
+PASS action creator_convert 
+PASS action creator_convert 
+PASS conversion credits and debits exactly once
+PASS action creator_convert 
+PASS action withdraw 
+PASS action admin_withdrawal 
+PASS action refund 
+PASS action admin_refund 
+PASS HTTP refund reverses earnings after conversion
+PASS action withdraw 
+PASS action history_record 
+PASS action history_record 
+PASS history progress never moves backwards
+PASS history page displays real persisted progress
+PASS another reader does not inherit history
+PASS action history_record 
+PASS action history_preference 
+PASS action history_record 
+PASS history opt-out removes and blocks records
+PASS action history_preference 
+PASS action history_record 
+PASS action history_record 
+PASS real suggestion API returns title not paid body
+PASS suggestions use private no-store caching
+PASS protected text is not indexed
+PASS restricted category absent from suggestions
+PASS save group modules search_suggestions_enabled
+PASS disabled suggestions reject direct endpoint
+PASS standard search works with suggestions disabled
+PASS save group modules search_suggestions_enabled
+PASS save group appearance motion_navigation,motion_feedback,motion_images
+PASS new motion switches persist and reach runtime
+PASS action admin_comment_pin 
+PASS 014 production asset refinement.css
+PASS 014 production asset refinement.js
+PASS 014 management pricing
+PASS 014 management rejects normal user pricing
+PASS 014 management system
+PASS 014 management rejects normal user system
+PASS 014 security center requires login
+PASS 014 security center is a real authenticated route
+PASS action admin_diagnostics 
+PASS 014 exported capability report has private attachment headers
+PASS 014 capability report has no config secret/path
+PASS 014 actual rollback probe is reported as passing
+PASS action admin_diagnostics 
+PASS 014 diagnostics results rendered in backend
+PASS save group users two_factor_enabled,email_registration_required,registration_mode
+PASS action register 
+PASS action login 
+PASS action factor_begin 
+PASS action factor_begin 
+PASS 014 enrollment key exists only in owner session
+PASS action factor_activate 
+PASS action factor_activate 
+PASS 014 eight recovery codes shown once
+PASS 014 enrollment revokes prior session
+PASS 014 database encrypts secret and stores no plain recovery codes
+PASS action login 
+PASS action login 
+PASS action login 
+PASS action logout 
+PASS action login 
+PASS save group users two_factor_enabled
+PASS action login 
+PASS 014 enrollment off preserves active factor
+PASS save group users two_factor_enabled
+PASS action factor_rotate 
+PASS 014 recovery rotation issues eight different codes
+PASS action login 
+PASS action login 
+PASS action session_revoke 
+PASS 014 explicit session revoke logs out other browser
+PASS action factor_disable 
+PASS 014 verified disable removes factor
+PASS action login 
+PASS save group commerce pricing_enabled,pricing_coupon_stack
+PASS action admin_content product
+PASS action admin_pricing 
+PASS action admin_pricing 
+PASS action admin_pricing 
+PASS 014 live quote applies current timed promotion
+PASS 014 pricing view shows server quote without JavaScript
+PASS action cart_add 
+PASS 014 cart renders actual discount
+PASS action admin_entity 
+PASS 014 coupon stacking disabled at preview boundary
+PASS save group commerce pricing_coupon_stack
+PASS 014 enabled stacking has correct quote
+PASS action buy content
+PASS 014 stale quote rejection leaves coupon quota untouched
+PASS action buy content
+PASS 014 order persisted exact quoted price
+PASS 014 order page shows historical pricing breakdown
+PASS action admin_pricing 
+PASS action refund 
+PASS action admin_refund 
+PASS 014 refund returns old paid amount not current list price
+PASS 014 ordinary public article cannot be quoted
+PASS save group appearance motion_layout,reading_focus
+PASS 014 new visual options reach frontend
+PASS save group appearance motion_duration
+PASS 014 zero duration persists through real HTTP settings
+PASS save group appearance motion_duration
+PASS 015 production asset connections.css
+PASS 015 production asset connections.js
+PASS 015 admin page integrations
+PASS 015 ordinary user denied integrations
+PASS 015 admin page configuration
+PASS 015 ordinary user denied configuration
+PASS 015 admin page badges
+PASS 015 ordinary user denied badges
+PASS 015 public route badges
+PASS 015 public route login
+PASS 015 public route register
+PASS 015 public route membership
+PASS 015 connection completion requires proof
+PASS 015 forged provider callback denied
+PASS action oauth_begin 
+PASS save group connections social_enabled,oauth_github_enabled,oauth_github_id,oauth_github_secret
+PASS action oauth_begin 
+PASS 015 provider secret excluded from public login
+PASS 015 enabled provider has real CSRF POST form
+PASS action oauth_unlink 
+PASS action oauth_unlink 
+PASS action oauth_login 
+PASS action oauth_register 
+PASS save group modules badges_enabled
+PASS action admin_badge 
+PASS action admin_badge 
+PASS action admin_badge_grant 
+PASS action admin_badge_grant 
+PASS 015 repeated HTTP badge grant creates one record
+PASS 015 badge appears on member profile
+PASS 015 badge catalog counts real holders
+PASS 015 cosmetic badge never changes permissions
+PASS action admin_badge_grant 
+PASS action admin_badge 
+PASS action admin_badge 
+PASS action admin_badge_revoke 
+PASS 015 badge revoke removes public collection item
+PASS action admin_badge_grant 
+PASS save group modules badges_enabled
+PASS 015 disabled badges module blocks gallery
+PASS 015 disabled badges module hides collection
+PASS save group modules badges_enabled
+PASS action admin_snapshot_capture 
+PASS action admin_snapshot_capture 
+PASS 015 snapshot export requires fresh password
+PASS 015 encrypted export has download and no-store headers
+PASS 015 snapshot export never exposes service secrets
+PASS save group connections oauth_github_secret
+PASS 015 diff masks old and current secrets
+PASS save group site site_name
+PASS action admin_snapshot_restore 
+PASS action admin_snapshot_restore 
+PASS 015 restore captures rollback snapshot first
+PASS 015 restored settings visible on next request
+PASS 015 real multipart encrypted archive import
+PASS 015 unsigned plaintext archive rejected
+PASS action admin_entity 
+PASS action buy membership
+PASS 015 lifetime membership stored independently per tier
+PASS 015 lifetime date rendered without year 9999
+PASS action buy membership
+PASS action admin_content product
+PASS action cart_add 
+PASS action cart_checkout 
+PASS 015 cart ceiling rejection fully rolls back debit and order
+PASS action cart_checkout 
+PASS action payment_reconcile 
+PASS action payment_reconcile 
+PASS 015 grouped backend navigation contains each target once
+PASS 015 grouped navigation has one active link
+PASS 015 default navigation opens active group
+PASS 015+ applied migration matches the current source
+PASS save group epay epay_enabled,epay_endpoint,epay_merchant,epay_secret,epay_alipay
+PASS 015 native OAuth POST ends with same-origin document, not external 303
+PASS 015 handoff destination comes only from provider service
+PASS 015 handoff retains PKCE and original state
+PASS 015 strict CSP and no-referrer survive continuation
+PASS 015 continuation is private and never indexed
+PASS 015 no-script fallback is an actual link, not external form
+PASS 015 native topup ends in a safe 200 continuation
+PASS 015 signed checkout URL stays complete
+PASS 015 viewing continuation cannot mark a payment paid
+PASS 015 pending payment resume uses same protected continuation
+PASS 015 foreign account cannot open checkout continuation
+PASS 015 native POST refresh does not create another topup
+PASS 015 arbitrary external continuation GET does not exist
+PASS 016 admin GET commerce
+PASS 016 ordinary account denied commerce
+PASS 016 admin GET shipping
+PASS 016 ordinary account denied shipping
+PASS 016 admin GET service
+PASS 016 ordinary account denied service
+PASS 016 admin GET media_lab
+PASS 016 ordinary account denied media_lab
+PASS 016 admin GET translations
+PASS 016 ordinary account denied translations
+PASS 016 settings international
+PASS 016 settings checkout
+PASS 016 settings direct_payments
+PASS 016 settings automation
+PASS 016 settings media_plus
+PASS 016 frontend GET guest_orders
+PASS action locale_select 
+PASS 016 English document language
+PASS action locale_select 
+PASS action locale_select 
+PASS 016 Chinese document language
+PASS action object_prepare 
+PASS action object_prepare 
+PASS action admin_content article
+PASS action checkout_review 
+PASS 016 review is an explicit native POST
+PASS action checkout_confirm 
+PASS action checkout_confirm 
+PASS 016 guest confirm retry adds no duplicate orders
+PASS 016 guest receipt owner sees receipt
+PASS 016 other session cannot see receipt
+PASS 016 guest pass does not authenticate a regular profile
+PASS 016 guest pass has full entropy-length
+PASS action guest_unlock 
+PASS action guest_unlock 
+PASS 016 portable pass unlocks only its purchases
+PASS action guest_forget 
+PASS 016 locking guest session removes receipt access
+PASS action aftersale_request refund
+PASS action upload_start 
+PASS action upload_status 
+PASS action upload_finish 
+PASS 016 real HTTP chunk 0
+PASS 016 real HTTP chunk 1
+PASS action upload_finish 
+PASS action upload_finish 
+PASS 016 finalize retry returns same media
+PASS 016 private assembled media is byte-exact
+PASS 016 assembled media never becomes public
+PASS action admin_content article
+PASS action translation_save 
+PASS action translation_save 
+PASS action translation_generate 
+PASS action locale_select 
+PASS 016 approved translation renders without protected text
+PASS 016 AND-token search finds approved public translation
+PASS 016 search never indexes paid protected body
+PASS action admin_layout 
+PASS 016 independently composed page renders
+PASS 016 audience restriction omits entire block in guest HTML
+PASS 016 members see their conditional block
+PASS 016 arbitrary page slot rejected
+PASS action admin_rule_save shipping
+PASS action admin_rule_save shipping
+PASS action admin_rule_save shipping
+PASS 016 jobs endpoint rejects unsigned trigger
+PASS 016 direct webhook rejects unsigned provider payload
+PASS action admin_content article
+PASS action checkout_review 
+PASS action checkout_confirm 
+PASS 016 HTTP wallet checkout deducts exactly one cent
+PASS action aftersale_request refund
+PASS action admin_aftersale_review 
+PASS action admin_aftersale_review 
+PASS action admin_refund_run 
+PASS action admin_refund_run 
+PASS 016 refund retry restores only the original amount
+PASS 016 refund and case complete together
+PASS 016 refunded purchaser loses protected body
+PASS 016 checkout page accepts a valid item
+PASS 016 upgrade page accepts a valid plan
+PASS save group automation jobs_secret
+PASS 016 signed task scheduler executes bounded work
+PASS 016 signed task scheduler rejects nonce replay
+PASS save group automation clear_jobs_secret
+PASS 016 distributed CLI task script resolves app config and runs
+PASS 017 admin search_index
+PASS 017 member denied admin search_index
+PASS 017 admin learning
+PASS 017 member denied admin learning
+PASS 017 admin logistics
+PASS 017 member denied admin logistics
+PASS 017 admin reconciliation
+PASS 017 member denied admin reconciliation
+PASS 017 admin support
+PASS 017 member denied admin support
+PASS save group modules courses_enabled,support_enabled
+PASS save group commerce tracking_enabled
+PASS save group discovery search_engine
+PASS 017 member route courses
+PASS 017 member route learning
+PASS 017 member route support
+PASS 017 private route requires login learning
+PASS 017 private route requires login support
+PASS 017 production asset platform.css
+PASS 017 production asset platform.js
+PASS action search_rebuild 
+PASS action layout_discard 
+PASS action layout_restore 
+PASS action course_save 
+PASS action lesson_save 
+PASS action tracking_attach 
+PASS action tracking_event 
+PASS action tracking_refresh 
+PASS action statement_import 
+PASS action statement_check 
+PASS action support_template 
+PASS 017 new actions preserve CSRF boundary
+PASS action locale_select 
+PASS action locale_select 
+PASS 017 frontend language preference independent
+PASS 017 backend language preference independent
+PASS action locale_select 
+PASS 017 new admin copy Chinese
+PASS action admin_content article
+PASS action course_save 
+PASS action lesson_save 
+PASS action lesson_save 
+PASS 017 course outline omits private chapter body
+PASS 017 unpaid chapter fails closed
+PASS 017 explicit preview renders
+PASS action learning_progress 
+PASS action checkout_review 
+PASS action checkout_confirm 
+PASS 017 paid chapter delivered after confirmed checkout
+PASS action learning_progress 
+PASS 017 manual progress saved
+PASS action learning_progress 
+PASS 017 note not in course outline
+PASS 017 learning history lists authorized lesson
+PASS action course_save 
+PASS 017 archived course withdraws paid chapter
+PASS action course_save 
+PASS action search_rebuild 
+PASS 017 bounded HTTP index rebuild completes
+PASS 017 indexed multiword search returns course source
+PASS 017 private lesson is never a search document
+PASS 017 paid source body is never indexed
+PASS action admin_layout 
+PASS 017 draft does not change live HTML
+PASS action admin_layout 
+PASS action admin_layout 
+PASS 017 explicit publish changes live HTML
+PASS action admin_layout 
+PASS action layout_restore 
+PASS 017 historical restore republishes as new revision
+PASS 017 canonical keeps page identity
+PASS action support_create 
+PASS action support_create 
+PASS 017 ticket retry creates only one row
+PASS action support_create 
+PASS 017 owner reads ticket
+PASS 017 unrelated member cannot enumerate ticket
+PASS 017 ticket not in another member list
+PASS action support_reply 
+PASS action support_template 
+PASS 017 staff template visible in reply form
+PASS action support_reply 
+PASS action support_reply 
+PASS 017 staff reply visible only to owner
+PASS 017 staff reply sets waiting state
+PASS action support_reply 
+PASS action support_status 
+PASS action support_reply 
+PASS action support_status 
+PASS action support_reply 
+PASS 017 private ticket is noindex
+PASS action admin_content product
+PASS action checkout_review 
+PASS action checkout_confirm 
+PASS action tracking_attach 
+PASS action tracking_event 
+PASS 017 owner sees carrier timeline
+PASS 017 other account cannot see carrier timeline
+PASS 017 tracking update does not confirm receipt
+PASS action tracking_refresh 
+PASS action tracking_attach 
+PASS action statement_import 
+PASS action statement_import 
+PASS 017 identical statement import idempotent
+PASS 017 unmatched statement marked external-only
+PASS action statement_check 
+PASS 017 statement result screen renders
+PASS 017 statement import cannot credit money
+PASS action statement_import 
+PASS 017 statement multipart import accepted
+PASS save group modules courses_enabled,support_enabled
+PASS 017 courses switch closes public routes
+PASS 017 support switch closes member route
+PASS save group modules courses_enabled,support_enabled
+PASS 018 admin route backups
+PASS 018 member denied backups
+PASS 018 admin route search_index
+PASS 018 member denied search_index
+PASS 018 admin route logistics
+PASS 018 member denied logistics
+PASS 018 original production asset workbench.css
+PASS 018 original production asset workbench.js
+PASS action backup_create 
+PASS action backup_download 
+PASS action backup_delete 
+PASS action search_remote_rebuild 
+PASS action search_remote_run 
+PASS 018 backup requires CSRF
+PASS 018 backup native form carries action and CSRF
+PASS 018 backup reauthentication not optional
+PASS action backup_create 
+FAIL action backup_create 
+PASS action backup_create 
+FAIL action backup_create 
+FAIL suite completed
+HTTP_FIXTURE=/tmp/chengyu-http-e660y9a4

@@ -1,0 +1,60 @@
+name: PHP compatibility and native databases
+on:
+  workflow_dispatch:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  core:
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['7.4', '8.0', '8.1', '8.2', '8.3', '8.4', '8.5']
+        database: [sqlite, mysql]
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: ci-only-disposable-password
+        ports: ['3306:3306']
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s --health-timeout=5s --health-retries=12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure the requested PHP runtime
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: pdo_sqlite, pdo_mysql, openssl, fileinfo
+          coverage: none
+      - name: Require the actual native PDO driver (no fallback success)
+        env:
+          EXPECTED_DRIVER: ${{ matrix.database }}
+        run: |
+          php -r '$driver = getenv("EXPECTED_DRIVER"); if (!in_array($driver, PDO::getAvailableDrivers(), true)) { fwrite(STDERR, "Missing native PDO driver: " . $driver . PHP_EOL); exit(1); }'
+      - name: PHP syntax
+        run: find site tests tools -name '*.php' -print0 | xargs -0 -n 1 php -l
+      - name: JavaScript syntax and analytic spring invariants
+        run: |
+          for file in site/assets/*.js; do node --check "$file"; done
+          node tests/spring.test.js
+      - name: Native SQLite transactions
+        if: matrix.database == 'sqlite'
+        run: php tests/run.php > core-results.json
+      - name: Native MySQL transactions
+        if: matrix.database == 'mysql'
+        env:
+          CY_TEST_MYSQL_HOST: '127.0.0.1'
+          CY_TEST_MYSQL_PORT: '3306'
+          CY_TEST_MYSQL_USER: root
+          CY_TEST_MYSQL_PASSWORD: ci-only-disposable-password
+        run: php tests/run.php > core-results.json
+      - name: Preserve exact native database evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: native-${{ matrix.php }}-${{ matrix.database }}
+          path: core-results.json

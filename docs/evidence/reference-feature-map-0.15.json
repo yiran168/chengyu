@@ -1,0 +1,117 @@
+[
+  {
+    "feature": "oauth",
+    "top_reference_files": [
+      {
+        "matches": 191,
+        "path": "inc/functions/zib-user.php"
+      },
+      {
+        "matches": 109,
+        "path": "oauth/oauth.php"
+      },
+      {
+        "matches": 103,
+        "path": "oauth/weixingzh/callback.php"
+      },
+      {
+        "matches": 58,
+        "path": "inc/options/admin-options.php"
+      },
+      {
+        "matches": 33,
+        "path": "oauth/agent/callback.php"
+      },
+      {
+        "matches": 28,
+        "path": "zibpay/functions/zibpay-ajax.php"
+      },
+      {
+        "matches": 28,
+        "path": "oauth/alipay/callback.php"
+      },
+      {
+        "matches": 27,
+        "path": "oauth/weixin/callback.php"
+      }
+    ]
+  },
+  {
+    "feature": "membership",
+    "top_reference_files": [
+      {
+        "matches": 560,
+        "path": "zibpay/functions/zibpay-vip.php"
+      },
+      {
+        "matches": 147,
+        "path": "inc/options/admin-options.php"
+      },
+      {
+        "matches": 112,
+        "path": "zibpay/functions/zibpay-post.php"
+      },
+      {
+        "matches": 103,
+        "path": "zibpay/functions/admin/admin.php"
+      },
+      {
+        "matches": 86,
+        "path": "zibpay/functions/zibpay-ajax.php"
+      },
+      {
+        "matches": 47,
+        "path": "zibpay/functions/zibpay-download.php"
+      },
+      {
+        "matches": 35,
+        "path": "inc/options/options-module.php"
+      },
+      {
+        "matches": 30,
+        "path": "zibpay/functions/zibpay-func.php"
+      }
+    ]
+  },
+  {
+    "feature": "query",
+    "top_reference_files": []
+  },
+  {
+    "feature": "medal",
+    "top_reference_files": [
+      {
+        "matches": 145,
+        "path": "inc/options/admin-options.php"
+      },
+      {
+        "matches": 17,
+        "path": "inc/functions/zib-user.php"
+      },
+      {
+        "matches": 14,
+        "path": "zibpay/functions/zibpay-post.php"
+      },
+      {
+        "matches": 11,
+        "path": "inc/options/options-module.php"
+      },
+      {
+        "matches": 10,
+        "path": "zibpay/functions/widget.php"
+      },
+      {
+        "matches": 7,
+        "path": "zibpay/functions/admin/admin.php"
+      },
+      {
+        "matches": 4,
+        "path": "inc/options/action.php"
+      },
+      {
+        "matches": 3,
+        "path": "zibpay/functions/zibpay-income.php"
+      }
+    ]
+  }
+]

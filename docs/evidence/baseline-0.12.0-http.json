@@ -1,0 +1,1318 @@
+{
+  "total": 326,
+  "passed": 326,
+  "failed": 0,
+  "tests": [
+    {
+      "test": "installer rejects wrong private key",
+      "ok": true
+    },
+    {
+      "test": "installer creates configuration and schema",
+      "ok": true
+    },
+    {
+      "test": "installer locked after installation",
+      "ok": true
+    },
+    {
+      "test": "anonymous GET /",
+      "ok": true
+    },
+    {
+      "test": "anonymous GET /index.php?r=articles",
+      "ok": true
+    },
+    {
+      "test": "anonymous GET /index.php?r=forum",
+      "ok": true
+    },
+    {
+      "test": "anonymous GET /index.php?r=shop",
+      "ok": true
+    },
+    {
+      "test": "anonymous GET /index.php?r=membership",
+      "ok": true
+    },
+    {
+      "test": "anonymous GET /index.php?r=article&id=1",
+      "ok": true
+    },
+    {
+      "test": "anonymous GET /index.php?r=article&id=4",
+      "ok": true
+    },
+    {
+      "test": "anonymous GET /index.php?r=product&id=9",
+      "ok": true
+    },
+    {
+      "test": "anonymous GET /index.php?r=register",
+      "ok": true
+    },
+    {
+      "test": "anonymous GET /index.php?r=login",
+      "ok": true
+    },
+    {
+      "test": "anonymous GET /index.php?r=terms",
+      "ok": true
+    },
+    {
+      "test": "anonymous GET /index.php?r=rankings",
+      "ok": true
+    },
+    {
+      "test": "anonymous GET /index.php?r=user&id=1",
+      "ok": true
+    },
+    {
+      "test": "anonymous GET /index.php?r=search&q=does-not-exist",
+      "ok": true
+    },
+    {
+      "test": "anonymous GET /admin/",
+      "ok": true
+    },
+    {
+      "test": "asset app.css",
+      "ok": true
+    },
+    {
+      "test": "asset app.js",
+      "ok": true
+    },
+    {
+      "test": "asset boot.js",
+      "ok": true
+    },
+    {
+      "test": "asset favicon.svg",
+      "ok": true
+    },
+    {
+      "test": "asset cover-1.svg",
+      "ok": true
+    },
+    {
+      "test": "asset cover-2.svg",
+      "ok": true
+    },
+    {
+      "test": "asset cover-3.svg",
+      "ok": true
+    },
+    {
+      "test": "asset cover-4.svg",
+      "ok": true
+    },
+    {
+      "test": "asset cover-5.svg",
+      "ok": true
+    },
+    {
+      "test": "asset cover-6.svg",
+      "ok": true
+    },
+    {
+      "test": "valid XML feed.php",
+      "ok": true
+    },
+    {
+      "test": "valid XML sitemap.php",
+      "ok": true
+    },
+    {
+      "test": "unauthenticated private page redirects to login",
+      "ok": true
+    },
+    {
+      "test": "POST missing CSRF rejected",
+      "ok": true
+    },
+    {
+      "test": "action login ",
+      "ok": true
+    },
+    {
+      "test": "action login ",
+      "ok": true
+    },
+    {
+      "test": "admin tab dashboard",
+      "ok": true
+    },
+    {
+      "test": "admin tab contents",
+      "ok": true
+    },
+    {
+      "test": "admin tab users",
+      "ok": true
+    },
+    {
+      "test": "admin tab orders",
+      "ok": true
+    },
+    {
+      "test": "admin tab settings",
+      "ok": true
+    },
+    {
+      "test": "admin tab categories",
+      "ok": true
+    },
+    {
+      "test": "admin tab plans",
+      "ok": true
+    },
+    {
+      "test": "admin tab coupons",
+      "ok": true
+    },
+    {
+      "test": "admin tab navigation",
+      "ok": true
+    },
+    {
+      "test": "admin tab vouchers",
+      "ok": true
+    },
+    {
+      "test": "admin tab stock",
+      "ok": true
+    },
+    {
+      "test": "admin tab moderation",
+      "ok": true
+    },
+    {
+      "test": "admin tab ledger",
+      "ok": true
+    },
+    {
+      "test": "admin tab media",
+      "ok": true
+    },
+    {
+      "test": "admin tab system",
+      "ok": true
+    },
+    {
+      "test": "admin tab withdrawals",
+      "ok": true
+    },
+    {
+      "test": "admin tab logs",
+      "ok": true
+    },
+    {
+      "test": "admin tab edit_content",
+      "ok": true
+    },
+    {
+      "test": "settings group site",
+      "ok": true
+    },
+    {
+      "test": "settings group appearance",
+      "ok": true
+    },
+    {
+      "test": "settings group layout",
+      "ok": true
+    },
+    {
+      "test": "settings group modules",
+      "ok": true
+    },
+    {
+      "test": "settings group community",
+      "ok": true
+    },
+    {
+      "test": "settings group commerce",
+      "ok": true
+    },
+    {
+      "test": "settings group epay",
+      "ok": true
+    },
+    {
+      "test": "settings group codepay",
+      "ok": true
+    },
+    {
+      "test": "settings group email",
+      "ok": true
+    },
+    {
+      "test": "settings group security",
+      "ok": true
+    },
+    {
+      "test": "settings group seo",
+      "ok": true
+    },
+    {
+      "test": "save appearance group",
+      "ok": true
+    },
+    {
+      "test": "backend theme affects frontend",
+      "ok": true
+    },
+    {
+      "test": "action register ",
+      "ok": true
+    },
+    {
+      "test": "action register ",
+      "ok": true
+    },
+    {
+      "test": "ordinary user blocked from admin",
+      "ok": true
+    },
+    {
+      "test": "action admin_settings ",
+      "ok": true
+    },
+    {
+      "test": "action checkin ",
+      "ok": true
+    },
+    {
+      "test": "action checkin ",
+      "ok": true
+    },
+    {
+      "test": "authenticated route profile",
+      "ok": true
+    },
+    {
+      "test": "authenticated route wallet",
+      "ok": true
+    },
+    {
+      "test": "authenticated route orders",
+      "ok": true
+    },
+    {
+      "test": "authenticated route favorites",
+      "ok": true
+    },
+    {
+      "test": "authenticated route notifications",
+      "ok": true
+    },
+    {
+      "test": "authenticated route messages",
+      "ok": true
+    },
+    {
+      "test": "authenticated route write",
+      "ok": true
+    },
+    {
+      "test": "authenticated route cart",
+      "ok": true
+    },
+    {
+      "test": "private resource upload",
+      "ok": true
+    },
+    {
+      "test": "publish real paid content",
+      "ok": true
+    },
+    {
+      "test": "protected body excluded from guest HTML",
+      "ok": true
+    },
+    {
+      "test": "guest cannot download private attachment",
+      "ok": true
+    },
+    {
+      "test": "unpaid user cannot download private attachment",
+      "ok": true
+    },
+    {
+      "test": "action buy content",
+      "ok": true
+    },
+    {
+      "test": "buyer sees protected body",
+      "ok": true
+    },
+    {
+      "test": "buyer receives private file",
+      "ok": true
+    },
+    {
+      "test": "other user cannot borrow entitlement",
+      "ok": true
+    },
+    {
+      "test": "SVG upload blocked",
+      "ok": true
+    },
+    {
+      "test": "member image upload",
+      "ok": true
+    },
+    {
+      "test": "public image served byte for byte",
+      "ok": true
+    },
+    {
+      "test": "action comment ",
+      "ok": true
+    },
+    {
+      "test": "action reaction favorite",
+      "ok": true
+    },
+    {
+      "test": "action follow ",
+      "ok": true
+    },
+    {
+      "test": "action message ",
+      "ok": true
+    },
+    {
+      "test": "recipient sees private message",
+      "ok": true
+    },
+    {
+      "test": "unrelated admin messages page does not leak private message",
+      "ok": true
+    },
+    {
+      "test": "action report ",
+      "ok": true
+    },
+    {
+      "test": "action cart_add ",
+      "ok": true
+    },
+    {
+      "test": "action cart_checkout ",
+      "ok": true
+    },
+    {
+      "test": "action address_save ",
+      "ok": true
+    },
+    {
+      "test": "address in owner profile",
+      "ok": true
+    },
+    {
+      "test": "return URL cannot credit money",
+      "ok": true
+    },
+    {
+      "test": "forged HTTP callback rejected",
+      "ok": true
+    },
+    {
+      "test": "test router denies private path /app/config.php",
+      "ok": true
+    },
+    {
+      "test": "test router denies private path /app/seed.json",
+      "ok": true
+    },
+    {
+      "test": "test router denies private path /storage/errors.php",
+      "ok": true
+    },
+    {
+      "test": "test router denies private path /storage/blobs/",
+      "ok": true
+    },
+    {
+      "test": "test router denies private path /uploads/",
+      "ok": true
+    },
+    {
+      "test": "blob PHP envelope stops before payload",
+      "ok": true
+    },
+    {
+      "test": "blob PHP envelope stops before payload",
+      "ok": true
+    },
+    {
+      "test": "security headers applied",
+      "ok": true
+    },
+    {
+      "test": "new admin tab variants",
+      "ok": true
+    },
+    {
+      "test": "new admin tab denies ordinary user variants",
+      "ok": true
+    },
+    {
+      "test": "new admin tab collections",
+      "ok": true
+    },
+    {
+      "test": "new admin tab denies ordinary user collections",
+      "ok": true
+    },
+    {
+      "test": "new admin tab links",
+      "ok": true
+    },
+    {
+      "test": "new admin tab denies ordinary user links",
+      "ok": true
+    },
+    {
+      "test": "new admin tab announcements",
+      "ok": true
+    },
+    {
+      "test": "new admin tab denies ordinary user announcements",
+      "ok": true
+    },
+    {
+      "test": "new admin tab tasks",
+      "ok": true
+    },
+    {
+      "test": "new admin tab denies ordinary user tasks",
+      "ok": true
+    },
+    {
+      "test": "new admin tab invitations",
+      "ok": true
+    },
+    {
+      "test": "new admin tab denies ordinary user invitations",
+      "ok": true
+    },
+    {
+      "test": "new admin tab downloads",
+      "ok": true
+    },
+    {
+      "test": "new admin tab denies ordinary user downloads",
+      "ok": true
+    },
+    {
+      "test": "new admin tab builder",
+      "ok": true
+    },
+    {
+      "test": "new admin tab denies ordinary user builder",
+      "ok": true
+    },
+    {
+      "test": "layout editor slot home",
+      "ok": true
+    },
+    {
+      "test": "layout editor slot articles",
+      "ok": true
+    },
+    {
+      "test": "layout editor slot forum",
+      "ok": true
+    },
+    {
+      "test": "layout editor slot shop",
+      "ok": true
+    },
+    {
+      "test": "new frontend route collections",
+      "ok": true
+    },
+    {
+      "test": "new frontend route links",
+      "ok": true
+    },
+    {
+      "test": "new frontend route tasks",
+      "ok": true
+    },
+    {
+      "test": "studio asset studio.css",
+      "ok": true
+    },
+    {
+      "test": "studio asset studio.js",
+      "ok": true
+    },
+    {
+      "test": "action admin_content article",
+      "ok": true
+    },
+    {
+      "test": "action buy content",
+      "ok": true
+    },
+    {
+      "test": "blocked VIP bypass did not leak body",
+      "ok": true
+    },
+    {
+      "test": "action admin_content article",
+      "ok": true
+    },
+    {
+      "test": "action content_unlock ",
+      "ok": true
+    },
+    {
+      "test": "action content_unlock ",
+      "ok": true
+    },
+    {
+      "test": "password unlock renders protected body",
+      "ok": true
+    },
+    {
+      "test": "password grant belongs to its session",
+      "ok": true
+    },
+    {
+      "test": "array form field returns controlled 400",
+      "ok": true
+    },
+    {
+      "test": "action admin_layout ",
+      "ok": true
+    },
+    {
+      "test": "layout renders published block",
+      "ok": true
+    },
+    {
+      "test": "action admin_layout ",
+      "ok": true
+    },
+    {
+      "test": "action admin_layout ",
+      "ok": true
+    },
+    {
+      "test": "action admin_layout ",
+      "ok": true
+    },
+    {
+      "test": "conflicting update preserves published layout",
+      "ok": true
+    },
+    {
+      "test": "action admin_catalog ",
+      "ok": true
+    },
+    {
+      "test": "collection deduplicates members",
+      "ok": true
+    },
+    {
+      "test": "collection page renders",
+      "ok": true
+    },
+    {
+      "test": "action admin_catalog ",
+      "ok": true
+    },
+    {
+      "test": "directory frontend shows approved link",
+      "ok": true
+    },
+    {
+      "test": "action admin_catalog ",
+      "ok": true
+    },
+    {
+      "test": "action admin_catalog ",
+      "ok": true
+    },
+    {
+      "test": "login announcement excluded from guest HTML",
+      "ok": true
+    },
+    {
+      "test": "login announcement shown to member",
+      "ok": true
+    },
+    {
+      "test": "action admin_task ",
+      "ok": true
+    },
+    {
+      "test": "action task_claim ",
+      "ok": true
+    },
+    {
+      "test": "action task_claim ",
+      "ok": true
+    },
+    {
+      "test": "HTTP task retry only credits once",
+      "ok": true
+    },
+    {
+      "test": "task frontend shows configured task",
+      "ok": true
+    },
+    {
+      "test": "action admin_invitation ",
+      "ok": true
+    },
+    {
+      "test": "invitation shown after issue",
+      "ok": true
+    },
+    {
+      "test": "invitation plaintext shown once",
+      "ok": true
+    },
+    {
+      "test": "save group security register_limit",
+      "ok": true
+    },
+    {
+      "test": "save group users registration_mode",
+      "ok": true
+    },
+    {
+      "test": "action register ",
+      "ok": true
+    },
+    {
+      "test": "action register ",
+      "ok": true
+    },
+    {
+      "test": "invitation usage committed with account",
+      "ok": true
+    },
+    {
+      "test": "save group users registration_mode",
+      "ok": true
+    },
+    {
+      "test": "action admin_content product",
+      "ok": true
+    },
+    {
+      "test": "action admin_variant ",
+      "ok": true
+    },
+    {
+      "test": "action admin_variant ",
+      "ok": true
+    },
+    {
+      "test": "action cart_add ",
+      "ok": true
+    },
+    {
+      "test": "action cart_add ",
+      "ok": true
+    },
+    {
+      "test": "cart keeps two SKU lines",
+      "ok": true
+    },
+    {
+      "test": "action cart_checkout ",
+      "ok": true
+    },
+    {
+      "test": "checkout uses server SKU prices",
+      "ok": true
+    },
+    {
+      "test": "checkout decrements each SKU",
+      "ok": true
+    },
+    {
+      "test": "action order_receive ",
+      "ok": true
+    },
+    {
+      "test": "action admin_ship ",
+      "ok": true
+    },
+    {
+      "test": "action admin_ship ",
+      "ok": true
+    },
+    {
+      "test": "action order_receive ",
+      "ok": true
+    },
+    {
+      "test": "action order_receive ",
+      "ok": true
+    },
+    {
+      "test": "receipt persists once",
+      "ok": true
+    },
+    {
+      "test": "authorized HTTP byte range",
+      "ok": true
+    },
+    {
+      "test": "authorized suffix range",
+      "ok": true
+    },
+    {
+      "test": "range cannot bypass download authorization",
+      "ok": true
+    },
+    {
+      "test": "HEAD sends only headers",
+      "ok": true
+    },
+    {
+      "test": "invalid HTTP range returns 416",
+      "ok": true
+    },
+    {
+      "test": "download logged once per file per member",
+      "ok": true
+    },
+    {
+      "test": "new admin screen motion",
+      "ok": true
+    },
+    {
+      "test": "new admin screen denies user motion",
+      "ok": true
+    },
+    {
+      "test": "new admin screen threads",
+      "ok": true
+    },
+    {
+      "test": "new admin screen denies user threads",
+      "ok": true
+    },
+    {
+      "test": "motion resource available motion.js",
+      "ok": true
+    },
+    {
+      "test": "motion resource available motion.css",
+      "ok": true
+    },
+    {
+      "test": "motion resource available features.js",
+      "ok": true
+    },
+    {
+      "test": "motion resource available motion-studio.js",
+      "ok": true
+    },
+    {
+      "test": "motion inspector saves shared schema",
+      "ok": true
+    },
+    {
+      "test": "motion configuration rendered into actual frontend",
+      "ok": true
+    },
+    {
+      "test": "motion save does not reset unrelated theme",
+      "ok": true
+    },
+    {
+      "test": "action admin_motion ",
+      "ok": true
+    },
+    {
+      "test": "action admin_content thread",
+      "ok": true
+    },
+    {
+      "test": "locked content does not leak approved comments",
+      "ok": true
+    },
+    {
+      "test": "action content_unlock ",
+      "ok": true
+    },
+    {
+      "test": "authorized comment can be read",
+      "ok": true
+    },
+    {
+      "test": "action logout ",
+      "ok": true
+    },
+    {
+      "test": "logout revokes password-based comment grant",
+      "ok": true
+    },
+    {
+      "test": "action login ",
+      "ok": true
+    },
+    {
+      "test": "action admin_content thread",
+      "ok": true
+    },
+    {
+      "test": "poll has real POST form and no private counts",
+      "ok": true
+    },
+    {
+      "test": "action poll_vote ",
+      "ok": true
+    },
+    {
+      "test": "action poll_vote ",
+      "ok": true
+    },
+    {
+      "test": "action poll_vote ",
+      "ok": true
+    },
+    {
+      "test": "action poll_vote ",
+      "ok": true
+    },
+    {
+      "test": "duplicate HTTP votes create one row",
+      "ok": true
+    },
+    {
+      "test": "voter can see results",
+      "ok": true
+    },
+    {
+      "test": "other account cannot see private results",
+      "ok": true
+    },
+    {
+      "test": "action admin_content thread",
+      "ok": true
+    },
+    {
+      "test": "action comment ",
+      "ok": true
+    },
+    {
+      "test": "action answer_accept ",
+      "ok": true
+    },
+    {
+      "test": "action admin_moderate ",
+      "ok": true
+    },
+    {
+      "test": "action answer_accept ",
+      "ok": true
+    },
+    {
+      "test": "action answer_accept ",
+      "ok": true
+    },
+    {
+      "test": "accepted answer rendered and anchored",
+      "ok": true
+    },
+    {
+      "test": "action admin_moderate ",
+      "ok": true
+    },
+    {
+      "test": "rejecting an answer clears accepted state",
+      "ok": true
+    },
+    {
+      "test": "save group email smtp_enabled,smtp_host,smtp_port,smtp_security,smtp_from,email_registration_required",
+      "ok": true
+    },
+    {
+      "test": "mandatory code visible in registration form",
+      "ok": true
+    },
+    {
+      "test": "action email_code_request ",
+      "ok": true
+    },
+    {
+      "test": "SMTP TLS receiver got the real verification message",
+      "ok": true
+    },
+    {
+      "test": "action email_code_request ",
+      "ok": true
+    },
+    {
+      "test": "action register ",
+      "ok": true
+    },
+    {
+      "test": "action register ",
+      "ok": true
+    },
+    {
+      "test": "verified registration persisted proof timestamp",
+      "ok": true
+    },
+    {
+      "test": "action email_code_request ",
+      "ok": true
+    },
+    {
+      "test": "email change message traversed local TLS SMTP",
+      "ok": true
+    },
+    {
+      "test": "action email_change ",
+      "ok": true
+    },
+    {
+      "test": "action email_change ",
+      "ok": true
+    },
+    {
+      "test": "email change saved and current session still works",
+      "ok": true
+    },
+    {
+      "test": "standalone no-script verification route works",
+      "ok": true
+    },
+    {
+      "test": "save group email email_registration_required,smtp_enabled",
+      "ok": true
+    },
+    {
+      "test": "disabled verification page is blocked",
+      "ok": true
+    },
+    {
+      "test": "0.12 admin circles",
+      "ok": true
+    },
+    {
+      "test": "0.12 admin denies ordinary user circles",
+      "ok": true
+    },
+    {
+      "test": "0.12 admin bounties",
+      "ok": true
+    },
+    {
+      "test": "0.12 admin denies ordinary user bounties",
+      "ok": true
+    },
+    {
+      "test": "0.12 admin reviews",
+      "ok": true
+    },
+    {
+      "test": "0.12 admin denies ordinary user reviews",
+      "ok": true
+    },
+    {
+      "test": "0.12 asset spring.js",
+      "ok": true
+    },
+    {
+      "test": "0.12 asset interactions.js",
+      "ok": true
+    },
+    {
+      "test": "0.12 asset interactions.css",
+      "ok": true
+    },
+    {
+      "test": "0.12 asset community.css",
+      "ok": true
+    },
+    {
+      "test": "save group community circles_enabled,bounties_enabled,bounty_max",
+      "ok": true
+    },
+    {
+      "test": "save group commerce reviews_enabled,reviews_review,invitation_products_enabled",
+      "ok": true
+    },
+    {
+      "test": "action admin_wallet ",
+      "ok": true
+    },
+    {
+      "test": "action admin_wallet ",
+      "ok": true
+    },
+    {
+      "test": "action admin_entity thread",
+      "ok": true
+    },
+    {
+      "test": "action admin_content thread",
+      "ok": true
+    },
+    {
+      "test": "circle directory is available",
+      "ok": true
+    },
+    {
+      "test": "circle public introduction excludes restricted posts",
+      "ok": true
+    },
+    {
+      "test": "private circle direct URL denied",
+      "ok": true
+    },
+    {
+      "test": "private circle search excludes title",
+      "ok": true
+    },
+    {
+      "test": "action buy circle",
+      "ok": true
+    },
+    {
+      "test": "action buy circle",
+      "ok": true
+    },
+    {
+      "test": "circle HTTP retries debit exactly once",
+      "ok": true
+    },
+    {
+      "test": "joined circle exposes authorized body",
+      "ok": true
+    },
+    {
+      "test": "action admin_circle_member ",
+      "ok": true
+    },
+    {
+      "test": "manual suspension revokes direct access",
+      "ok": true
+    },
+    {
+      "test": "action admin_circle_member ",
+      "ok": true
+    },
+    {
+      "test": "removing suspension restores paid term",
+      "ok": true
+    },
+    {
+      "test": "action refund ",
+      "ok": true
+    },
+    {
+      "test": "action admin_refund ",
+      "ok": true
+    },
+    {
+      "test": "refunded circle loses access",
+      "ok": true
+    },
+    {
+      "test": "circle refund returns original points",
+      "ok": true
+    },
+    {
+      "test": "action admin_entity thread",
+      "ok": true
+    },
+    {
+      "test": "action admin_content thread",
+      "ok": true
+    },
+    {
+      "test": "multiple selection uses real native checkboxes",
+      "ok": true
+    },
+    {
+      "test": "PHP array ballot accepted through real HTTP",
+      "ok": true
+    },
+    {
+      "test": "reordered ballot retry remains idempotent",
+      "ok": true
+    },
+    {
+      "test": "one ballot and two choices stored",
+      "ok": true
+    },
+    {
+      "test": "nested ballot values rejected",
+      "ok": true
+    },
+    {
+      "test": "action admin_content thread",
+      "ok": true
+    },
+    {
+      "test": "action bounty_fund ",
+      "ok": true
+    },
+    {
+      "test": "action bounty_fund ",
+      "ok": true
+    },
+    {
+      "test": "action comment ",
+      "ok": true
+    },
+    {
+      "test": "action answer_accept ",
+      "ok": true
+    },
+    {
+      "test": "action admin_moderate ",
+      "ok": true
+    },
+    {
+      "test": "action answer_accept ",
+      "ok": true
+    },
+    {
+      "test": "action answer_accept ",
+      "ok": true
+    },
+    {
+      "test": "accepted bounty pays answerer only once",
+      "ok": true
+    },
+    {
+      "test": "awarded bounty rendered",
+      "ok": true
+    },
+    {
+      "test": "action admin_bounty_release ",
+      "ok": true
+    },
+    {
+      "test": "action admin_content product",
+      "ok": true
+    },
+    {
+      "test": "action review_save ",
+      "ok": true
+    },
+    {
+      "test": "action buy content",
+      "ok": true
+    },
+    {
+      "test": "action review_save ",
+      "ok": true
+    },
+    {
+      "test": "pending purchase review hidden from public",
+      "ok": true
+    },
+    {
+      "test": "action admin_review ",
+      "ok": true
+    },
+    {
+      "test": "action admin_review ",
+      "ok": true
+    },
+    {
+      "test": "approved purchase review published",
+      "ok": true
+    },
+    {
+      "test": "action refund ",
+      "ok": true
+    },
+    {
+      "test": "action admin_refund ",
+      "ok": true
+    },
+    {
+      "test": "refunded review disappears from public",
+      "ok": true
+    },
+    {
+      "test": "action admin_content product",
+      "ok": true
+    },
+    {
+      "test": "action buy content",
+      "ok": true
+    },
+    {
+      "test": "invitation product stores generated code metadata",
+      "ok": true
+    },
+    {
+      "test": "invitation code appears only in owners order history",
+      "ok": true
+    },
+    {
+      "test": "action refund ",
+      "ok": true
+    },
+    {
+      "test": "action admin_refund ",
+      "ok": true
+    },
+    {
+      "test": "refunded invitation is revoked in storage",
+      "ok": true
+    },
+    {
+      "test": "save group appearance motion_response,spring_stiffness,spring_damping,spring_mass,motion_disclosures",
+      "ok": true
+    },
+    {
+      "test": "spring controls render validated same frontend configuration",
+      "ok": true
+    },
+    {
+      "test": "native cross-document transition opt-in present",
+      "ok": true
+    },
+    {
+      "test": "manual member listing exposes next page after fifty rows",
+      "ok": true
+    },
+    {
+      "test": "manual member pagination preserves selected circle",
+      "ok": true
+    },
+    {
+      "test": "second manual member page contains remaining row",
+      "ok": true
+    },
+    {
+      "test": "action logout ",
+      "ok": true
+    },
+    {
+      "test": "logout clears authenticated route",
+      "ok": true
+    },
+    {
+      "test": "no internal PHP/application exceptions",
+      "ok": true
+    }
+  ],
+  "transport": "requests over real local PHP HTTP server; test SQLite adapter if native PDO absent",
+  "not_tested": [
+    "real shared host",
+    "production Apache/Nginx/IIS rules",
+    "real merchant or external SMTP provider",
+    "browser navigation (separate browser suite)"
+  ]
+}

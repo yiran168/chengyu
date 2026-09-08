@@ -1,0 +1,10 @@
+# No rewrite rules are required. Keep this file when uploading.
+DirectoryIndex index.php
+<IfModule mod_authz_core.c>
+  <FilesMatch "(^\.|\.(sqlite|db|sql|log|bak|ini|env|zip|rar)$)">
+    Require all denied
+  </FilesMatch>
+</IfModule>
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+</IfModule>

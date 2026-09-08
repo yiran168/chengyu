@@ -1,0 +1,9 @@
+Intermediate evidence is not a final pass.
+The first combined tool call expired before HTTP produced JSON.
+A development assertion used status instead of Diagnostics.state and emitted warnings; fixed before the final clean stderr run.
+An old migration assertion expected schema 5; now checks the current migration version.
+The first browser run recorded 260/261 because zero-duration disclosure fell back to 280ms.
+After the fix and zero-save/reveal assertions the final browser result is 263/263.
+Native runtime acquisition (apt update) was stopped at 20 seconds, exit 124.
+Real Chromium URL navigation was blocked by environment policy.
+No production credentials, recovery codes, test databases or SMTP messages are included.

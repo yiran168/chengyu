@@ -1,0 +1,346 @@
+{
+    "php": "8.4.23",
+    "adapter": "test-only FFI / actual libsqlite3 (NOT native PDO)",
+    "time": "2026-09-06T16:03:27+08:00",
+    "total": 82,
+    "passed": 82,
+    "failed": 0,
+    "tests": [
+        {
+            "test": "integer money 0.01",
+            "ok": true
+        },
+        {
+            "test": "integer money 1",
+            "ok": true
+        },
+        {
+            "test": "integer money 9.9",
+            "ok": true
+        },
+        {
+            "test": "integer money 9999999.99",
+            "ok": true
+        },
+        {
+            "test": "invalid money 1.001",
+            "ok": true
+        },
+        {
+            "test": "invalid money 1e2",
+            "ok": true
+        },
+        {
+            "test": "invalid money -1",
+            "ok": true
+        },
+        {
+            "test": "invalid money NaN",
+            "ok": true
+        },
+        {
+            "test": "invalid money 01",
+            "ok": true
+        },
+        {
+            "test": "invalid money  1",
+            "ok": true
+        },
+        {
+            "test": "invalid money 0",
+            "ok": true
+        },
+        {
+            "test": "negative ledger formatting",
+            "ok": true
+        },
+        {
+            "test": "CSRF valid",
+            "ok": true
+        },
+        {
+            "test": "CSRF forgery rejected",
+            "ok": true
+        },
+        {
+            "test": "safe Markdown escapes scripts",
+            "ok": true
+        },
+        {
+            "test": "safe Markdown blocks javascript link",
+            "ok": true
+        },
+        {
+            "test": "safe Markdown keeps https link",
+            "ok": true
+        },
+        {
+            "test": "AES GCM round trip",
+            "ok": true
+        },
+        {
+            "test": "AES GCM rejects corruption",
+            "ok": true
+        },
+        {
+            "test": "registration points",
+            "ok": true
+        },
+        {
+            "test": "registration duplicate rejected",
+            "ok": true
+        },
+        {
+            "test": "login authenticates and rotates session",
+            "ok": true
+        },
+        {
+            "test": "ordinary user cannot manage",
+            "ok": true
+        },
+        {
+            "test": "ordinary user cannot access admin action",
+            "ok": true
+        },
+        {
+            "test": "external redirect blocked",
+            "ok": true
+        },
+        {
+            "test": "local redirect allowed",
+            "ok": true
+        },
+        {
+            "test": "wallet retry is idempotent",
+            "ok": true
+        },
+        {
+            "test": "wallet conflicting key rejected",
+            "ok": true
+        },
+        {
+            "test": "wallet cannot overdraw",
+            "ok": true
+        },
+        {
+            "test": "outer transaction rollback includes ledger",
+            "ok": true
+        },
+        {
+            "test": "daily check-in credits once",
+            "ok": true
+        },
+        {
+            "test": "7-day streak bonus",
+            "ok": true
+        },
+        {
+            "test": "transfer balances and idempotence",
+            "ok": true
+        },
+        {
+            "test": "self transfer blocked",
+            "ok": true
+        },
+        {
+            "test": "voucher exact once",
+            "ok": true
+        },
+        {
+            "test": "expired voucher rejected",
+            "ok": true
+        },
+        {
+            "test": "exchange preserves integer assets and idempotence",
+            "ok": true
+        },
+        {
+            "test": "exchange rejects fractional yuan",
+            "ok": true
+        },
+        {
+            "test": "digital purchase debits once and grants entitlement",
+            "ok": true
+        },
+        {
+            "test": "refund credits back and removes entitlement",
+            "ok": true
+        },
+        {
+            "test": "another user cannot request refund",
+            "ok": true
+        },
+        {
+            "test": "insufficient purchase rolls back order and coupon",
+            "ok": true
+        },
+        {
+            "test": "points purchase uses points not balance",
+            "ok": true
+        },
+        {
+            "test": "tokens purchase uses tokens",
+            "ok": true
+        },
+        {
+            "test": "membership extends duration on renewals",
+            "ok": true
+        },
+        {
+            "test": "unique card inventory imported",
+            "ok": true
+        },
+        {
+            "test": "duplicate inventory import fully rolls back",
+            "ok": true
+        },
+        {
+            "test": "card allocation delivers distinct encrypted codes",
+            "ok": true
+        },
+        {
+            "test": "empty inventory rejects without debit",
+            "ok": true
+        },
+        {
+            "test": "refund one repeatable order preserves other entitlement",
+            "ok": true
+        },
+        {
+            "test": "physical order requires owned shipping address",
+            "ok": true
+        },
+        {
+            "test": "physical stock, encrypted address and manual shipment",
+            "ok": true
+        },
+        {
+            "test": "referral commission and refund reversal",
+            "ok": true
+        },
+        {
+            "test": "withdrawal hold and rejection release exactly once",
+            "ok": true
+        },
+        {
+            "test": "guest cannot access VIP body",
+            "ok": true
+        },
+        {
+            "test": "logged in required content gate",
+            "ok": true
+        },
+        {
+            "test": "reply gate opens only after approved reply",
+            "ok": true
+        },
+        {
+            "test": "public search cannot match protected body",
+            "ok": true
+        },
+        {
+            "test": "search SQL metacharacters are literal",
+            "ok": true
+        },
+        {
+            "test": "future publication hidden without scheduler",
+            "ok": true
+        },
+        {
+            "test": "ordinary submission cannot publish or set price",
+            "ok": true
+        },
+        {
+            "test": "like and bookmark toggle safely",
+            "ok": true
+        },
+        {
+            "test": "private message stored with recipient binding",
+            "ok": true
+        },
+        {
+            "test": "self administrator demotion blocked",
+            "ok": true
+        },
+        {
+            "test": "CSV neutralizes formula injection and excludes hashes",
+            "ok": true
+        },
+        {
+            "test": "checkout signed fields and matching callback URL",
+            "ok": true
+        },
+        {
+            "test": "forged payment rejected without credit",
+            "ok": true
+        },
+        {
+            "test": "signed payment mismatch money",
+            "ok": true
+        },
+        {
+            "test": "signed payment mismatch pid",
+            "ok": true
+        },
+        {
+            "test": "signed payment mismatch type",
+            "ok": true
+        },
+        {
+            "test": "signed payment mismatch trade_status",
+            "ok": true
+        },
+        {
+            "test": "gateway secrets encrypted in database",
+            "ok": true
+        },
+        {
+            "test": "old order verifies snapshot after key rotation; duplicate credits once",
+            "ok": true
+        },
+        {
+            "test": "same order conflicting receipt rejected",
+            "ok": true
+        },
+        {
+            "test": "receipt reuse across orders rejected",
+            "ok": true
+        },
+        {
+            "test": "valid late payment credits expired top-up",
+            "ok": true
+        },
+        {
+            "test": "HTTP canonical URL blocks payment creation",
+            "ok": true
+        },
+        {
+            "test": "legacy CodePay signed exact amount protocol fixture",
+            "ok": true
+        },
+        {
+            "test": "legacy CodePay floating amount mode deliberately rejected",
+            "ok": true
+        },
+        {
+            "test": "cleanup does not delete financial ledger",
+            "ok": true
+        },
+        {
+            "test": "ledger reconciles all account balances",
+            "ok": true
+        },
+        {
+            "test": "eight concurrent debits: five settle, no overdraft",
+            "ok": true
+        }
+    ],
+    "not_tested": [
+        "MySQL/InnoDB and native PDO when unavailable",
+        "real merchant network or callback delivery",
+        "SMTP network",
+        "real shared hosting",
+        "certificate issuance",
+        "full Zibll feature parity"
+    ]
+}

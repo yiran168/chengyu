@@ -1,0 +1,63 @@
+{
+  "method": "Static links and PNG verification; Chromium set_content text layout, not browser URL navigation",
+  "total": 11,
+  "passed": 11,
+  "failed": 0,
+  "tests": [
+    {
+      "test": "Offline manual chapter count matches release",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "test": "All HTML identifiers are unique",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "test": "All offline local files and fragment links exist",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "test": "All release preview PNGs are readable",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "test": "Private installation token is not present in public manuals",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "test": "Public upload manual is independently readable",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "test": "Manual text layout has no horizontal overflow at 320",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "test": "Manual text layout has no horizontal overflow at 390",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "test": "Manual text layout has no horizontal overflow at 768",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "test": "Manual text layout has no horizontal overflow at 1440",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "test": "Reduced-motion preference disables manual smooth scrolling",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

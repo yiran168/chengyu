@@ -1,0 +1,605 @@
+FETCH /
+PASS home no horizontal overflow at 320
+PASS home no horizontal overflow at 390
+PASS home no horizontal overflow at 768
+PASS home no horizontal overflow at 1440
+PASS appearance opens with actual JavaScript
+PASS theme choice tide
+PASS theme choice dusk
+PASS theme choice paper
+PASS theme choice graphite
+PASS theme choice citrus
+PASS glass choice none
+PASS glass choice frost
+PASS glass choice prism
+PASS glass choice liquid
+PASS dark choice
+PASS appearance closes
+PASS OS reduced-motion suppresses orb animation
+PASS keyboard shortcut opens search
+PASS Escape dismisses search
+FETCH /admin/index.php?tab=dashboard
+PASS admin dashboard loaded
+PASS admin mobile no horizontal overflow
+PASS admin mobile navigation opens
+PASS admin mobile navigation closes
+FETCH /admin/index.php?tab=settings&group=appearance
+PASS admin theme preview changes form value
+PASS admin theme preview changes visual theme
+FETCH /admin/index.php?tab=builder&slot=articles
+PASS layout editor initializes actual blocks
+PASS layout title is preserved
+PASS unfocused skip link does not obscure content
+PASS layout add block updates model
+PASS layout text edit synchronizes JSON
+PASS layout keyboard-accessible move reorders data
+PASS layout duplicate generates unique identifier
+PASS layout remove removes one block
+PASS layout template appends configured blocks
+PASS invalid layout import preserves model
+PASS valid layout import replaces model
+PASS layout export is data only
+PASS studio no horizontal overflow at 320
+PASS studio no horizontal overflow at 390
+PASS studio no horizontal overflow at 768
+PASS studio no horizontal overflow at 1440
+FETCH /index.php?r=collections
+PASS collections no horizontal overflow at 320
+PASS collections no horizontal overflow at 390
+PASS collections no horizontal overflow at 768
+PASS collections no horizontal overflow at 1440
+FETCH /index.php?r=tasks
+PASS tasks no horizontal overflow at 320
+PASS tasks no horizontal overflow at 390
+PASS tasks no horizontal overflow at 768
+PASS tasks no horizontal overflow at 1440
+FETCH /admin/index.php?tab=variants
+PASS variants no horizontal overflow at 320
+PASS variants no horizontal overflow at 390
+PASS variants no horizontal overflow at 768
+PASS variants no horizontal overflow at 1440
+FETCH /index.php?r=articles
+PASS composed-articles no horizontal overflow at 320
+PASS composed-articles no horizontal overflow at 390
+PASS composed-articles no horizontal overflow at 768
+PASS composed-articles no horizontal overflow at 1440
+FETCH /
+FETCH /
+FETCH /
+FETCH /
+PASS motion engine parses real server configuration
+PASS front-end easing reads the shared server curve registry
+PASS pointer spotlight produces active card state
+PASS pointer perspective produces actual computed transform
+PASS master off resets pointer transforms immediately
+PASS reveal variant updates root configuration
+PASS animated dialog reaches native open state
+PASS animated Escape dismissal closes native dialog
+PASS history restoration preserves intentionally disabled controls
+FETCH /admin/index.php?tab=motion
+PASS motion inspector has real parameter controls
+PASS motion inspector no horizontal overflow 320
+PASS motion inspector no horizontal overflow 390
+PASS motion inspector no horizontal overflow 768
+PASS motion inspector no horizontal overflow 1440
+PASS expressive preset updates shared engine and form
+PASS replay creates actual timed Web Animations
+PASS curve inspector uses exact custom control points
+PASS curve path renders an overshoot control point
+PASS duration output and CSS duration stay synchronized
+PASS expanded custom curve mobile no horizontal overflow
+PASS system reduced-motion switches live engine off
+PASS admin preset cannot override reduced-motion preference
+PASS reduced-motion retains all editable controls
+PASS media preference change restores configured engine
+PASS master motion off stops continuous illustration
+PASS adaptive low-resource mode suppresses glass effects
+FETCH /index.php?r=article&id=13
+PASS article outline generated from rendered Markdown headings
+PASS private poll results absent before voting
+PASS poll no horizontal overflow 320
+PASS poll no horizontal overflow 390
+PASS poll no horizontal overflow 768
+PASS poll no horizontal overflow 1440
+PASS poll radio control is an actual required form field
+FETCH /index.php?r=article&id=13
+PASS HTTP-recorded vote renders correct results in browser
+FETCH /index.php?r=article&id=14
+PASS accepted answer is rendered with working anchor
+PASS question no horizontal overflow 320
+PASS question no horizontal overflow 390
+PASS question no horizontal overflow 768
+PASS question no horizontal overflow 1440
+FETCH /admin/index.php?tab=threads
+FETCH /admin/index.php?tab=edit_content&kind=thread
+PASS discussion editor disables irrelevant poll controls
+PASS choosing poll enables functional fields
+PASS closed-only poll makes deadline required in editor
+PASS ordinary poll deadline is optional again
+FETCH /
+PASS no-JavaScript content remains visible
+FETCH /
+PASS analytic spring library is loaded before motion engine
+PASS spring interaction has measurable perspective
+PASS resting hover schedules no idle animation frames
+PASS leaving card settles and releases all tracked nodes
+PASS reduced motion clears in-flight spring on preference event
+FETCH /admin/index.php?tab=motion
+PASS spring lab shares runtime parameter values
+PASS spring graph is real numeric response
+PASS spring controls update real runtime solver
+PASS spring replay animates actual element
+PASS disclosure expands and clears temporary height
+PASS disclosure reopens after a completed close
+PASS rapid disclosure reversal keeps final requested state
+PASS spring lab fits viewport 320
+PASS spring lab fits viewport 390
+PASS spring lab fits viewport 768
+PASS spring lab fits viewport 1440
+PASS mobile admin menu announces expanded state
+PASS mobile admin menu focuses search field
+PASS mobile admin dialog inerts underlying workspace
+PASS Tab stays inside mobile admin menu
+PASS Escape restores admin trigger focus
+PASS closing admin menu restores workspace interaction
+FETCH /index.php?r=article&id=1
+PASS authorized cover has keyboard-operable lightbox trigger
+PASS native lightbox dialog opens with actual image
+PASS lightbox zoom uses real scrollable image
+PASS lightbox Escape returns focus to originating image
+PASS reduced-motion does not disable image viewer
+PASS unsupported sharing has selectable URL fallback
+FETCH /index.php?r=circles
+PASS circles has no server error view
+PASS circles no horizontal overflow 320
+PASS circles no horizontal overflow 390
+PASS circles no horizontal overflow 768
+PASS circles no horizontal overflow 1440
+FETCH /index.php?r=circle&id=7
+PASS circle has no server error view
+PASS circle no horizontal overflow 320
+PASS circle no horizontal overflow 390
+PASS circle no horizontal overflow 768
+PASS circle no horizontal overflow 1440
+FETCH /index.php?r=article&id=18
+PASS bounty has no server error view
+PASS bounty no horizontal overflow 320
+PASS bounty no horizontal overflow 390
+PASS bounty no horizontal overflow 768
+PASS bounty no horizontal overflow 1440
+FETCH /index.php?r=article&id=19
+PASS multi-poll has no server error view
+PASS multi-poll no horizontal overflow 320
+PASS multi-poll no horizontal overflow 390
+PASS multi-poll no horizontal overflow 768
+PASS multi-poll no horizontal overflow 1440
+FETCH /index.php?r=product&id=20
+PASS product-reviews has no server error view
+PASS product-reviews no horizontal overflow 320
+PASS product-reviews no horizontal overflow 390
+PASS product-reviews no horizontal overflow 768
+PASS product-reviews no horizontal overflow 1440
+FETCH /admin/index.php?tab=circles
+PASS admin-circles has no server error view
+PASS admin-circles no horizontal overflow 320
+PASS admin-circles no horizontal overflow 390
+PASS admin-circles no horizontal overflow 768
+PASS admin-circles no horizontal overflow 1440
+FETCH /admin/index.php?tab=bounties
+PASS admin-bounties has no server error view
+PASS admin-bounties no horizontal overflow 320
+PASS admin-bounties no horizontal overflow 390
+PASS admin-bounties no horizontal overflow 768
+PASS admin-bounties no horizontal overflow 1440
+FETCH /admin/index.php?tab=reviews
+PASS admin-reviews has no server error view
+PASS admin-reviews no horizontal overflow 320
+PASS admin-reviews no horizontal overflow 390
+PASS admin-reviews no horizontal overflow 768
+PASS admin-reviews no horizontal overflow 1440
+FETCH /admin/index.php?tab=circles
+PASS no-script mobile admin sidebar stays accessible
+FETCH /index.php?r=creator
+PASS creator-studio renders actual new view
+PASS creator-studio no horizontal overflow 320
+PASS creator-studio no horizontal overflow 390
+PASS creator-studio no horizontal overflow 768
+PASS creator-studio no horizontal overflow 1440
+PASS creator metrics are from real isolated transactions
+PASS income detail labels use readable stacked layout
+PASS creator orbit uses a defined theme border token
+PASS creator view exposes real settlement and conversion forms
+FETCH /admin/index.php?tab=creators
+PASS creator-admin renders actual new view
+PASS creator-admin no horizontal overflow 320
+PASS creator-admin no horizontal overflow 390
+PASS creator-admin no horizontal overflow 768
+PASS creator-admin no horizontal overflow 1440
+FETCH /index.php?r=history
+PASS history renders actual new view
+PASS history no horizontal overflow 320
+PASS history no horizontal overflow 390
+PASS history no horizontal overflow 768
+PASS history no horizontal overflow 1440
+PASS private reading cards have real saved progress
+PASS reading opt-out is an actual checked form field
+FETCH /index.php?r=following
+PASS following renders actual new view
+PASS following no horizontal overflow 320
+PASS following no horizontal overflow 390
+PASS following no horizontal overflow 768
+PASS following no horizontal overflow 1440
+FETCH /admin/index.php?tab=motion
+PASS new feedback settings are editable from motion lab
+PASS navigation indicator follows the selected control
+PASS navigation indicator matches the selected width
+PASS navigation animation switch hides decorative indicator
+PASS zero global duration applies to feedback animation
+PASS feedback uses a dismissible accessible notification
+PASS dismissing notification restores originating keyboard focus
+PASS notification queue is bounded at four
+PASS reduced-motion keeps notifications without animation
+FETCH /
+PASS one character waits for a meaningful search query
+PASS IME composition does not send intermediate searches
+PASS IME completion triggers one debounced query
+PASS suggestions render only same-site result links
+PASS suggestion titles cannot introduce executable markup
+PASS out-of-order search cannot overwrite a newer response
+PASS combobox keyboard selection updates active descendant
+PASS first Escape clears suggestions but keeps search dialog
+PASS closing search invalidates an in-flight response
+PASS search palette fits viewport 320
+PASS search palette fits viewport 390
+PASS search palette fits viewport 768
+PASS search palette fits viewport 1440
+FETCH /index.php?r=creator
+PASS slow async action shows real pending and busy state
+PASS failed async request restores active buttons and clears busy state
+PASS async failure preserves intentional disabled state
+PASS async failure provides a visible text alert
+FETCH /index.php?r=creator
+PASS no-script creator settlement remains a native POST form
+PASS no-script creator page remains readable
+FETCH /index.php?r=security
+PASS 014 security fits 320
+FETCH /index.php?r=security
+PASS 014 security fits 390
+FETCH /index.php?r=security
+PASS 014 security fits 768
+FETCH /index.php?r=security
+PASS 014 security fits 1440
+FETCH /admin/index.php?tab=pricing&content_id=27
+PASS 014 pricing-studio fits 320
+FETCH /admin/index.php?tab=pricing&content_id=27
+PASS 014 pricing-studio fits 390
+FETCH /admin/index.php?tab=pricing&content_id=27
+PASS 014 pricing-studio fits 768
+FETCH /admin/index.php?tab=pricing&content_id=27
+PASS 014 pricing-studio fits 1440
+FETCH /index.php?r=product&id=27
+PASS 014 pricing-product fits 320
+FETCH /index.php?r=product&id=27
+PASS 014 pricing-product fits 390
+FETCH /index.php?r=product&id=27
+PASS 014 pricing-product fits 768
+FETCH /index.php?r=product&id=27
+PASS 014 pricing-product fits 1440
+FETCH /index.php?r=product&id=27
+PASS 014 server-rendered quote available before any fetch
+PASS 014 focus mode preserves content and hides only sidebar
+PASS 014 focus mode keeps purchase control
+PASS 014 focus mode can restore original layout
+PASS 014 quote preview marks busy without charging
+PASS 014 new quote updates integer ceiling
+PASS 014 quote label cannot inject markup
+PASS 014 stale quote cannot overwrite a newer confirmation
+PASS 014 failed quote does not leave perpetual busy state
+FETCH /admin/index.php?tab=builder&slot=articles
+PASS 014 layout motion helper installed
+PASS 014 seeded layout has at least two keyed blocks
+PASS 014 keyboard reorder changes persistent JSON order
+PASS 014 reorder preserves the expanded editor
+PASS 014 reorder restores keyboard focus to moved block
+PASS 014 reorder announces new position
+PASS 014 repeated reorder leaves no running layout animation
+PASS 014 layout transforms are removed after completion
+PASS 014 reduced motion keeps reorder without animations
+PASS 014 motion switch keeps reorder but removes movement
+FETCH /admin/index.php?tab=motion
+PASS 014 layout animation configurable in motion lab
+PASS 014 zero duration also applies to native disclosure animation
+PASS 014 motion form allows an actual zero value
+PASS 014 zero duration has no deferred reveal nodes
+FETCH /index.php?r=product&id=27
+PASS 014 no-JS purchase remains a real POST form
+PASS 014 no-JS uses server price ceiling
+PASS 014 no-JS hides nonfunctional preview button
+FETCH /admin/index.php?tab=integrations
+PASS 015 integrations no horizontal overflow 320
+PASS 015 integrations no horizontal overflow 390
+PASS 015 integrations no horizontal overflow 768
+PASS 015 integrations no horizontal overflow 1440
+PASS 015 integrations no fixture secrets in DOM
+FETCH /admin/index.php?tab=configuration&preview=1
+PASS 015 configuration no horizontal overflow 320
+PASS 015 configuration no horizontal overflow 390
+PASS 015 configuration no horizontal overflow 768
+PASS 015 configuration no horizontal overflow 1440
+PASS 015 configuration no fixture secrets in DOM
+FETCH /admin/index.php?tab=badges
+PASS 015 badges-admin no horizontal overflow 320
+PASS 015 badges-admin no horizontal overflow 390
+PASS 015 badges-admin no horizontal overflow 768
+PASS 015 badges-admin no horizontal overflow 1440
+PASS 015 badges-admin no fixture secrets in DOM
+FETCH /index.php?r=badges
+PASS 015 badges no horizontal overflow 320
+PASS 015 badges no horizontal overflow 390
+PASS 015 badges no horizontal overflow 768
+PASS 015 badges no horizontal overflow 1440
+PASS 015 badges no fixture secrets in DOM
+FETCH /index.php?r=security
+PASS 015 connections-security no horizontal overflow 320
+PASS 015 connections-security no horizontal overflow 390
+PASS 015 connections-security no horizontal overflow 768
+PASS 015 connections-security no horizontal overflow 1440
+PASS 015 connections-security no fixture secrets in DOM
+FETCH /index.php?r=membership
+PASS 015 lifetime-membership no horizontal overflow 320
+PASS 015 lifetime-membership no horizontal overflow 390
+PASS 015 lifetime-membership no horizontal overflow 768
+PASS 015 lifetime-membership no horizontal overflow 1440
+PASS 015 lifetime-membership no fixture secrets in DOM
+FETCH /admin/index.php?tab=integrations
+PASS 015 active group opens on first render
+PASS 015 keyboard shortcut focuses backend search
+PASS 015 backend search opens matching section
+PASS 015 backend search only exposes matching targets
+PASS 015 search Escape clears without losing focus
+PASS 015 clearing search restores prior group states
+PASS 015 no-match status is announced
+PASS 015 native section keyboard activation works
+PASS 015 mobile shortcut opens menu before focusing search
+PASS 015 empty mobile search Escape closes menu
+FETCH /index.php?r=badges
+PASS 015 emblem hover starts finite shared animation
+PASS 015 emblem animation releases finished handles
+PASS 015 zero duration skips emblem animation
+PASS 015 reduced motion skips emblem animation
+PASS 015 economy mode skips emblem animation
+PASS 015 pagehide cancels finite animation
+FETCH /admin/index.php?tab=configuration&preview=1
+PASS 015 snapshot export uses normal browser download form
+PASS 015 snapshot import uses multipart form
+PASS 015 restore form includes revision and password
+FETCH /index.php?r=login
+PASS 015 connected login no overflow
+PASS 015 three external provider forms rendered
+PASS 015 external login has no CSRF-free navigation shortcut
+FETCH /index.php?r=register
+PASS 015 registration shares local password and terms fields
+FETCH /admin/index.php?tab=commerce
+PASS 016 commerce-console no horizontal overflow 320
+PASS 016 commerce-console no horizontal overflow 390
+PASS 016 commerce-console no horizontal overflow 768
+PASS 016 commerce-console no horizontal overflow 1440
+PASS 016 commerce-console native forms include CSRF
+FETCH /admin/index.php?tab=shipping
+PASS 016 shipping-studio no horizontal overflow 320
+PASS 016 shipping-studio no horizontal overflow 390
+PASS 016 shipping-studio no horizontal overflow 768
+PASS 016 shipping-studio no horizontal overflow 1440
+PASS 016 shipping-studio native forms include CSRF
+FETCH /admin/index.php?tab=service
+PASS 016 service-console no horizontal overflow 320
+PASS 016 service-console no horizontal overflow 390
+PASS 016 service-console no horizontal overflow 768
+PASS 016 service-console no horizontal overflow 1440
+PASS 016 service-console native forms include CSRF
+FETCH /admin/index.php?tab=media_lab
+PASS 016 media-workbench no horizontal overflow 320
+PASS 016 media-workbench no horizontal overflow 390
+PASS 016 media-workbench no horizontal overflow 768
+PASS 016 media-workbench no horizontal overflow 1440
+PASS 016 media-workbench native forms include CSRF
+FETCH /admin/index.php?tab=translations&content_id=29
+PASS 016 translation-editor no horizontal overflow 320
+PASS 016 translation-editor no horizontal overflow 390
+PASS 016 translation-editor no horizontal overflow 768
+PASS 016 translation-editor no horizontal overflow 1440
+PASS 016 translation-editor native forms include CSRF
+FETCH /index.php?r=checkout&kind=content&item_id=29
+PASS 016 checkout no horizontal overflow 320
+PASS 016 checkout no horizontal overflow 390
+PASS 016 checkout no horizontal overflow 768
+PASS 016 checkout no horizontal overflow 1440
+PASS 016 checkout native forms include CSRF
+FETCH /index.php?r=checkout_review
+PASS 016 checkout-review no horizontal overflow 320
+PASS 016 checkout-review no horizontal overflow 390
+PASS 016 checkout-review no horizontal overflow 768
+PASS 016 checkout-review no horizontal overflow 1440
+PASS 016 checkout-review native forms include CSRF
+FETCH /index.php?r=guest_orders
+PASS 016 guest-desk no horizontal overflow 320
+PASS 016 guest-desk no horizontal overflow 390
+PASS 016 guest-desk no horizontal overflow 768
+PASS 016 guest-desk no horizontal overflow 1440
+PASS 016 guest-desk native forms include CSRF
+FETCH /index.php?r=landing&slot=page1
+PASS 016 composed-page no horizontal overflow 320
+PASS 016 composed-page no horizontal overflow 390
+PASS 016 composed-page no horizontal overflow 768
+PASS 016 composed-page no horizontal overflow 1440
+PASS 016 composed-page native forms include CSRF
+FETCH /admin/index.php?tab=builder&slot=page1
+PASS 016 page-builder no horizontal overflow 320
+PASS 016 page-builder no horizontal overflow 390
+PASS 016 page-builder no horizontal overflow 768
+PASS 016 page-builder no horizontal overflow 1440
+PASS 016 page-builder native forms include CSRF
+FETCH /admin/index.php?tab=media_lab
+PASS 016 media module loaded without uploading
+PASS 016 workbench contains file input
+FETCH /index.php?r=checkout_review
+PASS 016 mobile checkout aside stays in document flow
+PASS 016 final checkout remains non-async explicit native form
+FETCH /admin/index.php?tab=media_lab
+PASS 016 English language document matches locale
+PASS 016 English translated workbench copy
+FETCH /index.php?r=courses
+PASS 017 learning-library no horizontal overflow 320
+PASS 017 learning-library no horizontal overflow 390
+PASS 017 learning-library no horizontal overflow 768
+PASS 017 learning-library no horizontal overflow 1440
+PASS 017 learning-library native forms include CSRF
+PASS 017 learning-library main heading present
+FETCH /index.php?r=course&id=1
+PASS 017 course-overview no horizontal overflow 320
+PASS 017 course-overview no horizontal overflow 390
+PASS 017 course-overview no horizontal overflow 768
+PASS 017 course-overview no horizontal overflow 1440
+PASS 017 course-overview native forms include CSRF
+PASS 017 course-overview main heading present
+FETCH /index.php?r=learn&id=1
+PASS 017 lesson-reader no horizontal overflow 320
+PASS 017 lesson-reader no horizontal overflow 390
+PASS 017 lesson-reader no horizontal overflow 768
+PASS 017 lesson-reader no horizontal overflow 1440
+PASS 017 lesson-reader native forms include CSRF
+PASS 017 lesson-reader main heading present
+FETCH /index.php?r=learning
+PASS 017 learning-progress no horizontal overflow 320
+PASS 017 learning-progress no horizontal overflow 390
+PASS 017 learning-progress no horizontal overflow 768
+PASS 017 learning-progress no horizontal overflow 1440
+PASS 017 learning-progress native forms include CSRF
+PASS 017 learning-progress main heading present
+FETCH /admin/index.php?tab=learning&id=1&lesson=1
+PASS 017 course-studio no horizontal overflow 320
+PASS 017 course-studio no horizontal overflow 390
+PASS 017 course-studio no horizontal overflow 768
+PASS 017 course-studio no horizontal overflow 1440
+PASS 017 course-studio native forms include CSRF
+PASS 017 course-studio main heading present
+FETCH /admin/index.php?tab=search_index
+PASS 017 search-workspace no horizontal overflow 320
+PASS 017 search-workspace no horizontal overflow 390
+PASS 017 search-workspace no horizontal overflow 768
+PASS 017 search-workspace no horizontal overflow 1440
+PASS 017 search-workspace native forms include CSRF
+PASS 017 search-workspace main heading present
+FETCH /admin/index.php?tab=logistics
+PASS 017 logistics-workspace no horizontal overflow 320
+PASS 017 logistics-workspace no horizontal overflow 390
+PASS 017 logistics-workspace no horizontal overflow 768
+PASS 017 logistics-workspace no horizontal overflow 1440
+PASS 017 logistics-workspace native forms include CSRF
+PASS 017 logistics-workspace main heading present
+FETCH /admin/index.php?tab=reconciliation&id=1
+PASS 017 statement-workspace no horizontal overflow 320
+PASS 017 statement-workspace no horizontal overflow 390
+PASS 017 statement-workspace no horizontal overflow 768
+PASS 017 statement-workspace no horizontal overflow 1440
+PASS 017 statement-workspace native forms include CSRF
+PASS 017 statement-workspace main heading present
+FETCH /index.php?r=support
+PASS 017 support-desk no horizontal overflow 320
+PASS 017 support-desk no horizontal overflow 390
+PASS 017 support-desk no horizontal overflow 768
+PASS 017 support-desk no horizontal overflow 1440
+PASS 017 support-desk native forms include CSRF
+PASS 017 support-desk main heading present
+FETCH /index.php?r=support&id=1
+PASS 017 support-conversation no horizontal overflow 320
+PASS 017 support-conversation no horizontal overflow 390
+PASS 017 support-conversation no horizontal overflow 768
+PASS 017 support-conversation no horizontal overflow 1440
+PASS 017 support-conversation native forms include CSRF
+PASS 017 support-conversation main heading present
+FETCH /admin/index.php?tab=support
+PASS 017 support-workspace no horizontal overflow 320
+PASS 017 support-workspace no horizontal overflow 390
+PASS 017 support-workspace no horizontal overflow 768
+PASS 017 support-workspace no horizontal overflow 1440
+PASS 017 support-workspace native forms include CSRF
+PASS 017 support-workspace main heading present
+FETCH /admin/index.php?tab=builder&slot=page11
+PASS 017 layout-draft no horizontal overflow 320
+PASS 017 layout-draft no horizontal overflow 390
+PASS 017 layout-draft no horizontal overflow 768
+PASS 017 layout-draft no horizontal overflow 1440
+PASS 017 layout-draft native forms include CSRF
+PASS 017 layout-draft main heading present
+FETCH /index.php?r=learn&id=1
+PASS 017 private progress fields and revision rendered
+PASS 017 persisted note visible to its owner
+PASS 017 mobile lesson outline not fixed
+FETCH /admin/index.php?tab=builder&slot=page11
+PASS 017 builder offers distinct draft and publish submits
+FETCH /admin/index.php?tab=search_index
+PASS 017 index no-script manual batch action exists
+PASS 017 index resumable progressive enhancement controls exist
+FETCH /admin/index.php?tab=support&id=1
+PASS 017 template inserts editable text without submitting
+FETCH /admin/index.php?tab=learning
+PASS 017 independent English admin language
+FETCH /index.php?r=courses
+PASS 017 frontend stays Chinese while admin is English
+PASS 017 shared hero receives translated Chinese subtitle
+PASS 017 original course card lift active on pointer hover
+PASS 017 reduced motion disables course card transforms
+FETCH /admin/index.php?tab=backups
+PASS 018 recovery-vault no horizontal overflow 320
+PASS 018 recovery-vault no horizontal overflow 390
+PASS 018 recovery-vault no horizontal overflow 768
+PASS 018 recovery-vault no horizontal overflow 1440
+PASS 018 recovery-vault all native forms have action and CSRF
+PASS 018 recovery-vault has main heading
+FETCH /admin/index.php?tab=search_index
+PASS 018 search-connector no horizontal overflow 320
+PASS 018 search-connector no horizontal overflow 390
+PASS 018 search-connector no horizontal overflow 768
+PASS 018 search-connector no horizontal overflow 1440
+PASS 018 search-connector all native forms have action and CSRF
+PASS 018 search-connector has main heading
+FETCH /admin/index.php?tab=logistics&order_id=8&parcel=1
+PASS 018 parcels-console no horizontal overflow 320
+PASS 018 parcels-console no horizontal overflow 390
+PASS 018 parcels-console no horizontal overflow 768
+PASS 018 parcels-console no horizontal overflow 1440
+PASS 018 parcels-console all native forms have action and CSRF
+PASS 018 parcels-console has main heading
+FETCH /index.php?r=tracking&id=8&parcel=2
+PASS 018 parcel-journey no horizontal overflow 320
+PASS 018 parcel-journey no horizontal overflow 390
+PASS 018 parcel-journey no horizontal overflow 768
+PASS 018 parcel-journey no horizontal overflow 1440
+PASS 018 parcel-journey all native forms have action and CSRF
+PASS 018 parcel-journey has main heading
+FETCH /admin/index.php?tab=settings&group=security
+PASS 018 safety-controls no horizontal overflow 320
+PASS 018 safety-controls no horizontal overflow 390
+PASS 018 safety-controls no horizontal overflow 768
+PASS 018 safety-controls no horizontal overflow 1440
+PASS 018 safety-controls all native forms have action and CSRF
+PASS 018 safety-controls has main heading
+FETCH /admin/index.php?tab=backups
+PASS 018 namespaced backup grid has two desktop columns
+PASS 018 namespaced backup grid stacks on phones
+PASS 018 backup confirm matches server minimum
+PASS 018 sensitive backup actions require password
+PASS 018 sensitive forms do not opt into AJAX
+PASS 018 recovery actions expand with keyboard
+FETCH /admin/index.php?tab=logistics&order_id=8&parcel=1
+PASS 018 both parcel cards and add control rendered
+PASS 018 one selected parcel has semantic current state
+PASS 018 parcel hover uses restrained movement
+PASS 018 reduced motion cancels parcel transforms
+FETCH /admin/index.php?tab=backups
+FETCH /admin/index.php?tab=backups
+PASS 018 recovery vault English copy is complete
+FETCH /admin/index.php?tab=search_index
+PASS 018 search connector has manual and progressive controls
+PASS no JavaScript runtime errors in snapshots

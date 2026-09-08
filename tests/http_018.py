@@ -1,0 +1,68 @@
+"""0.18 real HTTP boundaries; no external search or live accounts are contacted."""
+for tab18 in ['backups','search_index','logistics']:
+    rr18=admin.get(base+'/admin/index.php',params={'tab':tab18})
+    check('018 admin route '+tab18,rr18.status_code==200,rr18.text[-200:])
+    check('018 member denied '+tab18,user.get(base+'/admin/index.php',params={'tab':tab18}).status_code==403)
+for asset18 in ['workbench.css','workbench.js']:
+    rr18=guest.get(base+'/assets/'+asset18)
+    check('018 original production asset '+asset18,rr18.status_code==200 and len(rr18.content)>100)
+for action18 in ['backup_create','backup_download','backup_delete','search_remote_rebuild','search_remote_run']:
+    expect_post(user,action18,403)
+rr18=admin.post(base+'/action.php',data={'action':'backup_create','consent':'1'},headers={'Accept':'application/json'})
+check('018 backup requires CSRF',rr18.status_code==419)
+# Earlier release suites consumed this fixture's 12 sensitive proofs / 15 minutes.
+# Isolate this new test group, without changing any production rate limits.
+conn.execute('DELETE FROM cy_rate_limits'); conn.commit()
+backup18_page=html(admin,'/admin/index.php?tab=backups')
+backup18_form=backup18_page.select_one('form input[name=action][value=backup_create]').find_parent('form')
+check('018 backup native form carries action and CSRF',bool(backup18_form.select_one('input[name=csrf]')))
+check('018 backup reauthentication not optional','current_password' in str(backup18_form))
+expect_post(admin,'backup_create',400)
+expect_post(admin,'backup_create',403,consent='1',current_password='Wrong-password-018',backup_password='Separate-Archive-Secret-018',backup_confirm='Separate-Archive-Secret-018')
+expect_post(admin,'backup_create',400,consent='1',current_password='TestPassword!2026',backup_password='Separate-Archive-Secret-018',backup_confirm='Different-Archive-Secret-018')
+rr18=expect_post(admin,'backup_create',consent='1',current_password='TestPassword!2026',backup_password='Separate-Archive-Secret-018',backup_confirm='Separate-Archive-Secret-018')
+backup18_id=rr18.json()['backup_id']
+backup18=db_one('SELECT * FROM cy_backup_archives WHERE id=?',(backup18_id,))
+check('018 backup records authenticated archive',backup18['bytes']>100 and len(backup18['checksum'])==64)
+rr18=post(admin,'backup_download',backup_id=backup18_id,current_password='TestPassword!2026')
+check('018 encrypted download removes PHP storage guard',rr18.status_code==200 and rr18.content.startswith(b'CYBK1\n'),rr18.text[:80])
+check('018 download does not expose password or plaintext private notes',b'Separate-Archive-Secret-018' not in rr18.content and b'PRIVATE-NOTE-017' not in rr18.content)
+check('018 download private cache policy','no-store' in rr18.headers.get('Cache-Control',''))
+check('018 download presented as attachment','attachment' in rr18.headers.get('Content-Disposition',''))
+expect_post(other,'backup_download',403,backup_id=backup18_id,current_password='TestPassword!2026')
+expect_post(admin,'backup_delete',backup_id=backup18_id,current_password='TestPassword!2026')
+check('018 deleting snapshot removes its catalog entry',db_one('SELECT id FROM cy_backup_archives WHERE id=?',(backup18_id,)) is None)
+expect_post(admin,'backup_download',404,backup_id=backup18_id,current_password='TestPassword!2026')
+
+# Use a second physical parcel, with a separate optimistic revision and timeline.
+parcel18_key=os.urandom(16).hex()
+rr18=expect_post(admin,'tracking_attach',order_id=parcel17['id'],package_key=parcel18_key,package_label='Second box HTTP018',revision=0,carrier='yuantong',tracking_number='YTHTTP018')
+parcel18=db_one('SELECT * FROM cy_shipments WHERE order_id=? AND package_key=?',(parcel17['id'],parcel18_key))
+check('018 attach redirects to selected parcel',str(parcel18['id'])==parse_qs(urlparse(rr18.json()['redirect']).query)['parcel'][0])
+expect_post(admin,'tracking_attach',order_id=parcel17['id'],package_key=parcel18_key,package_label='Second box HTTP018',revision=0,carrier='yuantong',tracking_number='YTHTTP018')
+check('018 duplicate retry does not make third parcel',db_one('SELECT COUNT(*) n FROM cy_shipments WHERE order_id=?',(parcel17['id'],))['n']==2)
+expect_post(admin,'tracking_attach',409,order_id=parcel17['id'],package_key=os.urandom(16).hex(),package_label='Duplicate',revision=0,carrier='yuantong',tracking_number='YTHTTP018')
+expect_post(admin,'tracking_event',shipment_id=parcel18['id'],revision=1,event_at=datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),description='ONLY-SECOND-PARCEL-018')
+rr18=user.get(base+'/index.php',params={'r':'tracking','id':parcel17['id'],'parcel':parcel18['id']})
+check('018 owner switches selected parcel timeline','ONLY-SECOND-PARCEL-018' in rr18.text and 'TIMELINE-HTTP-017' not in rr18.text and 'Second box HTTP018' in rr18.text)
+rr18=user.get(base+'/index.php',params={'r':'tracking','id':parcel17['id'],'parcel':shipment17['id']})
+check('018 first parcel retains independent timeline','TIMELINE-HTTP-017' in rr18.text and 'ONLY-SECOND-PARCEL-018' not in rr18.text)
+check('018 unrelated user blocked from second parcel',other.get(base+'/index.php',params={'r':'tracking','id':parcel17['id'],'parcel':parcel18['id']}).status_code in [403,404])
+check('018 unknown selected parcel cannot cross order',user.get(base+'/index.php',params={'r':'tracking','id':parcel17['id'],'parcel':99999999}).status_code==404)
+check('018 multiple parcel changes do not settle order',db_one('SELECT status FROM cy_orders WHERE id=?',(parcel17['id'],))['status']=='paid')
+
+# Queue building is safe without exporting to an unconfigured remote host.
+rr18=expect_post(admin,'search_remote_rebuild',reset='1')
+check('018 bounded remote rebuild returns observable status','index' in rr18.json())
+check('018 outbox persisted in database',db_one('SELECT COUNT(*) n FROM cy_search_outbox')['n']>0)
+page18=html(admin,'/admin/index.php?tab=search_index')
+check('018 search has manual and short-session controls',page18.select_one('[data-remote-run]') is not None and page18.select_one('input[name=action][value=search_remote_run]') is not None)
+check('018 no API key exposed to search management HTML','Bearer ' not in str(page18) and 'Separate-Archive-Secret-018' not in str(page18))
+check('018 member frontend still falls back to portable search',guest.get(base+'/index.php',params={'r':'search','q':'orchidlesson course'}).status_code==200)
+settings18=html(admin,'/admin/index.php?tab=settings&group=security')
+for key18 in ['verification_ip_10m','verification_ip_hour','verification_ip_day','verification_recipient_10m','mail_limit','verification_recipient_day','verification_cooldown','backup_max_mb','backup_retention','recovery_hold']:
+    check('018 configurable safety setting '+key18,settings18.select_one('[name='+key18+']') is not None)
+expect_post(admin,'locale_select',locale='en-US',scope='admin')
+check('018 English recovery workspace','Keep a way back.' in admin.get(base+'/admin/index.php?tab=backups').text)
+expect_post(admin,'locale_select',locale='zh-CN',scope='admin')
+check('018 Chinese recovery workspace','Keep a way back.' not in admin.get(base+'/admin/index.php?tab=backups').text)

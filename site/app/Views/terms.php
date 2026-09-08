@@ -1,0 +1,1 @@
+<section class="page-hero"><div><span class="eyebrow">CLEAR EXPECTATIONS</span><h1><?= e($title) ?></h1></div><span class="page-hero-art"><?= icon('shield') ?></span></section><article class="panel prose"><?= \Chengyu\Core\Markdown::render((string)$s->get('terms_text')) ?></article>

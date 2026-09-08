@@ -1,0 +1,31 @@
+# Merge into your site's server block. Do not overwrite an existing panel config.
+# Enable HTTPS in your panel before using accounts or payments in production.
+server {
+    listen 80;
+    server_name example.com;
+    root /var/www/chengyu/site;
+    index index.php;
+    autoindex off;
+    client_max_body_size 12m;
+
+    location = /app { return 404; }
+    location ^~ /app/ { return 404; }
+    location = /storage { return 404; }
+    location ^~ /storage/ { return 404; }
+    location = /uploads { return 404; }
+    location ^~ /uploads/ { return 404; }
+    location = /web.config { return 404; }
+    location = /INSTALL_KEY.txt { return 404; }
+    location ~ /\.(?!well-known/) { deny all; }
+    location ~* \.(?:sql|sqlite|db|bak|log|ini|env|zip|rar)$ { deny all; }
+
+    # Query-string routing means there is no WordPress rewrite rule.
+    location / { try_files $uri $uri/ =404; }
+    location ~ \.php$ {
+        try_files $uri =404;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param HTTPS $https if_not_empty;
+        fastcgi_pass unix:/run/php/php8.3-fpm.sock;
+    }
+}

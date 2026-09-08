@@ -1,0 +1,18 @@
+/* Original, bounded upload workbench. No file content or provider credentials are persisted. */
+(() => {
+  'use strict'; const box=document.querySelector('[data-media-workbench]');if(!box)return;
+  const labels=JSON.parse(document.getElementById('media-i18n').textContent),fileInput=box.querySelector('[data-media-file]'),mode=box.querySelector('[data-media-mode]'),start=box.querySelector('[data-media-start]'),pause=box.querySelector('[data-media-pause]'),progress=box.querySelector('[data-media-progress]'),status=box.querySelector('[data-media-status]'),keyText=box.querySelector('[data-media-key]');let stopped=false,controller=null;
+  const api=async(action,values={})=>{const data=new FormData();data.set('action',action);data.set('csrf',document.querySelector('meta[name=csrf-token]').content);for(const [k,v]of Object.entries(values))data.set(k,v);controller=new AbortController();const r=await fetch(box.dataset.endpoint,{method:'POST',body:data,credentials:'same-origin',headers:{Accept:'application/json'},signal:controller.signal});let j;try{j=await r.json();}catch(_){throw new Error(labels.failed);}if(!r.ok||!j.ok)throw new Error(j.message||labels.failed);return j;};
+  const store=(key,value)=>{try{value?localStorage.setItem(key,value):localStorage.removeItem(key);}catch(_){}},read=key=>{try{return localStorage.getItem(key);}catch(_){return null;}};
+  pause.addEventListener('click',()=>{stopped=true;controller?.abort();});
+  start.addEventListener('click',async()=>{const file=fileInput.files[0];if(!file){status.textContent=labels.choose;return;}stopped=false;start.disabled=true;pause.disabled=false;fileInput.disabled=true;mode.disabled=true;status.textContent=labels.uploading;let storageKey='';
+    try{if(mode.value==='local'){storageKey='cy-upload:'+location.origin+box.dataset.endpoint+':'+box.dataset.owner+':'+file.name+':'+file.size+':'+file.lastModified;let key=read(storageKey),up;
+        if(key){try{up=(await api('upload_status',{upload_key:key})).upload;if(up.state!=='open'&&up.state!=='complete'){up=null;}}catch(_){up=null;}}
+        if(!up){up=(await api('upload_start',{name:file.name,bytes:file.size,private:box.querySelector('[name=media_private]').checked?'1':''})).upload;store(storageKey,up.upload_key);}key=up.upload_key;keyText.textContent=labels.key+': '+key;
+        const completed=new Set(up.parts.map(Number));for(let i=0;i<Number(up.chunk_count)&&up.state!=='complete';i++){if(stopped)throw new DOMException('Paused','AbortError');if(!completed.has(i))await api('upload_chunk',{upload_key:key,part:i,file:file.slice(i*Number(up.chunk_bytes),Math.min(file.size,(i+1)*Number(up.chunk_bytes)))});progress.value=(i+1)/Number(up.chunk_count)*100;}
+        if(stopped)throw new DOMException('Paused','AbortError');status.textContent=labels.verifying;const result=await api('upload_finish',{upload_key:key});store(storageKey,null);status.textContent=labels.done+' #'+result.media_id;
+      }else{const up=(await api('object_prepare',{name:file.name,bytes:file.size})).upload;keyText.textContent=labels.key+': '+up.upload_key;controller=new AbortController();const uploaded=await fetch(up.url,{method:'PUT',body:file,headers:up.headers,credentials:'omit',signal:controller.signal});if(!uploaded.ok)throw new Error(labels.failed+' HTTP '+uploaded.status);progress.value=100;status.textContent=labels.verifying;const result=await api('object_finish',{upload_key:up.upload_key});status.textContent=labels.done+' #'+result.media_id;}
+      progress.value=100;
+    }catch(error){status.textContent=stopped?labels.paused:(error.message||labels.failed);}finally{start.disabled=false;pause.disabled=true;fileInput.disabled=false;mode.disabled=false;controller=null;}
+  });
+})();

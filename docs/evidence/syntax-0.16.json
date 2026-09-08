@@ -1,0 +1,940 @@
+{
+  "php_runtime": "8.4.23",
+  "php_syntax_files": 216,
+  "javascript_syntax_files": 13,
+  "bash_scripts": 1,
+  "total": 232,
+  "passed": 232,
+  "failed": 0,
+  "tests": [
+    {
+      "test": "PHP syntax site/action.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/admin/index.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/App.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Core/Database.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Core/Diagnostics.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Core/ExternalNavigation.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Core/HttpClient.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Core/IntegerMath.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Core/Locale.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Core/Markdown.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Core/Migrations.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Core/Motion.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Core/Settings.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Core/Support.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Core/Totp.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Http/Actions.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Http/AdminController.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Http/CommerceActions.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Http/CommercePages.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Http/MediaActions.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Http/SiteController.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Payments/Alipay.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Payments/Gateway.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Payments/PayPal.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Payments/Stripe.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Payments/Tools.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Payments/Wechat.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Seed.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Services/Activity.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Services/Admin.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Services/Aftersales.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Services/Auth.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Services/Badges.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Services/Bounties.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Services/Cart.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Services/Catalog.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Services/Categories.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Services/Checkout.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Services/Commerce.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Services/Configuration.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Services/Content.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Services/Creator.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Services/DirectPayments.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Services/Discovery.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Services/Guests.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Services/Inventory.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Services/Invitations.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Services/Jobs.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Services/Layout.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Services/Mailer.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Services/Media.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Services/Membership.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Services/OAuth.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Services/ObjectStorage.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Services/Payment.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Services/Payouts.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Services/Pricing.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Services/Refunds.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Services/Reviews.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Services/Rulebooks.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Services/S3.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Services/SecondFactor.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Services/Tasks.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Services/Threads.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Services/Translations.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Services/Upgrades.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Services/Uploads.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Services/Verification.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Services/Wallet.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/account_nav.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/admin_badges.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/admin_bounties.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/admin_builder.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/admin_catalog.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/admin_circles.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/admin_commerce.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/admin_configuration.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/admin_creators.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/admin_dashboard.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/admin_downloads.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/admin_entities.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/admin_integrations.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/admin_invitations.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/admin_layout.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/admin_list.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/admin_media_lab.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/admin_moderation.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/admin_motion.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/admin_pricing.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/admin_reviews.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/admin_service.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/admin_settings.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/admin_shipping.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/admin_stock.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/admin_system.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/admin_threads.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/admin_translations.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/admin_user.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/admin_variants.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/admin_vouchers.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/announcements.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/article.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/auth.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/badge_collection.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/badges.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/bounty_panel.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/card.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/cart.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/category_policy_fields.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/checkout.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/checkout_review.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/checkout_summary.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/circle.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/circles.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/collection.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/collections.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/composed.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/connect.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/creator.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/diagnostics.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/dialogs.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/editor.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/error.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/external_handoff.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/factor_proof.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/guest_content.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/guest_orders.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/head.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/history.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/home.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/income_rows.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/landing.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/layout.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/links.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/listing.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/locale_switch.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/membership.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/messages.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/notifications.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/order_pricing.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/orders.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/pagination.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/payment_check.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/price_quote.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/profile.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/rankings.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/receipt.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/registration_fields.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/reviews.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/security.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/service_customer.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/sidebar.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/social_buttons.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/tasks.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/terms.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/thread.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/thread_editor.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/thread_panel.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/upgrade.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/user.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/verify.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/Views/wallet.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/autoload.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/bootstrap.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/helpers.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/index.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/schema.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/settings.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/app/settings016.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/feed.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/guest-download.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/index.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/install/index.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/install/key.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/jobs.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/media.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/notify-direct.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/notify.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/oauth.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/sitemap.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/storage/index.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax site/uploads/index.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax tests/Support/FfiSqlite.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax tests/commerce_016.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax tests/community_commerce_012.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax tests/community_worker.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax tests/concurrency_012.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax tests/concurrency_013.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax tests/concurrency_014.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax tests/concurrency_015.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax tests/concurrency_worker.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax tests/connection_worker.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax tests/creator_discovery_013.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax tests/creator_worker.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax tests/extensions.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax tests/integrations_015.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax tests/motion_community.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax tests/platform_016.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax tests/poll_worker.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax tests/reliability_012.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax tests/reliability_013.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax tests/reliability_014.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax tests/reliability_015.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax tests/router.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax tests/run.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax tests/security_pricing_014.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax tests/security_worker.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax tests/seed_012.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax tests/seed_013.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax tests/seed_014.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax tests/seed_015.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax tests/seed_visual.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax tests/sku_worker.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax tools/recover-authenticator.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax tools/run_jobs.php",
+      "ok": true
+    },
+    {
+      "test": "PHP syntax tools/trigger_jobs.php",
+      "ok": true
+    },
+    {
+      "test": "JavaScript syntax site/assets/app.js",
+      "ok": true
+    },
+    {
+      "test": "JavaScript syntax site/assets/boot.js",
+      "ok": true
+    },
+    {
+      "test": "JavaScript syntax site/assets/connections.js",
+      "ok": true
+    },
+    {
+      "test": "JavaScript syntax site/assets/discovery.js",
+      "ok": true
+    },
+    {
+      "test": "JavaScript syntax site/assets/features.js",
+      "ok": true
+    },
+    {
+      "test": "JavaScript syntax site/assets/feedback.js",
+      "ok": true
+    },
+    {
+      "test": "JavaScript syntax site/assets/interactions.js",
+      "ok": true
+    },
+    {
+      "test": "JavaScript syntax site/assets/media-workbench.js",
+      "ok": true
+    },
+    {
+      "test": "JavaScript syntax site/assets/motion-studio.js",
+      "ok": true
+    },
+    {
+      "test": "JavaScript syntax site/assets/motion.js",
+      "ok": true
+    },
+    {
+      "test": "JavaScript syntax site/assets/refinement.js",
+      "ok": true
+    },
+    {
+      "test": "JavaScript syntax site/assets/spring.js",
+      "ok": true
+    },
+    {
+      "test": "JavaScript syntax site/assets/studio.js",
+      "ok": true
+    },
+    {
+      "test": "Bash syntax install-vps.sh",
+      "ok": true
+    },
+    {
+      "test": "JSON site/app/seed.json",
+      "ok": true
+    },
+    {
+      "test": "JSON site/app/lang/zh-CN.json",
+      "ok": true
+    }
+  ],
+  "note": "Syntax checked only on available PHP 8.4.23. Not seven-runtime execution."
+}

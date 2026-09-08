@@ -1,0 +1,586 @@
+[
+  {
+    "path": "inc/functions/zib-search.php",
+    "sha256": "237598f439c76321b2c6fc8b763a5e00740f43abe52a99d385cd031f4964364a",
+    "lines": 877,
+    "function_symbols": [
+      {
+        "name": "zib_search_content",
+        "line": 15
+      },
+      {
+        "name": "zib_get_search_content_user",
+        "line": 63
+      },
+      {
+        "name": "zib_get_search_content_post",
+        "line": 118
+      },
+      {
+        "name": "zib_bbs_get_search_desc",
+        "line": 139
+      },
+      {
+        "name": "zib_get_search_link",
+        "line": 185
+      },
+      {
+        "name": "zib_single_cat_search",
+        "line": 211
+      },
+      {
+        "name": "zib_get_search_keywords_text",
+        "line": 237
+      },
+      {
+        "name": "zib_update_search_keywords",
+        "line": 246
+      },
+      {
+        "name": "zib_save_history_search",
+        "line": 266
+      },
+      {
+        "name": "zib_get_search_keywords",
+        "line": 291
+      },
+      {
+        "name": "zib_get_search_history_keywords",
+        "line": 318
+      },
+      {
+        "name": "zib_get_search_keywords_but",
+        "line": 329
+      },
+      {
+        "name": "zib_get_search_types",
+        "line": 366
+      },
+      {
+        "name": "zib_404_page_add_search",
+        "line": 376
+      },
+      {
+        "name": "zib_get_main_search",
+        "line": 403
+      },
+      {
+        "name": "zib_get_search_box",
+        "line": 430
+      },
+      {
+        "name": "zib_get_search_posts",
+        "line": 602
+      },
+      {
+        "name": "zib_get_search_cat",
+        "line": 659
+      },
+      {
+        "name": "zib_save_search_type",
+        "line": 682
+      },
+      {
+        "name": "zib_main_search_query",
+        "line": 704
+      },
+      {
+        "name": "zib_search_only_title",
+        "line": 753
+      },
+      {
+        "name": "zib_posts_distinct_request_filter",
+        "line": 834
+      },
+      {
+        "name": "zib_posts_join_request_filter",
+        "line": 844
+      },
+      {
+        "name": "zib_get_search_custom_key",
+        "line": 870
+      }
+    ],
+    "review_scope": "Targeted function signatures and control flow; not exhaustive line-by-line security audit."
+  },
+  {
+    "path": "action/captcha.php",
+    "sha256": "1cd73e39b6abefae7fc67f5fb9fef8549d5f5b866da2568cfb1e4cbf3ee6f3d5",
+    "lines": 212,
+    "function_symbols": [
+      {
+        "name": "__construct",
+        "line": 73
+      },
+      {
+        "name": "createCode",
+        "line": 80
+      },
+      {
+        "name": "createBg",
+        "line": 95
+      },
+      {
+        "name": "createFont",
+        "line": 106
+      },
+      {
+        "name": "createLine",
+        "line": 119
+      },
+      {
+        "name": "outPut",
+        "line": 136
+      },
+      {
+        "name": "doimg",
+        "line": 147
+      },
+      {
+        "name": "getCode",
+        "line": 164
+      },
+      {
+        "name": "ajax_send",
+        "line": 169
+      },
+      {
+        "name": "get_img_code",
+        "line": 174
+      },
+      {
+        "name": "rand_str",
+        "line": 201
+      }
+    ],
+    "review_scope": "Targeted function signatures and control flow; not exhaustive line-by-line security audit."
+  },
+  {
+    "path": "inc/functions/user/user-checkin.php",
+    "sha256": "ea425d26916298a6d153c93d44c3b8454210e590b73c691720d2ba879ca6a0d4",
+    "lines": 462,
+    "function_symbols": [
+      {
+        "name": "zib_get_user_checkin_should_reward",
+        "line": 19
+      },
+      {
+        "name": "zib_user_is_checkined",
+        "line": 57
+      },
+      {
+        "name": "zib_get_user_last_checkin_time",
+        "line": 67
+      },
+      {
+        "name": "zib_get_user_the_checkin_details",
+        "line": 86
+      },
+      {
+        "name": "zib_get_user_checkin_all_day",
+        "line": 106
+      },
+      {
+        "name": "zib_get_user_checkin_continuous_day",
+        "line": 123
+      },
+      {
+        "name": "zib_get_user_checkin_reward_continuous_day",
+        "line": 141
+      },
+      {
+        "name": "zib_user_checkin",
+        "line": 173
+      },
+      {
+        "name": "zib_update_checkin_continuous_day",
+        "line": 226
+      },
+      {
+        "name": "zib_get_user_checkin_reward_continuous_max_day",
+        "line": 255
+      },
+      {
+        "name": "zib_update_checkin_reward_day",
+        "line": 265
+      },
+      {
+        "name": "zib_get_user_checkin_btn",
+        "line": 294
+      },
+      {
+        "name": "zib_get_user_checkin_details_link",
+        "line": 322
+      },
+      {
+        "name": "zib_get_user_checkin_details_modal",
+        "line": 358
+      },
+      {
+        "name": "zib_get_checkin_continuous_mini_card",
+        "line": 448
+      }
+    ],
+    "review_scope": "Targeted function signatures and control flow; not exhaustive line-by-line security audit."
+  },
+  {
+    "path": "inc/functions/user/user-level.php",
+    "sha256": "d3fdf1b80c0066d0ca324e4beae2142235affc20452a9d493f47dd7c2d40e48d",
+    "lines": 791,
+    "function_symbols": [
+      {
+        "name": "zib_main_user_tab_content_level",
+        "line": 14
+      },
+      {
+        "name": "zib_get_user_integral_detail_lists",
+        "line": 39
+      },
+      {
+        "name": "zib_get_user_integral_date_detail_lists",
+        "line": 79
+      },
+      {
+        "name": "zib_get_integral_add_lists",
+        "line": 102
+      },
+      {
+        "name": "zib_get_user_level_card",
+        "line": 115
+      },
+      {
+        "name": "zib_get_user_integral_growth_card",
+        "line": 165
+      },
+      {
+        "name": "zib_get_user_level",
+        "line": 199
+      },
+      {
+        "name": "zib_get_user_integral",
+        "line": 216
+      },
+      {
+        "name": "zib_get_user_level_badge",
+        "line": 226
+      },
+      {
+        "name": "zib_get_level_badge",
+        "line": 237
+      },
+      {
+        "name": "zib_add_user_level_integral",
+        "line": 259
+      },
+      {
+        "name": "zib_user_is_allow_add_integral",
+        "line": 282
+      },
+      {
+        "name": "zib_get_user_today_integral",
+        "line": 301
+      },
+      {
+        "name": "zib_add_user_level_integral_date_detail",
+        "line": 316
+      },
+      {
+        "name": "zib_add_user_level_integral_detail",
+        "line": 341
+      },
+      {
+        "name": "zib_update_user_level",
+        "line": 371
+      },
+      {
+        "name": "__construct",
+        "line": 414
+      },
+      {
+        "name": "user_checkined",
+        "line": 438
+      },
+      {
+        "name": "sign_up",
+        "line": 449
+      },
+      {
+        "name": "sign_in",
+        "line": 462
+      },
+      {
+        "name": "post_new",
+        "line": 485
+      },
+      {
+        "name": "post_like",
+        "line": 517
+      },
+      {
+        "name": "post_favorite",
+        "line": 546
+      },
+      {
+        "name": "comment_new",
+        "line": 576
+      },
+      {
+        "name": "comment_like",
+        "line": 600
+      },
+      {
+        "name": "followed",
+        "line": 630
+      },
+      {
+        "name": "bbs_score_extra",
+        "line": 649
+      },
+      {
+        "name": "bbs_essence",
+        "line": 678
+      },
+      {
+        "name": "bbs_plate_hot",
+        "line": 701
+      },
+      {
+        "name": "bbs_posts_hot",
+        "line": 722
+      },
+      {
+        "name": "bbs_comment_hot",
+        "line": 744
+      },
+      {
+        "name": "bbs_adopt",
+        "line": 766
+      }
+    ],
+    "review_scope": "Targeted function signatures and control flow; not exhaustive line-by-line security audit."
+  },
+  {
+    "path": "inc/widgets/widget-class.php",
+    "sha256": "2d4b84bfce33188fbc49cdedbaf9a5f29c9e28cf4685eed8d655bda944c5b5ba",
+    "lines": 163,
+    "function_symbols": [
+      {
+        "name": "create",
+        "line": 11
+      },
+      {
+        "name": "is_size_limit",
+        "line": 16
+      },
+      {
+        "name": "echo_before",
+        "line": 27
+      },
+      {
+        "name": "echo_after",
+        "line": 47
+      },
+      {
+        "name": "show_title",
+        "line": 56
+      },
+      {
+        "name": "show_class",
+        "line": 73
+      },
+      {
+        "name": "args",
+        "line": 96
+      }
+    ],
+    "review_scope": "Targeted function signatures and control flow; not exhaustive line-by-line security audit."
+  },
+  {
+    "path": "zibpay/functions/zibpay-withdraw.php",
+    "sha256": "115044046eacf66a190b5da3b9d71cbd7a408b55e935b251a18ee29d43056cf8",
+    "lines": 503,
+    "function_symbols": [
+      {
+        "name": "zibpay_get_withdraw_link",
+        "line": 15
+      },
+      {
+        "name": "zibpay_get_withdraw_record_link",
+        "line": 34
+      },
+      {
+        "name": "zibpay_get_withdraw_record_lists",
+        "line": 58
+      },
+      {
+        "name": "zibpay_get_withdraw_record_modal",
+        "line": 143
+      },
+      {
+        "name": "zibpay_get_apply_withdraw_modal",
+        "line": 184
+      },
+      {
+        "name": "zibpay_get_user_withdraw_ing",
+        "line": 322
+      },
+      {
+        "name": "zibpay_withdraw_order_set_ing",
+        "line": 338
+      },
+      {
+        "name": "zibpay_withdraw_process",
+        "line": 359
+      },
+      {
+        "name": "zibpay_withdraw_balance_set_ing",
+        "line": 487
+      }
+    ],
+    "review_scope": "Targeted function signatures and control flow; not exhaustive line-by-line security audit."
+  },
+  {
+    "path": "zibpay/functions/zibpay-vip.php",
+    "sha256": "65e335f8d5d1e3c8adb64007fc7ede29aac8e874d7e40b9137f6c8b012fa1c17",
+    "lines": 1093,
+    "function_symbols": [
+      {
+        "name": "zibpay_is_pay_vip_type",
+        "line": 19
+      },
+      {
+        "name": "zibpay_user_vip_box",
+        "line": 67
+      },
+      {
+        "name": "zibpay_get_vip_renew_product",
+        "line": 144
+      },
+      {
+        "name": "zibpay_get_vip_upgrade_product",
+        "line": 208
+      },
+      {
+        "name": "zibpay_get_pay_userviped_content",
+        "line": 278
+      },
+      {
+        "name": "zibpay_get_pay_uservip_modal",
+        "line": 416
+      },
+      {
+        "name": "zibpay_uservip_paysuccess",
+        "line": 542
+      },
+      {
+        "name": "zibpay_update_user_vip",
+        "line": 636
+      },
+      {
+        "name": "zibpay_get_viped_card",
+        "line": 658
+      },
+      {
+        "name": "zibpay_get_vip_card",
+        "line": 689
+      },
+      {
+        "name": "zibpay_get_vip_card_mini",
+        "line": 730
+      },
+      {
+        "name": "zibpay_get_payvip_button",
+        "line": 750
+      },
+      {
+        "name": "zibpay_get_vip_card_icon",
+        "line": 756
+      },
+      {
+        "name": "zibpay_get_vip_icon",
+        "line": 761
+      },
+      {
+        "name": "zibpay_get_vip_icon_img_url",
+        "line": 777
+      },
+      {
+        "name": "zibpay_get_payvip_icon",
+        "line": 782
+      },
+      {
+        "name": "zibpay_get_vip_theme",
+        "line": 798
+      },
+      {
+        "name": "zib_get_user_vip_level",
+        "line": 809
+      },
+      {
+        "name": "zib_get_user_vip_exp_date_text",
+        "line": 853
+      },
+      {
+        "name": "zib_get_vip_user_count",
+        "line": 888
+      },
+      {
+        "name": "zibpay_get_vip_exchange_card",
+        "line": 950
+      },
+      {
+        "name": "zibpay_get_vip_exchange_card_data",
+        "line": 961
+      },
+      {
+        "name": "zibpay_get_payed_vip_exchange_card_product",
+        "line": 989
+      },
+      {
+        "name": "zibpay_get_vip_points_exchange_link",
+        "line": 1002
+      },
+      {
+        "name": "zibpay_get_vip_points_exchange_modal",
+        "line": 1032
+      }
+    ],
+    "review_scope": "Targeted function signatures and control flow; not exhaustive line-by-line security audit."
+  },
+  {
+    "path": "inc/codestar-framework/classes/nav-menu-options.class.php",
+    "sha256": "6fc2e28bf5ca118954914d6fa212ee7abfb7c1f279e75dd28276068e6eeb09e5",
+    "lines": 254,
+    "function_symbols": [
+      {
+        "name": "__construct",
+        "line": 24
+      },
+      {
+        "name": "instance",
+        "line": 38
+      },
+      {
+        "name": "wp_edit_nav_menu_walker",
+        "line": 42
+      },
+      {
+        "name": "get_default",
+        "line": 61
+      },
+      {
+        "name": "get_meta_value",
+        "line": 71
+      },
+      {
+        "name": "wp_nav_menu_item_custom_fields",
+        "line": 95
+      },
+      {
+        "name": "wp_update_nav_menu_item",
+        "line": 142
+      }
+    ],
+    "review_scope": "Targeted function signatures and control flow; not exhaustive line-by-line security audit."
+  }
+]

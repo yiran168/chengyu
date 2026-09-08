@@ -1,0 +1,73 @@
+"""0.12 actual DOM, spring timing, native accessibility and responsive screens."""
+IDS=json.loads(Path(os.environ['CY_TEST_IDS']).read_text())
+page.emulate_media(reduced_motion='no-preference');page.set_viewport_size({'width':1440,'height':1000})
+page.set_content(snapshot('/'),wait_until='load')
+check('analytic spring library is loaded before motion engine',page.evaluate('!!window.CYSpring && !!CYMotion.physics'))
+card=page.locator('.quick-link').first;box=card.bounding_box();page.mouse.move(box['x']+box['width']*.85,box['y']+box['height']*.35);page.wait_for_timeout(120)
+check('spring interaction has measurable perspective',card.evaluate('(n)=>getComputedStyle(n).transform.startsWith("matrix3d")'))
+page.wait_for_timeout(2000);check('resting hover schedules no idle animation frames',page.evaluate('!CYMotion.pointerStatus().scheduled'))
+page.mouse.move(2,2);page.wait_for_timeout(2400)
+check('leaving card settles and releases all tracked nodes',page.evaluate('CYMotion.pointerStatus().tracked===0 && !CYMotion.pointerStatus().scheduled'))
+page.mouse.move(box['x']+10,box['y']+10);page.wait_for_timeout(40)
+page.evaluate("window.__cyReducedEvent=false;matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change',()=>{window.__cyReducedEvent=true;},{once:true})")
+page.emulate_media(reduced_motion='reduce')
+page.wait_for_function('window.__cyReducedEvent===true',timeout=2000)
+check('reduced motion clears in-flight spring on preference event',page.evaluate('!CYMotion.pointerStatus().scheduled && CYMotion.pointerStatus().tracked===0'))
+page.emulate_media(reduced_motion='no-preference')
+page.set_content(snapshot('/admin/index.php?tab=motion'),wait_until='load')
+check('spring lab shares runtime parameter values',page.evaluate('CYMotion.physics().stiffness===Number(document.querySelector("[name=spring_stiffness]").value)'))
+check('spring graph is real numeric response',len(page.locator('[data-spring-line]').get_attribute('d'))>100)
+for key,value in [('spring_stiffness',210),('spring_damping',22),('spring_mass',110)]:set_range(key,value)
+check('spring controls update real runtime solver',page.evaluate('CYMotion.physics().stiffness===210&&CYMotion.physics().damping===22&&CYMotion.physics().mass===1.1'))
+page.locator('[data-spring-replay]').click();page.wait_for_timeout(100)
+check('spring replay animates actual element',page.locator('[data-spring-runner]').evaluate('(n)=>n.getAnimations().some(a=>a.playState==="running")'))
+# Reversible disclosures must not retain fill-mode height after animation completes.
+summary=page.locator('.motion-section').nth(1).locator('summary');summary.click();page.wait_for_timeout(450)
+check('disclosure expands and clears temporary height',summary.evaluate('(n)=>n.parentElement.open && n.parentElement.style.height==="" && !n.parentElement.getAnimations().length'))
+summary.click();page.wait_for_timeout(400);summary.click();page.wait_for_timeout(400)
+check('disclosure reopens after a completed close',summary.evaluate('(n)=>n.parentElement.open && n.parentElement.getBoundingClientRect().height>n.getBoundingClientRect().height+50'))
+summary.click();page.wait_for_timeout(50);summary.click();page.wait_for_timeout(450)
+check('rapid disclosure reversal keeps final requested state',summary.evaluate('(n)=>n.parentElement.open && n.parentElement.style.height===""'))
+for width in [320,390,768,1440]:
+    page.set_viewport_size({'width':width,'height':900});check('spring lab fits viewport '+str(width),page.evaluate('document.documentElement.scrollWidth<=innerWidth'))
+page.set_viewport_size({'width':1440,'height':1000});capture_revealed('motion-studio-desktop.png')
+page.set_viewport_size({'width':390,'height':844});capture_revealed('motion-studio-mobile.png')
+page.locator('.admin-menu-button').click()
+check('mobile admin menu announces expanded state',page.locator('.admin-menu-button').get_attribute('aria-expanded')=='true')
+check('mobile admin menu focuses search field',page.locator('[data-admin-search]').evaluate('(n)=>n===document.activeElement'))
+check('mobile admin dialog inerts underlying workspace',page.locator('.admin-shell').evaluate('(n)=>n.inert'))
+page.locator('.admin-sidebar-footer a').focus();page.keyboard.press('Tab')
+check('Tab stays inside mobile admin menu',page.locator('.admin-sidebar').evaluate('(n)=>n.contains(document.activeElement)'))
+page.keyboard.press('Escape')
+check('Escape restores admin trigger focus',page.locator('.admin-menu-button').evaluate('(n)=>n===document.activeElement') and page.locator('.admin-menu-button').get_attribute('aria-expanded')=='false')
+check('closing admin menu restores workspace interaction',not page.locator('.admin-shell').evaluate('(n)=>n.inert'))
+page.set_viewport_size({'width':1440,'height':1000});page.set_content(snapshot('/index.php?r=article&id=1'),wait_until='load')
+check('authorized cover has keyboard-operable lightbox trigger',page.locator('.lightbox-trigger').count()==1)
+page.locator('.lightbox-trigger').click();page.wait_for_timeout(500)
+check('native lightbox dialog opens with actual image',page.locator('.image-lightbox').evaluate('(n)=>n.open && n.querySelector("img").complete'))
+page.locator('.image-lightbox button').nth(2).click();check('lightbox zoom uses real scrollable image',page.locator('.lightbox-stage img').evaluate('(n)=>n.classList.contains("zoomed")'))
+page.locator('.image-lightbox button').nth(2).click();capture_revealed('image-lightbox-desktop.png')
+page.keyboard.press('Escape')
+# The close animation and native focus restoration are asynchronous; assert their
+# actual completion, not whether a busy browser happened to finish in 300ms.
+try:
+    page.wait_for_function('!document.querySelector(".image-lightbox").open && document.activeElement===document.querySelector(".lightbox-trigger")',timeout=3000)
+    focus_restored=True
+except Exception:
+    focus_restored=False
+check('lightbox Escape returns focus to originating image',focus_restored)
+page.emulate_media(reduced_motion='reduce');page.locator('.lightbox-trigger').click();check('reduced-motion does not disable image viewer',page.locator('.image-lightbox').evaluate('(n)=>n.open'));page.keyboard.press('Escape')
+page.locator('[data-native-share]').click();page.wait_for_timeout(150)
+check('unsupported sharing has selectable URL fallback',page.locator('.share-dialog input').count()==1 and page.locator('.share-dialog input').input_value().startswith('http://127.0.0.1'))
+page.keyboard.press('Escape')
+for name,route in [('circles','/index.php?r=circles'),('circle','/index.php?r=circle&id='+str(IDS['circles'][0])),('bounty','/index.php?r=article&id='+str(IDS['funded'])),('multi-poll','/index.php?r=article&id='+str(IDS['multi'])),('product-reviews','/index.php?r=product&id='+str(IDS['review_product'])),('admin-circles','/admin/index.php?tab=circles'),('admin-bounties','/admin/index.php?tab=bounties'),('admin-reviews','/admin/index.php?tab=reviews')]:
+    page.set_viewport_size({'width':1440,'height':1000});page.set_content(snapshot(route),wait_until='load')
+    check(name+' has no server error view',page.locator('.error-page').count()==0)
+    for width in [320,390,768,1440]:
+        page.set_viewport_size({'width':width,'height':900});check(name+' no horizontal overflow '+str(width),page.evaluate('document.documentElement.scrollWidth<=innerWidth'))
+    capture_revealed(name+'-desktop.png')
+    if name in ['circles','circle','bounty']:
+        page.set_viewport_size({'width':390,'height':844});capture_revealed(name+'-mobile.png')
+# Disable JS entirely: HTML-native input/forms and navigation remain usable.
+nojs=browser.new_page(java_script_enabled=False,viewport={'width':390,'height':844});nojs.set_content(snapshot('/admin/index.php?tab=circles'))
+check('no-script mobile admin sidebar stays accessible',nojs.locator('.admin-sidebar').is_visible() and nojs.locator('.admin-sidebar').bounding_box()['x']>=0);nojs.close()

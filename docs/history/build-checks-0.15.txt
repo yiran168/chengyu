@@ -1,0 +1,16 @@
+Chengyu 0.15.0 - final source/build checks
+Source baseline: the uploaded 0.14.0 complete archive
+Production files: 175; added 18; modified 31; removed 0
+Database schema: 7
+Settings: 192 fields / 13 groups; motion fields: 36
+PHP syntax: 169 files / zero errors
+JavaScript syntax: 12 files / zero errors
+Core: 424/424; local HTTP: 544/544; offline browser: 316/316; spring: 42/42
+Manual: 21 chapters, 63 screenshots; 7 layout/link checks passed
+Exact-byte matches against sampled proprietary reference files: none
+Installed app/config.php, databases, sessions, original reference files and font files: absent
+Installation hash: matches the locally retained INSTALL_KEY.txt
+Final source manifest: FILE_MANIFEST.sha256 (excluding the manifest itself)
+Runtime: PHP 8.4.23, test-only FFI/actual SQLite; native PDO and other runtimes unverified
+Live browser navigation blocked; no genuine provider/merchant/hosting/certificate success claimed
+ZIP CRC and every-entry comparisons are verified after compression; see companion package report.

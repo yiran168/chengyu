@@ -1,0 +1,1707 @@
+{
+  "version": "0.10.0",
+  "historical_only": true,
+  "results": {
+    "integration-results": {
+      "php": "8.4.23",
+      "adapter": "test-only FFI / actual libsqlite3 (NOT native PDO)",
+      "time": "2026-09-06T16:47:25+08:00",
+      "total": 158,
+      "passed": 158,
+      "failed": 0,
+      "tests": [
+        {
+          "test": "integer money 0.01",
+          "ok": true
+        },
+        {
+          "test": "integer money 1",
+          "ok": true
+        },
+        {
+          "test": "integer money 9.9",
+          "ok": true
+        },
+        {
+          "test": "integer money 9999999.99",
+          "ok": true
+        },
+        {
+          "test": "invalid money 1.001",
+          "ok": true
+        },
+        {
+          "test": "invalid money 1e2",
+          "ok": true
+        },
+        {
+          "test": "invalid money -1",
+          "ok": true
+        },
+        {
+          "test": "invalid money NaN",
+          "ok": true
+        },
+        {
+          "test": "invalid money 01",
+          "ok": true
+        },
+        {
+          "test": "invalid money  1",
+          "ok": true
+        },
+        {
+          "test": "invalid money 0",
+          "ok": true
+        },
+        {
+          "test": "negative ledger formatting",
+          "ok": true
+        },
+        {
+          "test": "CSRF valid",
+          "ok": true
+        },
+        {
+          "test": "CSRF forgery rejected",
+          "ok": true
+        },
+        {
+          "test": "safe Markdown escapes scripts",
+          "ok": true
+        },
+        {
+          "test": "safe Markdown blocks javascript link",
+          "ok": true
+        },
+        {
+          "test": "safe Markdown keeps https link",
+          "ok": true
+        },
+        {
+          "test": "AES GCM round trip",
+          "ok": true
+        },
+        {
+          "test": "AES GCM rejects corruption",
+          "ok": true
+        },
+        {
+          "test": "registration points",
+          "ok": true
+        },
+        {
+          "test": "registration duplicate rejected",
+          "ok": true
+        },
+        {
+          "test": "login authenticates and rotates session",
+          "ok": true
+        },
+        {
+          "test": "ordinary user cannot manage",
+          "ok": true
+        },
+        {
+          "test": "ordinary user cannot access admin action",
+          "ok": true
+        },
+        {
+          "test": "external redirect blocked",
+          "ok": true
+        },
+        {
+          "test": "local redirect allowed",
+          "ok": true
+        },
+        {
+          "test": "wallet retry is idempotent",
+          "ok": true
+        },
+        {
+          "test": "wallet conflicting key rejected",
+          "ok": true
+        },
+        {
+          "test": "wallet cannot overdraw",
+          "ok": true
+        },
+        {
+          "test": "outer transaction rollback includes ledger",
+          "ok": true
+        },
+        {
+          "test": "daily check-in credits once",
+          "ok": true
+        },
+        {
+          "test": "7-day streak bonus",
+          "ok": true
+        },
+        {
+          "test": "transfer balances and idempotence",
+          "ok": true
+        },
+        {
+          "test": "self transfer blocked",
+          "ok": true
+        },
+        {
+          "test": "voucher exact once",
+          "ok": true
+        },
+        {
+          "test": "expired voucher rejected",
+          "ok": true
+        },
+        {
+          "test": "exchange preserves integer assets and idempotence",
+          "ok": true
+        },
+        {
+          "test": "exchange rejects fractional yuan",
+          "ok": true
+        },
+        {
+          "test": "digital purchase debits once and grants entitlement",
+          "ok": true
+        },
+        {
+          "test": "refund credits back and removes entitlement",
+          "ok": true
+        },
+        {
+          "test": "another user cannot request refund",
+          "ok": true
+        },
+        {
+          "test": "insufficient purchase rolls back order and coupon",
+          "ok": true
+        },
+        {
+          "test": "points purchase uses points not balance",
+          "ok": true
+        },
+        {
+          "test": "tokens purchase uses tokens",
+          "ok": true
+        },
+        {
+          "test": "membership extends duration on renewals",
+          "ok": true
+        },
+        {
+          "test": "unique card inventory imported",
+          "ok": true
+        },
+        {
+          "test": "duplicate inventory import fully rolls back",
+          "ok": true
+        },
+        {
+          "test": "card allocation delivers distinct encrypted codes",
+          "ok": true
+        },
+        {
+          "test": "empty inventory rejects without debit",
+          "ok": true
+        },
+        {
+          "test": "refund one repeatable order preserves other entitlement",
+          "ok": true
+        },
+        {
+          "test": "physical order requires owned shipping address",
+          "ok": true
+        },
+        {
+          "test": "physical stock, encrypted address and manual shipment",
+          "ok": true
+        },
+        {
+          "test": "referral commission and refund reversal",
+          "ok": true
+        },
+        {
+          "test": "withdrawal hold and rejection release exactly once",
+          "ok": true
+        },
+        {
+          "test": "guest cannot access VIP body",
+          "ok": true
+        },
+        {
+          "test": "logged in required content gate",
+          "ok": true
+        },
+        {
+          "test": "reply gate opens only after approved reply",
+          "ok": true
+        },
+        {
+          "test": "public search cannot match protected body",
+          "ok": true
+        },
+        {
+          "test": "search SQL metacharacters are literal",
+          "ok": true
+        },
+        {
+          "test": "future publication hidden without scheduler",
+          "ok": true
+        },
+        {
+          "test": "ordinary submission cannot publish or set price",
+          "ok": true
+        },
+        {
+          "test": "like and bookmark toggle safely",
+          "ok": true
+        },
+        {
+          "test": "private message stored with recipient binding",
+          "ok": true
+        },
+        {
+          "test": "self administrator demotion blocked",
+          "ok": true
+        },
+        {
+          "test": "CSV neutralizes formula injection and excludes hashes",
+          "ok": true
+        },
+        {
+          "test": "checkout signed fields and matching callback URL",
+          "ok": true
+        },
+        {
+          "test": "forged payment rejected without credit",
+          "ok": true
+        },
+        {
+          "test": "signed payment mismatch money",
+          "ok": true
+        },
+        {
+          "test": "signed payment mismatch pid",
+          "ok": true
+        },
+        {
+          "test": "signed payment mismatch type",
+          "ok": true
+        },
+        {
+          "test": "signed payment mismatch trade_status",
+          "ok": true
+        },
+        {
+          "test": "gateway secrets encrypted in database",
+          "ok": true
+        },
+        {
+          "test": "old order verifies snapshot after key rotation; duplicate credits once",
+          "ok": true
+        },
+        {
+          "test": "same order conflicting receipt rejected",
+          "ok": true
+        },
+        {
+          "test": "receipt reuse across orders rejected",
+          "ok": true
+        },
+        {
+          "test": "valid late payment credits expired top-up",
+          "ok": true
+        },
+        {
+          "test": "HTTP canonical URL blocks payment creation",
+          "ok": true
+        },
+        {
+          "test": "legacy CodePay signed exact amount protocol fixture",
+          "ok": true
+        },
+        {
+          "test": "legacy CodePay floating amount mode deliberately rejected",
+          "ok": true
+        },
+        {
+          "test": "cleanup does not delete financial ledger",
+          "ok": true
+        },
+        {
+          "test": "migration is additive, repeatable and versioned",
+          "ok": true
+        },
+        {
+          "test": "direct zero-price purchase cannot unlock public",
+          "ok": true
+        },
+        {
+          "test": "direct zero-price purchase cannot unlock login",
+          "ok": true
+        },
+        {
+          "test": "direct zero-price purchase cannot unlock reply",
+          "ok": true
+        },
+        {
+          "test": "direct zero-price purchase cannot unlock vip",
+          "ok": true
+        },
+        {
+          "test": "direct zero-price purchase cannot unlock password",
+          "ok": true
+        },
+        {
+          "test": "legacy zero-price order does not bypass VIP policy",
+          "ok": true
+        },
+        {
+          "test": "malformed password input is a controlled rejection array",
+          "ok": true
+        },
+        {
+          "test": "malformed password input is a controlled rejection string",
+          "ok": true
+        },
+        {
+          "test": "password whitespace is preserved",
+          "ok": true
+        },
+        {
+          "test": "guest password access uses exact password",
+          "ok": true
+        },
+        {
+          "test": "changing password revokes previous browser grant",
+          "ok": true
+        },
+        {
+          "test": "bounded password sessions preserve content ID keys",
+          "ok": true
+        },
+        {
+          "test": "purchased access expiry is captured in the order",
+          "ok": true
+        },
+        {
+          "test": "expired purchase no longer authorizes protected body",
+          "ok": true
+        },
+        {
+          "test": "expired digital access can be purchased again",
+          "ok": true
+        },
+        {
+          "test": "higher tier and lower tier have separate expiry dates",
+          "ok": true
+        },
+        {
+          "test": "tier 1 cannot open tier 2 content",
+          "ok": true
+        },
+        {
+          "test": "ordinary admin profile edit preserves all tier grants",
+          "ok": true
+        },
+        {
+          "test": "explicit administrator replacement can revoke memberships",
+          "ok": true
+        },
+        {
+          "test": "variant stock aggregation replaces base inventory",
+          "ok": true
+        },
+        {
+          "test": "variant selection is required for direct purchase",
+          "ok": true
+        },
+        {
+          "test": "variant price, allocation and metadata use server values",
+          "ok": true
+        },
+        {
+          "test": "unshipped variant refund restores only its own stock",
+          "ok": true
+        },
+        {
+          "test": "variant cannot be moved to a different product",
+          "ok": true
+        },
+        {
+          "test": "foreign product variant rejected",
+          "ok": true
+        },
+        {
+          "test": "variant pricing asset cannot silently change",
+          "ok": true
+        },
+        {
+          "test": "code variants ignore forged inventory quantities",
+          "ok": true
+        },
+        {
+          "test": "code variant import synchronizes stock and preserves zero code",
+          "ok": true
+        },
+        {
+          "test": "code variant purchase consumes one matching secret",
+          "ok": true
+        },
+        {
+          "test": "unassigned base codes prevent ambiguous variant conversion",
+          "ok": true
+        },
+        {
+          "test": "multi-variant checkout consumes exact per-unit quantities",
+          "ok": true
+        },
+        {
+          "test": "checkout replay returns the same order IDs without debit",
+          "ok": true
+        },
+        {
+          "test": "checkout intent cannot be reused with changed quantity",
+          "ok": true
+        },
+        {
+          "test": "checkout stock failure rolls back orders ledger and earlier unit",
+          "ok": true
+        },
+        {
+          "test": "digital access quantity cannot cause duplicate charges",
+          "ok": true
+        },
+        {
+          "test": "shipment can be corrected and owner can confirm receipt",
+          "ok": true
+        },
+        {
+          "test": "withdrawn referral commission does not block buyer refund",
+          "ok": true
+        },
+        {
+          "test": "revision saves old text and rejects stale editor version",
+          "ok": true
+        },
+        {
+          "test": "revision restore does not roll back current pricing",
+          "ok": true
+        },
+        {
+          "test": "revision cannot be restored to another content item",
+          "ok": true
+        },
+        {
+          "test": "layout validation strips unknown fields and uses safe choices",
+          "ok": true
+        },
+        {
+          "test": "layout saves with revision check and exports no unrelated settings",
+          "ok": true
+        },
+        {
+          "test": "layout rejects executable/unknown block php",
+          "ok": true
+        },
+        {
+          "test": "layout rejects executable/unknown block javascript",
+          "ok": true
+        },
+        {
+          "test": "layout rejects executable/unknown block <script>",
+          "ok": true
+        },
+        {
+          "test": "layout rejects duplicate IDs and oversized block lists",
+          "ok": true
+        },
+        {
+          "test": "layout rejects external/script destinations",
+          "ok": true
+        },
+        {
+          "test": "collection deduplicates IDs and preserves editorial order",
+          "ok": true
+        },
+        {
+          "test": "invalid collection update rolls back previous membership",
+          "ok": true
+        },
+        {
+          "test": "link directory blocks script and credential URLs",
+          "ok": true
+        },
+        {
+          "test": "announcements honor audience and scheduled start",
+          "ok": true
+        },
+        {
+          "test": "task requires server-verified progress",
+          "ok": true
+        },
+        {
+          "test": "task claim is idempotent and credits points plus experience",
+          "ok": true
+        },
+        {
+          "test": "claimed task reward rules cannot be silently changed",
+          "ok": true
+        },
+        {
+          "test": "daily profile reward farming is rejected",
+          "ok": true
+        },
+        {
+          "test": "pending comments do not qualify for task rewards",
+          "ok": true
+        },
+        {
+          "test": "task module disable blocks claim endpoint",
+          "ok": true
+        },
+        {
+          "test": "invitation plaintext is never stored",
+          "ok": true
+        },
+        {
+          "test": "registration requires a valid invitation when configured",
+          "ok": true
+        },
+        {
+          "test": "invitation is consumed once with new account transaction",
+          "ok": true
+        },
+        {
+          "test": "failed registration never spends invitation allowance",
+          "ok": true
+        },
+        {
+          "test": "disabled invitation is rejected",
+          "ok": true
+        },
+        {
+          "test": "download counts authorized unique files rather than range retries",
+          "ok": true
+        },
+        {
+          "test": "daily download quota rejects another file without recording it",
+          "ok": true
+        },
+        {
+          "test": "unauthorized file access is not recorded",
+          "ok": true
+        },
+        {
+          "test": "byte-range parser supports whole suffix and open-ended ranges",
+          "ok": true
+        },
+        {
+          "test": "invalid range rejected bytes=20-",
+          "ok": true
+        },
+        {
+          "test": "invalid range rejected bytes=9-2",
+          "ok": true
+        },
+        {
+          "test": "invalid range rejected bytes=0-1,3-4",
+          "ok": true
+        },
+        {
+          "test": "invalid range rejected bytes=-0",
+          "ok": true
+        },
+        {
+          "test": "comment visibility rejects unauthorized readers and writers",
+          "ok": true
+        },
+        {
+          "test": "long SKU order labels fit the MySQL title column",
+          "ok": true
+        },
+        {
+          "test": "catalog shows actual minimum available variant price",
+          "ok": true
+        },
+        {
+          "test": "UTF-8 body and revision can exceed 64 KB without being shortened",
+          "ok": true
+        },
+        {
+          "test": "eight concurrent SKU purchases settle exactly one unit",
+          "ok": true
+        },
+        {
+          "test": "ledger reconciles all account balances",
+          "ok": true
+        },
+        {
+          "test": "eight concurrent debits: five settle, no overdraft",
+          "ok": true
+        }
+      ],
+      "not_tested": [
+        "MySQL/InnoDB and native PDO when unavailable",
+        "real merchant network or callback delivery",
+        "SMTP network",
+        "real shared hosting",
+        "certificate issuance",
+        "full Zibll feature parity"
+      ]
+    },
+    "http-results": {
+      "total": 199,
+      "passed": 199,
+      "failed": 0,
+      "tests": [
+        {
+          "test": "installer rejects wrong private key",
+          "ok": true
+        },
+        {
+          "test": "installer creates configuration and schema",
+          "ok": true
+        },
+        {
+          "test": "installer locked after installation",
+          "ok": true
+        },
+        {
+          "test": "anonymous GET /",
+          "ok": true
+        },
+        {
+          "test": "anonymous GET /index.php?r=articles",
+          "ok": true
+        },
+        {
+          "test": "anonymous GET /index.php?r=forum",
+          "ok": true
+        },
+        {
+          "test": "anonymous GET /index.php?r=shop",
+          "ok": true
+        },
+        {
+          "test": "anonymous GET /index.php?r=membership",
+          "ok": true
+        },
+        {
+          "test": "anonymous GET /index.php?r=article&id=1",
+          "ok": true
+        },
+        {
+          "test": "anonymous GET /index.php?r=article&id=4",
+          "ok": true
+        },
+        {
+          "test": "anonymous GET /index.php?r=product&id=9",
+          "ok": true
+        },
+        {
+          "test": "anonymous GET /index.php?r=register",
+          "ok": true
+        },
+        {
+          "test": "anonymous GET /index.php?r=login",
+          "ok": true
+        },
+        {
+          "test": "anonymous GET /index.php?r=terms",
+          "ok": true
+        },
+        {
+          "test": "anonymous GET /index.php?r=rankings",
+          "ok": true
+        },
+        {
+          "test": "anonymous GET /index.php?r=user&id=1",
+          "ok": true
+        },
+        {
+          "test": "anonymous GET /index.php?r=search&q=does-not-exist",
+          "ok": true
+        },
+        {
+          "test": "anonymous GET /admin/",
+          "ok": true
+        },
+        {
+          "test": "asset app.css",
+          "ok": true
+        },
+        {
+          "test": "asset app.js",
+          "ok": true
+        },
+        {
+          "test": "asset boot.js",
+          "ok": true
+        },
+        {
+          "test": "asset favicon.svg",
+          "ok": true
+        },
+        {
+          "test": "asset cover-1.svg",
+          "ok": true
+        },
+        {
+          "test": "asset cover-2.svg",
+          "ok": true
+        },
+        {
+          "test": "asset cover-3.svg",
+          "ok": true
+        },
+        {
+          "test": "asset cover-4.svg",
+          "ok": true
+        },
+        {
+          "test": "asset cover-5.svg",
+          "ok": true
+        },
+        {
+          "test": "asset cover-6.svg",
+          "ok": true
+        },
+        {
+          "test": "valid XML feed.php",
+          "ok": true
+        },
+        {
+          "test": "valid XML sitemap.php",
+          "ok": true
+        },
+        {
+          "test": "unauthenticated private page redirects to login",
+          "ok": true
+        },
+        {
+          "test": "POST missing CSRF rejected",
+          "ok": true
+        },
+        {
+          "test": "action login ",
+          "ok": true
+        },
+        {
+          "test": "action login ",
+          "ok": true
+        },
+        {
+          "test": "admin tab dashboard",
+          "ok": true
+        },
+        {
+          "test": "admin tab contents",
+          "ok": true
+        },
+        {
+          "test": "admin tab users",
+          "ok": true
+        },
+        {
+          "test": "admin tab orders",
+          "ok": true
+        },
+        {
+          "test": "admin tab settings",
+          "ok": true
+        },
+        {
+          "test": "admin tab categories",
+          "ok": true
+        },
+        {
+          "test": "admin tab plans",
+          "ok": true
+        },
+        {
+          "test": "admin tab coupons",
+          "ok": true
+        },
+        {
+          "test": "admin tab navigation",
+          "ok": true
+        },
+        {
+          "test": "admin tab vouchers",
+          "ok": true
+        },
+        {
+          "test": "admin tab stock",
+          "ok": true
+        },
+        {
+          "test": "admin tab moderation",
+          "ok": true
+        },
+        {
+          "test": "admin tab ledger",
+          "ok": true
+        },
+        {
+          "test": "admin tab media",
+          "ok": true
+        },
+        {
+          "test": "admin tab system",
+          "ok": true
+        },
+        {
+          "test": "admin tab withdrawals",
+          "ok": true
+        },
+        {
+          "test": "admin tab logs",
+          "ok": true
+        },
+        {
+          "test": "admin tab edit_content",
+          "ok": true
+        },
+        {
+          "test": "settings group site",
+          "ok": true
+        },
+        {
+          "test": "settings group appearance",
+          "ok": true
+        },
+        {
+          "test": "settings group layout",
+          "ok": true
+        },
+        {
+          "test": "settings group modules",
+          "ok": true
+        },
+        {
+          "test": "settings group community",
+          "ok": true
+        },
+        {
+          "test": "settings group commerce",
+          "ok": true
+        },
+        {
+          "test": "settings group epay",
+          "ok": true
+        },
+        {
+          "test": "settings group codepay",
+          "ok": true
+        },
+        {
+          "test": "settings group email",
+          "ok": true
+        },
+        {
+          "test": "settings group security",
+          "ok": true
+        },
+        {
+          "test": "settings group seo",
+          "ok": true
+        },
+        {
+          "test": "save appearance group",
+          "ok": true
+        },
+        {
+          "test": "backend theme affects frontend",
+          "ok": true
+        },
+        {
+          "test": "action register ",
+          "ok": true
+        },
+        {
+          "test": "action register ",
+          "ok": true
+        },
+        {
+          "test": "ordinary user blocked from admin",
+          "ok": true
+        },
+        {
+          "test": "action admin_settings ",
+          "ok": true
+        },
+        {
+          "test": "action checkin ",
+          "ok": true
+        },
+        {
+          "test": "action checkin ",
+          "ok": true
+        },
+        {
+          "test": "authenticated route profile",
+          "ok": true
+        },
+        {
+          "test": "authenticated route wallet",
+          "ok": true
+        },
+        {
+          "test": "authenticated route orders",
+          "ok": true
+        },
+        {
+          "test": "authenticated route favorites",
+          "ok": true
+        },
+        {
+          "test": "authenticated route notifications",
+          "ok": true
+        },
+        {
+          "test": "authenticated route messages",
+          "ok": true
+        },
+        {
+          "test": "authenticated route write",
+          "ok": true
+        },
+        {
+          "test": "authenticated route cart",
+          "ok": true
+        },
+        {
+          "test": "private resource upload",
+          "ok": true
+        },
+        {
+          "test": "publish real paid content",
+          "ok": true
+        },
+        {
+          "test": "protected body excluded from guest HTML",
+          "ok": true
+        },
+        {
+          "test": "guest cannot download private attachment",
+          "ok": true
+        },
+        {
+          "test": "unpaid user cannot download private attachment",
+          "ok": true
+        },
+        {
+          "test": "action buy content",
+          "ok": true
+        },
+        {
+          "test": "buyer sees protected body",
+          "ok": true
+        },
+        {
+          "test": "buyer receives private file",
+          "ok": true
+        },
+        {
+          "test": "other user cannot borrow entitlement",
+          "ok": true
+        },
+        {
+          "test": "SVG upload blocked",
+          "ok": true
+        },
+        {
+          "test": "member image upload",
+          "ok": true
+        },
+        {
+          "test": "public image served byte for byte",
+          "ok": true
+        },
+        {
+          "test": "action comment ",
+          "ok": true
+        },
+        {
+          "test": "action reaction favorite",
+          "ok": true
+        },
+        {
+          "test": "action follow ",
+          "ok": true
+        },
+        {
+          "test": "action message ",
+          "ok": true
+        },
+        {
+          "test": "recipient sees private message",
+          "ok": true
+        },
+        {
+          "test": "unrelated admin messages page does not leak private message",
+          "ok": true
+        },
+        {
+          "test": "action report ",
+          "ok": true
+        },
+        {
+          "test": "action cart_add ",
+          "ok": true
+        },
+        {
+          "test": "action cart_checkout ",
+          "ok": true
+        },
+        {
+          "test": "action address_save ",
+          "ok": true
+        },
+        {
+          "test": "address in owner profile",
+          "ok": true
+        },
+        {
+          "test": "return URL cannot credit money",
+          "ok": true
+        },
+        {
+          "test": "forged HTTP callback rejected",
+          "ok": true
+        },
+        {
+          "test": "test router denies private path /app/config.php",
+          "ok": true
+        },
+        {
+          "test": "test router denies private path /app/seed.json",
+          "ok": true
+        },
+        {
+          "test": "test router denies private path /storage/errors.php",
+          "ok": true
+        },
+        {
+          "test": "test router denies private path /storage/blobs/",
+          "ok": true
+        },
+        {
+          "test": "test router denies private path /uploads/",
+          "ok": true
+        },
+        {
+          "test": "blob PHP envelope stops before payload",
+          "ok": true
+        },
+        {
+          "test": "blob PHP envelope stops before payload",
+          "ok": true
+        },
+        {
+          "test": "security headers applied",
+          "ok": true
+        },
+        {
+          "test": "new admin tab variants",
+          "ok": true
+        },
+        {
+          "test": "new admin tab denies ordinary user variants",
+          "ok": true
+        },
+        {
+          "test": "new admin tab collections",
+          "ok": true
+        },
+        {
+          "test": "new admin tab denies ordinary user collections",
+          "ok": true
+        },
+        {
+          "test": "new admin tab links",
+          "ok": true
+        },
+        {
+          "test": "new admin tab denies ordinary user links",
+          "ok": true
+        },
+        {
+          "test": "new admin tab announcements",
+          "ok": true
+        },
+        {
+          "test": "new admin tab denies ordinary user announcements",
+          "ok": true
+        },
+        {
+          "test": "new admin tab tasks",
+          "ok": true
+        },
+        {
+          "test": "new admin tab denies ordinary user tasks",
+          "ok": true
+        },
+        {
+          "test": "new admin tab invitations",
+          "ok": true
+        },
+        {
+          "test": "new admin tab denies ordinary user invitations",
+          "ok": true
+        },
+        {
+          "test": "new admin tab downloads",
+          "ok": true
+        },
+        {
+          "test": "new admin tab denies ordinary user downloads",
+          "ok": true
+        },
+        {
+          "test": "new admin tab builder",
+          "ok": true
+        },
+        {
+          "test": "new admin tab denies ordinary user builder",
+          "ok": true
+        },
+        {
+          "test": "layout editor slot home",
+          "ok": true
+        },
+        {
+          "test": "layout editor slot articles",
+          "ok": true
+        },
+        {
+          "test": "layout editor slot forum",
+          "ok": true
+        },
+        {
+          "test": "layout editor slot shop",
+          "ok": true
+        },
+        {
+          "test": "new frontend route collections",
+          "ok": true
+        },
+        {
+          "test": "new frontend route links",
+          "ok": true
+        },
+        {
+          "test": "new frontend route tasks",
+          "ok": true
+        },
+        {
+          "test": "studio asset studio.css",
+          "ok": true
+        },
+        {
+          "test": "studio asset studio.js",
+          "ok": true
+        },
+        {
+          "test": "action admin_content article",
+          "ok": true
+        },
+        {
+          "test": "action buy content",
+          "ok": true
+        },
+        {
+          "test": "blocked VIP bypass did not leak body",
+          "ok": true
+        },
+        {
+          "test": "action admin_content article",
+          "ok": true
+        },
+        {
+          "test": "action content_unlock ",
+          "ok": true
+        },
+        {
+          "test": "action content_unlock ",
+          "ok": true
+        },
+        {
+          "test": "password unlock renders protected body",
+          "ok": true
+        },
+        {
+          "test": "password grant belongs to its session",
+          "ok": true
+        },
+        {
+          "test": "array form field returns controlled 400",
+          "ok": true
+        },
+        {
+          "test": "action admin_layout ",
+          "ok": true
+        },
+        {
+          "test": "layout renders published block",
+          "ok": true
+        },
+        {
+          "test": "action admin_layout ",
+          "ok": true
+        },
+        {
+          "test": "action admin_layout ",
+          "ok": true
+        },
+        {
+          "test": "action admin_layout ",
+          "ok": true
+        },
+        {
+          "test": "conflicting update preserves published layout",
+          "ok": true
+        },
+        {
+          "test": "action admin_catalog ",
+          "ok": true
+        },
+        {
+          "test": "collection deduplicates members",
+          "ok": true
+        },
+        {
+          "test": "collection page renders",
+          "ok": true
+        },
+        {
+          "test": "action admin_catalog ",
+          "ok": true
+        },
+        {
+          "test": "directory frontend shows approved link",
+          "ok": true
+        },
+        {
+          "test": "action admin_catalog ",
+          "ok": true
+        },
+        {
+          "test": "action admin_catalog ",
+          "ok": true
+        },
+        {
+          "test": "login announcement excluded from guest HTML",
+          "ok": true
+        },
+        {
+          "test": "login announcement shown to member",
+          "ok": true
+        },
+        {
+          "test": "action admin_task ",
+          "ok": true
+        },
+        {
+          "test": "action task_claim ",
+          "ok": true
+        },
+        {
+          "test": "action task_claim ",
+          "ok": true
+        },
+        {
+          "test": "HTTP task retry only credits once",
+          "ok": true
+        },
+        {
+          "test": "task frontend shows configured task",
+          "ok": true
+        },
+        {
+          "test": "action admin_invitation ",
+          "ok": true
+        },
+        {
+          "test": "invitation shown after issue",
+          "ok": true
+        },
+        {
+          "test": "invitation plaintext shown once",
+          "ok": true
+        },
+        {
+          "test": "save group security register_limit",
+          "ok": true
+        },
+        {
+          "test": "save group users registration_mode",
+          "ok": true
+        },
+        {
+          "test": "action register ",
+          "ok": true
+        },
+        {
+          "test": "action register ",
+          "ok": true
+        },
+        {
+          "test": "invitation usage committed with account",
+          "ok": true
+        },
+        {
+          "test": "save group users registration_mode",
+          "ok": true
+        },
+        {
+          "test": "action admin_content product",
+          "ok": true
+        },
+        {
+          "test": "action admin_variant ",
+          "ok": true
+        },
+        {
+          "test": "action admin_variant ",
+          "ok": true
+        },
+        {
+          "test": "action cart_add ",
+          "ok": true
+        },
+        {
+          "test": "action cart_add ",
+          "ok": true
+        },
+        {
+          "test": "cart keeps two SKU lines",
+          "ok": true
+        },
+        {
+          "test": "action cart_checkout ",
+          "ok": true
+        },
+        {
+          "test": "checkout uses server SKU prices",
+          "ok": true
+        },
+        {
+          "test": "checkout decrements each SKU",
+          "ok": true
+        },
+        {
+          "test": "action order_receive ",
+          "ok": true
+        },
+        {
+          "test": "action admin_ship ",
+          "ok": true
+        },
+        {
+          "test": "action admin_ship ",
+          "ok": true
+        },
+        {
+          "test": "action order_receive ",
+          "ok": true
+        },
+        {
+          "test": "action order_receive ",
+          "ok": true
+        },
+        {
+          "test": "receipt persists once",
+          "ok": true
+        },
+        {
+          "test": "authorized HTTP byte range",
+          "ok": true
+        },
+        {
+          "test": "authorized suffix range",
+          "ok": true
+        },
+        {
+          "test": "range cannot bypass download authorization",
+          "ok": true
+        },
+        {
+          "test": "HEAD sends only headers",
+          "ok": true
+        },
+        {
+          "test": "invalid HTTP range returns 416",
+          "ok": true
+        },
+        {
+          "test": "download logged once per file per member",
+          "ok": true
+        },
+        {
+          "test": "action logout ",
+          "ok": true
+        },
+        {
+          "test": "logout clears authenticated route",
+          "ok": true
+        },
+        {
+          "test": "no internal PHP/application exceptions",
+          "ok": true
+        }
+      ],
+      "transport": "requests over real local PHP HTTP server; test SQLite adapter if native PDO absent",
+      "not_tested": [
+        "real shared host",
+        "production Apache/Nginx/IIS rules",
+        "merchant and SMTP network",
+        "browser live navigation (managed browser blocks URLs)"
+      ]
+    },
+    "visual-results": {
+      "mode": "Local HTTP-rendered HTML; CSS/JS/SVG inlined; Chromium set_content, no browser URL navigation",
+      "total": 58,
+      "passed": 58,
+      "failed": 0,
+      "tests": [
+        {
+          "test": "home no horizontal overflow at 320",
+          "ok": true
+        },
+        {
+          "test": "home no horizontal overflow at 390",
+          "ok": true
+        },
+        {
+          "test": "home no horizontal overflow at 768",
+          "ok": true
+        },
+        {
+          "test": "home no horizontal overflow at 1440",
+          "ok": true
+        },
+        {
+          "test": "appearance opens with actual JavaScript",
+          "ok": true
+        },
+        {
+          "test": "theme choice tide",
+          "ok": true
+        },
+        {
+          "test": "theme choice dusk",
+          "ok": true
+        },
+        {
+          "test": "theme choice paper",
+          "ok": true
+        },
+        {
+          "test": "theme choice graphite",
+          "ok": true
+        },
+        {
+          "test": "theme choice citrus",
+          "ok": true
+        },
+        {
+          "test": "glass choice none",
+          "ok": true
+        },
+        {
+          "test": "glass choice frost",
+          "ok": true
+        },
+        {
+          "test": "glass choice prism",
+          "ok": true
+        },
+        {
+          "test": "glass choice liquid",
+          "ok": true
+        },
+        {
+          "test": "dark choice",
+          "ok": true
+        },
+        {
+          "test": "appearance closes",
+          "ok": true
+        },
+        {
+          "test": "OS reduced-motion suppresses orb animation",
+          "ok": true
+        },
+        {
+          "test": "keyboard shortcut opens search",
+          "ok": true
+        },
+        {
+          "test": "Escape dismisses search",
+          "ok": true
+        },
+        {
+          "test": "admin dashboard loaded",
+          "ok": true
+        },
+        {
+          "test": "admin mobile no horizontal overflow",
+          "ok": true
+        },
+        {
+          "test": "admin mobile navigation opens",
+          "ok": true
+        },
+        {
+          "test": "admin mobile navigation closes",
+          "ok": true
+        },
+        {
+          "test": "admin theme preview changes form value",
+          "ok": true
+        },
+        {
+          "test": "admin theme preview changes visual theme",
+          "ok": true
+        },
+        {
+          "test": "layout editor initializes actual blocks",
+          "ok": true
+        },
+        {
+          "test": "layout title is preserved",
+          "ok": true
+        },
+        {
+          "test": "unfocused skip link does not obscure content",
+          "ok": true
+        },
+        {
+          "test": "layout add block updates model",
+          "ok": true
+        },
+        {
+          "test": "layout text edit synchronizes JSON",
+          "ok": true
+        },
+        {
+          "test": "layout keyboard-accessible move reorders data",
+          "ok": true
+        },
+        {
+          "test": "layout duplicate generates unique identifier",
+          "ok": true
+        },
+        {
+          "test": "layout remove removes one block",
+          "ok": true
+        },
+        {
+          "test": "layout template appends configured blocks",
+          "ok": true
+        },
+        {
+          "test": "invalid layout import preserves model",
+          "ok": true
+        },
+        {
+          "test": "valid layout import replaces model",
+          "ok": true
+        },
+        {
+          "test": "layout export is data only",
+          "ok": true
+        },
+        {
+          "test": "studio no horizontal overflow at 320",
+          "ok": true
+        },
+        {
+          "test": "studio no horizontal overflow at 390",
+          "ok": true
+        },
+        {
+          "test": "studio no horizontal overflow at 768",
+          "ok": true
+        },
+        {
+          "test": "studio no horizontal overflow at 1440",
+          "ok": true
+        },
+        {
+          "test": "collections no horizontal overflow at 320",
+          "ok": true
+        },
+        {
+          "test": "collections no horizontal overflow at 390",
+          "ok": true
+        },
+        {
+          "test": "collections no horizontal overflow at 768",
+          "ok": true
+        },
+        {
+          "test": "collections no horizontal overflow at 1440",
+          "ok": true
+        },
+        {
+          "test": "tasks no horizontal overflow at 320",
+          "ok": true
+        },
+        {
+          "test": "tasks no horizontal overflow at 390",
+          "ok": true
+        },
+        {
+          "test": "tasks no horizontal overflow at 768",
+          "ok": true
+        },
+        {
+          "test": "tasks no horizontal overflow at 1440",
+          "ok": true
+        },
+        {
+          "test": "variants no horizontal overflow at 320",
+          "ok": true
+        },
+        {
+          "test": "variants no horizontal overflow at 390",
+          "ok": true
+        },
+        {
+          "test": "variants no horizontal overflow at 768",
+          "ok": true
+        },
+        {
+          "test": "variants no horizontal overflow at 1440",
+          "ok": true
+        },
+        {
+          "test": "composed-articles no horizontal overflow at 320",
+          "ok": true
+        },
+        {
+          "test": "composed-articles no horizontal overflow at 390",
+          "ok": true
+        },
+        {
+          "test": "composed-articles no horizontal overflow at 768",
+          "ok": true
+        },
+        {
+          "test": "composed-articles no horizontal overflow at 1440",
+          "ok": true
+        },
+        {
+          "test": "no JavaScript runtime errors in snapshots",
+          "ok": true
+        }
+      ],
+      "javascript_errors": []
+    }
+  }
+}
