@@ -28,16 +28,21 @@ expect_post(admin,'resource_resolve',409,id=report19,revision=1,status='resolved
 expect_post(admin,'resource_save',id=mirror19,content_id=content19,revision=1,label='019 alternate mirror',mirror_url=mirror_url19,active=0)
 check('019 disabled edition revokes direct route',user.get(base+'/index.php',params={'r':'resource','id':mirror19}).status_code==404)
 blocks19=[{'id':'features019','type':'features','title':'FEATURE-019','items':[{'title':'One useful thing','text':'Original reusable entry','icon':'leaf'}]}, {'id':'tabs019','type':'tabs','title':'TABS-019','items':[{'title':'First panel','text':'NOJS-FIRST-019'},{'title':'Second panel','text':'NOJS-SECOND-019'}]}, {'id':'timeline019','type':'timeline','title':'TIMELINE-019','items':[{'title':'Begin here','text':'A real instruction'}]}, {'id':'categories019','type':'categories','title':'CATEGORIES-019'}, {'id':'plans019','type':'plans','title':'PLANS-019'}, {'id':'titles019','type':'titles','title':'TITLES-019'}, {'id':'notice019','type':'noticeboard','title':'NOTICES-019'}, {'id':'creators019','type':'creators','title':'CREATORS-019'}]
+blocks19.extend([{'id':'slider019','type':'slider','title':'SLIDER-019','autoplay':True,'interval':6,'items':[{'title':'First slide','text':'SLIDE-FIRST-019'},{'title':'Second slide','text':'SLIDE-SECOND-019'}]}, {'id':'buttons019','type':'buttons','title':'BUTTONS-019','items':[{'title':'Official documentation','url':'https://www.php.net/','icon':'book'}]}])
 layout19=db_one('SELECT revision FROM cy_layouts WHERE slot=?',('page12',))
 expect_post(admin,'admin_layout',slot='page12',revision=layout19['revision'] if layout19 else 0,document=json.dumps({'format':'chengyu-layout','version':1,'blocks':blocks19}))
 landing19=guest.get(base+'/index.php?r=landing&slot=page12')
 check('019 all new dynamic blocks render without JavaScript',landing19.status_code==200 and all(x['title'] in landing19.text for x in blocks19) and 'NOJS-FIRST-019' in landing19.text and 'NOJS-SECOND-019' in landing19.text)
 builder19=html(admin,'/admin/index.php?tab=builder&slot=page12')
 labels19=json.loads(builder19.select_one('#studio-i18n').string)
-check('019 studio renders all 20 block types and translated controls',len(builder19.select('[data-block-add]'))==20 and labels19.get('background_id')=='背景图片 ID（公开图片）')
+check('019 studio renders all 22 block types and translated controls',len(builder19.select('[data-block-add]'))==22 and labels19.get('background_id')=='背景图片 ID（公开图片）')
 listing19=guest.get(base+'/index.php?r=shop&currency=balance&min_price=0&sort=price')
 check('019 native catalog filter and view controls',listing19.status_code==200 and 'data-catalog-view="list"' in listing19.text and 'name="min_price"' in listing19.text)
 check('019 malformed price interval rejected',guest.get(base+'/index.php?r=shop&min_price=9&max_price=1').status_code==400)
 for art19 in ['chengyu-mascot.webp','favicon.png','island-anime.webp','blue-hour.webp']:
     r19=guest.get(base+'/assets/art/'+art19)
     check('019 original anime asset '+art19,r19.status_code==200 and r19.headers['Content-Type'].startswith('image/'))
+
+carousel19=BeautifulSoup(landing19.text,'html.parser')
+check('019 native carousel preserves both slides without JavaScript',len(carousel19.select('.carousel-slide'))==2 and carousel19.select_one('[data-carousel-pause]') is not None and 'SLIDE-SECOND-019' in landing19.text)
+check('019 button group emits real links',carousel19.select_one('.block-button-group a')['href']=='https://www.php.net/')

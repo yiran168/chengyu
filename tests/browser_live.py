@@ -1,6 +1,6 @@
 """Actual Playwright URL navigation, forms, animation and accessibility checks."""
 from pathlib import Path
-import json,os
+import base64,json,os
 from playwright.sync_api import sync_playwright,expect
 BASE=os.environ['CY_SNAPSHOT_BASE'];ROOT=Path(__file__).resolve().parents[1]
 OUT=Path(os.environ.get('CY_VISUAL_OUT',str(ROOT/'docs/previews')));OUT.mkdir(exist_ok=True,parents=True)
@@ -8,14 +8,28 @@ IDS=json.loads(Path(os.environ['CY_TEST_IDS']).read_text());results=[];errors=[]
 def check(name,ok,detail=''):
     results.append({'test':name,'ok':bool(ok),**({'detail':str(detail)[:400]} if not ok else {})})
 def shot(name):
-    page.evaluate('() => {document.activeElement?.blur();scrollTo(0,0)}');page.screenshot(path=str(OUT/name),full_page=True)
+    # Exercise lazy images and real scroll reveals before an export-sized capture.
+    height=page.evaluate('document.documentElement.scrollHeight')
+    for y in range(0,min(height,20000),600):
+        page.evaluate('(y)=>scrollTo({top:y,behavior:"instant"})',y);page.wait_for_timeout(90)
+    page.evaluate('() => {document.activeElement?.blur();scrollTo({top:0,behavior:"instant"})}')
+    page.wait_for_timeout(650)
+    # Capture the current compositor frame directly. Playwright's screenshot
+    # stabilizer can wait indefinitely on the deliberately live spring inspector.
+    full=height<7000 and page.locator('.admin-body').count()==0
+    viewport=page.viewport_size
+    cdp=page.context.new_cdp_session(page)
+    try:
+        capture=cdp.send('Page.captureScreenshot',{'format':'png','captureBeyondViewport':full,'clip':{'x':0,'y':0,'width':viewport['width'],'height':height if full else viewport['height'],'scale':1}})
+        (OUT/name).write_bytes(base64.b64decode(capture['data']))
+    finally:cdp.detach()
 def go(path):
     response=page.goto(BASE+path,wait_until='networkidle');check('live GET '+path,response.status==200)
 def no_overflow(label):
     for width in [320,390,768,1440]:
         page.set_viewport_size({'width':width,'height':900});check(label+' no overflow '+str(width),page.evaluate('document.documentElement.scrollWidth<=innerWidth'))
 def login():
-    go('/admin/');page.locator('[name=identifier]').fill(os.environ['CY_ADMIN_USER']);page.locator('[name=password]').fill(os.environ['CY_ADMIN_PASSWORD']);page.locator('form').filter(has=page.locator('input[name=action][value=login]')).locator('button[type=submit]').click();page.wait_for_url('**/admin/**',wait_until='networkidle');check('live AJAX login reaches dashboard',page.locator('.admin-sidebar').count()==1)
+    go('/admin/');page.locator('[name=identifier]').fill(os.environ['CY_ADMIN_USER']);page.locator('[name=password]').fill(os.environ['CY_ADMIN_PASSWORD']);page.locator('form').filter(has=page.locator('input[name=action][value=login]')).locator('button[type=submit]').click();expect(page.locator('.admin-sidebar')).to_be_visible();page.wait_for_load_state('networkidle');check('live AJAX login reaches dashboard',page.locator('.admin-sidebar').count()==1)
 try:
     with sync_playwright() as p:
         browser=p.chromium.launch(executable_path=os.environ.get('CY_CHROMIUM','/usr/bin/chromium'),headless=True,args=['--no-sandbox'])

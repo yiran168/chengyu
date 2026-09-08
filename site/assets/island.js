@@ -29,7 +29,7 @@
     });
     function activate(index,animate){
       tabs.forEach((tab,i)=>{tab.setAttribute('aria-selected',String(i===index));tab.tabIndex=i===index?0:-1;panels[i].hidden=i!==index;});
-      const panel=panels[index];if(animate && allowed() && typeof panel.animate==='function'){panel.getAnimations().forEach(a=>a.cancel());panel.animate([{opacity:.4,transform:'translateY(7px)'},{opacity:1,transform:'none'}],{duration:Math.min(360,parseFloat(getComputedStyle(root).getPropertyValue('--duration'))||0),easing:'cubic-bezier(.16,1,.3,1)'});}
+      const panel=panels[index];if(animate && allowed() && typeof panel.animate==='function'){panel.getAnimations().forEach(a=>a.cancel());panel.animate([{opacity:.4,transform:'translateY(7px)'},{opacity:1,transform:'none'}],{duration:Math.min(360,parseFloat(getComputedStyle(root).getPropertyValue('--duration'))||0),easing:getComputedStyle(root).getPropertyValue('--curve').trim()||'ease-out'});}
     }
     group.prepend(nav);activate(0,false);
   });

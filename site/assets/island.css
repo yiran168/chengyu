@@ -129,3 +129,18 @@ html[data-motion="0"] .brand-mascot img{transition:none;transform:none}
 .block-backdrop{position:absolute;inset:0;z-index:-1;width:100%;height:100%;object-fit:cover;opacity:.12;pointer-events:none}
 @media(max-width:600px){.brand-mark.brand-mascot{width:44px;height:44px;flex-basis:44px}}
 @media(prefers-reduced-motion:reduce){.brand-mascot img{transition:none;transform:none}}
+/* Scroll-snap provides touch and keyboard access even before JS enhancement. */
+.block-button-group{display:flex;flex-wrap:wrap;gap:12px}
+.carousel-track{display:flex;position:relative;gap:0;overflow-x:auto;scroll-snap-type:x mandatory;border-radius:18px;scrollbar-width:thin;overscroll-behavior-x:contain}
+.carousel-slide{position:relative;isolation:isolate;flex:0 0 100%;min-width:0;min-height:280px;scroll-snap-align:start;scroll-snap-stop:always;display:flex;align-items:center;background:var(--surface-alt,var(--surface))}
+.carousel-slide.has-image{min-height:370px;color:#fff;background:#173b42}
+.carousel-slide picture{position:absolute;inset:0;z-index:-2}
+.carousel-slide img{width:100%;height:100%;object-fit:cover}
+.carousel-slide.has-image:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(10,32,39,.86),rgba(10,32,39,.52) 48%,rgba(10,32,39,.07))}
+.carousel-copy{padding:clamp(24px,5vw,64px);max-width:660px}
+.carousel-copy h3{font-size:clamp(23px,3vw,38px);margin:12px 0;line-height:1.4;overflow-wrap:anywhere}
+.carousel-copy p{white-space:pre-line;line-height:1.85;margin:12px 0 22px}
+.carousel-controls{display:flex;align-items:center;justify-content:center;gap:14px;padding-top:14px;font-variant-numeric:tabular-nums}
+.carousel-controls [data-carousel-prev] .icon{transform:rotate(180deg)}
+.carousel-track:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+@media(max-width:600px){.carousel-slide.has-image{min-height:380px;align-items:flex-end}.carousel-slide.has-image:after{background:linear-gradient(0deg,rgba(10,32,39,.92),rgba(10,32,39,.25) 90%)}.carousel-copy{padding:26px}.carousel-copy p{font-size:13px}}

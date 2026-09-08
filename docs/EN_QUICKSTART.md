@@ -1,4 +1,8 @@
-# Chengyu 0.18.0 — English quick start
+# Chengyu 0.19.0 — English quick start
+
+New installs: open DEPLOY_PREPARE.html locally, generate your own key, and upload key.php to install/key.php before using the installer. Public packages contain no shared installation secret. Upgrade 0.18 without reinstalling; keep config.php, secret, database and storage. Current database schema: v11. See TEST_REPORT.md for current native runtime evidence.
+
+The following describes retained 0.18 features and historical limits, not the current verification summary.
 
 This release extends the uploaded **0.17.0** independent PHP application. Database schema is **v10**; the installation configuration format remains 1. It is not WordPress and does not contain the proprietary reference theme. Complete historical feature equivalence is not claimed.
 

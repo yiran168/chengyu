@@ -40,9 +40,15 @@ try:
     install=admin.get(base+'/install/'); soup=BeautifulSoup(install.text,'html.parser'); token=soup.select_one('input[name=csrf]')['value']
     payload={'csrf':token,'install_key':'wrong','site_name':'Chengyu HTTP test','site_url':base,'driver':'sqlite','sqlite_path':str(work/'private/site.sqlite'),'username':'admin','email':'admin@example.test','password':'TestPassword!2026','examples':'1'}
     admin.post(base+'/install/',data=payload)
-    check('installer rejects wrong private key',not(site/'app/config.php').exists())
-    install_secret=secrets.token_hex(32)
-    (site/'install/key.php').write_text("<?php return '"+hashlib.sha256(install_secret.encode()).hexdigest()+"';\n")
+    check('public package cannot initialize without its own verifier',not(site/'app/config.php').exists())
+    prepare=subprocess.run(['php',str(ROOT/'tools/prepare_install.php'),str(site)],capture_output=True,text=True)
+    check('CLI creates a site-specific owner key',prepare.returncode==0,prepare.stderr)
+    install_secret=(work/'INSTALL_KEY.txt').read_text().strip()
+    check('CLI owner key is private, random and not printed',len(install_secret)==64 and install_secret not in prepare.stdout and not(site/'INSTALL_KEY.txt').exists())
+    retry_prepare=subprocess.run(['php',str(ROOT/'tools/prepare_install.php'),str(site)],capture_output=True,text=True)
+    check('CLI will not overwrite an existing owner verifier',retry_prepare.returncode!=0 and (work/'INSTALL_KEY.txt').read_text().strip()==install_secret)
+    admin.post(base+'/install/',data=payload)
+    check('installer rejects incorrect configured owner key',not(site/'app/config.php').exists())
     payload['install_key']=install_secret
     r=admin.post(base+'/install/',data=payload)
     check('installer creates configuration and schema',(site/'app/config.php').exists(),r.text)

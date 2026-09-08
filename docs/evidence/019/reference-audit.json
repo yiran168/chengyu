@@ -1,0 +1,10 @@
+{
+  "date": "2026-09-08",
+  "text_files": {
+    "zibll-8.9": 1038,
+    "shane-child": 67
+  },
+  "targeted_symbol_index_files": 72,
+  "exact_production_file_matches": [],
+  "method": "Read-only file hashes and symbol/feature indexes, with selected implementation review. Not a line-by-line security or legal audit. No reference code is distributed."
+}

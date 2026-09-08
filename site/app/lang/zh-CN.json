@@ -2739,5 +2739,17 @@
   "Background image ID": "背景图片 ID（公开图片）",
   "Default cover artwork": "默认封面插画",
   "abstract": "抽象图形",
-  "Site-specific installation verifier": "本站独立安装验证文件"
+  "Site-specific installation verifier": "本站独立安装验证文件",
+  "Image carousel": "响应式轮播",
+  "Button group": "按钮组",
+  "Autoplay": "自动播放",
+  "Slide interval (seconds)": "轮播间隔（秒）",
+  "Mobile image ID": "手机图片 ID（可选）",
+  "Previous slide": "上一张",
+  "Next slide": "下一张",
+  "Pause carousel": "暂停轮播",
+  "Play carousel": "播放轮播",
+  "Carousel": "轮播图",
+  "Slide": "幻灯片",
+  "Autoplay must be a JSON boolean.": "自动播放必须为 JSON 布尔值。"
 }

@@ -1,0 +1,17 @@
+{
+  "php": [
+    {
+      "php": "7.4",
+      "files": 271,
+      "failures": []
+    },
+    {
+      "php": "8.5",
+      "files": 271,
+      "failures": []
+    }
+  ],
+  "javascript_files": 17,
+  "javascript_failures": [],
+  "vps_bash_syntax": true
+}

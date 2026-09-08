@@ -1,0 +1,1358 @@
+[
+  {
+    "reference": "zibll-8.9",
+    "path": "inc/functions/zib-search.php",
+    "functions": [
+      "zib_search_content",
+      "zib_get_search_main_tab_nav",
+      "zib_get_search_tab_nav_filter",
+      "zib_get_search_facets_datas",
+      "zib_search_facets_datas_cache_delete",
+      "zib_get_search_orderby_lists",
+      "zib_get_search_desc",
+      "zib_get_search_content_user",
+      "zib_get_search_content_post",
+      "zib_get_search_link",
+      "zib_single_cat_search",
+      "zib_get_search_keywords_text",
+      "zib_update_search_keywords",
+      "zib_save_history_search",
+      "zib_get_search_keywords",
+      "zib_search_keywords_edit_modal",
+      "zib_search_keywords_edit",
+      "zib_get_search_keywords_edit_btn",
+      "zib_get_search_history_keywords",
+      "zib_get_search_keywords_but",
+      "zib_get_search_types",
+      "zib_404_page_add_search",
+      "zib_get_main_search",
+      "zib_get_search_box",
+      "zib_get_search_posts",
+      "zib_get_search_cat",
+      "zib_main_search_query_search_types",
+      "zib_main_search_query",
+      "zib_posts_clauses_request",
+      "zib_search_custom_key",
+      "zib_posts_distinct_request_filter",
+      "zib_posts_join_request_filter",
+      "zib_get_search_custom_key",
+      "zib_get_search_ms_opt",
+      "zib_search_init_add_action"
+    ],
+    "feature_signals": {
+      "筛选": 1,
+      "评论": 2,
+      "动画": 1
+    }
+  },
+  {
+    "reference": "zibll-8.9",
+    "path": "inc/options/action.php",
+    "functions": [
+      "zib_weixin_gzh_create_menu",
+      "zib_admin_ajax_weixin_gzh_get_menu",
+      "zib_admin_ajax_weixin_freepublish_batchget",
+      "zib_audit_test",
+      "zib_test_send_mail",
+      "zib_test_send_sms",
+      "zib_ajax_reset_user_medal",
+      "zib_ajax_options_import",
+      "zib_ajax_options_backup",
+      "zib_ajax_options_backup_delete",
+      "zib_ajax_options_backup_restore",
+      "zib_ajax_test_wechat_template_test",
+      "zib_test_ip_addr_sdk",
+      "zib_test_express_query",
+      "zib_ajax_search_ms_rebuild",
+      "zib_ajax_search_ms_stats",
+      "zib_ajax_search_ms_sync_synonyms"
+    ],
+    "feature_signals": {
+      "支付": 1
+    }
+  },
+  {
+    "reference": "zibll-8.9",
+    "path": "inc/options/admin-options.php",
+    "functions": [
+      "zib_csf_admin_options"
+    ],
+    "feature_signals": {
+      "下载": 34,
+      "会员": 113,
+      "筛选": 58,
+      "模块": 20,
+      "背景": 34,
+      "评论": 54,
+      "支付": 135,
+      "动画": 14
+    }
+  },
+  {
+    "reference": "zibll-8.9",
+    "path": "inc/options/metabox-options.php",
+    "functions": [
+      "zib_cfs_link_category",
+      "zib_meta_box_page_templates_meta",
+      "zib_save_meta_box_page_templates_meta",
+      "zib_add_meta_box_page_templates_meta",
+      "zib_admin_custom_filter_csf",
+      "zib_get_quick_edit_custom_input",
+      "csf_fields",
+      "bulk_edit_custom_box",
+      "bulk_save_post",
+      "edit_select",
+      "filters_options",
+      "edit_box",
+      "save",
+      "zib_meta_box_post_main_meta",
+      "zib_save_meta_box_post_main_meta",
+      "zib_add_meta_box_post_main_meta",
+      "zib_meta_box_page_main_meta",
+      "zib_save_meta_box_page_main_meta",
+      "zib_add_meta_box_page_main_meta",
+      "zib_admin_baidu_resource_submission_csf",
+      "zib_get_baidu_resource_submission_metabox",
+      "zib_meta_box_seo_meta",
+      "zib_save_meta_box_seo_meta",
+      "zib_add_meta_box_seo_meta",
+      "zib_get_seo_preview_box",
+      "zib_admin_extend_metabox_page_config",
+      "zib_admin_widgets_register_menu_options",
+      "zib_admin_post_category_options_csf",
+      "zib_post_category_columns",
+      "zib_post_category_column_column"
+    ],
+    "feature_signals": {
+      "会员": 3,
+      "筛选": 13,
+      "模块": 11,
+      "背景": 26
+    }
+  },
+  {
+    "reference": "zibll-8.9",
+    "path": "inc/options/options-module.php",
+    "functions": [
+      "footer_tabbar",
+      "float_btn",
+      "add_slider",
+      "page_type",
+      "posts_orderby",
+      "zib_palette",
+      "gzh_menu",
+      "audit_test",
+      "email_test",
+      "wechat_template_msg_args",
+      "wechat_template_id",
+      "wechat_template_test",
+      "vip_product",
+      "rebate_type",
+      "slide",
+      "custom_filters_options",
+      "orderby",
+      "ajax_but",
+      "invit_code_reward",
+      "points_free",
+      "user_integral",
+      "checkin_reward",
+      "user_level_tab",
+      "user_can_type_options",
+      "user_can_user_fields",
+      "user_caps",
+      "user_can_fields",
+      "translate_language_options",
+      "vip_tab",
+      "aut",
+      "backup",
+      "update"
+    ],
+    "feature_signals": {
+      "下载": 3,
+      "会员": 19,
+      "筛选": 1,
+      "模块": 3,
+      "背景": 11,
+      "评论": 32,
+      "支付": 4,
+      "动画": 1
+    }
+  },
+  {
+    "reference": "zibll-8.9",
+    "path": "inc/options/options.php",
+    "functions": [
+      "zib_csf_custom_icons",
+      "zib_csf_custom_csf_override",
+      "zib_csf_add_custom_wp_enqueue",
+      "zib_get_admin_csf_url",
+      "zib_options_backup",
+      "zib_csf_reset_to_backup",
+      "zib_csf_reset_section_to_backup",
+      "zib_new_zibll_to_backup",
+      "zib_csf_save_section_to_backup",
+      "zib_save_zibll_wp_options",
+      "zib_notice_update",
+      "zib_notice_new_install",
+      "zib_notice_permalink_structure"
+    ],
+    "feature_signals": {}
+  },
+  {
+    "reference": "zibll-8.9",
+    "path": "inc/options/profile-options.php",
+    "functions": [
+      "zib_render_profile_form_fields",
+      "zib_admin_save_profile"
+    ],
+    "feature_signals": {}
+  },
+  {
+    "reference": "zibll-8.9",
+    "path": "inc/options/upgrade.php",
+    "functions": [
+      "zib_update_theme_tasks_8_5",
+      "zib_update_theme_tasks_8_3",
+      "zib_update_theme_tasks_8_2",
+      "zib_update_theme_tasks_7_9",
+      "zib_add_update_theme_tasks",
+      "zib_ajax_update_theme_task_action",
+      "zib_get_update_theme_tasks",
+      "zib_update_theme_task_action_page",
+      "ajax",
+      "notice"
+    ],
+    "feature_signals": {
+      "评论": 4
+    }
+  },
+  {
+    "reference": "zibll-8.9",
+    "path": "inc/options/zib-code.php",
+    "functions": [
+      "zib_send_online_update",
+      "zib_ajax_zibll_download_update",
+      "zib_ajax_zibll_update_file",
+      "update_file_clear",
+      "zib_get_admin_aut_notice"
+    ],
+    "feature_signals": {
+      "下载": 1
+    }
+  },
+  {
+    "reference": "zibll-8.9",
+    "path": "inc/options/zib-update.php",
+    "functions": [
+      "zib_send_online_update",
+      "zib_ajax_zibll_download_update",
+      "zib_ajax_zibll_update_file",
+      "update_file_clear",
+      "zib_get_admin_aut_notice",
+      "zib_zib_get_admin_aut_a_i"
+    ],
+    "feature_signals": {}
+  },
+  {
+    "reference": "zibll-8.9",
+    "path": "inc/widgets/widget-class.php",
+    "functions": [
+      "create",
+      "show_class",
+      "echo_before",
+      "echo_after",
+      "animation_class",
+      "wrap_attributes",
+      "show_title",
+      "args",
+      "zib_cfswidget_customize_controls_init",
+      "zib_cfswidget_dynamic_sidebar_params"
+    ],
+    "feature_signals": {}
+  },
+  {
+    "reference": "zibll-8.9",
+    "path": "inc/widgets/widget-import.php",
+    "functions": [
+      "zib_wie_parse_widget_id",
+      "zib_wie_next_widget_instance_number",
+      "zib_wie_get_registered_id_bases",
+      "zib_wie_build_export",
+      "zib_wie_run_import",
+      "zib_wie_is_compact_template_widgets",
+      "zib_wie_compact_template_to_import_data",
+      "zib_wie_find_import_template_def",
+      "zib_wie_get_template_import_data",
+      "zib_wie_widget_title_for_id_base",
+      "zib_wie_get_template_modules_preview",
+      "zib_wie_ajax_list_templates",
+      "zib_wie_ajax_import_template",
+      "zib_wie_ajax_export",
+      "zib_wie_ajax_import",
+      "zib_wie_get_most_posts_term_ids",
+      "zib_wie_get_import_templates"
+    ],
+    "feature_signals": {
+      "下载": 5,
+      "会员": 21,
+      "模块": 24,
+      "评论": 1,
+      "支付": 6
+    }
+  },
+  {
+    "reference": "zibll-8.9",
+    "path": "inc/widgets/widget-index.php",
+    "functions": [
+      "unregister_d_widget",
+      "zib_wie_localize_admin_script",
+      "zib_main_register_sidebar",
+      "zib_main_register_sidebar_2",
+      "zib_register_sidebar",
+      "zib_page_register_sidebar",
+      "zib_get_widgets_register_pages",
+      "zib_widgets_register_pages_update_cache",
+      "zib_ajax_widget_ui",
+      "zib_cat_help",
+      "zib_topics_help",
+      "zib_user_help",
+      "zib_widget_option",
+      "zib_widget_filter_title",
+      "zib_get_widget_show_type_input",
+      "zib_widget_is_show"
+    ],
+    "feature_signals": {
+      "筛选": 1,
+      "模块": 4
+    }
+  },
+  {
+    "reference": "zibll-8.9",
+    "path": "inc/widgets/widget-more.php",
+    "functions": [
+      "widget_register_more",
+      "__construct",
+      "widget",
+      "form",
+      "__construct",
+      "form",
+      "widget",
+      "__construct",
+      "widget",
+      "form",
+      "__construct",
+      "widget",
+      "form",
+      "zib_widget_ui_icon_card_is_show",
+      "zib_widget_ui_icon_card",
+      "zib_widget_ui_dplayer_is_show",
+      "zib_widget_ui_dplayer",
+      "zib_widget_ui_iframe_is_show",
+      "zib_widget_ui_iframe",
+      "zib_widget_ui_graphic_cover_is_show",
+      "zib_widget_ui_graphic_cover",
+      "zib_widget_ui_icon_cover_card_is_show",
+      "zib_widget_ui_icon_cover_card",
+      "zib_widget_ui_partners_scroll",
+      "zib_widget_partners_scroll_card",
+      "zib_widget_ui_combo_info_card_is_show",
+      "zib_widget_ui_combo_info_card",
+      "zib_widget_combo_info_card_item",
+      "zib_widget_ui_text_title_is_show",
+      "zib_widget_ui_text_title",
+      "zib_widget_ui_get_text_title_opts_fields",
+      "zib_widget_ui_buttons_is_show",
+      "zib_widget_ui_buttons",
+      "zib_widget_ui_layout_gap",
+      "zib_widget_ui_tag_get_taxonomies",
+      "zib_widget_ui_tag_cloud",
+      "zib_widget_ui_new_comment",
+      "zib_widget_ui_links_lists",
+      "zib_widget_register_cfs_more"
+    ],
+    "feature_signals": {
+      "模块": 33,
+      "背景": 16,
+      "评论": 2,
+      "动画": 33
+    }
+  },
+  {
+    "reference": "zibll-8.9",
+    "path": "inc/widgets/widget-posts.php",
+    "functions": [
+      "widget_register_posts",
+      "__construct",
+      "widget",
+      "form",
+      "__construct",
+      "widget",
+      "form",
+      "__construct",
+      "widget",
+      "form",
+      "__construct",
+      "widget",
+      "form",
+      "zib_widget_ui_term_card_is_show",
+      "zib_widget_ui_term_card",
+      "zib_widget_ui_term_lists_card_is_show",
+      "zib_widget_ui_term_lists_card",
+      "zib_widget_ui_hot_posts",
+      "zib_widget_ui_posts_pay_is_show",
+      "zib_widget_ui_posts_pay",
+      "zib_widget_ui_main_post",
+      "zib_widget_ui_main_post_ajax",
+      "zib_widget_ui_tab_post_is_show",
+      "zib_widget_ui_tab_post",
+      "zib_widget_ui_tab_post_ajax",
+      "zib_widget_ui_oneline_posts",
+      "zib_widget_register_cfs_posts"
+    ],
+    "feature_signals": {
+      "下载": 3,
+      "筛选": 10,
+      "模块": 28,
+      "评论": 5,
+      "动画": 11
+    }
+  },
+  {
+    "reference": "zibll-8.9",
+    "path": "inc/widgets/widget-produck.php",
+    "functions": [
+      "zib_get_widget_pay_btn_fields",
+      "zib_get_widget_pay_btn_link",
+      "zib_widget_pricing_plans_parse_lines",
+      "zib_widget_pricing_plans_get_price_html",
+      "zib_widget_pricing_plans",
+      "zib_widget_sales_hl_card_full_fields",
+      "zib_widget_sales_hl_card_small_fields",
+      "zib_widget_reviews",
+      "zib_widget_faq",
+      "zib_widget_stats",
+      "zib_widget_highlights_render_card",
+      "zib_widget_highlights",
+      "zib_widget_feature_intro_render_panel",
+      "zib_widget_feature_intro",
+      "zib_widget_ui_tilt_cases",
+      "zib_widget_register_cfs_produck"
+    ],
+    "feature_signals": {
+      "下载": 4,
+      "会员": 15,
+      "模块": 21,
+      "背景": 2,
+      "支付": 7,
+      "动画": 26
+    }
+  },
+  {
+    "reference": "zibll-8.9",
+    "path": "inc/widgets/widget-slider.php",
+    "functions": [
+      "widget_register_slider",
+      "__construct",
+      "form",
+      "widget",
+      "zib_widget_ui_slider",
+      "zib_widget_register_cfs_slider"
+    ],
+    "feature_signals": {
+      "模块": 6,
+      "背景": 1,
+      "动画": 1
+    }
+  },
+  {
+    "reference": "zibll-8.9",
+    "path": "inc/widgets/widget-user.php",
+    "functions": [
+      "zib_widget_ui_user_is_show",
+      "zib_widget_ui_user",
+      "zib_widget_ui_avatar_is_show",
+      "zib_widget_ui_avatar",
+      "zib_widget_ui_user_ranking",
+      "zib_user_ranking_lists",
+      "zib_widget_ui_user_lists",
+      "zib_widget_register_cfs_user"
+    ],
+    "feature_signals": {
+      "背景": 1,
+      "评论": 1
+    }
+  },
+  {
+    "reference": "zibll-8.9",
+    "path": "update_log.md",
+    "functions": [],
+    "feature_signals": {
+      "下载": 32,
+      "会员": 45,
+      "筛选": 22,
+      "模块": 137,
+      "背景": 13,
+      "评论": 58,
+      "支付": 89,
+      "动画": 13,
+      "网盘": 5
+    }
+  },
+  {
+    "reference": "zibll-8.9",
+    "path": "zibpay/functions/admin/admin-ajax.php",
+    "functions": [
+      "zibpay_ajax_admin_statistics_data",
+      "zibpay_ajax_admin_order_chart_data",
+      "zibpay_ajax_admin_type_pie_data",
+      "zibpay_ajax_admin_hot_product_data",
+      "zibpay_ajax_admin_asset_ranking_data",
+      "zibpay_get_user_ranking_data",
+      "zibpay_get_order_ranking_data",
+      "zibpay_get_order_chart_data",
+      "zibpay_get_wheretime_between",
+      "zibpay_get_time_charts_filling",
+      "zibpay_ajax_admin_after_sale_table_list",
+      "zibpay_ajax_admin_shipping_table_list",
+      "zibpay_ajax_admin_order_table_list",
+      "zibpay_ajax_admin_clear_order",
+      "zibpay_ajax_admin_after_sale_record_html",
+      "zibpay_ajax_order_query",
+      "zibpay_ajax_get_order_lits_data",
+      "zibpay_ajax_admin_payment_submit"
+    ],
+    "feature_signals": {
+      "下载": 1,
+      "会员": 1,
+      "筛选": 1,
+      "支付": 2
+    }
+  },
+  {
+    "reference": "zibll-8.9",
+    "path": "zibpay/functions/admin/admin-options.php",
+    "functions": [
+      "zibpay_add_settings_menu",
+      "zibpay_register_legacy_admin_pages",
+      "zibpay_get_member_menu_slug",
+      "zibpay_member_menu_parent_file",
+      "zibpay_member_menu_submenu_file",
+      "zibpay_sync_settings_submenu",
+      "zibpay_ensure_admin_title",
+      "zibpay_page",
+      "zibpay_order_page_callback",
+      "zibpay_shipping_page",
+      "zibpay_after_sale_page",
+      "_zibpay_load_old_page",
+      "zibpay_card_page_callback",
+      "zibpay_coupon_page_callback",
+      "zibpay_withdraw_page_callback",
+      "zibpay_product_page_callback",
+      "zibpay_balance_page_callback",
+      "zibpay_rebate_page_callback",
+      "zibpay_income_page_callback",
+      "zibpay_old_order_page_callback",
+      "zibpay_admin_page_start",
+      "zibpay_output_vue_data"
+    ],
+    "feature_signals": {
+      "会员": 6
+    }
+  },
+  {
+    "reference": "zibll-8.9",
+    "path": "zibpay/functions/admin/admin.php",
+    "functions": [
+      "zibpay_admin_page_vue_data_filter",
+      "zib_withdraw_admin_notice",
+      "zib_admin_user_views",
+      "zib_admin_post_posts_columns",
+      "zib_admin_post_posts_custom_column",
+      "zib_admin_restrict_manage_posts",
+      "zib_admin_main_post_query",
+      "zib_admin_users_list_table_query_args",
+      "zib_manage_users_extra_tablenav",
+      "zib_users_columns",
+      "zib_output_users_columns",
+      "zib_csf_user_vip_fields",
+      "zib_csf_user_points_balance_fields",
+      "zib_admin_user_balance_points_csf",
+      "zib_admin_user_vip_csf",
+      "zib_render_profile_rebate_income_form_fields",
+      "zib_admin_save_profile_rebate_income",
+      "zibpay_post_meta_to_csf",
+      "zib_admin_post_posts_zibpay_metabox",
+      "zibpay_post_mate_csf_meta",
+      "zibpay_get_pay_type_options",
+      "zibpay_post_mate_csf_fields",
+      "zibpay_get_paydown_log_admin_link",
+      "zibpay_get_user_assets_details_admin_link",
+      "zibpay_bulk_edit_custom_box",
+      "zibpay_bulk_edit_save_post",
+      "zibpay_add_dashboard_widgets",
+      "zibpay_dashboard_widget_function",
+      "zibpay_get_admin_dashboard_data"
+    ],
+    "feature_signals": {
+      "下载": 14,
+      "会员": 21,
+      "筛选": 2,
+      "模块": 1,
+      "评论": 3,
+      "支付": 5
+    }
+  },
+  {
+    "reference": "zibll-8.9",
+    "path": "zibpay/functions/ajax.php",
+    "functions": [
+      "zibpay_ajax_pay_cashier_modal",
+      "zibpay_ajax_user_order",
+      "zibpay_ajax_order_details_modal",
+      "zibpay_ajax_rebate_user_withdraw_detail",
+      "zibpay_ajax_withdraw_record_modal",
+      "zibpay_ajax_modal_apply_withdraw",
+      "zibpay_ajax_apply_withdraw",
+      "zibpay_ajax_card_pass_export",
+      "zib_card_pass_export_coupon_map",
+      "zib_card_pass_points_exchange_charge_map",
+      "zib_card_pass_export_balance_charge_map",
+      "zib_card_pass_vip_exchange_charge_map",
+      "zib_card_pass_export_invit_code_map",
+      "zib_card_pass_export_custom_map",
+      "zibpay_ajax_admin_assets_details",
+      "zibpay_ajax_admin_paydown_log",
+      "zibpay_pay_vip_modal",
+      "zibpay_vip_points_exchange_modal",
+      "zibpay_ajax_coupon_submit",
+      "zibpay_ajax_close_order_modal",
+      "zibpay_ajax_close_order",
+      "zibpay_ajax_order_pay_modal",
+      "zibpay_get_order_pay_modal_content"
+    ],
+    "feature_signals": {
+      "下载": 5,
+      "会员": 6,
+      "支付": 13
+    }
+  },
+  {
+    "reference": "zibll-8.9",
+    "path": "zibpay/functions/balance-ajax.php",
+    "functions": [
+      "zibpay_ajax_balance_charge_modal",
+      "zibpay_ajax_points_pay_modal",
+      "zibpay_ajax_pay_transfer_modal",
+      "zibpay_ajax_transfer_user_search",
+      "zibpay_ajax_pay_transfer",
+      "zibpay_ajax_admin_update_user_balance_or_points"
+    ],
+    "feature_signals": {}
+  },
+  {
+    "reference": "zibll-8.9",
+    "path": "zibpay/functions/error.json",
+    "functions": [],
+    "feature_signals": {}
+  },
+  {
+    "reference": "zibll-8.9",
+    "path": "zibpay/functions/income-ajax.php",
+    "functions": [
+      "zibpay_ajax_income_order_lists",
+      "zibpay_ajax_income_post_lists"
+    ],
+    "feature_signals": {}
+  },
+  {
+    "reference": "zibll-8.9",
+    "path": "zibpay/functions/rebate-ajax.php",
+    "functions": [
+      "zibpay_ajax_rebate_user_detail",
+      "zibpay_ajax_rebate_user_user_lists"
+    ],
+    "feature_signals": {}
+  },
+  {
+    "reference": "zibll-8.9",
+    "path": "zibpay/functions/widget.php",
+    "functions": [
+      "zibpay_get_widget_box",
+      "zibpay_posts_paid_widget_box",
+      "zibpay_posts_pay_widget_box"
+    ],
+    "feature_signals": {
+      "下载": 1,
+      "会员": 1,
+      "支付": 2
+    }
+  },
+  {
+    "reference": "zibll-8.9",
+    "path": "zibpay/functions/zibpay-ajax.php",
+    "functions": [
+      "zibpay_initiate_pay_session_data",
+      "zibpay_ajax_initiate_pay",
+      "zibpay_check_pay",
+      "zibpay_initiate_pay",
+      "zibpay_initiate_paypal",
+      "zibpay_initiate_vmqphp",
+      "zibpay_initiate_epay",
+      "zibpay_initiate_official_alipay",
+      "zibpay_initiate_official_wechat",
+      "zib_ajax_get_gzh_open_id",
+      "zibpay_initiate_xunhupay",
+      "zibpay_initiate_payjs",
+      "zibpay_initiate_xhpay",
+      "zibpay_initiate_codepay",
+      "zibpay_initiate_balance",
+      "zibpay_initiate_card_pass",
+      "zibpay_points_initiate_order",
+      "zibpay_points_initiate_pay"
+    ],
+    "feature_signals": {
+      "会员": 6,
+      "支付": 143
+    }
+  },
+  {
+    "reference": "zibll-8.9",
+    "path": "zibpay/functions/zibpay-balance.php",
+    "functions": [
+      "zibpay_get_user_balance",
+      "zibpay_get_user_withdraw_ing_balance",
+      "zibpay_get_user_add_ing_balance",
+      "zibpay_get_balance_charge_link",
+      "zibpay_get_pay_balance_product_custom_limit",
+      "zibpay_update_user_balance",
+      "zibpay_user_balance_or_points_save_db",
+      "zibpay_get_balance_charge_modal",
+      "zibpay_payment_methods_add_password",
+      "zibpay_payment_order_balance",
+      "zibpay_generate_pass_card",
+      "zibpay_get_recharge_card_price",
+      "zibpay_get_recharge_card",
+      "zibpay_use_card_pass",
+      "zibpay_get_user_balance_record_lists",
+      "zib_get_user_wallet_mini_box",
+      "zibpay_user_content_balance",
+      "zibpay_user_page_tab_content_balance",
+      "zibpay_get_transfer_link",
+      "zibpay_get_pay_transfer_modal",
+      "zibpay_get_transfer_recipient_user_card"
+    ],
+    "feature_signals": {
+      "会员": 1,
+      "支付": 7
+    }
+  },
+  {
+    "reference": "zibll-8.9",
+    "path": "zibpay/functions/zibpay-coupon.php",
+    "functions": [
+      "zibpay_is_allow_coupon",
+      "zibpay_get_coupon_desc",
+      "zibpay_generate_coupon",
+      "zibpay_get_coupon_discount_text",
+      "zibpay_filter_coupon_data",
+      "zibpay_get_coupon",
+      "zibpay_get_coupon_data",
+      "zibpay_is_coupon_available",
+      "zibpay_get_coupon_order_price",
+      "zibpay_payment_order_use_coupon"
+    ],
+    "feature_signals": {
+      "支付": 1
+    }
+  },
+  {
+    "reference": "zibll-8.9",
+    "path": "zibpay/functions/zibpay-download.php",
+    "functions": [
+      "zibpay_get_user_free_downloaded_number",
+      "zibpay_get_user_free_down_limit",
+      "zibpay_get_user_down_speed",
+      "zibpay_download_remote_to_local",
+      "zibpay_is_user_free_down_limit",
+      "zibpay_updata_pay_down_mate",
+      "zibpay_updata_user_down_log",
+      "zibpay_updata_post_down_log",
+      "zibpay_get_post_down_buts",
+      "zibpay_get_post_down_array",
+      "zibpay_edit_posts_file_upload"
+    ],
+    "feature_signals": {
+      "下载": 27,
+      "网盘": 4
+    }
+  },
+  {
+    "reference": "zibll-8.9",
+    "path": "zibpay/functions/zibpay-func.php",
+    "functions": [
+      "zibpay_get_admin_shop_url",
+      "zibpay_get_admin_shop_order_url",
+      "zibpay_get_order_effective_amount",
+      "zibpay_get_order_effective_points",
+      "zibpay_get_order_pay_price",
+      "zibpay_get_order_pay_detail_lists",
+      "zibpay_get_order_pay_detail_text_args",
+      "zibpay_get_payment_methods",
+      "zibpay_get_payment_method_args",
+      "zibpay_get_refund_channel_name",
+      "zibpay_get_pay_type_name",
+      "zibpay_get_order_status_name",
+      "zibpay_get_post_thumbnail_url",
+      "zibpay_get_order_order_thumb",
+      "zibpay_get_order_title",
+      "zibpay_get_pay_order_name",
+      "zibpay_get_pay_type_icon",
+      "zibpay_get_post_rebate_discount",
+      "zibpay_get_initiate_pay_input",
+      "zibpay_is_allow_points_deduction",
+      "zibpay_is_allow_balance_pay",
+      "zibpay_is_allow_card_pass_pay",
+      "zibpay_card_pass_is_only_password",
+      "zibpay_get_pay_mark",
+      "zibpay_get_payconfig",
+      "zibpay_get_order_num_link",
+      "zibpay_get_paid_type_name",
+      "zibpay_is_paid",
+      "zibpay_posts_order_created_set_cookie",
+      "zibpay_posts_order_check_cookie_token",
+      "zibpay_posts_get_order_cookie_token_key",
+      "zibpay_get_post_order_expired_option",
+      "zibpay_get_post_paid_data_by_user",
+      "zibpay_get_post_paid_data_by_order_num",
+      "zibpay_post_is_points_modo",
+      "zibpay_get_order_statistics_totime",
+      "zibpay_get_order_status",
+      "zibpay_get_order_pay_over_time",
+      "zibpay_get_order_pay_max_time",
+      "zibpay_get_payment_pay_over_time",
+      "zib_brush_limit_create_order"
+    ],
+    "feature_signals": {
+      "会员": 2,
+      "评论": 1,
+      "支付": 25
+    }
+  },
+  {
+    "reference": "zibll-8.9",
+    "path": "zibpay/functions/zibpay-income.php",
+    "functions": [
+      "zibpay_get_user_income_order_lists",
+      "zibpay_get_user_income_post_count",
+      "zibpay_get_user_income_post_lists",
+      "zibpay_get_post_income_data",
+      "zibpay_get_user_today_income_data",
+      "zibpay_get_user_income_data",
+      "zibpay_get_user_income_ratio",
+      "zibpay_get_user_income_points_ratio",
+      "zibpay_get_user_center_income_url",
+      "zibpay_get_user_income_posts_query",
+      "zibpay_update_order_income_price",
+      "zibpay_get_order_income_points",
+      "zibpay_user_page_tab_content_income",
+      "zibpay_user_content_income",
+      "zibpay_get_income_statistics_totime"
+    ],
+    "feature_signals": {
+      "会员": 2,
+      "支付": 1,
+      "动画": 1
+    }
+  },
+  {
+    "reference": "zibll-8.9",
+    "path": "zibpay/functions/zibpay-msg.php",
+    "functions": [
+      "zibpay_mail_payment_order",
+      "zibpay_mail_payment_order_to_admin",
+      "zibpay_mail_payment_order_to_income",
+      "zibpay_mail_payment_order_to_referrer",
+      "zibpay_msg_apply_withdraw_to_admin",
+      "zibpay_mail_withdraw_process",
+      "zibpay_wechat_template_msg_withdraw_process",
+      "zibpay_pay_transfer_to_recipient"
+    ],
+    "feature_signals": {
+      "支付": 8
+    }
+  },
+  {
+    "reference": "zibll-8.9",
+    "path": "zibpay/functions/zibpay-order.php",
+    "functions": [
+      "zibpay_ajax_submit_order",
+      "zibpay_order_created_set_cookie"
+    ],
+    "feature_signals": {
+      "下载": 1,
+      "会员": 10,
+      "支付": 11
+    }
+  },
+  {
+    "reference": "zibll-8.9",
+    "path": "zibpay/functions/zibpay-points.php",
+    "functions": [
+      "zibpay_get_user_points",
+      "zibpay_get_points_pay_link",
+      "zibpay_get_points_mark",
+      "zibpay_update_user_points",
+      "zibpay_get_order_pay_points",
+      "zibpay_payment_order_points",
+      "zibpay_get_pay_points_product_custom_limit",
+      "zibpay_get_points_pay_modal",
+      "zibpay_get_user_points_record_lists",
+      "zib_get_points_free_lists",
+      "zib_get_user_free_points_date_detail_lists",
+      "zibpay_get_user_today_free_points",
+      "zibpay_user_is_allow_add_free_points",
+      "zibpay_add_user_free_points",
+      "zib_get_user_points_add_options",
+      "zibpay_get_pass_exchange_points",
+      "zibpay_add_user_free_points_date_detail",
+      "__construct",
+      "user_checkined",
+      "sign_up",
+      "sign_in",
+      "post_new",
+      "post_like",
+      "post_favorite",
+      "comment_new",
+      "comment_like",
+      "followed",
+      "bbs_score_extra",
+      "bbs_essence",
+      "bbs_plate_hot",
+      "bbs_posts_hot",
+      "bbs_comment_hot",
+      "bbs_adopt"
+    ],
+    "feature_signals": {
+      "评论": 4,
+      "支付": 5
+    }
+  },
+  {
+    "reference": "zibll-8.9",
+    "path": "zibpay/functions/zibpay-post.php",
+    "functions": [
+      "zibpay_get_post_cashier_link",
+      "zibpay_pay_points_cashier_modal",
+      "zibpay_pay_cashier_modal",
+      "zibpay_posts_pay_content",
+      "zibpay_get_service",
+      "zibpay_get_demo_link",
+      "zibpay_get_sales_volume",
+      "zibpay_get_rebate_discount_tag",
+      "zibpay_posts_free_logged_show_box",
+      "zibpay_posts_paid_box",
+      "zibpay_posts_pay_box",
+      "zibpay_get_posts_pay_gallery_box_image_slide",
+      "zibpay_get_posts_pay_gallery_box",
+      "zibpay_get_product_attributes",
+      "zibpay_get_post_pay_title",
+      "zibpay_get_show_price",
+      "zibpay_get_post_mini_badge",
+      "zibpay_get_pay_form_but",
+      "zibpay_get_posts_vip_price",
+      "zibpay_update_posts_meta",
+      "zibpay_update_posts_sales_volume",
+      "zibpay_post_pay_meta_update"
+    ],
+    "feature_signals": {
+      "下载": 4,
+      "会员": 14,
+      "模块": 7,
+      "支付": 11
+    }
+  },
+  {
+    "reference": "zibll-8.9",
+    "path": "zibpay/functions/zibpay-rebate.php",
+    "functions": [
+      "zibpay_save_referrer",
+      "zibpay_register_save_referrer",
+      "zibpay_payment_order_updata_rebate",
+      "zibpay_get_rebate_link",
+      "zibpay_get_referrer_id",
+      "zibpay_get_user_center_rebate_url",
+      "zibpay_get_rebate_types",
+      "zibpay_get_the_referrer_rebate_ratio",
+      "zibpay_get_referrer_rebate_ratio",
+      "zibpay_update_order_rebate_price",
+      "zibpay_get_user_rebate_rule",
+      "zibpay_user_rebate_type_format",
+      "zibpay_get_user_rebate_data",
+      "zibpay_get_rebate_statistics_totime",
+      "zibpay_get_user_rebate_type",
+      "zibpay_user_page_tab_content_rebate",
+      "zibpay_user_content_rebate"
+    ],
+    "feature_signals": {
+      "会员": 4,
+      "支付": 1,
+      "动画": 1
+    }
+  },
+  {
+    "reference": "zibll-8.9",
+    "path": "zibpay/functions/zibpay-user.php",
+    "functions": [
+      "zib_user_center_page_sidebar_vip",
+      "zib_user_center_page_sidebar_balance",
+      "zib_user_center_page_sidebar_income_rebate",
+      "zibpay_user_page_tabs_array",
+      "zibpay_user_center_page_sidebar_button_1_args_order",
+      "zibpay_user_page_tab_content_vip",
+      "zibpay_user_page_tab_content_vip_card",
+      "zibpay_get_user_pay_price",
+      "zibpay_get_user_order_count",
+      "zibpay_get_user_pay_statistical",
+      "zibpay_get_user_order",
+      "zibpay_get_user_order_list_card",
+      "zibpay_get_order_details_modal",
+      "zibpay_get_user_order_list_card_default",
+      "zib_get_order_details_page_url",
+      "zibpay_get_order_close_link",
+      "zibpay_get_order_pay_link",
+      "zibpay_get_current_user_post_wait_payment",
+      "zibpay_user_wait_pay_order_count_cache_delete",
+      "zibpay_get_user_wait_pay_order_count",
+      "zibpay_get_user_wait_pay_orders",
+      "zibpay_get_cookie_wait_pay_orders",
+      "zibpay_get_cookie_wait_pay_ids",
+      "zibpay_user_wait_pay_float_window",
+      "zibpay_get_user_wait_pay_float_window",
+      "zibpay_user_page_tab_content_order"
+    ],
+    "feature_signals": {
+      "下载": 2,
+      "会员": 23,
+      "支付": 29,
+      "动画": 1
+    }
+  },
+  {
+    "reference": "zibll-8.9",
+    "path": "zibpay/functions/zibpay-vip.php",
+    "functions": [
+      "zibpay_is_pay_vip_type",
+      "zibpay_user_vip_box",
+      "zibpay_get_vip_renew_product",
+      "zibpay_get_vip_upgrade_product",
+      "zibpay_get_pay_userviped_content",
+      "zibpay_get_pay_uservip_modal",
+      "zibpay_uservip_paysuccess",
+      "zibpay_update_user_vip",
+      "zibpay_get_viped_card",
+      "zibpay_get_vip_card",
+      "zibpay_get_vip_card_mini",
+      "zibpay_get_pay_vip_info_box",
+      "zibpay_get_vip_card_vertical",
+      "zibpay_get_payvip_button",
+      "zibpay_get_vip_card_icon",
+      "zibpay_get_vip_icon",
+      "zibpay_get_vip_icon_img_url",
+      "zibpay_get_payvip_icon",
+      "zibpay_get_vip_theme",
+      "zib_get_user_vip_level",
+      "zib_get_user_vip_exp_date_text",
+      "zib_get_vip_user_count",
+      "zibpay_get_vip_exchange_card",
+      "zibpay_get_vip_exchange_card_data",
+      "zibpay_get_payed_vip_exchange_card_product",
+      "zibpay_get_vip_points_exchange_link",
+      "zibpay_get_vip_points_exchange_modal"
+    ],
+    "feature_signals": {
+      "会员": 45,
+      "支付": 2
+    }
+  },
+  {
+    "reference": "zibll-8.9",
+    "path": "zibpay/functions/zibpay-withdraw.php",
+    "functions": [
+      "zibpay_get_withdraw_link",
+      "zibpay_get_withdraw_record_link",
+      "zibpay_get_withdraw_record_lists",
+      "zibpay_get_withdraw_record_modal",
+      "zibpay_get_apply_withdraw_modal",
+      "zibpay_get_user_withdraw_ing",
+      "zibpay_withdraw_order_set_ing",
+      "zibpay_withdraw_process",
+      "zibpay_withdraw_balance_set_ing",
+      "zibpay_get_withdraw_pending_count"
+    ],
+    "feature_signals": {
+      "支付": 2
+    }
+  },
+  {
+    "reference": "zibll-8.9",
+    "path": "zibpay/functions.php",
+    "functions": [
+      "zibpay_creat_table_order",
+      "zibpay_to_show",
+      "zib_pay_get_download_url",
+      "zib_pay_download_rewrite_rules",
+      "zib_pay_download_query_vars",
+      "zib_pay_download_load_template",
+      "zib_pay_auto_clear_order",
+      "zib_pay_schedule_event_auto_clear_order"
+    ],
+    "feature_signals": {
+      "下载": 2,
+      "支付": 1
+    }
+  },
+  {
+    "reference": "shane-child",
+    "path": "functions.php",
+    "functions": [
+      "shane_css",
+      "shane_js"
+    ],
+    "feature_signals": {
+      "模块": 1
+    }
+  },
+  {
+    "reference": "shane-child",
+    "path": "inc/gadgets/home/home-slideer.php",
+    "functions": [
+      "ri_home_shane_slider_widget"
+    ],
+    "feature_signals": {
+      "模块": 1
+    }
+  },
+  {
+    "reference": "shane-child",
+    "path": "inc/inc.php",
+    "functions": [],
+    "feature_signals": {}
+  },
+  {
+    "reference": "shane-child",
+    "path": "inc/jump.php",
+    "functions": [],
+    "feature_signals": {}
+  },
+  {
+    "reference": "shane-child",
+    "path": "inc/method/admin-options.php",
+    "functions": [],
+    "feature_signals": {
+      "会员": 1,
+      "模块": 5,
+      "背景": 11,
+      "评论": 3,
+      "支付": 1
+    }
+  },
+  {
+    "reference": "shane-child",
+    "path": "inc/method/functions.php",
+    "functions": [
+      "super_logo",
+      "specs_wp_revisions_to_keep",
+      "zm_copyright_tips",
+      "leave_site_title",
+      "delete_post_and_attachments",
+      "read_views",
+      "go_link",
+      "str_replace_once",
+      "zm_mouse_cursor",
+      "loop",
+      "doCheck",
+      "get_order_type_text",
+      "getbarrage",
+      "get_barrage_addInfo",
+      "showQR"
+    ],
+    "feature_signals": {
+      "会员": 3,
+      "背景": 2
+    }
+  },
+  {
+    "reference": "shane-child",
+    "path": "inc/method/theme.php",
+    "functions": [
+      "shane_option_init",
+      "_shane",
+      "_caos"
+    ],
+    "feature_signals": {}
+  },
+  {
+    "reference": "shane-child",
+    "path": "inc/plugins/lightgallery/lightgallery-all.min.js",
+    "functions": [
+      "b",
+      "b",
+      "b",
+      "b",
+      "c",
+      "d",
+      "run_lightgallery",
+      "CustomEvent",
+      "ajaxEventTrigger",
+      "newXHR"
+    ],
+    "feature_signals": {}
+  },
+  {
+    "reference": "shane-child",
+    "path": "inc/plugins/lightgallery/lightgallery.min.css",
+    "functions": [],
+    "feature_signals": {}
+  },
+  {
+    "reference": "shane-child",
+    "path": "inc/template-walker.php",
+    "functions": [
+      "__construct",
+      "start_lvl",
+      "end_lvl",
+      "start_el",
+      "end_el",
+      "fallback",
+      "html5_comment"
+    ],
+    "feature_signals": {
+      "评论": 2
+    }
+  },
+  {
+    "reference": "shane-child",
+    "path": "style.css",
+    "functions": [],
+    "feature_signals": {
+      "下载": 1,
+      "会员": 1,
+      "支付": 3
+    }
+  },
+  {
+    "reference": "shane-child",
+    "path": "template-parts/diy/goto.php",
+    "functions": [],
+    "feature_signals": {}
+  },
+  {
+    "reference": "shane-child",
+    "path": "template-parts/footer/footer-new.php",
+    "functions": [],
+    "feature_signals": {}
+  },
+  {
+    "reference": "shane-child",
+    "path": "template-parts/footer/links.php",
+    "functions": [],
+    "feature_signals": {}
+  },
+  {
+    "reference": "shane-child",
+    "path": "template-parts/footer/m-navbar.php",
+    "functions": [],
+    "feature_signals": {}
+  },
+  {
+    "reference": "shane-child",
+    "path": "template-parts/footer/rollbar.php",
+    "functions": [],
+    "feature_signals": {}
+  },
+  {
+    "reference": "shane-child",
+    "path": "template-parts/footer/widget.php",
+    "functions": [],
+    "feature_signals": {
+      "下载": 1
+    }
+  },
+  {
+    "reference": "shane-child",
+    "path": "template-parts/header/action-hover.php",
+    "functions": [],
+    "feature_signals": {}
+  },
+  {
+    "reference": "shane-child",
+    "path": "template-parts/header/menu.php",
+    "functions": [],
+    "feature_signals": {}
+  },
+  {
+    "reference": "shane-child",
+    "path": "template-parts/loop/entry-media-part.php",
+    "functions": [],
+    "feature_signals": {}
+  },
+  {
+    "reference": "shane-child",
+    "path": "template-parts/loop/entry-meta-part.php",
+    "functions": [],
+    "feature_signals": {}
+  },
+  {
+    "reference": "shane-child",
+    "path": "template-parts/loop/item-none.php",
+    "functions": [],
+    "feature_signals": {}
+  },
+  {
+    "reference": "shane-child",
+    "path": "template-parts/loop/item.php",
+    "functions": [],
+    "feature_signals": {}
+  },
+  {
+    "reference": "shane-child",
+    "path": "template-parts/page/links.php",
+    "functions": [],
+    "feature_signals": {}
+  },
+  {
+    "reference": "shane-child",
+    "path": "template-parts/single/entry-copyright.php",
+    "functions": [],
+    "feature_signals": {}
+  },
+  {
+    "reference": "shane-child",
+    "path": "template-parts/single/entry-meta.php",
+    "functions": [],
+    "feature_signals": {}
+  },
+  {
+    "reference": "shane-child",
+    "path": "template-parts/single/entry-social.php",
+    "functions": [],
+    "feature_signals": {}
+  },
+  {
+    "reference": "shane-child",
+    "path": "template-parts/single/post-content-new.php",
+    "functions": [],
+    "feature_signals": {}
+  },
+  {
+    "reference": "shane-child",
+    "path": "template-parts/single.php",
+    "functions": [
+      "handler"
+    ],
+    "feature_signals": {
+      "模块": 1,
+      "评论": 2
+    }
+  }
+]

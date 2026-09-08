@@ -39,13 +39,14 @@ manual_parts.extend([
     ('docs/HISTORICAL_FEATURES.md','历史功能族对照'),
 ])
 manual_parts.extend([('docs/PLATFORM_018.md',"0.18 \u641c\u7d22\u4e0e\u591a\u5305\u88f9"),('docs/BACKUP_RECOVERY.md',"\u52a0\u5bc6\u5907\u4efd\u4e0e\u5b89\u5168\u6062\u590d")])
+manual_parts.extend([('docs/PLATFORM_019.md','0.19 资源与二次元工作台'),('docs/ARTWORK.md','原创图像出处')])
 renderer = MarkdownIt("commonmark", {"html": False}).enable("table")
 nav = []
 articles = []
 for n, (rel, title) in enumerate(manual_parts, 1):
     section_id = f"chapter-{n}"
     nav.append(f'<a href="#{section_id}"><span>{n:02d}</span>{escape(title)}</a>')
-    rendered = renderer.render((root / rel).read_text())
+    rendered = renderer.render((root / rel).read_text(encoding='utf-8'))
     parsed = BeautifulSoup(rendered, "html.parser")
     for link in parsed.select("a[href]"):
         href = link["href"]
@@ -61,7 +62,7 @@ for n, (rel, title) in enumerate(manual_parts, 1):
         f' <a href="{escape(rel)}">分篇源文件</a></p>{parsed}</article>'
     )
 
-previews = [
+previews = [('019-home-desktop.png','0.19 二次元首页'),('019-home-mobile.png','0.19 手机首页'),('019-motion.png','0.19 动效实验室')] + [
     ("home-desktop.png", "首页 · 桌面"),
     ("home-mobile.png", "首页 · 手机"),
     ("home-dusk-dark.png", "暮色 · 深色"),
@@ -167,17 +168,17 @@ footer{max-width:1240px;margin:25px auto 50px;padding:0 24px;font-size:13px;colo
 """
     manual = f"""<!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>澄屿 0.18.0 · 部署与使用手册</title><style>{css}</style></head>
+<title>澄屿 0.19.0 · 部署与使用手册</title><style>{css}</style></head>
 <body><header class="hero"><div class="brand">CHENGYU / INDEPENDENT PHP SITE</div>
 <h1>澄屿 · 部署与使用手册</h1><p>源码、安装、升级、前后台操作与测试证据，一份可离线阅读的交付说明。</p>
-<div class="badges"><span>版本 0.18.0</span><span>更新于 2026-09-07</span><span>非 WordPress</span><span>{len(manual_parts)} 篇说明 · {len(previews)} 张实页预览</span></div></header>
+<div class="badges"><span>版本 0.19.0</span><span>更新于 2026-09-08</span><span>非 WordPress</span><span>{len(manual_parts)} 篇说明 · {len(previews)} 张实页预览</span></div></header>
 <div class="shell"><aside class="toc"><details open><summary>阅读导航</summary><nav>{''.join(nav)}<a href="#previews"><span>＋</span>页面预览</a></nav></details></aside>
 <main><section class="overview"><p class="eyebrow">BEFORE YOU DEPLOY</p><h2>新站与旧站，走不同的安装路径。</h2>
-<p>新站只上传 <code>site/</code>；已有 0.9.0–0.17.0 先备份，保留配置密钥、数据库与存储，再升级。根目录部署的后台入口为 <code>/admin</code>。</p>
+<p>新站只上传 <code>site/</code>；已有 0.9.0–0.18.0 先备份，保留配置密钥、数据库与存储，再升级。根目录部署的后台入口为 <code>/admin</code>。</p>
 <p class="note"><strong>不要上传完整交付目录或 INSTALL_KEY.txt。</strong> 本包含真实业务代码，但不等于全部历史子比模块已完成，也没有把未测试的 PHP 版本、原生数据库或真实商户标成通过。</p>
-<div class="quicklinks"><a href="#chapter-29">0.18 新功能</a><a href="#chapter-27">上线验收</a><a href="#chapter-28">历史对照</a><a href="#chapter-22">交易</a><a href="#chapter-23">媒体</a><a href="#chapter-2">新站安装</a><a href="#chapter-3">旧站升级</a><a href="#chapter-5">动效与曲线</a><a href="#chapter-21">连接与运营</a><a href="#chapter-20">安全与定价</a><a href="#chapter-11">缺漏清单</a><a href="#chapter-12">测试证据</a></div></section>
+<div class="quicklinks"><a href="#chapter-31">0.19 新功能</a><a href="#chapter-27">上线验收</a><a href="#chapter-28">历史对照</a><a href="#chapter-22">交易</a><a href="#chapter-23">媒体</a><a href="#chapter-2">新站安装</a><a href="#chapter-3">旧站升级</a><a href="#chapter-5">动效与曲线</a><a href="#chapter-21">连接与运营</a><a href="#chapter-20">安全与定价</a><a href="#chapter-11">缺漏清单</a><a href="#chapter-12">测试证据</a></div></section>
 {''.join(articles)}
-<article id="previews" class="chapter"><p class="eyebrow">ACTUAL APPLICATION PREVIEWS</p><h2>真实页面预览</h2><p>由本项目临时站点生成 HTML 并在 Chromium 渲染。点击查看原图，截图来自原创示例数据，不是生产数据或概念海报。</p><div class="gallery">{gallery}</div></article>
-</main></div><footer>澄屿 0.18.0 · 本说明与分篇 Markdown 同步生成。离线使用时保持 docs/previews 相对目录不变。代码许可见 LICENSE。</footer></body></html>"""
-    (root/"START_HERE.html").write_text(manual)
+<article id="previews" class="chapter"><p class="eyebrow">ACTUAL APPLICATION PREVIEWS</p><h2>页面预览与历史记录</h2><p>标记 019 的图片来自本轮实际浏览器，其余为原交付包中的历史模块预览，不代表本版完整浏览器回归。由本项目临时站点生成 HTML 并在 Chromium 渲染。点击查看原图，截图来自原创示例数据，不是生产数据或概念海报。</p><div class="gallery">{gallery}</div></article>
+</main></div><footer>澄屿 0.19.0 · 本说明与分篇 Markdown 同步生成。离线使用时保持 docs/previews 相对目录不变。代码许可见 LICENSE。</footer></body></html>"""
+    (root/"START_HERE.html").write_text(manual,encoding='utf-8')
     print("Offline manual created:", (root/"START_HERE.html").stat().st_size, "bytes")

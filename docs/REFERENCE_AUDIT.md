@@ -1,30 +1,29 @@
-# 0.18 ICU分卷与官方历史核查记录
+# 0.19 源码与版本功能分析
 
-核查日期2026-09-07。本轮不是只复用前次报告：三个RAR分卷重新通过libarchive连续读取，主题文本在独立私有核查目录提取，未运行旧站PHP、导入原数据库或使用任何原站密钥。
+核查日期：2026-09-08。实际读取用户指定的子比 8.9 和 Shane 2.2 子主题目录；不运行参考 PHP、导入数据库或复制其素材。Shane 依赖 RiPro 父主题，本地这份目录不是完整 RiPro 产品源码，缺失父主题部分以官方功能日志核对。
 
-| 项目 | 实际结果 |
-| --- | --- |
-| 输入 | www.taojinge.icu_20260522_175206.part1.rar / part2.rar / part3.rar |
-| 归档遍历 | 13,652条目 |
-| 主题文本索引 | 952个文件，包含主题目录内相关文本依赖；路径、长度、SHA-256在evidence/018/reference-index.json |
-| 主题头 | Version7.8；这是上传副本自述，不证明未经改动的官方原版 |
-| 定向阅读 | 8个实际文件，记录函数名、行号和摘要；不是952文件逐行审计 |
-| 官方历史 | 早期V1–V5档案的可见正文、V6–V9后续日志，最新V9.1（2026-09-01）；缺失正文如实标注 |
+## 本地实际分析
 
-## 读了哪些方向
+建立 1,038 个子比文本文件、67 个 Shane 文本文件的路径/长度/SHA-256 索引，定向符号索引涉及 72 个文件。索引不是逐行审计，主要阅读文件与结论如下。
 
-参考搜索聚合/用户搜索、验证码入口、签到/连续奖励、用户等级、提现、会员永久和升级计算、组件类及菜单类。定向文件包含 `inc/functions/zib-search.php`、`action/captcha.php`、`inc/functions/user/user-checkin.php`、`inc/functions/user/user-level.php`、`inc/widgets/widget-class.php`、`zibpay/functions/zibpay-withdraw.php`、`zibpay/functions/zibpay-vip.php` 和 `inc/codestar-framework/classes/nav-menu-options.class.php`。
+| 文件 | 读到的实现方向 | 澄屿处理 |
+| --- | --- | --- |
+| Shane/functions.php | 子主题加载、父主题配置框架、资源入队、固定主题路径 | 保持独立加载和统一 asset()，不引入 WP 路径或运行时 |
+| Shane/inc/gadgets/home/home-slideer.php | 桌面/手机图片分组、普通/全宽容器、自动播放、链接与快捷卡片 | 原创 picture 响应式轮播、原生滚动吸附、键盘按钮、可选自动播放，隐藏页/焦点/减少动画时暂停 |
+| Shane/inc/method/functions.php 与 admin-options.php | 站标扫光、标题/鼠标效果、外链提示、列表装饰等开关 | 使用共享动效曲线、原创站标、既有灯箱/外链验证，保留可关闭的装饰 |
+| 子比 inc/widgets/widget-produck.php | 会员/购买按钮、FAQ、数据、亮点、图文标签页、倾斜展示 | 会员卡使用真实套餐；扩展亮点、标签页、画廊、时间线和按钮组；权限仍走现有服务 |
+| 子比 inc/widgets/widget-slider.php | 旧轮播设置与迁移提醒 | 核对轮播参数，不复制旧小工具或其依赖 |
+| 子比 zibpay/functions/zibpay-download.php | 多条下载入口、下载次数、网盘显示及提取码 | 原创资源版本、加密镜像、共享下载额度与反馈处理 |
+| 子比 update_log.md | 8.9 的区块背景、标题、模板与布局导入 | 公共背景图、条目编排、模板、草稿与发布历史 |
 
-两条初始猜测路径未找到，没有将它们算作已审阅。实际成功记录在 `evidence/018/reference-reviewed.json`。只把路径、摘要和函数索引放入交付证据，不分发参考代码原文。
+Shane 中的随机增加阅读量、移除修订等选项不作为可靠性改进；澄屿保持实际统计与编辑修订。对外宣称的购买评价仍以实际购买与审核为依据。
 
-## 从核对得到的变化
+证据位于 evidence/019/reference-index.json、reference-feature-index.json、reference-audit.json。生产文件与参考文本没有整文件 SHA-256 相同项。此结果不证明不存在任何相似片段，也不能替代授权或法律审查。
 
-已存在的等级、签到、会员补差和有条件导航不重复编写。针对官方近期能力与本工程缺口，新增Meilisearch服务端连接、IP/收件人六维验证码发送限制、多包裹履约视图，以及用户要求的可验证备份/恢复。不同代码入口继续复用本工程权限、CSRF、HTTP和账目服务。
+## 官方历史范围
 
-参考主题依赖WordPress。澄屿继续采用独立PHP架构；没有移入主题/插件源码、图片、字体、原站数据库、用户资料或商户密钥，也不移除/伪造对方授权流程。生产文件与参考文本的整文件摘要交叉检查会写入 `evidence/018/reference-production-comparison.json`；该检查只能证明不存在整文件完全相同内容，不能代替专业授权或法律审查。
+查阅 [子比官方更新日志](https://www.zibll.com/375.html/comment-page-4) 可见的历史功能条目（最新 V9.1，2026-09-01）、[官方文档目录](https://www.zibll.com/tutorial-list) 与 [RiPro-V5 官方产品及更新日志](https://ritheme.com/theme/ripro-v5.html)（最新正式版 10.3，2026-08-18）。子比主地址有维护拦截，使用同一官方站点可见的日志页；不把拦截页算作已读正文。
 
-## 无法由本报告推出的结论
+日志用于核对账户、社区、支付、会员、资源、模块化布局与国际化等功能族，不声称拿到所有历史安装包或第三方收费插件。关键差距及本版实现见 FEATURE_MATRIX.md。第三方登录、外部支付等仍以已实现协议及实际商户联调范围为准。
 
-不意味着所有历史版本和第三方插件均已实现、不意味着每行代码经过安全审计、不意味着未完成的实时服务已联网验收。不能称为子比官方、官方授权版或作零法律风险承诺。上线内容、品牌、素材和商户资质仍由部署方依法取得。
-
-官网来源与功能对照见 `HISTORICAL_FEATURES.md`，交付范围与仍缺模块见 `FEATURE_MATRIX.md`。
+所有新界面与媒体由澄屿独立实现，没有移入主题源码、第三方字体或授权验证代码；品牌为澄屿，不使用子比/RiPro 官方身份。

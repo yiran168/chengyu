@@ -142,7 +142,7 @@ CI 增加 EXPECTED_DRIVER 前置验证，缺少任务要求的原生驱动直接
 
 三家 OAuth 和新支付查询使用受控协议响应，不使用真实商户或真实应用。测试传输注入只允许 CLI / CLI-server；生产路径使用验证证书与地址的 HTTPS 连接，不能将夹具通过当成外部平台已联调。
 
-`http_015.py` 验证新管理权限、密码证明、快照附件下载与 multipart 上传、修订冲突、永久套餐实际交易与整车原子回滚。HTTP 主入口使用最终的 INSTALL_KEY.txt；旋转安装口令后需重新验证。
+`http_015.py` 验证新管理权限、密码证明、快照附件下载与 multipart 上传、修订冲突、永久套餐实际交易与整车原子回滚。HTTP 主入口在隔离站点中生成独立随机安装口令，公开源码不需要私密 INSTALL_KEY.txt。
 
 `visual_015.py` 验证分组导航、快捷键、移动菜单、有限图标运动和配置/身份表单。set_content 会保留旧文档监听器，涉及媒体偏好反复切换的运动段落使用新浏览器页面上下文，避免将历史监听干扰当成新页面行为。
 
@@ -168,3 +168,6 @@ Include `node --check site/assets/platform.js` and `node --check site/assets/med
 测试使用原生 PDO 不可用时的专用 FFI/真实 SQLite 适配；生产代码不使用该替代层。MySQL/原生PDO CI 14 组未执行。外部搜索、支付与物流的网络协议是夹具，不是真实服务联调。HTTP 新测试组清空测试数据库中的限流记录以隔离连续敏感操作，生产限制保持不变。
 
 真实浏览器导航被环境 ERR_BLOCKED_BY_ADMINISTRATOR 阻断，离线 set_content 结果不能当成公网浏览器全链路。备份恢复专项确实在隔离测试目标重建数据和媒体，但没有 MySQL/真实主机恢复证据。详见当前 `../docs/TEST_REPORT.md`。
+## 0.19 当前证据
+
+最新结果以 ../docs/TEST_REPORT.md 为准。Windows 使用 `python tests/run_matrix.py RUNTIME OUT TMP`，由父进程在 PHP 完全退出后清理原生 SQLite 临时目录。HTTP 测试自行生成站点安装密钥。临时目录、报告和依赖应放在当前项目的私有工作目录；不得指向生产库。

@@ -21,7 +21,7 @@ case "$ID" in
 esac
 [[ -d /run/systemd/system ]] || fail 'A running systemd host is required.'
 source_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
-[[ -f "$source_dir/site/index.php" && -f "$source_dir/INSTALL_KEY.txt" ]] || fail 'Run from an extracted complete delivery package.'
+[[ -f "$source_dir/site/index.php" && -f "$source_dir/tools/prepare_install.php" ]] || fail 'Run from an extracted complete delivery package.'
 target=/var/www/chengyu
 [[ ! -e "$target" ]] || fail 'Target already exists. Use a reviewed manual deployment or backup/restore plan.'
 for path in /www/server/panel /usr/local/psa /usr/local/cpanel; do
@@ -54,7 +54,7 @@ chown -R root:www-data "$target/site"
 chown www-data:www-data "$target/site/app" "$target/site/storage"
 chmod 0750 "$target/site/app" "$target/site/storage"
 install -d -o www-data -g www-data -m 0700 "$target/private"
-install -o root -g root -m 0600 "$source_dir/INSTALL_KEY.txt" "$target/INSTALL_KEY.txt"
+php "$source_dir/tools/prepare_install.php" "$target/site"
 # FPM's distribution socket is normally owned by www-data:www-data, mode 0660.
 usermod -a -G www-data caddy
 [[ ! -f /etc/caddy/Caddyfile ]] || cp /etc/caddy/Caddyfile /etc/caddy/Caddyfile.distribution-backup

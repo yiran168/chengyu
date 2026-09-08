@@ -5,8 +5,8 @@ use Chengyu\Core\{Database,Input,Problem};
 /** Portable, non-executable page compositions. All fields are validated again on the server. */
 final class Layout
 {
-    public const TYPES=['heading','text','content','collection','cta','stats','links','spacer','hero','faq','media','features','tabs','gallery','timeline','categories','plans','titles','noticeboard','creators'];
-    public const ITEM_TYPES=['features','tabs','gallery','timeline'];
+    public const TYPES=['heading','text','content','collection','cta','stats','links','spacer','hero','faq','media','features','tabs','gallery','timeline','categories','plans','titles','noticeboard','creators','slider','buttons'];
+    public const ITEM_TYPES=['features','tabs','gallery','timeline','slider','buttons'];
     public const SYMBOLS=['sparkles','leaf','book','code','box','shield','layers','users','compass','heart','crown','check'];
     public const PAGES=['page1','page2','page3','page4','page5','page6','page7','page8','page9','page10','page11','page12'];
     public const SLOTS=['home','articles','forum','shop','global_before','global_after','article_before','article_after','page_before','page_after','page1','page2','page3','page4','page5','page6','page7','page8','page9','page10','page11','page12'];
@@ -26,14 +26,15 @@ final class Layout
         foreach($input['blocks'] as $b){
             if(!is_array($b)){throw new Problem('Invalid layout block.');}
             if(array_key_exists('enabled',$b) && !is_bool($b['enabled'])){throw new Problem('Block enabled must be a JSON boolean.');}
+            if(array_key_exists('autoplay',$b) && !is_bool($b['autoplay'])){throw new Problem('Autoplay must be a JSON boolean.');}
             $id=Input::required($b['id']??'',40);if(!preg_match('/^[a-zA-Z][a-zA-Z0-9_-]{0,39}$/D',$id) || isset($ids[$id])){throw new Problem('Each block needs a unique safe ID.');}$ids[$id]=true;
             $items=$b['items']??[];
             if(!is_array($items) || count($items)>12){throw new Problem('Maximum 12 entries per block.');}
             $entries=[];foreach($items as $entry){
                 if(!is_array($entry)){throw new Problem('Invalid block entry.');}
-                $entries[]=['title'=>Input::required($entry['title']??'',120),'text'=>Input::text($entry['text']??'',2000),'icon'=>Input::choice($entry['icon']??'sparkles',self::SYMBOLS),'media_id'=>Input::integer($entry['media_id']??0),'url'=>Input::url($entry['url']??'')];
+                $entries[]=['title'=>Input::required($entry['title']??'',120),'text'=>Input::text($entry['text']??'',2000),'icon'=>Input::choice($entry['icon']??'sparkles',self::SYMBOLS),'media_id'=>Input::integer($entry['media_id']??0),'mobile_media_id'=>Input::integer($entry['mobile_media_id']??0),'url'=>Input::url($entry['url']??'')];
             }
-            $blocks[]=['id'=>$id,'type'=>Input::choice($b['type']??'',self::TYPES),'enabled'=>($b['enabled']??true)?true:false,
+            $blocks[]=['id'=>$id,'type'=>Input::choice($b['type']??'',self::TYPES),'enabled'=>($b['enabled']??true)?true:false,'autoplay'=>$b['autoplay']??false,'interval'=>Input::integer($b['interval']??6,3,20),
                 'title'=>Input::text($b['title']??'',120),'text'=>Input::text($b['text']??'',5000),'button'=>Input::text($b['button']??'',80),
                 'route'=>Input::choice($b['route']??'articles',Catalog::ROUTES),'kind'=>Input::choice($b['kind']??'article',['article','thread','product','all']),
                 'category'=>Input::integer($b['category']??0),'collection'=>Input::integer($b['collection']??0),'size'=>Input::integer($b['size']??3,1,12),

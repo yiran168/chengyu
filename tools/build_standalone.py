@@ -10,8 +10,8 @@ from bs4 import BeautifulSoup
 ROOT = Path(__file__).resolve().parents[1]
 namespace = runpy.run_path(str(ROOT / 'tools/build_manual.py'))
 parts = namespace['manual_parts']
-source = (ROOT / 'START_HERE.html').read_text()
-version = json.loads((ROOT / 'RELEASE.json').read_text())['version']
+source = (ROOT / 'START_HERE.html').read_text(encoding='utf-8')
+version = json.loads((ROOT / 'RELEASE.json').read_text(encoding='utf-8'))['version']
 paths = {str(Path(rel)): 'chapter-' + str(i) for i, (rel, title) in enumerate(parts, 1)}
 
 def render(allowed=None):
@@ -42,8 +42,8 @@ def render(allowed=None):
     soup.find('footer').string = 'Chengyu ' + version + ' | Standalone instructions. Screenshots, test evidence and source are in the complete package.'
     return str(soup)
 
-(ROOT / 'site/DEPLOY_README.html').write_text(render({1,2,3,8,11,27,29,30}))
+(ROOT / 'site/DEPLOY_README.html').write_text(render({1,2,3,8,11,27,30,31}),encoding='utf-8')
 output = Path(sys.argv[1]).resolve() if len(sys.argv)>1 else ROOT.parent / ('chengyu-' + version + '-manual.html')
-output.write_text(render())
+output.write_text(render(),encoding='utf-8')
 print('Standalone manual:', output, output.stat().st_size)
 print('Upload manual:', (ROOT / 'site/DEPLOY_README.html').stat().st_size)

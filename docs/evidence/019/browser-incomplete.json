@@ -1,0 +1,90 @@
+{
+  "mode": "Actual Chromium navigation to local PHP URLs, real forms/CSP/cookies; not an external production host",
+  "total": 20,
+  "passed": 19,
+  "failed": 1,
+  "tests": [
+    {
+      "test": "live GET /",
+      "ok": true
+    },
+    {
+      "test": "engine loaded through CSP-compliant external scripts",
+      "ok": true
+    },
+    {
+      "test": "home no overflow 320",
+      "ok": true
+    },
+    {
+      "test": "home no overflow 390",
+      "ok": true
+    },
+    {
+      "test": "home no overflow 768",
+      "ok": true
+    },
+    {
+      "test": "home no overflow 1440",
+      "ok": true
+    },
+    {
+      "test": "pointer-following card has real interaction state",
+      "ok": true
+    },
+    {
+      "test": "card perspective actually changes computed transform",
+      "ok": true
+    },
+    {
+      "test": "theme changed with actual View Transition API",
+      "ok": true
+    },
+    {
+      "test": "theme preference persists after transition and reload",
+      "ok": true
+    },
+    {
+      "test": "pageshow preserves intentional disabled state",
+      "ok": true
+    },
+    {
+      "test": "live GET /admin/",
+      "ok": true
+    },
+    {
+      "test": "live AJAX login reaches dashboard",
+      "ok": true
+    },
+    {
+      "test": "live GET /admin/index.php?tab=motion",
+      "ok": true
+    },
+    {
+      "test": "motion inspector has shared configurable fields",
+      "ok": true
+    },
+    {
+      "test": "motion inspector no overflow 320",
+      "ok": true
+    },
+    {
+      "test": "motion inspector no overflow 390",
+      "ok": true
+    },
+    {
+      "test": "motion inspector no overflow 768",
+      "ok": true
+    },
+    {
+      "test": "motion inspector no overflow 1440",
+      "ok": true
+    },
+    {
+      "test": "live browser suite completed",
+      "ok": false,
+      "detail": "TimeoutError('Page.screenshot: Timeout 30000ms exceeded.\\nCall log:\\n  - taking page screenshot\\n    - disabled all CSS animations\\n  - waiting for fonts to load...\\n  - fonts loaded\\n')"
+    }
+  ],
+  "javascript_errors": []
+}

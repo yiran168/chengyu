@@ -57,7 +57,7 @@ test('019 reports require access and resolving produces one notification',static
 test('019 layout entries reject executable URLs and overfull blocks',static function()use($a){
     $base=['format'=>'chengyu-layout','version'=>1,'blocks'=>[['id'=>'features','type'=>'features','items'=>[['title'=>'One','url'=>'javascript:alert(1)']]]]];
     reject(static function()use($a,$base){$a->layout->validate(json_encode($base));});$base['blocks'][0]['items']=array_fill(0,13,['title'=>'Too many']);reject(static function()use($a,$base){$a->layout->validate(json_encode($base));});
-    $base['blocks'][0]['items']=[['title'=>'Safe <script>','text'=>'A title is text','url'=>'https://example.test']];$out=$a->layout->validate(json_encode($base));same('Safe <script>',$out['blocks'][0]['items'][0]['title']);same(3,$out['blocks'][0]['columns']);same(20,count(\Chengyu\Services\Layout::TYPES));
+    $base['blocks'][0]['items']=[['title'=>'Safe <script>','text'=>'A title is text','url'=>'https://example.test']];$out=$a->layout->validate(json_encode($base));same('Safe <script>',$out['blocks'][0]['items'][0]['title']);same(3,$out['blocks'][0]['columns']);same(22,count(\Chengyu\Services\Layout::TYPES));
 });
 test('019 filter validation keeps zero, integer assets and price ranges exact',static function(){
     same('0',CatalogFilters::normalize(['min_price'=>'0'])['min_price']);same('balance',CatalogFilters::normalize(['sort'=>'price'])['currency']);
@@ -72,4 +72,15 @@ test('019 shop filters combine tag, asset, list price, stock and delivery',stati
 test('019 a resource module toggle revokes linked file access',static function()use($a){
     [$id,$content,$media]=resource19();$u=user14('resource-module');$a->wallet->adjust($u,'balance',1000,'modulefund:'.$u,'Fixture');$a->commerce->buy($u,'content',$content,key32());
     $a->settings->savePartial('modules',['resource_library_enabled'=>0]);try{reject(static function()use($a,$id,$u){$a->resources->read($id,account($u));},403);reject(static function()use($a,$media,$u){$a->media->readable($media,account($u));},403);}finally{$a->settings->savePartial('modules',['resource_library_enabled'=>1]);}
+});
+
+test('019 carousel validates mobile media and real boolean autoplay',static function()use($a){
+    $input=['format'=>'chengyu-layout','version'=>1,'blocks'=>[['id'=>'carousel19','type'=>'slider','autoplay'=>true,'interval'=>8,'items'=>[['title'=>'One','media_id'=>12,'mobile_media_id'=>15]]]]];
+    $block=$a->layout->validate(json_encode($input))['blocks'][0];same(true,$block['autoplay']);same(15,$block['items'][0]['mobile_media_id']);same(8,$block['interval']);
+    $input['blocks'][0]['autoplay']='false';reject(static function()use($a,$input){$a->layout->validate(json_encode($input));});
+    $input['blocks'][0]['autoplay']=false;$input['blocks'][0]['interval']=0;reject(static function()use($a,$input){$a->layout->validate(json_encode($input));});
+});
+test('019 decorative images never disclose private media',static function()use($a,$admin,$tmp){
+    $p=$tmp.'/private-art19.txt';file_put_contents($p,'A private file');$id=$a->media->storeLocal(account($admin),$p,'art.txt',true,1048576);
+    same('',public_image_url($id));same('',public_image_url(0));same('',public_image_url(99999999));
 });

@@ -1,35 +1,32 @@
-# 澄屿 Chengyu 0.18.0
+# 澄屿 Chengyu 0.19.0
 
-独立 PHP 内容、社区与交易网站。基于实际交付的 **0.17.0** 增量开发；数据库目标 **v10**；日期 **2026-09-07**。前台、后台与数据均不依赖 WordPress。不是子比官方产品，也不是全部子比历史版本的完整等价替代。
+独立 PHP 内容、社区与数字资源平台，包含前台和可管理的后台。不需要 WordPress、运行期 Composer、Node、Redis 或常驻队列。PHP 7.4–8.5 使用同一套业务代码，支持原生 PDO MySQL / SQLite。
 
-## 先打开哪一份文件
+本版新增资源多版本与私有镜像、失效反馈闭环、组合筛选、22 种可视化区块、响应式轮播与按钮组，以及原创二次元站标和海岛插画。修复 Windows 安装 Cookie 路径、长文本分片上传类型识别、SKU 标价排序和布局布尔值校验问题。
 
-本地打开 `START_HERE.html` 阅读完整离线手册。部署使用 `site/` 或同版本 upload.zip；不要把完整交付目录、`INSTALL_KEY.txt`、`tests/`、`tools/`、私有凭据或备份上传到公开目录。上传包根目录直接包含 `index.php`、`admin/`、`install/`、`app/`、`storage/`。
+保留文章/社区/圈子/问答/投票、会员、积分与余额、SKU 与卡密、实物订单、访客结算、售后退款、作者收益、课程、工单、私信、搜索、分片上传、快照恢复及后台动效实验室。功能的具体边界见 [功能矩阵](docs/FEATURE_MATRIX.md)，没有把未实现的第三方接口标成可用。
 
-新站访问 `/install/`，用完整包根目录中的私有安装口令完成安装，确认后台 `/admin/` 可登录后删除安装器。已有站点不要重新安装；按 [升级说明](docs/UPGRADE.md) 保留原配置、密钥、数据库和存储。
+## 新站安装
 
-## 本版增加了什么
+1. 解压完整包或 upload.zip，在自己的电脑打开 **DEPLOY_PREPARE.html**，生成本站独立口令，保存 key.php 和私密 INSTALL_KEY.txt。
+2. 上传 `site/` 内的全部文件，或直接解压 upload.zip 到网站根目录；保留隐藏的 .htaccess 和 web.config。
+3. 将生成的 key.php 上传，覆盖网站的 `install/key.php`。私密 INSTALL_KEY.txt 留在本地，绝不上传。
+4. 准备空 MySQL 数据库，打开 `/install/`，填写数据库、口令与自己的管理员账号。SQLite 数据库必须在网站公开目录外。
+5. 安装成功后访问 `/admin/`，核对站点配置并删除服务器 install 目录。
 
-| 本轮能力 | 可用入口 | 重要边界 |
-| --- | --- | --- |
-| Meilisearch 连接器 | 后台搜索工作台、发现设置、前台搜索 | 可选外部服务；只发送公开标题、摘要、标签与有效译文；本地再次验权并回退；真实服务未联调 |
-| 一个订单多个包裹 | 后台物流工作台、用户订单轨迹 | 最多20包裹，单独单号、轨迹和修订；没有商品数量分箱、电子面单或多仓管理 |
-| 验证邮件六维限流 | 后台安全设置 | IP/收件人各10分钟、小时、天，加独立冷却；不是新增短信服务 |
-| 加密数据库与本地媒体备份 | 后台恢复副本；完整包离线恢复工具 | 小站有界请求，默认64MiB；恢复仅空目标、同数据库类型、匹配版本；不是覆盖在线站点按钮 |
-| 工作台界面与微交互 | 恢复、搜索和包裹页面 | 原生表单、响应式、键盘操作、减少动态效果；不保证所有设备固定帧率 |
+公开包不含通用安装密码或默认管理员。无面板新 VPS 也可使用 [部署脚本](deploy/install-vps.sh)，脚本会生成该站点的独立安装口令；已有面板使用面板创建 PHP 站点。
 
-先修正 HTTP 大小写重复头、表单体积限制和 HEAD 长度歧义，再增加业务模块；文字 `0` 的搜索不再被当成空查询。公共 HTTP 校验、交易、权限、语言和表单入口继续复用原服务。
+已有 0.18 站点按 [升级说明](docs/UPGRADE.md) 保留 config.php、原 secret、数据库和 storage，升级至结构 v11，不重新安装。
 
-## 环境与测试不是同一件事
+## 部署与验证
 
-业务源码面向64位 **PHP7.4–8.5**，不按版本裁剪模块。运行期不要求 Composer、Node、Redis、SSH 或常驻队列。必须具备原生 PDO 数据库驱动、OpenSSL、Fileinfo、Session、可写私有存储等条件。外部支付、搜索和对象存储需要 HTTPS、出站连接与真实凭据。
+最低环境：64 位 PHP 7.4–8.5、PDO MySQL 或 SQLite、OpenSSL、Fileinfo、可写存储。MySQL 需要 InnoDB、utf8mb4 和建表/索引权限；网上收款与外部服务需要 HTTPS 及主机允许的出站网络。
 
-本轮实际执行 PHP8.4.23；数据库测试使用测试专用 FFI 适配访问真实 SQLite，不是原生 PDO/MySQL 验收。生产不依赖 FFI。14组 PHP/数据库 CI 配置已附带，未实际全部执行；两家免费主机、VPS装机、真实支付、代付、物流、搜索与云存储均需部署方验收。
+PHP 七版本本地原生 SQLite 测试、Linux 原生 MySQL/SQLite 的 14 组 CI 和真实 HTTP 测试分别保存证据，详见 [测试报告](docs/TEST_REPORT.md)。免费主机的具体实例和 VPS 装机尚未实测，不能将语言兼容测试等同于服务商所有套餐均可用。
 
-## 文档导航
+- [离线完整手册](START_HERE.html) / [安装与主机配置](docs/DEPLOYMENT.md)
+- [本版功能使用](docs/PLATFORM_019.md) / [后台指南](docs/ADMIN_GUIDE.md)
+- [源码参考分析](docs/REFERENCE_AUDIT.md) / [原创图像出处](docs/ARTWORK.md)
+- [代码仓库](https://github.com/yiran168/chengyu) / [发布下载](https://github.com/yiran168/chengyu/releases)
 
-[部署](docs/DEPLOYMENT.md) · [升级](docs/UPGRADE.md) · [本版操作](docs/PLATFORM_018.md) · [加密备份与恢复](docs/BACKUP_RECOVERY.md) · [上线验收](docs/ACCEPTANCE_018.md) · [实际测试](docs/TEST_REPORT.md) · [完整功能与缺口](docs/FEATURE_MATRIX.md) · [历史功能核对](docs/HISTORICAL_FEATURES.md) · [参考源码核查](docs/REFERENCE_AUDIT.md)
-
-源码体积按实际文件计数记录在 `RELEASE.json`，没有为达到5MB加入重复代码、字体、原站素材或无用依赖。完整包大部分体积来自可读说明、测试与实际页面截图。
-
-仍未完成全部支付产品线、全部社交/短信、跨SKU与部分退款、全部可视化小工具、任意画布、完整财务勾兑、直播/转码/HLS/DRM等。详细限制以功能矩阵为准，不以菜单、占位按钮或体积替代验收。
+代码按 MIT 许可发布。参考主题仅用于分析功能与交互，本工程不包含其专有代码、素材、字体、授权逻辑或 WordPress 运行时。没有承诺实现所有历史第三方扩展或零知识产权风险。

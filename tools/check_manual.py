@@ -10,12 +10,12 @@ from PIL import Image
 from playwright.sync_api import sync_playwright
 
 root = Path(__file__).resolve().parents[1]
-release = json.loads((root / 'RELEASE.json').read_text())
+release = json.loads((root / 'RELEASE.json').read_text(encoding='utf-8'))
 checks = []
 def check(name, ok, detail=''):
     checks.append({'test': name, 'ok': bool(ok), 'detail': detail})
 
-html = (root / 'START_HERE.html').read_text()
+html = (root / 'START_HERE.html').read_text(encoding='utf-8')
 soup = BeautifulSoup(html, 'html.parser')
 ids = [n['id'] for n in soup.select('[id]')]
 check('Offline manual chapter count matches release', len(soup.select('article[id^=chapter-]')) == release['manual_chapters'])
@@ -36,11 +36,10 @@ for p in images:
     except Exception as exc: corrupt.append(p.name + ': ' + str(exc))
 check('All release preview PNGs are readable', len(images) == release['screenshots'] and not corrupt, str(corrupt))
 check('Private installation token is not present in public manuals',
-      (root / 'INSTALL_KEY.txt').read_text().strip() not in html
-      and (root / 'INSTALL_KEY.txt').read_text().strip() not in (root / 'site/DEPLOY_README.html').read_text())
+      not (root/'INSTALL_KEY.txt').exists() or ((root/'INSTALL_KEY.txt').read_text(encoding='utf-8').strip() not in html and (root/'INSTALL_KEY.txt').read_text(encoding='utf-8').strip() not in (root/'site/DEPLOY_README.html').read_text(encoding='utf-8')))
 check('Public upload manual is independently readable',
       not any(not a['href'].startswith(('#', 'https:', 'http:', 'mailto:', 'tel:'))
-              for a in BeautifulSoup((root / 'site/DEPLOY_README.html').read_text(), 'html.parser').select('a[href]')))
+              for a in BeautifulSoup((root / 'site/DEPLOY_README.html').read_text(encoding='utf-8'), 'html.parser').select('a[href]')))
 # No URL navigation is attempted. Image existence is checked separately above.
 for n in soup.select('img'): n['src'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACw='
 with sync_playwright() as p:
