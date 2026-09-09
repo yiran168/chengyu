@@ -123,11 +123,11 @@
   }));
   $$('input[data-upload-target]').forEach(input => input.addEventListener('change', async () => {
     if (!input.files?.[0]) return;
-    const target = document.getElementById(input.dataset.uploadTarget); const status = input.closest('.upload-field')?.querySelector('.upload-status');
+    const target = document.getElementById(input.dataset.uploadTarget) || input.form?.elements.namedItem(input.dataset.uploadTarget); const status = input.closest('.upload-field')?.querySelector('.upload-status');
     const data = new FormData(); data.append('file', input.files[0]); data.append('action', 'upload'); data.append('csrf', $('meta[name="csrf-token"]')?.content || '');
     if (input.dataset.private === '1') data.append('private', '1');
     input.disabled = true; if (status) status.textContent = strings.uploading;
-    try { const result = await request(data); if (target) target.value = result.media_id; if (status) status.textContent = strings.saved + result.media_id; toast(result.message); }
+    try { const result = await request(data); if (target instanceof HTMLInputElement) { target.value = result.media_id; target.dispatchEvent(new Event('input', {bubbles:true})); target.dispatchEvent(new Event('change', {bubbles:true})); } if (status) status.textContent = strings.saved + result.media_id; toast(result.message); }
     catch (e) { if (status) status.textContent = e.message; toast(e.message, 'error'); }
     finally { input.disabled = false; input.value = ''; }
   }));

@@ -46,6 +46,8 @@ final class Diagnostics
             } catch (\Throwable $e) {$add('Transactional application tables','warning','Host denied table-engine inspection; verify in the panel');}
         }
         $add('Private storage writable',is_writable($app->config['storage'])?'pass':'fail','Filesystem write capability; public access protection must be checked separately');
+        $checks=array_merge($checks,RuntimeLimits::inspect());
+        $add('Hosting account quotas','manual','PHP limits do not reveal account disk, database or monthly traffic quotas. Check the hosting panel.');
         $add('HTTPS configured',strpos($app->config['url'],'https://')===0?'pass':'warning','Configured URL only; not a certificate issuance or TLS network test');
         $add('Web-server directory protection','manual','Check /app/, /storage/ and uploaded files using your actual hosting URL');
         $add('External payment, email and certificate services','manual','Requires your merchant, mailbox and host acceptance tests');

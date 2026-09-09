@@ -6,7 +6,7 @@ use Chengyu\Core\{Database,Input,Problem};
 final class Catalog
 {
     public const ENTITIES=['collections','links','announcements'];
-    public const ROUTES=['courses','learning','support','landing','home','articles','forum','shop','membership','collections','links','tasks','terms'];
+    public const ROUTES=['courses','learning','support','landing','home','articles','archives','forum','shop','membership','collections','links','tasks','terms'];
     private Database $db;private Activity $activity;
     public function __construct(Database $db,Activity $activity) {$this->db=$db;$this->activity=$activity;}
     public function save(int $actor,string $entity,array $input):int

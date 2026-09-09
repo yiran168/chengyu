@@ -1,0 +1,20 @@
+[
+  {
+    "relative_reference": "RiProV5子主题\\Shane\\template-parts\\single\\entry-meta.php",
+    "scope": "metadata options, displayed counters",
+    "sha256": "c4a9a5ebbe92422dee051edabfc43309941d9b3b837139f38b59f95a88d46f97",
+    "approach": "Read-only analysis; no implementation or assets copied"
+  },
+  {
+    "relative_reference": "RiProV5子主题\\Shane\\template-parts\\header\\menu.php",
+    "scope": "logo, menu structure and cache invalidation tradeoffs",
+    "sha256": "5f4eddddd3d07ceb680174d847028d6a32941eb3fad803adb78d6b4013077945",
+    "approach": "Read-only analysis; no implementation or assets copied"
+  },
+  {
+    "relative_reference": "zibll8.9开心版\\zibll\\inc\\functions\\zib-posts-list.php",
+    "scope": "lines 262-298: author/time metadata hierarchy",
+    "sha256": "d71844d6f91c391d16a12f937ff31547fcaaa8c7e8061a8ff2260b15049d1ba0",
+    "approach": "Read-only analysis; no implementation or assets copied"
+  }
+]

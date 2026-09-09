@@ -16,7 +16,7 @@ final class Categories
     }
     private function context(?array $user): array
     {
-        $rows=[]; foreach ($this->db->all('SELECT * FROM cy_categories') as $row) { $rows[(int)$row['id']]=$row; }
+        $rows=[]; foreach ($this->db->all('SELECT * FROM cy_categories ORDER BY sort_order,id') as $row) { $rows[(int)$row['id']]=$row; }
         $members=[];$blocked=[];
         if ($user) {
             foreach ($this->db->all("SELECT item_id FROM cy_orders WHERE user_id=? AND kind='circle' AND status IN ('paid','refund_requested') AND (access_until=0 OR access_until>?)",[(int)$user['id'],time()]) as $row) { $members[(int)$row['item_id']]=true; }
@@ -53,6 +53,18 @@ final class Categories
         foreach ($context['rows'] as $id=>$row) { if ($this->evaluate($id,$user,'read',$context)) { $ids[]=$id; } }
         return $ids;
     }
+    /** Evaluate one policy snapshot for a whole menu, not one database scan per tile. */
+    public function visible(string $kind, ?array $user, int $limit=0, string $action='read'): array
+    {
+        Input::choice($kind,['article','thread','product']);Input::choice($action,['read','post']);Input::integer($limit,0,1000);
+        if($user && !empty($user['is_guest'])){$user=null;}
+        $context=$this->context($user);$staff=$user && in_array($user['role'],['admin','editor'],true);$out=[];
+        foreach($context['rows'] as $id=>$row){
+            if($row['kind']!==$kind || (!$staff && (!$this->evaluate($id,$user,'read',$context) || ($action==='post' && !$this->evaluate($id,$user,'post',$context))))){continue;}
+            $out[]=$row;if($limit && count($out)>=$limit){break;}
+        }
+        return $out;
+    }
     public function member(int $id, int $user): bool
     {
         $special=$this->db->one('SELECT * FROM cy_circle_members WHERE category_id=? AND user_id=?',[$id,$user]);
@@ -71,7 +83,7 @@ final class Categories
         if (!$circle && ($level==='members'||$post==='members')) { throw new Problem('Member-only access requires a circle.'); }
         $currency=Input::choice($input['join_currency']??'points',['balance','points','tokens']);
         $data=['name'=>Input::required($input['name']??'',100),'kind'=>$kind,'description'=>Input::text($input['description']??'',2000),
-            'sort_order'=>Input::integer($input['sort_order']??0,0,99999),'icon'=>Input::choice($input['icon']??'layers',['layers','book','code','sparkles','message','box','leaf','compass','star','heart','shield']),
+            'sort_order'=>Input::integer($input['sort_order']??0,0,99999),'icon'=>Input::choice($input['icon']??'layers',\Chengyu\Core\Icons::NAMES),
             'access_level'=>$level,'post_level'=>$post,'parent_id'=>Input::integer($input['parent_id']??0),'min_vip_tier'=>Input::integer($input['min_vip_tier']??1,1,3),
             'is_circle'=>$circle?1:0,'join_currency'=>$currency,'join_amount'=>$currency==='balance'?Input::cents($input['join_price']??'0',true):Input::integer($input['join_price']??0,0,100000000),
             'join_days'=>Input::integer($input['join_days']??30,0,3650),'join_open'=>!empty($input['join_open'])?1:0];

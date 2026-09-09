@@ -1,0 +1,56 @@
+[
+  {
+    "file": "site/assets/art/icon-discover.webp",
+    "width": 192,
+    "height": 192,
+    "alpha": true,
+    "bytes": 13210,
+    "sha256": "88e431da9e65f23df0069e29523209e1bfcdbe134a790bf49a2af6ded6d5913b",
+    "provenance": "Separate built-in image_gen generation; original retained in project .work; proportional encoding only."
+  },
+  {
+    "file": "site/assets/art/icon-community.webp",
+    "width": 192,
+    "height": 192,
+    "alpha": true,
+    "bytes": 9382,
+    "sha256": "da5c8bde65c4a0e893cd1455bb1a05aa44de881dc36d7f18b830ee053c2005c9",
+    "provenance": "Separate built-in image_gen generation; original retained in project .work; proportional encoding only."
+  },
+  {
+    "file": "site/assets/art/icon-shop.webp",
+    "width": 192,
+    "height": 192,
+    "alpha": true,
+    "bytes": 9956,
+    "sha256": "6342366f347e0c4434e05ed5db36899a16caf9df45d78dc35ab2b7f03867e6d4",
+    "provenance": "Separate built-in image_gen generation; original retained in project .work; proportional encoding only."
+  },
+  {
+    "file": "site/assets/art/icon-member.webp",
+    "width": 192,
+    "height": 192,
+    "alpha": true,
+    "bytes": 9574,
+    "sha256": "144a080b4be41397aab7d97517696ff0188cefbaf201295b73ecedde79dd6907",
+    "provenance": "Separate built-in image_gen generation; original retained in project .work; proportional encoding only."
+  },
+  {
+    "file": "site/assets/art/icon-create.webp",
+    "width": 192,
+    "height": 192,
+    "alpha": true,
+    "bytes": 13366,
+    "sha256": "197fb86a673ec579ff78c718f9b66c4f95e0677746a190bf9bea71ec208083f9",
+    "provenance": "Separate built-in image_gen generation; original retained in project .work; proportional encoding only."
+  },
+  {
+    "file": "site/assets/art/icon-archive.webp",
+    "width": 192,
+    "height": 192,
+    "alpha": true,
+    "bytes": 8702,
+    "sha256": "d5e8c2ca485500d926852d5f69ac9ba20fb3bb1cb2360a4bdfd85a3512c7e30b",
+    "provenance": "Separate built-in image_gen generation; original retained in project .work; proportional encoding only."
+  }
+]

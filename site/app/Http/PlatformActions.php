@@ -10,12 +10,13 @@ final class PlatformActions
     private App $a;public function __construct(App $a){$this->a=$a;}
     public function run(string $action,array $in,array $response): ?array
     {
-        $permissions=['resource_save'=>'content','resource_resolve'=>'content','backup_create'=>'manage','backup_download'=>'manage','backup_delete'=>'manage','search_remote_rebuild'=>'manage','search_remote_run'=>'manage','search_rebuild'=>'manage','admin_layout'=>'manage','layout_discard'=>'manage','layout_restore'=>'manage','course_save'=>'content','lesson_save'=>'content','tracking_attach'=>'manage','tracking_event'=>'manage','tracking_refresh'=>'manage','statement_import'=>'manage','statement_check'=>'manage','support_template'=>'manage'];
+        $permissions=['visual_save'=>'manage','resource_save'=>'content','resource_resolve'=>'content','backup_create'=>'manage','backup_download'=>'manage','backup_delete'=>'manage','search_remote_rebuild'=>'manage','search_remote_run'=>'manage','search_rebuild'=>'manage','admin_layout'=>'manage','layout_discard'=>'manage','layout_restore'=>'manage','course_save'=>'content','lesson_save'=>'content','tracking_attach'=>'manage','tracking_event'=>'manage','tracking_refresh'=>'manage','statement_import'=>'manage','statement_check'=>'manage','support_template'=>'manage'];
         $member=['resource_report','learning_progress','support_create','support_reply','support_status'];
         if(!isset($permissions[$action]) && !in_array($action,$member,true)){return null;}
         $a=$this->a;$user=isset($permissions[$action])?$a->auth->requirePermission($permissions[$action]):$a->auth->requireUser();$uid=(int)$user['id'];
         $a->activity->rate('platform:'.$action,(string)$uid,$action==='support_create'?20:240,3600);
         switch($action){
+            case 'visual_save':$a->visuals->save($user,$in);$response['redirect']=$a->adminUrl('visuals',['slot'=>$in['slot']]);break;
             case 'resource_save':$id=$a->resources->save($user,$in);$response['resource_id']=$id;$response['redirect']=$a->adminUrl('resources',['content_id'=>Input::integer($in['content_id'],1)]);break;
             case 'resource_report':$response['report_id']=$a->resources->report($user,$in);$response['message']=tr('Report received. You will be notified after review.');break;
             case 'resource_resolve':$a->resources->resolve($user,$in);$response['redirect']=$a->adminUrl('resources');break;

@@ -1,0 +1,54 @@
+[
+  {
+    "php_minor": "7.4",
+    "native_pdo": "sqlite",
+    "ok": true,
+    "phases": [
+      {
+        "phase": "baseline",
+        "version": "0.19.0",
+        "schema": 11
+      },
+      {
+        "phase": "upgraded",
+        "version": "0.20.0",
+        "checks": {
+          "schema_current": true,
+          "balance_preserved": true,
+          "one_original_order": true,
+          "paid_access_preserved": true,
+          "protected_body_preserved": true,
+          "new_visual_table_created": true,
+          "existing_covers_not_overwritten": true,
+          "encrypted_resource_preserved": true
+        }
+      }
+    ]
+  },
+  {
+    "php_minor": "8.5",
+    "native_pdo": "sqlite",
+    "ok": true,
+    "phases": [
+      {
+        "phase": "baseline",
+        "version": "0.19.0",
+        "schema": 11
+      },
+      {
+        "phase": "upgraded",
+        "version": "0.20.0",
+        "checks": {
+          "schema_current": true,
+          "balance_preserved": true,
+          "one_original_order": true,
+          "paid_access_preserved": true,
+          "protected_body_preserved": true,
+          "new_visual_table_created": true,
+          "existing_covers_not_overwritten": true,
+          "encrypted_resource_preserved": true
+        }
+      }
+    ]
+  }
+]

@@ -1,0 +1,41 @@
+"""0.20 public archive and paged comment routes, using the real PHP server."""
+save_group('community',comment_visibility='public')
+content20=create_content(title='HTTP-ARCHIVE-020',access_level='public',comment_enabled='1',protected_body='PRIVATE-BODY-020')
+admin_id20=db_one("SELECT id FROM cy_users WHERE username='admin'")['id']
+for n20 in range(53):
+    conn.execute('INSERT INTO cy_comments(content_id,user_id,body,status,created_at,pinned) VALUES(?,?,?,?,?,?)',(content20,admin_id20,'HTTP-REPLY-020-'+str(n20),'approved',int(time.time()),1 if n20==0 else 0))
+conn.commit()
+first20=html(guest,'/index.php?r=article&id='+str(content20))
+second20=html(guest,'/index.php?r=article&id='+str(content20)+'&comment_page=2')
+check('020 first comment page bounded at fifty',len(first20.select('.comment-list .comment'))==50)
+check('020 old replies remain reachable through native pagination',len(second20.select('.comment-list .comment'))==3 and first20.select_one('.comments .pagination a[href*="comment_page=2"]') is not None)
+check('020 comment pages contain no repeated pinned item',not({n['id'] for n in first20.select('.comment-list .comment')} & {n['id'] for n in second20.select('.comment-list .comment')}))
+check('020 native sort controls retain content target',all('id='+str(content20) in n['href'] and n['href'].endswith('#comments') for n in first20.select('.comment-filters a')))
+archive20=html(guest,'/index.php?r=archives')
+check('020 archive renders real current content without protected body','HTTP-ARCHIVE-020' in archive20.get_text() and 'PRIVATE-BODY-020' not in archive20.get_text() and archive20.select_one('select[name=category]') is not None)
+for period20 in ['2024-02','2024','2100-12']:
+    response20=guest.get(base+'/index.php',params={'r':'archives','period':period20})
+    check('020 archive accepts calendar '+period20,response20.status_code==200)
+for period20 in ['2024-13','2024-02-30','2024-02x']:
+    check('020 archive rejects malformed '+period20,guest.get(base+'/index.php',params={'r':'archives','period':period20}).status_code==400)
+report20=expect_post(admin,'admin_diagnostics',download='1').json()
+check('020 diagnostic report exposes actual upload constraints',all(k in json.dumps(report20) for k in ['memory_limit','post_max_size','upload_max_filesize']))
+
+visual20=html(admin,'/admin/index.php?tab=visuals&slot=icon:anime-discover')
+check('020 admin visual studio lists complete shared icon registry',len(visual20.select('.symbol-grid .visual-tile'))==79 and visual20.select_one('input[name=revision]') is not None)
+check('020 editor includes selectable independent cover artwork',html(admin,'/admin/index.php?tab=edit_content&id=1').select_one('select[name=cover_art]') is not None)
+expect_post(user,'visual_save',403,slot='icon:compass',asset_key='icon-shop',revision=0)
+expect_post(admin,'visual_save',slot='icon:compass',asset_key='icon-shop',revision=0)
+check('020 saved icon binding appears in public HTML','icon-shop.webp' in guest.get(base).text)
+expect_post(admin,'visual_save',409,slot='icon:compass',operation='reset',revision=0)
+expect_post(admin,'visual_save',slot='icon:compass',operation='reset',revision=1)
+expect_post(admin,'visual_save',400,slot='icon:compass',asset_key='../../app/config.php',revision=2)
+expect_post(admin,'visual_save',slot='scene:auth',asset_key='cover-workshop',revision=0)
+check('020 saved page artwork appears at its actual site location','cover-workshop.webp' in guest.get(base+'/index.php?r=login').text)
+expect_post(admin,'visual_save',slot='scene:auth',operation='reset',revision=1)
+for key20 in ['discover','community','shop','member','create','archive']:
+    image20=guest.get(base+'/assets/art/icon-'+key20+'.webp')
+    check('020 generated anime icon '+key20,image20.status_code==200 and image20.headers.get('Content-Type','').startswith('image/'))
+check('020 default covers do not repeat one stock image',guest.get(base+'/cover.php?id=500').content!=guest.get(base+'/cover.php?id=501').content)
+check('020 cover endpoint rejects executable input',guest.get(base+'/cover.php',params={'id':'<script>'}).status_code==400)
+check('020 starter articles use six different original covers',len({row[0] for row in conn.execute("SELECT cover_art FROM cy_contents WHERE id BETWEEN 1 AND 6")})==6)

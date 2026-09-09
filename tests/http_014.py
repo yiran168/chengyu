@@ -25,14 +25,15 @@ def totp14(secret):
     counter=int(time.time())//30;raw=base64.b32decode(secret);digest=hmac.new(raw,struct.pack('>Q',counter),hashlib.sha1).digest();off=digest[-1]&15
     return str((struct.unpack('>I',digest[off:off+4])[0]&0x7fffffff)%1000000).zfill(6)
 expect_post(secure,'factor_activate',403,current_password='WrongPassword!2026',factor_code=totp14(secret))
-expect_post(secure,'factor_activate',current_password='TestPassword!2026',factor_code=totp14(secret))
+activated_code=totp14(secret)
+expect_post(secure,'factor_activate',current_password='TestPassword!2026',factor_code=activated_code)
 page=html(secure,'/index.php?r=security');codes=[x.get_text(strip=True) for x in page.select('.recovery-grid code')]
 check('014 eight recovery codes shown once',len(codes)==8 and not html(secure,'/index.php?r=security').select('.recovery-grid code'))
 check('014 enrollment revokes prior session','r=login' in secure2.get(base+'/index.php?r=security').url)
 factor_uid=db_one("SELECT id FROM cy_users WHERE username='secure14'")['id'];dbfactor=dict(db_one('SELECT * FROM cy_second_factors WHERE user_id=?',(factor_uid,)))
 check('014 database encrypts secret and stores no plain recovery codes',secret not in str(dbfactor) and all(c.replace('-','') not in str(dbfactor) for c in codes))
 expect_post(secure2,'login',401,identifier='secure14',password='TestPassword!2026')
-expect_post(secure2,'login',403,identifier='secure14',password='TestPassword!2026',factor_code=totp14(secret))
+expect_post(secure2,'login',403,identifier='secure14',password='TestPassword!2026',factor_code=activated_code)
 expect_post(secure2,'login',identifier='secure14',password='TestPassword!2026',factor_code=codes[0])
 expect_post(secure2,'logout');expect_post(secure2,'login',403,identifier='secure14',password='TestPassword!2026',factor_code=codes[0])
 save_group('users',two_factor_enabled='0')

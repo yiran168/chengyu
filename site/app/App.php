@@ -5,7 +5,7 @@ use Chengyu\Core\{Database, Settings, Crypto, Security, Problem};
 use Chengyu\Services\{Activity, Wallet, Auth, Commerce, Payment, Content, Media, Mailer, Admin};
 final class App
 {
-    public const VERSION = '0.19.0';
+    public const VERSION = '0.20.0';
     public array $config; public Database $db; public Crypto $crypto; public Settings $settings;
     public Activity $activity; public Wallet $wallet; public Auth $auth; public Commerce $commerce;
     public Payment $payment; public Content $content; public Media $media; public Mailer $mailer; public Admin $admin;
@@ -41,6 +41,7 @@ final class App
     public \Chengyu\Services\RemoteSearch $remoteSearch;
     public \Chengyu\Services\Backups $backups;
     public \Chengyu\Services\ResourceLibrary $resources;
+    public \Chengyu\Services\VisualAssets $visuals;
     public string $basePath;
     public function __construct(array $config)
     {
@@ -59,6 +60,7 @@ final class App
         $this->invitations = new \Chengyu\Services\Invitations($this->db,$this->crypto,$this->activity);
         $this->catalog = new \Chengyu\Services\Catalog($this->db,$this->activity);
         $this->layout = new \Chengyu\Services\Layout($this->db,$this->activity);
+        $this->visuals = new \Chengyu\Services\VisualAssets($this);
         $this->secondFactor = new \Chengyu\Services\SecondFactor($this->db,$this->settings,$this->crypto,$this->activity,$this->wallet);
         $this->pricing = new \Chengyu\Services\Pricing($this->db,$this->settings,$this->membership,$this->activity);
         $this->auth = new Auth($this->db, $this->settings, $this->crypto, $this->activity, $this->wallet, $this->secondFactor);
@@ -128,9 +130,8 @@ final class App
     public function navigation(): array
     {
         $user = $this->auth->user(); $items = [];
-        $modules = \Chengyu\Services\Navigation::MODULES;
         foreach ($this->db->all('SELECT * FROM cy_navigation WHERE active=1 ORDER BY sort_order,id') as $item) {
-            if (isset($modules[$item['route']]) && !$this->settings->enabled($modules[$item['route']])) { continue; }
+            if (!\Chengyu\Services\Navigation::enabled($this->settings,$item['route'])) { continue; }
             if ($item['visibility'] !== 'public' && !$user) { continue; }
             if ($item['visibility'] === 'vip' && (int)($user['vip_until'] ?? 0) <= time()) { continue; }
             if ($item['visibility'] === 'verified' && empty($user['verified'])) { continue; }

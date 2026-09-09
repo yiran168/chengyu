@@ -7,7 +7,7 @@ final class Layout
 {
     public const TYPES=['heading','text','content','collection','cta','stats','links','spacer','hero','faq','media','features','tabs','gallery','timeline','categories','plans','titles','noticeboard','creators','slider','buttons'];
     public const ITEM_TYPES=['features','tabs','gallery','timeline','slider','buttons'];
-    public const SYMBOLS=['sparkles','leaf','book','code','box','shield','layers','users','compass','heart','crown','check'];
+    public const SYMBOLS=\Chengyu\Core\Icons::NAMES;
     public const PAGES=['page1','page2','page3','page4','page5','page6','page7','page8','page9','page10','page11','page12'];
     public const SLOTS=['home','articles','forum','shop','global_before','global_after','article_before','article_after','page_before','page_after','page1','page2','page3','page4','page5','page6','page7','page8','page9','page10','page11','page12'];
     private Database $db;private Activity $activity;

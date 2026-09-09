@@ -40,6 +40,7 @@ final class Admin
         } else {
             $data = ['label' => Input::required($input['label'] ?? '', 100),
                 'route' => Input::choice($input['route'] ?? 'home', Navigation::ROUTES),
+                'icon'=>Input::choice($input['icon']??'',array_merge([''],\Chengyu\Core\Icons::NAMES)),
                 'url' => Input::url($input['url'] ?? ''), 'visibility' => Input::choice($input['visibility'] ?? 'public', ['public', 'login', 'vip', 'verified']),
                 'sort_order' => Input::integer($input['sort_order'] ?? 0, 0, 9999), 'active' => empty($input['active']) ? 0 : 1];
             if ($data['route'] === 'external' && $data['url'] === '') { throw new Problem('External links require a URL.'); }

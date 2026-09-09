@@ -1,0 +1,30 @@
+[
+  {
+    "path": "zibll8.9开心版/zibll/pages/archives.php",
+    "sha256": "5e8d05551ee9cc5244d2a796c4ce487d1ebc137b427446dc039a37b296325bc8",
+    "reviewed_scope": "entire archive template",
+    "executed": false,
+    "copied_into_application": false
+  },
+  {
+    "path": "zibll8.9开心版/zibll/inc/functions/zib-comments-list.php",
+    "sha256": "e8cf71b94b2e5db6e9571abdc5bc9dc19182720b0415b60410bf8b25e05cf709",
+    "reviewed_scope": "pinned query and pagination, lines 418-514",
+    "executed": false,
+    "copied_into_application": false
+  },
+  {
+    "path": "RiProV5子主题/Shane/comments.php",
+    "sha256": "a42a2844291347ea604c26266eb0e2d31a291e2e08b56f115b304b0e5cf2b1a4",
+    "reviewed_scope": "entire comment template",
+    "executed": false,
+    "copied_into_application": false
+  },
+  {
+    "path": "RiProV5子主题/Shane/inc/template-walker.php",
+    "sha256": "bcbd6bd7fbf092deb13feaf156c5ed1e7b3ae040f833a1afc41f2240e047e53f",
+    "reviewed_scope": "navigation walker first 110 lines",
+    "executed": false,
+    "copied_into_application": false
+  }
+]

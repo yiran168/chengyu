@@ -61,6 +61,10 @@ final class Content
         if (!empty($filters['courses'])) {$where[]="EXISTS(SELECT 1 FROM cy_courses lc WHERE lc.content_id=c.id AND lc.active=1)";}
         if (!empty($filters['featured'])) { $where[] = 'c.featured=1'; }
         CatalogFilters::apply($filters,$where,$params,$this->db->driver());
+        if(isset($filters['archive_period'])){
+            $range=Archives::interval(Input::text($filters['archive_period'],40));
+            if($range){$where[]='c.created_at>=? AND c.created_at<?';array_push($params,$range[0],$range[1]);}
+        }
         $searchTerms=[];$sortParams=[];$indexed=null;$searchBackend='local';
         $phrase=Input::text($filters['q']??'',100);
         if ($phrase!=='') {
@@ -103,12 +107,13 @@ final class Content
         if($searchTerms && ($filters['sort']??'relevance')==='relevance'){$weight=[];foreach($searchTerms as $term){$escaped=str_replace(['!','%','_'],['!!','!%','!_'],$term);$weight[]="(CASE WHEN c.title=? THEN 100 WHEN c.title LIKE ? ESCAPE '!' THEN 40 WHEN c.title LIKE ? ESCAPE '!' THEN 20 WHEN c.tags LIKE ? ESCAPE '!' THEN 10 ELSE 1 END)";array_push($sortParams,$term,$escaped.'%','%'.$escaped.'%','%'.$escaped.'%');}$sort='('.implode('+',$weight).') DESC,c.pinned DESC,c.id DESC';}
         if($indexed && ($filters['sort']??'relevance')==='relevance'){$sort=$indexed['sort'];$sortParams=$indexed['sort_params'];}
         if (!empty($filters['collection'])) { $sortParams=[]; $sort='(SELECT ci.sort_order FROM cy_collection_items ci WHERE ci.collection_id='.Input::integer($filters['collection'],1).' AND ci.content_id=c.id) ASC,c.id DESC'; }
-        $fields = '(SELECT MIN(v.price_amount) FROM cy_variants v WHERE v.content_id=c.id AND v.active=1 AND v.inventory<>0) AS variant_min_price,(SELECT COUNT(*) FROM cy_variants v WHERE v.content_id=c.id) AS variant_count,c.id,c.kind,c.title,c.excerpt,c.category_id,c.author_id,c.cover_id,c.tags,c.price_amount,c.price_currency,c.access_level,c.pinned,c.featured,c.view_count,c.sold_count,c.created_at,c.updated_at,c.edit_version,c.publish_at,c.status,u.display_name,u.username,u.avatar_id,cat.name AS category_name';
+        $fields = '(SELECT MIN(v.price_amount) FROM cy_variants v WHERE v.content_id=c.id AND v.active=1 AND v.inventory<>0) AS variant_min_price,(SELECT COUNT(*) FROM cy_variants v WHERE v.content_id=c.id) AS variant_count,c.id,c.kind,c.title,c.excerpt,c.category_id,c.author_id,c.cover_id,c.cover_art,c.tags,c.price_amount,c.price_currency,c.access_level,c.pinned,c.featured,c.view_count,c.sold_count,c.created_at,c.updated_at,c.edit_version,c.publish_at,c.status,u.display_name,u.username,u.avatar_id,cat.name AS category_name';
         if (!empty($filters['history']) && $user) {
             $uid=(int)$user['id'];
             $fields.=',(SELECT hh.progress FROM cy_reading_history hh WHERE hh.user_id='.$uid.' AND hh.content_id=c.id) AS reading_progress';
             $sortParams=[];$sort='(SELECT hh.updated_at FROM cy_reading_history hh WHERE hh.user_id='.$uid.' AND hh.content_id=c.id) DESC,c.id DESC';
         }
+        if(!empty($filters['archive_order'])){$sort='c.created_at DESC,c.id DESC';$sortParams=[];}
         $items = $this->db->all('SELECT ' . $fields . $from . ' ORDER BY ' . $sort . ' LIMIT ? OFFSET ?', array_merge($params,$sortParams,[$size,$offset]));
         $items=Translations::apply($this->db,$items,\Chengyu\Core\Locale::current());
         return ['items' => $items, 'total' => $total, 'page' => $page, 'pages' => max(1, (int)ceil($total / $size)), 'search_backend'=>$searchBackend];
@@ -164,7 +169,7 @@ final class Content
             'min_vip_tier'=>$staff?Input::integer($input['min_vip_tier']??1,1,3):1,
             'access_password'=>$passwordHash, 'kind' => $kind, 'title' => $title, 'slug' => $slug, 'excerpt' => Input::text($input['excerpt'] ?? '', 1000),
             'body' => Input::required($input['body'] ?? '', 50000), 'protected_body' => Input::text($input['protected_body'] ?? '', 50000),
-            'status' => $status, 'category_id' => $category, 'cover_id' => $cover, 'resource_id' => $resource,
+            'status' => $status, 'category_id' => $category, 'cover_id' => $cover, 'cover_art'=>Input::choice($input['cover_art']??($old['cover_art']??''),array_merge([''],array_keys(VisualAssets::ART))), 'resource_id' => $resource,
             'tags' => Input::text($input['tags'] ?? '', 255), 'access_level' => $access, 'price_currency' => $currency, 'price_amount' => $price,
             'pinned' => $staff && !empty($input['pinned']) ? 1 : 0, 'featured' => $staff && !empty($input['featured']) ? 1 : 0,
             'product_type' => $productType, 'inventory' => $staff ? Input::integer($input['inventory'] ?? -1, -1, 1000000) : -1,
@@ -261,6 +266,23 @@ final class Content
         $this->activity->rate('report', (string)$user['id'], 10, 3600);
         if ($this->db->one('SELECT id FROM cy_reports WHERE user_id=? AND content_id=? AND status=?', [(int)$user['id'], $content, 'pending'])) { throw new Problem('Your report is already pending.'); }
         $this->db->insert('cy_reports', ['user_id' => (int)$user['id'], 'content_id' => $content, 'reason' => Input::required($reason, 1000), 'status' => 'pending', 'created_at' => time()]);
+    }
+    public function commentPage(int $content,?array $user,array $input=[]): array
+    {
+        $page=Input::integer($input['comment_page']??1,1,100000);
+        $sort=Input::choice($input['comment_sort']??'latest',['latest','oldest','author']);
+        $empty=['items'=>[],'total'=>0,'page'=>1,'pages'=>1,'sort'=>$sort];
+        $item=$this->get($content,$user);
+        if(!$this->settings->enabled('comments') || !(int)$item['comment_enabled'] || !$this->commentsVisible($user) || (!$this->access($item,$user) && $item['access_level']!=='reply')){return $empty;}
+        $where="c.content_id=? AND c.status='approved'";$params=[$content];
+        if($sort==='author'){$where.=' AND c.user_id=?';$params[]=(int)$item['author_id'];}
+        $from=' FROM cy_comments c JOIN cy_users u ON u.id=c.user_id WHERE '.$where;
+        $total=(int)$this->db->value('SELECT COUNT(*)'.$from,$params);$pages=max(1,(int)ceil($total/50));$page=min($page,$pages);
+        $accepted=(int)$this->db->value('SELECT accepted_comment_id FROM cy_threads WHERE content_id=? AND mode=?',[$content,'question']);
+        $order='CASE WHEN c.id=? THEN 0 ELSE 1 END,c.pinned DESC,c.id '.($sort==='oldest'?'ASC':'DESC');
+        // Page and list share the exact order. Pinned answers appear once, not again on every page.
+        $items=$this->db->all('SELECT c.*,u.display_name,u.avatar_id,u.username'.$from.' ORDER BY '.$order.' LIMIT 50 OFFSET ?',array_merge($params,[$accepted,($page-1)*50]));
+        return ['items'=>$items,'total'=>$total,'page'=>$page,'pages'=>$pages,'sort'=>$sort];
     }
     public function commentsVisible(?array $user): bool
     {

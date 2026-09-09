@@ -134,6 +134,5 @@
   }
   listenMedia(reduced,apply);listenMedia(fine,apply);navigator.connection?.addEventListener?.('change',apply);
   window.CYMotion={duration:(cap=1200)=>Math.min(cap,number('motion_duration',480,0,1200)),physics,pointerStatus:()=>({tracked:states.size,scheduled:frame!==0}),enabled,animate,transition,openDialog,closeDialog,curve:easing,configure:patch=>{config={...config,...patch};apply();},config:()=>({...config}),replay:()=>{document.querySelectorAll('.reveal').forEach(n=>n.classList.remove('visible'));reveal();}};
-  window.addEventListener('pagereveal',event=>{if(event.viewTransition&&!enabled())event.viewTransition.skipTransition();});
   apply();
 })();

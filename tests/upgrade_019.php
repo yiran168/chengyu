@@ -8,18 +8,20 @@ $config=json_decode(file_get_contents($private.'/config.json'),true);
 if($phase==='seed'){\Chengyu\Schema::create(new \Chengyu\Core\Database($config['database']));}
 $a=new \Chengyu\App($config);$GLOBALS['chengyu']=$a;
 if($phase==='seed'){
-    if(\Chengyu\App::VERSION!=='0.18.0'){throw new RuntimeException('Supply the original 0.18 site directory.');}
+    if(!in_array(\Chengyu\App::VERSION,['0.18.0','0.19.0'],true)){throw new RuntimeException('Supply an original 0.18 or 0.19 site directory.');}
     $admin=$a->db->insert('cy_users',['username'=>'upgrade_admin','email'=>'admin@example.test','password_hash'=>password_hash(bin2hex(random_bytes(20)),PASSWORD_DEFAULT),'display_name'=>'Upgrade admin','role'=>'admin','status'=>'active','bio'=>'','created_at'=>time()]);
     \Chengyu\Seed::run($a,$admin,false,'Upgrade fixture');
     $user=$a->db->insert('cy_users',['username'=>'upgrade_member','email'=>'member@example.test','password_hash'=>password_hash(bin2hex(random_bytes(20)),PASSWORD_DEFAULT),'display_name'=>'Upgrade member','role'=>'member','status'=>'active','bio'=>'','created_at'=>time()]);
     $actor=$a->db->one('SELECT * FROM cy_users WHERE id=?',[$admin]);
     $item=$a->content->save($actor,['kind'=>'article','title'=>'Preserved paid article','body'=>'Public original','protected_body'=>'PRESERVED-SECRET','access_level'=>'paid','price_currency'=>'balance','price'=>'5','status'=>'published'],true);
     $a->wallet->adjust($user,'balance',2500,'upgrade:initial','Isolated fixture');$a->commerce->buy($user,'content',$item,bin2hex(random_bytes(16)));
-    file_put_contents($private.'/ids.json',json_encode(['admin'=>$admin,'user'=>$user,'item'=>$item]));
+    $resource=0;if(\Chengyu\App::VERSION==='0.19.0'){$resource=$a->resources->save($actor,['content_id'=>$item,'label'=>'Preserved edition','mirror_url'=>'https://downloads.example.test/keep','active'=>1]);}
+    file_put_contents($private.'/ids.json',json_encode(['admin'=>$admin,'user'=>$user,'item'=>$item,'resource'=>$resource]));
     echo json_encode(['phase'=>'baseline','version'=>\Chengyu\App::VERSION,'schema'=>\Chengyu\Core\Migrations::version($a->db)]);exit;
 }
 $ids=json_decode(file_get_contents($private.'/ids.json'),true);$user=$a->db->one('SELECT * FROM cy_users WHERE id=?',[$ids['user']]);$item=$a->content->get((int)$ids['item'],$user);
-$checks=['schema_is_11'=>\Chengyu\Core\Migrations::version($a->db)===11,'balance_preserved'=>(int)$user['balance']===2000,'one_original_order'=>(int)$a->db->value('SELECT COUNT(*) FROM cy_orders')===1,'paid_access_preserved'=>$a->content->access($item,$user),'protected_body_preserved'=>$item['protected_body']==='PRESERVED-SECRET','new_tables_created'=>(int)$a->db->value('SELECT COUNT(*) FROM cy_resource_files')===0];
+$checks=['schema_current'=>\Chengyu\Core\Migrations::version($a->db)===\Chengyu\Core\Migrations::VERSION,'balance_preserved'=>(int)$user['balance']===2000,'one_original_order'=>(int)$a->db->value('SELECT COUNT(*) FROM cy_orders')===1,'paid_access_preserved'=>$a->content->access($item,$user),'protected_body_preserved'=>$item['protected_body']==='PRESERVED-SECRET','new_visual_table_created'=>(int)$a->db->value('SELECT COUNT(*) FROM cy_visual_assets')===0,'existing_covers_not_overwritten'=>$item['cover_art']===''];
+if(!empty($ids['resource'])){$checks['encrypted_resource_preserved']=$a->resources->destination((int)$ids['resource'],$user,false)['url']==='https://downloads.example.test/keep';}
 \Chengyu\Core\SnapshotSchema::check($a->db);
 echo json_encode(['phase'=>'upgraded','version'=>\Chengyu\App::VERSION,'checks'=>$checks]);
 exit(in_array(false,$checks,true)?1:0);

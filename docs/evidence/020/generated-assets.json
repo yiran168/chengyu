@@ -1,0 +1,56 @@
+[
+  {
+    "asset": "cover-space",
+    "path": "site/assets/art/cover-space.webp",
+    "bytes": 98756,
+    "sha256": "9228f14dd04a43b05968be90164d0527005183019ebe0c16e791906a0fbbe9bc",
+    "original_sha256": "ef5dad43469936411b93bf385dabebc48dbd30622f99d949a011780cd4b0539e",
+    "generation": "Built-in image generation; original independent anime scenes; 2026-09-09",
+    "processing": "Resized proportionally and encoded as WebP; no compositional editing."
+  },
+  {
+    "asset": "cover-workshop",
+    "path": "site/assets/art/cover-workshop.webp",
+    "bytes": 98490,
+    "sha256": "621f690b91c83b59ef3a952a08a33d97eb1b2570066291403ca678d77330164a",
+    "original_sha256": "fc500bf93441ab934e00e8c0b49f203963f3233a1c43bb92784879e8b2389cb6",
+    "generation": "Built-in image generation; original independent anime scenes; 2026-09-09",
+    "processing": "Resized proportionally and encoded as WebP; no compositional editing."
+  },
+  {
+    "asset": "cover-weekend",
+    "path": "site/assets/art/cover-weekend.webp",
+    "bytes": 102258,
+    "sha256": "509eed3417bc649776ab4c836d7ca2aac168b1eaa3b9b7c89bf8e6d04da5c987",
+    "original_sha256": "0c2cdf371750b435e83ae716776caa1b5e562d2005cc8672098c3b7dd99d82d3",
+    "generation": "Built-in image generation; original independent anime scenes; 2026-09-09",
+    "processing": "Resized proportionally and encoded as WebP; no compositional editing."
+  },
+  {
+    "asset": "cover-glass",
+    "path": "site/assets/art/cover-glass.webp",
+    "bytes": 161054,
+    "sha256": "f06be2d08e563e91f5595351fec5267762236af001c7e4d8a89bb46685e94794",
+    "original_sha256": "03efe537255d91d7a62ba7712e6d80f2d5eabd7866960d7f3e39d43acf3fbe4c",
+    "generation": "Built-in image generation; original independent anime scenes; 2026-09-09",
+    "processing": "Resized proportionally and encoded as WebP; no compositional editing."
+  },
+  {
+    "asset": "cover-collection",
+    "path": "site/assets/art/cover-collection.webp",
+    "bytes": 133368,
+    "sha256": "e8bc02b4ed69a0d990d55f8b8f14d51afef6de0686a08a56d586462fa59dcbf4",
+    "original_sha256": "f766875a4d264fa27ce5205dc831a54248148705c65d43e7754475232759be7d",
+    "generation": "Built-in image generation; original independent anime scenes; 2026-09-09",
+    "processing": "Resized proportionally and encoded as WebP; no compositional editing."
+  },
+  {
+    "asset": "cover-launch",
+    "path": "site/assets/art/cover-launch.webp",
+    "bytes": 159936,
+    "sha256": "8a7ebebd69957ff6fe025f401bbbcf0dbe99ae92afce4c8105810f11fff3328a",
+    "original_sha256": "5c372a2a398d550d14555c81c5d30ecf65dbe2d0e679c66bf6a3b785143b052d",
+    "generation": "Built-in image generation; original independent anime scenes; 2026-09-09",
+    "processing": "Resized proportionally and encoded as WebP; no compositional editing."
+  }
+]

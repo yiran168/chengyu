@@ -63,6 +63,10 @@ final class SiteController
         if ($route === 'home') {
             render('home', ['title' => (string)$s->get('site_name'), 'route' => $route]); return;
         }
+        if($route==='archives'){
+            $archive=\Chengyu\Services\Archives::page($a->content,$s,$me,$_GET);
+            render('archives',array_merge($archive,['title'=>tr('Every story has its season'),'route'=>$route]));return;
+        }
         if (in_array($route, ['articles', 'forum', 'shop', 'search', 'favorites', 'following'], true)) {
             $kind = ['articles' => 'article', 'forum' => 'thread', 'shop' => 'product'][$route] ?? 'all';
             if($route==='search'){$kind=Input::choice($_GET['kind']??'all',['all','article','thread','product']);}
@@ -80,8 +84,8 @@ final class SiteController
                 $a->db->execute('UPDATE cy_contents SET view_count=view_count+1 WHERE id=?', [(int)$item['id']]); $_SESSION[$key] = time(); $item['view_count']++;
             }
             $thread=$a->threads->snapshot($item,$me,$access);
-            $comments = $s->enabled('comments') && $a->content->commentsVisible($me) && ($access || $item['access_level'] === 'reply') ? $a->db->all('SELECT c.*,u.display_name,u.avatar_id,u.username FROM cy_comments c JOIN cy_users u ON u.id=c.user_id WHERE c.content_id=? AND c.status=? ORDER BY CASE WHEN c.id=? THEN 0 ELSE 1 END,c.pinned DESC,c.id DESC LIMIT 50', [(int)$item['id'], 'approved', (int)($thread['accepted_comment_id']??0)]) : [];
-            render('article', ['thread'=>$thread, 'title' => $item['title'], 'route' => $route, 'item' => $item, 'access' => $access, 'comments' => $comments]); return;
+            $commentFeed=$a->content->commentPage((int)$item['id'],$me,$_GET);
+            render('article', ['thread'=>$thread, 'title' => $item['title'], 'route' => $route, 'item' => $item, 'access' => $access, 'comments' => $commentFeed['items'],'commentFeed'=>$commentFeed]); return;
         }
         if (in_array($route, ['login', 'register', 'forgot', 'reset'], true)) {
             if ($route === 'register') { $s->requireModule('registration'); }

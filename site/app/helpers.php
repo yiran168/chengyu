@@ -52,51 +52,13 @@ function partial(string $view, array $data = []): void
 }
 function icon(string $name, string $class = ''): string
 {
-    static $paths = [
-        'arrow' => '<path d="M4 12h15m-6-6 6 6-6 6"/>',
-        'chevron' => '<path d="m9 5 7 7-7 7"/>',
-        'search' => '<circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/>',
-        'sun' => '<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/>',
-        'moon' => '<path d="M21 13A9 9 0 0 1 11 3 9 9 0 1 0 21 13Z"/>',
-        'sparkles' => '<path d="m12 3 2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5L12 3ZM20 2v4m-2-2h4"/>',
-        'book' => '<path d="M3 4h7l2 2 2-2h7v15h-7l-2 2-2-2H3V4Zm9 2v15"/>',
-        'layers' => '<path d="m12 3 10 5-10 5L2 8l10-5Zm-9 10 9 5 9-5M3 18l9 5 9-5"/>',
-        'message' => '<path d="M21 11a9 9 0 0 1-9 9H3l2-4a9 9 0 1 1 16-5Z"/><path d="M8 10h8m-8 4h5"/>',
-        'box' => '<path d="m12 2 9 5v10l-9 5-9-5V7l9-5Zm0 10 9-5M3 7l9 5v10M7.5 4.5l9 5"/>',
-        'crown' => '<path d="m2 7 5 4 5-8 5 8 5-4-3 13H5L2 7Zm4 9h12"/>',
-        'wallet' => '<path d="M20 7H5a3 3 0 0 1 0-6h14v6M3 4v15a2 2 0 0 0 2 2h16V7m0 5h-6v5h6"/><circle cx="16" cy="14.5" r=".5"/>',
-        'grid' => '<rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/>',
-        'home' => '<path d="m3 10 9-8 9 8v11h-6v-7H9v7H3V10Z"/>',
-        'code' => '<path d="m8 5-6 7 6 7m8-14 6 7-6 7m-3-17-2 20"/>',
-        'leaf' => '<path d="M20 3C3 1 1 15 8 19c8 5 14-4 12-16ZM4 22 16 8"/>',
-        'compass' => '<circle cx="12" cy="12" r="10"/><path d="m16 8-3 5-5 3 3-5 5-3Z"/>',
-        'heart' => '<path d="M20 4a5 5 0 0 0-8 2 5 5 0 0 0-8-2c-5 5 2 11 8 16 6-5 13-11 8-16Z"/>',
-        'bookmark' => '<path d="M5 3h14v19l-7-5-7 5V3Z"/>',
-        'eye' => '<path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/>',
-        'clock' => '<circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 3"/>',
-        'check' => '<path d="m4 12 5 5L20 5"/>',
-        'lock' => '<rect x="4" y="10" width="16" height="12" rx="3"/><path d="M8 10V6a4 4 0 0 1 8 0v4m-4 5v3"/>',
-        'bell' => '<path d="M4 17h16l-2-4V8a6 6 0 0 0-12 0v5l-2 4Zm5 3a3 3 0 0 0 6 0"/>',
-        'user' => '<circle cx="12" cy="7" r="4"/><path d="M4 22v-3a8 8 0 0 1 16 0v3"/>',
-        'users' => '<circle cx="9" cy="7" r="4"/><path d="M1 22v-3a8 8 0 0 1 16 0v3m0-19a4 4 0 0 1 0 8m3 3a7 7 0 0 1 3 6"/>',
-        'edit' => '<path d="m15 3 6 6-11 11-7 1 1-7L15 3Zm-1 1 6 6"/>',
-        'settings' => '<path d="M4 5h16M4 12h16M4 19h16"/><circle cx="8" cy="5" r="2"/><circle cx="16" cy="12" r="2"/><circle cx="10" cy="19" r="2"/>',
-        'logout' => '<path d="M9 3H3v18h6m-1-9h14m-5-5 5 5-5 5"/>',
-        'download' => '<path d="M12 2v13m-5-5 5 5 5-5M3 16v6h18v-6"/>',
-        'upload' => '<path d="M12 17V4m-5 5 5-5 5 5M3 16v6h18v-6"/>',
-        'menu' => '<path d="M3 6h18M3 12h18M3 18h18"/>',
-        'close' => '<path d="m5 5 14 14M5 19 19 5"/>',
-        'plus' => '<path d="M12 3v18M3 12h18"/>',
-        'shield' => '<path d="m12 2 9 4v7c0 6-9 10-9 10S3 19 3 13V6l9-4Z"/><path d="m8 12 3 3 6-6"/>',
-        'chart' => '<path d="M3 3v18h18M7 16l4-5 4 2 6-8"/>',
-        'gift' => '<rect x="3" y="8" width="18" height="5" rx="1"/><path d="M5 13v9h14v-9M12 8v14m0-14C3 8 4 1 8 2c3 0 4 6 4 6Zm0 0c9 0 8-7 4-6-3 0-4 6-4 6Z"/>',
-        'refresh' => '<path d="M20 8a9 9 0 0 0-16 0m0 8a9 9 0 0 0 16 0M20 2v6h-6M4 22v-6h6"/>',
-        'server' => '<rect x="2" y="3" width="20" height="7" rx="2"/><rect x="2" y="14" width="20" height="7" rx="2"/><path d="M6 6h1m-1 11h1m8-11h4m-4 11h4"/>',
-        'file' => '<path d="M14 2H4v20h16V8l-6-6Zm0 0v6h6M8 13h8m-8 4h6"/>',
-        'palette' => '<path d="M12 2A10 10 0 1 0 12 22c5 0-3-7 3-7h3C24 15 21 2 12 2Z"/><circle cx="7" cy="8" r="1"/><circle cx="12" cy="6" r="1"/><circle cx="17" cy="9" r="1"/>',
-    ];
-    return '<svg class="icon ' . e($class) . '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' . ($paths[$name] ?? $paths['sparkles']) . '</svg>';
+    if(isset($GLOBALS['chengyu']) && isset(app()->visuals) && in_array($name,\Chengyu\Core\Icons::NAMES,true)){
+        $custom=app()->visuals->image('icon:'.$name);
+        if($custom!==''){return '<img class="icon custom-icon '.e($class).'" src="'.e($custom).'" width="24" height="24" alt="" aria-hidden="true" decoding="async">';}
+    }
+    return \Chengyu\Core\Icons::svg($name,$class);
 }
+
 function avatar(array $user, string $class = ''): string
 {
     if (!empty($user['avatar_id'])) { return '<img class="avatar ' . e($class) . '" src="' . e(media_url((int)$user['avatar_id'])) . '" alt="" loading="lazy">'; }
@@ -126,9 +88,13 @@ function check_field(string $name, string $label, bool $checked = false): void
     echo '<label class="checkbox"><input type="checkbox" name="' . e($name) . '" value="1"' . ($checked ? ' checked' : '') . '><span>' . t($label) . '</span></label>';
 }
 function options(array $values): array { return array_combine($values, $values) ?: []; }
-function cover(array $item): string { return !empty($item['cover_id']) ? media_url((int)$item['cover_id']) : asset(app()->settings->get('default_cover_style')==='abstract'?'cover-' . (((int)$item['id'] - 1) % 6 + 1) . '.svg':(((int)$item['id']%2)?'art/blue-hour.webp':'art/island-anime.webp')); }
+function cover(array $item): string {
+    if(!empty($item['cover_id'])){return media_url((int)$item['cover_id']);}
+    if(app()->settings->get('default_cover_style')==='anime' && isset(\Chengyu\Services\VisualAssets::ART[$item['cover_art']??''])){return app()->visuals->art($item['cover_art']);}
+    return app()->basePath.'/cover.php?id='.(int)$item['id'];
+}
 function item_url(array $item): string { return url($item['kind'] === 'product' ? 'product' : ($item['kind'] === 'page' ? 'page' : 'article'), ['id' => (int)$item['id']]); }
-function empty_state(string $message = 'Nothing here yet.', string $symbol = 'leaf'): void { echo '<div class="empty-state">' . icon($symbol) . '<h3>' . t($message) . '</h3><p>' . t('A little space for something good to come.') . '</p></div>'; }
+function empty_state(string $message = 'Nothing here yet.', string $symbol = 'leaf'): void { echo '<div class="empty-state">' . (app()->visuals->image('scene:empty')?'<img class="empty-art" src="'.e(app()->visuals->image('scene:empty')).'" alt="" loading="lazy">':icon($symbol)) . '<h3>' . t($message) . '</h3><p>' . t('A little space for something good to come.') . '</p></div>'; }
 function button(string $label = 'Save changes', string $class = '', string $symbol = 'check'): void { echo '<button class="btn ' . e($class) . '" type="submit">' . icon($symbol) . t($label) . '</button>'; }
 function upload_field(string $name, string $label, int $value, bool $private = false): void
 {
@@ -143,7 +109,7 @@ function address_select(int $uid): void
 }
 function admin_nav(): array
 {
-    return ['backups'=>['Recovery vault','shield','manage'],'search_index'=>['Search index','compass','manage'],'learning'=>['Course studio','book','content'],'logistics'=>['Logistics desk','box','manage'],'reconciliation'=>['Statement reconciliation','chart','manage'],'support'=>['Support desk','message','manage'],'media_lab'=>['Media workbench','file','manage'],'translations'=>['Content translations','compass','content'],'commerce'=>['Commerce center','box','manage'],'shipping'=>['Shipping and promotions','gift','manage'],'service'=>['After-sales and payouts','shield','manage'],'integrations'=>['Connected services','compass','manage'],'configuration'=>['Configuration vault','layers','manage'],'badges'=>['Community badges','star','manage'],'dashboard'=>['Overview','grid','manage'],'pricing'=>['Pricing studio','gift','manage'],'creators'=>['Creator revenue','chart','manage'],'motion'=>['Motion studio','sparkles','manage'],'threads'=>['Questions and polls','message','content'],'circles'=>['Circle memberships','users','manage'],'bounties'=>['Question bounties','gift','manage'],'reviews'=>['Product reviews','star','moderate'],'builder'=>['Layout studio','layers','manage'],'collections'=>['Editorial collections','book','manage'],'links'=>['Link directory','compass','manage'],'announcements'=>['Scheduled announcements','bell','manage'],'tasks'=>['Task center','gift','manage'],'invitations'=>['Invitation codes','users','manage'],'variants'=>['Product variants','box','manage'],'resources'=>['Resource releases','layers','content'],'downloads'=>['Download records','file','manage'],'contents' => ['Content library', 'book', 'content'], 'categories' => ['Categories', 'layers', 'manage'], 'moderation' => ['Moderation', 'shield', 'moderate'], 'users' => ['Members', 'users', 'manage'], 'orders' => ['Orders', 'box', 'manage'], 'plans' => ['Membership plans', 'crown', 'manage'], 'stock' => ['Code inventory', 'code', 'manage'], 'coupons' => ['Coupons', 'gift', 'manage'], 'vouchers' => ['Redeem codes', 'gift', 'manage'], 'withdrawals' => ['Withdrawals', 'wallet', 'manage'], 'ledger' => ['Financial ledger', 'chart', 'manage'], 'media' => ['Media library', 'file', 'manage'], 'navigation' => ['Navigation', 'compass', 'manage'], 'settings' => ['Site settings', 'settings', 'manage'], 'logs' => ['Audit logs', 'shield', 'manage'], 'system' => ['System health', 'server', 'manage']];
+    return ['visuals'=>['Visual asset studio','palette','manage'],'backups'=>['Recovery vault','shield','manage'],'search_index'=>['Search index','compass','manage'],'learning'=>['Course studio','book','content'],'logistics'=>['Logistics desk','box','manage'],'reconciliation'=>['Statement reconciliation','chart','manage'],'support'=>['Support desk','message','manage'],'media_lab'=>['Media workbench','file','manage'],'translations'=>['Content translations','compass','content'],'commerce'=>['Commerce center','box','manage'],'shipping'=>['Shipping and promotions','gift','manage'],'service'=>['After-sales and payouts','shield','manage'],'integrations'=>['Connected services','compass','manage'],'configuration'=>['Configuration vault','layers','manage'],'badges'=>['Community badges','star','manage'],'dashboard'=>['Overview','grid','manage'],'pricing'=>['Pricing studio','gift','manage'],'creators'=>['Creator revenue','chart','manage'],'motion'=>['Motion studio','sparkles','manage'],'threads'=>['Questions and polls','message','content'],'circles'=>['Circle memberships','users','manage'],'bounties'=>['Question bounties','gift','manage'],'reviews'=>['Product reviews','star','moderate'],'builder'=>['Layout studio','layers','manage'],'collections'=>['Editorial collections','book','manage'],'links'=>['Link directory','compass','manage'],'announcements'=>['Scheduled announcements','bell','manage'],'tasks'=>['Task center','gift','manage'],'invitations'=>['Invitation codes','users','manage'],'variants'=>['Product variants','box','manage'],'resources'=>['Resource releases','layers','content'],'downloads'=>['Download records','file','manage'],'contents' => ['Content library', 'book', 'content'], 'categories' => ['Categories', 'layers', 'manage'], 'moderation' => ['Moderation', 'shield', 'moderate'], 'users' => ['Members', 'users', 'manage'], 'orders' => ['Orders', 'box', 'manage'], 'plans' => ['Membership plans', 'crown', 'manage'], 'stock' => ['Code inventory', 'code', 'manage'], 'coupons' => ['Coupons', 'gift', 'manage'], 'vouchers' => ['Redeem codes', 'gift', 'manage'], 'withdrawals' => ['Withdrawals', 'wallet', 'manage'], 'ledger' => ['Financial ledger', 'chart', 'manage'], 'media' => ['Media library', 'file', 'manage'], 'navigation' => ['Navigation', 'compass', 'manage'], 'settings' => ['Site settings', 'settings', 'manage'], 'logs' => ['Audit logs', 'shield', 'manage'], 'system' => ['System health', 'server', 'manage']];
 }
 
 function variant_select(array $item): void
@@ -182,7 +148,7 @@ function admin_groups(): array
         'Create and publish'=>['contents','learning','search_index','categories','collections','resources','downloads','media','media_lab','translations','moderation'],
         'Community and people'=>['users','support','threads','circles','bounties','reviews','badges','tasks','invitations'],
         'Commerce and finance'=>['commerce','shipping','logistics','reconciliation','service','orders','variants','stock','plans','pricing','coupons','vouchers','creators','withdrawals','ledger'],
-        'Experience and growth'=>['motion','builder','navigation','announcements','links'],
+        'Experience and growth'=>['visuals','motion','builder','navigation','announcements','links'],
     ];
 }
 
