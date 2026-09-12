@@ -1,13 +1,13 @@
 [
   {
     "php": "7.4",
-    "files": 283,
+    "files": 284,
     "ok": true,
     "failures": []
   },
   {
     "php": "8.5",
-    "files": 283,
+    "files": 284,
     "ok": true,
     "failures": []
   },

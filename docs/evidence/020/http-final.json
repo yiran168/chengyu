@@ -1,6 +1,6 @@
 {
-  "total": 873,
-  "passed": 873,
+  "total": 882,
+  "passed": 882,
   "failed": 0,
   "tests": [
     {
@@ -1296,7 +1296,7 @@
       "ok": true
     },
     {
-      "test": "native cross-document transition opt-in present",
+      "test": "page entry uses external motion without cross-document snapshots",
       "ok": true
     },
     {
@@ -3481,6 +3481,42 @@
     },
     {
       "test": "020 starter articles use six different original covers",
+      "ok": true
+    },
+    {
+      "test": "020 portal renders bounded article rows with native categories",
+      "ok": true
+    },
+    {
+      "test": "020 text-only entries omit placeholder cover art",
+      "ok": true
+    },
+    {
+      "test": "020 portal category and sort links preserve native navigation",
+      "ok": true
+    },
+    {
+      "test": "020 home category is applied by server query",
+      "ok": true
+    },
+    {
+      "test": "020 home rejects unknown sort",
+      "ok": true
+    },
+    {
+      "test": "save group layout home_presentation,hero_enabled",
+      "ok": true
+    },
+    {
+      "test": "020 admin can restore image-led homepage",
+      "ok": true
+    },
+    {
+      "test": "save group layout home_presentation",
+      "ok": true
+    },
+    {
+      "test": "020 admin choice restores content-led homepage",
       "ok": true
     },
     {

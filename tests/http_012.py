@@ -69,7 +69,8 @@ check('refunded invitation is revoked in storage',db_one('SELECT active FROM cy_
 save_group('appearance',motion_response='spring',spring_stiffness='230',spring_damping='27',spring_mass='110',motion_disclosures='1')
 rendered=json.loads(html(guest).html['data-motion-settings'])
 check('spring controls render validated same frontend configuration',rendered['motion_response']=='spring' and rendered['spring_stiffness']==230 and rendered['spring_damping']==27 and rendered['spring_mass']==110)
-check('native cross-document transition opt-in present','@view-transition{navigation:auto;}' in guest.get(base+'/').text)
+transition_home=guest.get(base+'/').text
+check('page entry uses external motion without cross-document snapshots','@view-transition' not in transition_home and '/assets/motion.css' in transition_home and '/assets/motion.js' in transition_home)
 
 # Isolated SQL fixtures exercise pagination beyond the first page; no real users are created.
 fixture_hash=db_one('SELECT password_hash FROM cy_users WHERE id=1')['password_hash']

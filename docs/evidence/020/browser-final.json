@@ -1,8 +1,8 @@
 {
   "mode": "Actual Chromium navigation to local PHP URLs, real forms/CSP/cookies; not an external production host",
   "capture_enabled": true,
-  "total": 87,
-  "passed": 87,
+  "total": 91,
+  "passed": 91,
   "failed": 0,
   "tests": [
     {
@@ -67,6 +67,22 @@
     },
     {
       "test": "pageshow preserves intentional disabled state",
+      "ok": true
+    },
+    {
+      "test": "portal presents real content instead of a promotional hero",
+      "ok": true
+    },
+    {
+      "test": "text-only articles do not render generated placeholder covers",
+      "ok": true
+    },
+    {
+      "test": "home category tab navigates without client-only filtering",
+      "ok": true
+    },
+    {
+      "test": "home sorting keeps the selected category",
       "ok": true
     },
     {

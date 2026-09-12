@@ -39,3 +39,17 @@ for key20 in ['discover','community','shop','member','create','archive']:
 check('020 default covers do not repeat one stock image',guest.get(base+'/cover.php?id=500').content!=guest.get(base+'/cover.php?id=501').content)
 check('020 cover endpoint rejects executable input',guest.get(base+'/cover.php',params={'id':'<script>'}).status_code==400)
 check('020 starter articles use six different original covers',len({row[0] for row in conn.execute("SELECT cover_art FROM cy_contents WHERE id BETWEEN 1 AND 6")})==6)
+
+portal20=html(guest,'/')
+check('020 portal renders bounded article rows with native categories',0<len(portal20.select('#home-articles .article-row'))<=8 and len(portal20.select('.home-feed-tabs a'))>1)
+check('020 text-only entries omit placeholder cover art',not portal20.select('.without-cover .card-cover'))
+check('020 portal category and sort links preserve native navigation',all('#home-articles' in n['href'] for n in portal20.select('.home-feed-tabs a,.home-feed-toolbar nav a')))
+category20=int(conn.execute("SELECT id FROM cy_categories WHERE kind='article' ORDER BY id LIMIT 1").fetchone()[0])
+filtered20=html(guest,'/index.php?r=home&category='+str(category20)+'&sort=popular')
+ids20=[int(n['data-content-id']) for n in filtered20.select('#home-articles .article-row')]
+check('020 home category is applied by server query',bool(ids20) and all(int(conn.execute('SELECT category_id FROM cy_contents WHERE id=?',(n,)).fetchone()[0])==category20 for n in ids20))
+check('020 home rejects unknown sort',guest.get(base+'/index.php?r=home&sort=arbitrary').status_code==400)
+save_group('layout',home_presentation='showcase',hero_enabled='1')
+check('020 admin can restore image-led homepage',html(guest,'/').select_one('.hero') is not None)
+save_group('layout',home_presentation='portal')
+check('020 admin choice restores content-led homepage',html(guest,'/').select_one('.hero') is None)

@@ -80,7 +80,7 @@
   }
   function schedule(){if(!frame){lastTick=0;frame=requestAnimationFrame(tick);}}
   function leavePointer(){if(pointerTarget&&states.has(pointerTarget)){states.get(pointerTarget).target={x:0,y:0,h:0};schedule();}pointerTarget=null;}
-  document.querySelectorAll('.content-card,.quick-link,.featured-item,.motion-preview-card,.circle-card').forEach(n=>n.dataset.kineticCard='');
+  document.querySelectorAll('.content-card,.quick-link,.featured-item,.motion-preview-card,.circle-card').forEach(n=>{if(!n.matches('.article-row')&&!n.closest('.portal-links'))n.dataset.kineticCard='';});
   document.addEventListener('pointermove',event=>{
     if(!interactive()||event.pointerType==='touch')return;
     const target=event.target.closest('.btn,[data-kinetic-card],.hero-art');

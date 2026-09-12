@@ -1,5 +1,6 @@
 """Actual Playwright URL navigation, forms, animation and accessibility checks."""
 from pathlib import Path
+from urllib.parse import urljoin
 import json,os
 from playwright.sync_api import sync_playwright,expect,TimeoutError as BrowserTimeout
 BASE=os.environ['CY_SNAPSHOT_BASE'];ROOT=Path(__file__).resolve().parents[1]
@@ -57,7 +58,7 @@ try:
         check('ripple never expands the button hit area',during['width']<before['width']*1.1 and during['height']<before['height']*1.1)
         check('pointer press and release still trigger the button',ripple.get_attribute('data-clicked')=='1');ripple.evaluate('(n)=>n.remove()')
         no_overflow('home');page.set_viewport_size({'width':1440,'height':1000});shot('home-desktop.png')
-        card=page.locator('.quick-link').first;card.hover();page.wait_for_timeout(200)
+        card=page.locator('.featured-item').first;card.hover();page.wait_for_timeout(200)
         check('pointer-following card has real interaction state',card.evaluate('(n)=>n.classList.contains("pointer-active")'))
         check('card perspective actually changes computed transform',card.evaluate('(n)=>getComputedStyle(n).transform!=="none"'))
         page.locator('[data-dialog="appearance-dialog"]').click();expect(page.locator('#appearance-dialog')).to_be_visible()
@@ -71,6 +72,13 @@ try:
         page.evaluate('() => {const f=document.createElement("form");f.dataset.async="";const b=document.createElement("button");b.disabled=true;b.id="disabled-fixture";f.append(b);document.body.append(f);dispatchEvent(new PageTransitionEvent("pageshow",{persisted:true}));}')
         check('pageshow preserves intentional disabled state',page.locator('#disabled-fixture').is_disabled())
         page.locator('#disabled-fixture').evaluate('(n)=>n.parentElement.remove()')
+        check('portal presents real content instead of a promotional hero',page.locator('.hero').count()==0 and page.locator('.article-row').count()>0)
+        check('text-only articles do not render generated placeholder covers',page.locator('.article-row.without-cover .card-cover').count()==0)
+        before_category=page.locator('.home-feed-tabs .filter').nth(1).get_attribute('href')
+        with page.expect_navigation(wait_until='load'):page.locator('.home-feed-tabs .filter').nth(1).click()
+        check('home category tab navigates without client-only filtering',page.url==urljoin(BASE,before_category) and page.locator('.home-feed-tabs .filter.active').count()==1)
+        with page.expect_navigation(wait_until='load'):page.locator('.home-feed-toolbar nav a').nth(1).click()
+        check('home sorting keeps the selected category','sort=popular' in page.url and 'category=' in page.url)
         page.set_viewport_size({'width':1440,'height':1000});login()
         go('/admin/index.php?tab=visuals&slot=icon:compass')
         check('visual studio renders all icon choices',page.locator('.symbol-grid .visual-tile').count()==79)

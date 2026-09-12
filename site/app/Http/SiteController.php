@@ -61,7 +61,8 @@ final class SiteController
             render('history',['route'=>$route,'title'=>tr('Your reading journey'),'feed'=>$a->content->feed('all',$me,['history'=>true,'page'=>$page])]);return;
         }
         if ($route === 'home') {
-            render('home', ['title' => (string)$s->get('site_name'), 'route' => $route]); return;
+            $homeFilters=['category'=>Input::integer($_GET['category']??0),'sort'=>Input::choice($_GET['sort']??'latest',['latest','popular']),'page'=>$page,'size'=>8];
+            render('home', ['title' => (string)$s->get('site_name'), 'route' => $route,'homeFilters'=>$homeFilters]); return;
         }
         if($route==='archives'){
             $archive=\Chengyu\Services\Archives::page($a->content,$s,$me,$_GET);

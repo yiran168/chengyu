@@ -1,0 +1,51 @@
+{
+  "date": "2026-09-10",
+  "purpose": "根据用户要求重新分析实际网页与排版源码；只读研究，不执行或复制商业主题代码。",
+  "files": [
+    {
+      "path": "zibll8.9开心版/zibll/index.php",
+      "sha256": "f60b9e58dd508668066ef57c55f29ed750462bc8960729eaa45510013caf4a0e",
+      "scope": "全文：首页标签与列表、插入位置"
+    },
+    {
+      "path": "zibll8.9开心版/zibll/sidebar.php",
+      "sha256": "7abac6bb834982f05fb75d738b52c052deee512a0fa21c3da7f1986f396723d7",
+      "scope": "全文：按页面配置侧栏及移动端处理"
+    },
+    {
+      "path": "zibll8.9开心版/zibll/inc/functions/zib-posts-list.php",
+      "sha256": "d71844d6f91c391d16a12f937ff31547fcaaa8c7e8061a8ff2260b15049d1ba0",
+      "scope": "116–185：普通列表、无图和多图判断"
+    },
+    {
+      "path": "RiProV5子主题/Shane/template-parts/loop/item.php",
+      "sha256": "8c1865d3e8a9f4a83701b89d5abd5ed01355dc67d891d98bc7e0821d37c9dda3",
+      "scope": "全文：grid、grid-overlay、list结构"
+    },
+    {
+      "path": "RiProV5子主题/Shane/template-parts/loop/entry-meta-part.php",
+      "sha256": "1942c7be3e8ca18406942a9082ebbd4836ef73a83f0119c2fbf0afe5604fece2",
+      "scope": "全文：日期、互动和价格；未采用固定999+及点赞加81"
+    },
+    {
+      "path": "RiProV5子主题/Shane/template-parts/loop/entry-media-part.php",
+      "sha256": "92bc5a7c662d01875412dc7c95d05c18bcac8c9eedd5658315068630261cae30",
+      "scope": "前85行：比例、媒体预览、按需加载"
+    },
+    {
+      "path": "RiProV5子主题/Shane/inc/gadgets/home/home-slideer.php",
+      "sha256": "342ff09fc0fa9a8a58210f1e086f80ba30b61917be479e98955f53515d3fe5ba",
+      "scope": "前240行：桌面与手机图片、链接、自动播放配置"
+    },
+    {
+      "path": "RiProV5子主题/Shane/assets/css/shane_home.css",
+      "sha256": "6f37f8f1441696c4bded4ed0d31e484e95444837cc2971b6b6be859f8a249e93",
+      "scope": "样式读取：圆角、阴影与曲线"
+    }
+  ],
+  "websites": [
+    "https://demo.zibll.com/",
+    "https://ripro.rizhuti.com/"
+  ],
+  "browser_evidence": "Actual Chromium screenshots retained in project .work/evidence/*-reference.png; commercial screenshot bytes are not redistributed in the source or host ZIP."
+}
