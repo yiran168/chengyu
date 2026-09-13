@@ -991,8 +991,8 @@ SQLite 使用 SQLite 在线备份 API / sqlite3 <code>.backup</code> 或停止�
 </tr>
 <tr>
 <td>Linux MySQL / SQLite</td>
-<td>当前提交待 CI 验证，未计为通过</td>
-<td>CI 结果另行记录</td>
+<td>14/14 组全部成功，各 597/597</td>
+<td>evidence/021/ci-verified.json、native-*.json</td>
 </tr>
 </tbody>
 </table></div>
@@ -1001,6 +1001,8 @@ SQLite 使用 SQLite 在线备份 API / sqlite3 <code>.backup</code> 或停止�
 <p>本轮 20 张实页图：17 张回归截图、3 张独立预览；021 标记代表本轮，旧图保留为历史预览。回归截图含明确测试内容；独立预览使用原创示例，均不代表生产数据。重新核查截图后补齐“全部”的中文翻译，并限制文章封面开关的作用范围。</p>
 <p>升级演练保留原余额、订单、付费权限、受保护正文、加密资源及封面；新表为空，旧文章不凭空添加来源。SnapshotSchema 检查包含新表。0.18 与 0.19 到 0.20 的历史升级证据保留在 evidence/020，本版没有把历史演练重标为新运行。</p>
 <p>免费虚拟主机、用户 VPS、真实支付/邮件/对象存储账号未部署联调。PHP 7.4–8.5 使用相同业务代码；数据库测试通过不代表任意主机实例的扩展、配额与出站接口均满足。完整缺口见 FEATURE_MATRIX.md。</p>
+<p>Linux 原生数据库 CI 验证提交 <code>578c62d99f7ec45093ba56540022f924697ff4ad</code>：<a href="https://github.com/yiran168/chengyu/actions/runs/34736895184">实际运行</a>。七个 PHP 版本分别运行 MySQL 8.0 与原生 SQLite，两种驱动均从测试运行制品再次核对。后续发布提交仅同步报告、手册、版本元数据、文件清单及打包工具的换行规范，生产 PHP 与此验证提交一致。</p>
+<p>打包前按仓库 LF 规则规范文本换行，避免 Windows 生成的 CRLF 文件与 GitHub 源码哈希不同；二进制图片不改写。交付校验包括此项，准确结果随 Release 的 package-verification.json 提供。</p>
 </article><article id="chapter-13" class="chapter"><p class="eyebrow">CHAPTER 13 <a href="docs/REFERENCE_AUDIT.md">分篇源文件</a></p><h2>0.19 源码与版本功能分析</h2>
 <p>核查日期：2026-09-08。实际读取用户指定的子比 8.9 和 Shane 2.2 子主题目录；不运行参考 PHP、导入数据库或复制其素材。Shane 依赖 RiPro 父主题，本地这份目录不是完整 RiPro 产品源码，缺失父主题部分以官方功能日志核对。</p>
 <h3>本地实际分析</h3>

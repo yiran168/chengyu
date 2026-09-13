@@ -10,7 +10,7 @@
 | PHP 语法 | 7.4 与 8.5 各 298 文件通过；打包时再检上传源码 | evidence/021/syntax.json |
 | JavaScript / 弹簧数学 | 18 文件语法；42/42 不变量 | evidence/021/syntax.json、spring-final.json |
 | 0.20 → 0.21 升级 | PHP 7.4、8.5 两组通过 | evidence/021/upgrade-from-020.json |
-| Linux MySQL / SQLite | 当前提交待 CI 验证，未计为通过 | CI 结果另行记录 |
+| Linux MySQL / SQLite | 14/14 组全部成功，各 597/597 | evidence/021/ci-verified.json、native-*.json |
 
 新增服务测试验证快讯角色重检、发布时间边界、幂等重试、并发修订、搜索转义与分页、私有图片拒绝、关闭模块、文章出处与模板输出、同分类上下篇及受限内容过滤。HTTP 检查实际控制器、CSRF/权限、重试、草稿及未来内容隔离、RSS/XML、站点地图、列表右图与纯文字，以及文章封面开关不影响商品图。
 
@@ -21,3 +21,7 @@
 升级演练保留原余额、订单、付费权限、受保护正文、加密资源及封面；新表为空，旧文章不凭空添加来源。SnapshotSchema 检查包含新表。0.18 与 0.19 到 0.20 的历史升级证据保留在 evidence/020，本版没有把历史演练重标为新运行。
 
 免费虚拟主机、用户 VPS、真实支付/邮件/对象存储账号未部署联调。PHP 7.4–8.5 使用相同业务代码；数据库测试通过不代表任意主机实例的扩展、配额与出站接口均满足。完整缺口见 FEATURE_MATRIX.md。
+
+Linux 原生数据库 CI 验证提交 `578c62d99f7ec45093ba56540022f924697ff4ad`：[实际运行](https://github.com/yiran168/chengyu/actions/runs/34736895184)。七个 PHP 版本分别运行 MySQL 8.0 与原生 SQLite，两种驱动均从测试运行制品再次核对。后续发布提交仅同步报告、手册、版本元数据、文件清单及打包工具的换行规范，生产 PHP 与此验证提交一致。
+
+打包前按仓库 LF 规则规范文本换行，避免 Windows 生成的 CRLF 文件与 GitHub 源码哈希不同；二进制图片不改写。交付校验包括此项，准确结果随 Release 的 package-verification.json 提供。

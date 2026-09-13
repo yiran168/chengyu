@@ -29,6 +29,21 @@ def files(base):
     return sorted(p for p in base.rglob('*') if p.is_file() and not any(x in EXCLUDE for x in p.relative_to(base).parts) and p.suffix != '.pyc')
 def sha(data):
     return hashlib.sha256(data).hexdigest()
+
+def repository_text(data):
+    # Match this repository's UTF-8 text / LF policy without rewriting binary assets.
+    if b'\x00' in data: return False
+    try: data.decode('utf-8')
+    except UnicodeDecodeError: return False
+    return True
+
+def normalize_release_text(paths):
+    for path in paths:
+        if path.suffix.lower() in FONT | {'.png', '.webp', '.jpg', '.jpeg', '.gif', '.pdf', '.zip'}: continue
+        data = path.read_bytes()
+        if b'\r\n' in data and repository_text(data):
+            path.write_bytes(data.replace(b'\r\n', b'\n'))
+
 def make_zip(destination, entries):
     with zipfile.ZipFile(destination, 'w', compression=zipfile.ZIP_DEFLATED, compresslevel=9) as z:
         for path, name in entries:
@@ -46,6 +61,9 @@ verifier = (ROOT / 'site/install/key.php').read_text(encoding='utf-8')
 if not re.search(r"return\s+'';", verifier):
     raise SystemExit('Public release must have an empty installation verifier. Never publish a shared owner key.')
 shutil.copy2(ROOT / 'DEPLOY_PREPARE.html', ROOT / 'site/DEPLOY_PREPARE.html')
+# Windows manual generation can emit CRLF while Git stores LF. Normalize before
+# hashing so the complete ZIP and a fresh Git checkout have identical text bytes.
+normalize_release_text(files(ROOT))
 sitefiles = files(ROOT / 'site')
 private_file = ROOT / 'INSTALL_KEY.txt'
 if private_file.exists():
@@ -87,6 +105,7 @@ with zipfile.ZipFile(upload) as uz, zipfile.ZipFile(complete) as cz:
         if sha(cz.read('chengyu/' + rel)) != expected: bad.append(rel)
     check('Complete manifest hashes match', not bad, str(len(lines)) + ' records; ' + str(bad))
     check('Archive contains no unlisted files', len(cz.namelist()) == len(lines) + 1)
+    check('UTF-8 text agrees with repository LF policy', all(b'\r\n' not in data or not repository_text(data) for data in (p.read_bytes() for p in files(ROOT))))
     with tempfile.TemporaryDirectory(prefix='chengyu-release-check-') as tmp:
         uz.extractall(tmp)
         php = sorted(Path(tmp).rglob('*.php'))
