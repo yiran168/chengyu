@@ -1,0 +1,2 @@
+<nav class="breadcrumb section"><a href="<?= e(url()) ?>"><?= t('Home') ?></a><?= icon('chevron') ?><a href="<?= e(url('bulletins')) ?>"><?= t('News bulletins') ?></a></nav>
+<section class="panel bulletin-detail"><?php partial('bulletin_entry',['entry'=>$entry,'standalone'=>true]); ?><a class="text-link" href="<?= e(url('bulletins',['period'=>date('Y-m',(int)$entry['publish_at'])])) ?>"><?= t('More updates this month') ?><?= icon('arrow') ?></a></section>

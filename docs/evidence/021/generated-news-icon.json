@@ -1,0 +1,13 @@
+{
+  "date": "2026-09-12",
+  "file": "site/assets/art/icon-news.webp",
+  "sha256": "bdfaa9b2f254a4c972eccd19842a7da87c8f0333d576718522113c91e3aa5cb9",
+  "bytes": 8958,
+  "size": [
+    192,
+    192
+  ],
+  "mode": "RGBA",
+  "provenance": "Generated in this task using the image generation tool. Original bird messenger with a coral newspaper; transparent anime icon. No reference theme asset used. Resized/encoded for the website.",
+  "raw_png_sha256": "d495a81591ef1eea2d6dc7a0d5820c0a1cae785e60c79fbeee96aa700c3b896e"
+}

@@ -1,0 +1,380 @@
+{
+  "date": "2026-09-12",
+  "scope": "Direct source reads in this session, read-only; not a full audit of every file. No third-party implementation or assets distributed.",
+  "files": [
+    {
+      "theme": "Zibll",
+      "relative_file": "index.php",
+      "sha256": "f60b9e58dd508668066ef57c55f29ed750462bc8960729eaa45510013caf4a0e",
+      "total_lines": 72,
+      "reviewed_ranges": [
+        [
+          1,
+          72
+        ]
+      ]
+    },
+    {
+      "theme": "Zibll",
+      "relative_file": "inc/functions/zib-header.php",
+      "sha256": "4013c2bc864231eec0890803cf2bf84776ab8f35d43965655d76e20c6cd42b0e",
+      "total_lines": 948,
+      "reviewed_ranges": [
+        [
+          1,
+          125
+        ]
+      ]
+    },
+    {
+      "theme": "Zibll",
+      "relative_file": "inc/functions/zib-single.php",
+      "sha256": "20b29c583997ad2e517b26c450478d1dfe0614611c925903a0a33a700afdbf17",
+      "total_lines": 462,
+      "reviewed_ranges": [
+        [
+          15,
+          50
+        ],
+        [
+          410,
+          462
+        ]
+      ]
+    },
+    {
+      "theme": "Zibll",
+      "relative_file": "inc/functions/zib-posts-list.php",
+      "sha256": "d71844d6f91c391d16a12f937ff31547fcaaa8c7e8061a8ff2260b15049d1ba0",
+      "total_lines": 888,
+      "reviewed_ranges": [
+        [
+          112,
+          178
+        ],
+        [
+          262,
+          307
+        ]
+      ]
+    },
+    {
+      "theme": "Zibll",
+      "relative_file": "inc/functions/functions.php",
+      "sha256": "0a9278048c02311b9d7017cda309effcebaf1259d2a61536cd1a127e44a06a83",
+      "total_lines": 2914,
+      "reviewed_ranges": [
+        [
+          516,
+          604
+        ]
+      ]
+    },
+    {
+      "theme": "Zibll",
+      "relative_file": "sidebar.php",
+      "sha256": "7abac6bb834982f05fb75d738b52c052deee512a0fa21c3da7f1986f396723d7",
+      "total_lines": 45,
+      "reviewed_ranges": [
+        [
+          1,
+          45
+        ]
+      ]
+    },
+    {
+      "theme": "Zibll",
+      "relative_file": "inc/functions/user/page/user-center.php",
+      "sha256": "2e6929a4394d261a456358326401ed6b119d34b067cedd73fb82a0c89fb6ffbb",
+      "total_lines": 29,
+      "reviewed_ranges": [
+        [
+          1,
+          29
+        ]
+      ]
+    },
+    {
+      "theme": "Zibll",
+      "relative_file": "inc/options/options-module.php",
+      "sha256": "1e6a9d5ced1b02ca1365c36afd25c1b8940c30af3fc02a32035553e2e197b384",
+      "total_lines": 2082,
+      "reviewed_ranges": [
+        [
+          1,
+          65
+        ]
+      ]
+    },
+    {
+      "theme": "Zibll",
+      "relative_file": "inc/functions/zib-svg-icon.php",
+      "sha256": "67b30dfaf4d95bc010e0b3b0f5c403d67b1884586d63659d667b1c8638238803",
+      "total_lines": 12,
+      "reviewed_ranges": [
+        [
+          1,
+          12
+        ]
+      ]
+    },
+    {
+      "theme": "Shane",
+      "relative_file": "template-parts/header/menu.php",
+      "sha256": "5f4eddddd3d07ceb680174d847028d6a32941eb3fad803adb78d6b4013077945",
+      "total_lines": 90,
+      "reviewed_ranges": [
+        [
+          1,
+          90
+        ]
+      ]
+    },
+    {
+      "theme": "Shane",
+      "relative_file": "template-parts/loop/item.php",
+      "sha256": "8c1865d3e8a9f4a83701b89d5abd5ed01355dc67d891d98bc7e0821d37c9dda3",
+      "total_lines": 238,
+      "reviewed_ranges": [
+        [
+          1,
+          238
+        ]
+      ]
+    },
+    {
+      "theme": "Shane",
+      "relative_file": "template-parts/loop/entry-meta-part.php",
+      "sha256": "1942c7be3e8ca18406942a9082ebbd4836ef73a83f0119c2fbf0afe5604fece2",
+      "total_lines": 36,
+      "reviewed_ranges": [
+        [
+          1,
+          36
+        ]
+      ]
+    },
+    {
+      "theme": "Shane",
+      "relative_file": "template-parts/single/entry-copyright.php",
+      "sha256": "a91645347563c77a52d9a7d43339291891aa9683954d764daa59f154c3a53302",
+      "total_lines": 9,
+      "reviewed_ranges": [
+        [
+          1,
+          9
+        ]
+      ]
+    },
+    {
+      "theme": "Shane",
+      "relative_file": "template-parts/single/post-content-new.php",
+      "sha256": "d328adf3f076d4ccc64a187f93980db041d9e3af95ff0f173fcfdae6ec081880",
+      "total_lines": 85,
+      "reviewed_ranges": [
+        [
+          1,
+          85
+        ]
+      ]
+    },
+    {
+      "theme": "Shane",
+      "relative_file": "inc/method/admin-options.php",
+      "sha256": "470310326c6a36f86248c3c5533297a787d33bbde05fff950e53c5cf5533a8e6",
+      "total_lines": 520,
+      "reviewed_ranges": [
+        [
+          1,
+          85
+        ]
+      ]
+    },
+    {
+      "theme": "Shane",
+      "relative_file": "assets/css/beautify/logo.css",
+      "sha256": "5115eda8ff845abb233afc9bb4fc4ac7f82be66895b37f89309e463a523d8cff",
+      "total_lines": 28,
+      "reviewed_ranges": [
+        [
+          1,
+          28
+        ]
+      ]
+    },
+    {
+      "theme": "Shane",
+      "relative_file": "assets/css/shane_home.css",
+      "sha256": "6f37f8f1441696c4bded4ed0d31e484e95444837cc2971b6b6be859f8a249e93",
+      "total_lines": 28,
+      "reviewed_ranges": [
+        [
+          1,
+          28
+        ]
+      ]
+    },
+    {
+      "theme": "Shane",
+      "relative_file": "template-parts/header/action-hover.php",
+      "sha256": "afb767051dc92563cd6d564b7828cf497454753b8bcee22d2f30079229e02d0d",
+      "total_lines": 146,
+      "reviewed_ranges": [
+        [
+          1,
+          65
+        ]
+      ]
+    },
+    {
+      "theme": "Shane",
+      "relative_file": "template-parts/footer/m-navbar.php",
+      "sha256": "4c8547e51cf1f1a797d629329faa6d6bc84bcc0e7dadda407ee77cfb4f886e46",
+      "total_lines": 12,
+      "reviewed_ranges": [
+        [
+          1,
+          12
+        ]
+      ]
+    },
+    {
+      "theme": "JustNews family",
+      "relative_file": "justnews/page-home.php",
+      "sha256": "f67d195cfde56cc8373d3426c4ba3f54a6bb3a4c98f040121f2dc5c2f71a4743",
+      "total_lines": 10,
+      "reviewed_ranges": [
+        [
+          1,
+          10
+        ]
+      ]
+    },
+    {
+      "theme": "JustNews family",
+      "relative_file": "justnews/index.php",
+      "sha256": "759447480abc48d573946362780511ebb27b995986b2ed8c1402c0d9fe8ab738",
+      "total_lines": 214,
+      "reviewed_ranges": [
+        [
+          1,
+          95
+        ]
+      ]
+    },
+    {
+      "theme": "JustNews family",
+      "relative_file": "justnews/modules/main-list.php",
+      "sha256": "2ec0c0ff4d6629a23633e750ba2fa471a5fa104b16c373117e5b08acff7b3f4e",
+      "total_lines": 176,
+      "reviewed_ranges": [
+        [
+          1,
+          110
+        ]
+      ]
+    },
+    {
+      "theme": "JustNews family",
+      "relative_file": "justnews/templates/loop-list.php",
+      "sha256": "e58ee6eae2d68ab33b4de0cf9dec0831f023c8b18299effe5cfac206e0576285",
+      "total_lines": 6,
+      "reviewed_ranges": [
+        [
+          1,
+          6
+        ]
+      ]
+    },
+    {
+      "theme": "JustNews family",
+      "relative_file": "justnews/single.php",
+      "sha256": "f6f0820dcdb894f3be9f21ab868ede7dcb907347acebc6cfaee6b3f79904a672",
+      "total_lines": 187,
+      "reviewed_ranges": [
+        [
+          21,
+          120
+        ]
+      ]
+    },
+    {
+      "theme": "JustNews family",
+      "relative_file": "justnews/page-kuaixun.php",
+      "sha256": "2c9132cc16e6cca6927d85780390652910d803d450b0d5ed2e71cfaaa603647c",
+      "total_lines": 95,
+      "reviewed_ranges": [
+        [
+          1,
+          95
+        ]
+      ]
+    },
+    {
+      "theme": "JustNews family",
+      "relative_file": "justnews/templates/loop-default.php",
+      "sha256": "2c57de0bd847ed9323a034720893803f4627f8a4f0edd14e197a44a877bdac4e",
+      "total_lines": 76,
+      "reviewed_ranges": [
+        [
+          1,
+          76
+        ]
+      ]
+    },
+    {
+      "theme": "JustNews family",
+      "relative_file": "justnews/header.php",
+      "sha256": "f9a394d0c3c7c17816df485d399a331274ea53e5d6d5e5c71dc558a650e5dc93",
+      "total_lines": 69,
+      "reviewed_ranges": [
+        [
+          1,
+          69
+        ]
+      ]
+    },
+    {
+      "theme": "JustNews family",
+      "relative_file": "justnews/sidebar.php",
+      "sha256": "24efa93ae2e411d32029f835e2fbddaca77607c4e438da48355e9e8ffbb8dd0d",
+      "total_lines": 7,
+      "reviewed_ranges": [
+        [
+          1,
+          7
+        ]
+      ]
+    },
+    {
+      "theme": "JustNews family",
+      "relative_file": "qapress/templates/list-item.php",
+      "sha256": "a85502ea259bcfdfd223f5c848048aafdc1a76ac7519f542ed7e41bde22eb122",
+      "total_lines": 57,
+      "reviewed_ranges": [
+        [
+          1,
+          57
+        ]
+      ]
+    },
+    {
+      "theme": "JustNews family",
+      "relative_file": "wpcom-member-pro/templates/orders.php",
+      "sha256": "2d560cb181bfe174c4a8ec7c4c9fce0c693ad52f81091f0266eeb606ce412b9b",
+      "total_lines": 48,
+      "reviewed_ranges": [
+        [
+          1,
+          48
+        ]
+      ]
+    }
+  ],
+  "reread_date": "2026-09-13",
+  "reread_files": [
+    "Zibll/inc/functions/zib-posts-list.php:112-186",
+    "Shane/template-parts/loop/item.php:entire",
+    "JustNews family/justnews/templates/loop-default.php:1-95"
+  ]
+}

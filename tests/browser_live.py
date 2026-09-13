@@ -81,9 +81,9 @@ try:
         check('home sorting keeps the selected category','sort=popular' in page.url and 'category=' in page.url)
         page.set_viewport_size({'width':1440,'height':1000});login()
         go('/admin/index.php?tab=visuals&slot=icon:compass')
-        check('visual studio renders all icon choices',page.locator('.symbol-grid .visual-tile').count()==79)
+        check('visual studio renders all icon choices',page.locator('.symbol-grid .visual-tile').count()==80)
         page.locator('[data-visual-search]').fill('anime-')
-        check('visual icon search filters without losing choices',page.locator('.symbol-grid .visual-tile:visible').count()==6)
+        check('visual icon search filters without losing choices',page.locator('.symbol-grid .visual-tile:visible').count()==7)
         page.locator('[data-visual-search]').fill('')
         page.locator('[name=asset_key]').select_option('icon-community')
         check('built-in choice updates visual preview', 'icon-community.webp' in page.locator('[data-visual-preview] img').get_attribute('src'))
@@ -109,9 +109,12 @@ try:
         page.locator('[name=curve_x1]').evaluate('(n)=>{n.value=\"12\";n.dispatchEvent(new Event(\"input\",{bubbles:true}))}');page.locator('[name=curve_y1]').evaluate('(n)=>{n.value=\"155\";n.dispatchEvent(new Event(\"input\",{bubbles:true}))}');page.locator('[name=curve_x2]').evaluate('(n)=>{n.value=\"64\";n.dispatchEvent(new Event(\"input\",{bubbles:true}))}');page.locator('[name=curve_y2]').evaluate('(n)=>{n.value=\"100\";n.dispatchEvent(new Event(\"input\",{bubbles:true}))}')
         check('curve graph matches shared custom parameters',page.locator('[data-curve-code]').inner_text()=='cubic-bezier(0.12, 1.55, 0.64, 1)')
         page.locator('[name=motion_duration]').evaluate('(n)=>{n.value=\"580\";n.dispatchEvent(new Event(\"input\",{bubbles:true}))}')
-        with page.expect_response(lambda r:r.url.endswith('/action.php') and r.request.method=='POST',timeout=20000) as saving:
-            page.locator('form.motion-studio-form button[type=submit]').click()
-        saved=saving.value.json();check('motion POST accepted',saving.value.status==200 and saved.get('ok'),saved)
+        with page.expect_navigation(wait_until='load',timeout=20000):
+            with page.expect_response(lambda r:r.url.endswith('/action.php') and r.request.method=='POST',timeout=20000) as saving:
+                page.locator('form.motion-studio-form button[type=submit]').click()
+        # The page redirects after saving; Chromium can discard the old response body.
+        # Verify HTTP status here and persisted values after reloading below.
+        check('motion POST accepted',saving.value.status==200)
         go('/admin/index.php?tab=motion')
         check('motion form saved through real authenticated POST',page.locator('[name=motion_curve]').input_value()=='custom' and page.locator('[name=motion_duration]').input_value()=='580')
         go('/');check('saved admin motion reaches public page',page.evaluate('CYMotion.config().motion_duration===580 && CYMotion.config().curve_y1===155'))
@@ -130,7 +133,7 @@ try:
         page.locator('.poll-choice').first.click();expect(page.locator('.poll-choice input').first).to_be_checked()
         with page.expect_response(lambda r:r.url.endswith('/action.php') and r.request.method=='POST',timeout=20000) as voting:
             page.locator('.poll-form button[type=submit]').click()
-        vote_result=voting.value.json();check('browser vote POST accepted',voting.value.status==200 and vote_result.get('ok'),vote_result)
+        check('browser vote POST accepted',voting.value.status==200)
         expect(page.locator('.poll-results')).to_be_visible(timeout=20000)
         check('real browser vote persists and reveals own results',page.locator('.poll-results').count()==1 and page.locator('.poll-form').count()==0)
         shot('poll-results.png')
@@ -139,6 +142,7 @@ try:
         page.set_viewport_size({'width':1440,'height':1000});go('/admin/index.php?tab=threads');shot('threads-admin.png')
         go('/admin/index.php?tab=edit_content&kind=thread');check('non-poll editor hides and disables poll fields',not page.locator('[data-poll-fields]').is_visible() and page.locator('[name=poll_question]').is_disabled())
         page.locator('[name=thread_mode]').select_option('poll');check('poll editor enables functional poll fields',page.locator('[data-poll-fields]').is_visible() and page.locator('[name=poll_question]').is_enabled())
+        exec(compile((ROOT/'tests/browser_021.py').read_text(encoding='utf-8'),str(ROOT/'tests/browser_021.py'),'exec'))
         # No-JavaScript session still sees content and has ordinary login forms.
         nojs=browser.new_context(java_script_enabled=False,viewport={'width':390,'height':844});static=nojs.new_page();static.goto(BASE,wait_until='load',timeout=20000)
         check('no-JavaScript content cards remain visible',static.locator('.content-card').first.evaluate('(n)=>getComputedStyle(n).opacity')=='1')

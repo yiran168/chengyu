@@ -18,7 +18,7 @@ final class AdminController
         if ($base==='dashboard' && !$a->auth->can('manage')) {redirect($a->adminUrl($a->auth->can('content')?'contents':'moderation'));}
         $a->auth->requirePermission($navigation[$base][2]);
         $data=['title'=>tr($navigation[$base][0]),'tab'=>$tab,'baseTab'=>$base];
-        if (in_array($tab,['visuals','resources','backups','search_index','learning','logistics','reconciliation','support','media_lab','translations','commerce','shipping','service','motion','threads','circles','bounties','reviews','creators','pricing','integrations','configuration','badges'],true)) { render('admin_'.$tab,$data,true);return; }
+        if (in_array($tab,['bulletins','visuals','resources','backups','search_index','learning','logistics','reconciliation','support','media_lab','translations','commerce','shipping','service','motion','threads','circles','bounties','reviews','creators','pricing','integrations','configuration','badges'],true)) { render('admin_'.$tab,$data,true);return; }
         if ($tab==='edit_content') {
             $item=!empty($_GET['id'])?$a->db->one('SELECT * FROM cy_contents WHERE id=?',[Input::integer($_GET['id'],1)]):null;
             if (!empty($_GET['id']) && !$item) {throw new Problem('Content not found.',404);}

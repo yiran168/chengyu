@@ -18,3 +18,9 @@
 新增六张各不相同的文章封面 cover-space/workshop/weekend/glass/collection/launch.webp，以及六个独立调用图像生成工具制作的透明图标 icon-discover/community/shop/member/create/archive.webp。图标输出 192×192，保留 alpha；封面按比例输出 960×640。运行期全部为本地静态素材，不需要 AI 服务或联网生成。哈希、尺寸和出处见 evidence/020/generated-assets.json、generated-icons.json。原始 PNG 留在项目 .work/generated-020，不作为虚拟主机部署负担。
 
 图标目录中的其余符号为本项目代码矢量图标，并非 AI 位图，不冒充生成结果。全站图标可在视觉素材库自定义。功能按钮的重复使用代表同一含义；不同文章没有默认套用同一张人物插画。
+
+## 0.21 新图标（2026-09-12）
+
+`icon-news.webp` 是本轮独立调用图像生成工具制作的快讯图标：原创白色小鸟信使、珊瑚色报纸、深蓝轮廓、赛璐璐阴影、透明背景，无文字品牌或已有角色。192×192，保留透明通道；哈希、尺寸和来源见 [生成记录](evidence/021/generated-news-icon.json)。原始PNG仅留项目 .work/generated-021。生产站点不联网生成图片。
+
+该图标接入统一符号和视觉素材服务，导航、后台和自定义区块可选；后台可替换为自己的公开图片。全站同一功能使用同一图标属于一致性设计，不会将它轮流用作文章封面。

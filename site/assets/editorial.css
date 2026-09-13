@@ -122,3 +122,91 @@ html[data-detail=restrained] .admin-main .panel{border-radius:min(var(--radius),
   html[data-detail=restrained] .notice-strip strong{white-space:normal;font-size:11px}
   html[data-detail=restrained] .notice-strip{padding:8px 10px;gap:7px;margin-bottom:14px}
 }
+
+/* Editorial details share site tokens, including dark mode and motion preferences. */
+.bulletin-heading h1{display:flex;align-items:center;gap:12px;font-size:25px;letter-spacing:0}
+.bulletin-heading h1 .icon{width:40px;height:40px}
+.bulletin-heading p{font-size:13px;color:var(--muted)}
+.bulletin-panel{padding:24px 28px;min-width:0}
+.bulletin-filter{display:flex;gap:12px;align-items:end;flex-wrap:wrap;margin-bottom:22px}
+.bulletin-filter .field{flex:1;min-width:140px;margin:0}
+.bulletin-filter .btn{margin-bottom:0}
+.bulletin-filter .text-link{align-self:center;font-size:12px}
+.bulletin-day{font-size:16px;letter-spacing:0;margin:24px 0 8px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.bulletin-entry{display:grid;grid-template-columns:54px minmax(0,1fr);gap:16px;padding:20px 0;position:relative}
+.bulletin-time{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;line-height:2}
+.bulletin-content{min-width:0;border-left:1px solid var(--line);padding-left:22px;position:relative}
+.bulletin-content:before{content:"";position:absolute;left:-4px;top:8px;width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.bulletin-content h3{font-size:17px;font-weight:600;line-height:1.7;margin:0 0 10px}
+.bulletin-body{font-size:14px;line-height:1.95;overflow-wrap:anywhere}
+.bulletin-image{display:block;width:min(320px,100%);margin-top:16px}
+.bulletin-image img{display:block;width:100%;height:auto;max-height:260px;object-fit:cover;border-radius:6px}
+.bulletin-footer{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-top:14px;color:var(--muted);font-size:12px}
+.bulletin-footer .text-button{display:inline-flex;gap:5px;align-items:center;padding:0;background:none;border:0;color:inherit;font:inherit;cursor:pointer}
+.bulletin-footer .icon,.article-source .icon{width:13px;height:13px;vertical-align:middle}
+.bulletin-detail{max-width:850px;margin:0 auto;padding:30px}
+.bulletin-detail .bulletin-entry{display:block;padding:0 0 24px}
+.bulletin-detail .bulletin-content{padding:0;border:0}.bulletin-detail .bulletin-content:before{display:none}
+.bulletin-detail h1{font-size:26px;line-height:1.55;letter-spacing:0;margin:12px 0 20px}
+.bulletin-widget h3{display:flex;gap:7px;align-items:center;font-size:15px;margin:0}
+.bulletin-widget h3 .icon{width:26px;height:26px}.bulletin-widget .text-link{font-size:12px}
+.bulletin-widget ol{margin:0;padding:0 0 0 9px;list-style:none}
+.bulletin-widget li{border-left:1px solid var(--line);position:relative;padding:0 0 20px 17px;font-size:13px;line-height:1.8}
+.bulletin-widget li:before{content:"";position:absolute;left:-4px;top:7px;width:7px;height:7px;background:var(--accent);border-radius:50%}
+.bulletin-widget li:last-child{padding-bottom:0}.bulletin-widget time{display:block;margin-top:6px;font-size:11px;color:var(--muted)}
+.bulletin-admin-grid{display:grid;grid-template-columns:minmax(280px,1fr) minmax(0,1.35fr);gap:22px;align-items:start}
+.bulletin-admin-grid>.panel{min-width:0}.bulletin-admin-list article{display:flex;justify-content:space-between;align-items:start;gap:16px;padding:16px 0;border-top:1px solid var(--line)}
+.bulletin-admin-list article>div{min-width:0;overflow-wrap:anywhere}.bulletin-admin-list small{display:block;margin-top:8px;color:var(--muted)}
+.bulletin-admin-list .pill{flex-shrink:0}
+.article-source{font-size:12px;color:var(--muted);line-height:1.8;overflow-wrap:anywhere}
+.article-meta+.article-source{display:block;margin:-10px 0 22px}
+.article-source a{color:inherit}.article-source a:hover{color:var(--accent)}
+.article-summary{font-size:15px;line-height:1.9;color:var(--muted);border-left:3px solid var(--line);padding:4px 0 4px 16px;margin:0 0 26px}
+.article-copyright{margin:30px 0 22px;padding:16px 18px;background:var(--surface-soft,var(--surface));border:1px solid var(--line);border-radius:6px;font-size:12px;color:var(--muted)}
+.article-copyright strong{display:flex;align-items:center;gap:6px;font-weight:500}.article-copyright .icon{width:14px;height:14px}
+.article-copyright p{line-height:1.85;margin:8px 0 0;overflow-wrap:anywhere}
+.article-author-card{display:flex;align-items:center;gap:14px;padding:20px;margin-top:20px}
+.article-author-card>div{min-width:0;flex:1}.article-author-card p{font-size:12px;line-height:1.8;margin:5px 0 0;color:var(--muted);overflow-wrap:anywhere}
+.article-author-card .text-link{font-size:12px;flex-shrink:0}.article-author-card strong{font-size:14px}
+.article-neighbors{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:18px}
+.article-neighbors a{display:block;height:100%;padding:18px 20px}.article-neighbors small{display:block;color:var(--muted);font-size:11px;margin-bottom:8px}
+.article-neighbors strong{display:block;font-size:14px;font-weight:500;line-height:1.7;overflow-wrap:anywhere}
+.related-reading{padding:22px;margin-top:18px}.related-reading h2{font-size:17px;margin:0 0 14px;letter-spacing:0}
+.related-reading>div{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 24px}
+.related-reading a{display:flex;align-items:center;justify-content:space-between;gap:14px;border-top:1px solid var(--line);padding:14px 0}
+.related-reading strong{font-size:13px;font-weight:400;line-height:1.7}.related-reading time{font-size:10px;color:var(--muted);white-space:nowrap}
+.editor-attribution{border-top:1px solid var(--line);margin-top:20px;padding-top:16px}.editor-attribution summary{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:14px;margin-bottom:12px}
+html[data-detail=restrained] .article-panel{padding:32px}
+html[data-detail=restrained] .article-title{font-size:29px;letter-spacing:0;line-height:1.5;margin:16px 0}
+html[data-detail=restrained] .article-panel .prose{font-size:16px;line-height:1.95}
+html .portal-main .article-row.thumbnail-right{flex-direction:row-reverse}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){
+ .bulletin-content h3 a,.related-reading a,.article-neighbors a{transition:color 160ms ease-out,background-color 180ms ease-out}
+ .bulletin-content h3 a:hover,.related-reading a:hover,.article-neighbors a:hover{color:var(--accent)}
+}
+@media(max-width:1000px){.bulletin-admin-grid{grid-template-columns:minmax(0,1fr)}.bulletin-admin-grid>.panel{padding:22px}}
+@media(max-width:600px){
+ .bulletin-panel{padding:18px 16px}.bulletin-heading h1{font-size:22px}.bulletin-filter{gap:10px}
+ .bulletin-entry{grid-template-columns:38px minmax(0,1fr);gap:10px;padding:17px 0}.bulletin-content{padding-left:14px}
+ .bulletin-content h3{font-size:16px}.bulletin-body{font-size:14px;line-height:1.9}.bulletin-day{font-size:15px}
+ .bulletin-detail{padding:20px}.bulletin-detail h1{font-size:22px}.bulletin-footer{gap:12px}
+ .article-neighbors{gap:10px}.article-neighbors a{padding:14px}.article-neighbors strong{font-size:12px}
+ .article-author-card{flex-wrap:wrap;padding:16px}.article-author-card>.text-link{margin-left:auto}
+ .related-reading>div{grid-template-columns:1fr}.related-reading{padding:18px}
+ html[data-detail=restrained] .article-panel{padding:22px 18px}
+ html[data-detail=restrained] .article-title{font-size:23px}.article-summary{font-size:14px}
+}
+
+html .layout-list .content-card.thumbnail-right{flex-direction:row-reverse}
+html .layout-list .without-cover .card-content{width:100%}
+html[data-detail=restrained] .layout-list .content-card{border-radius:6px;padding:16px;gap:20px}
+html[data-detail=restrained] .layout-list .content-card .card-content{padding:0;flex:1;min-width:0}
+html[data-detail=restrained] .layout-list .content-card .card-title{font-size:17px}
+html[data-detail=restrained] .layout-list .content-card .card-excerpt{-webkit-line-clamp:2;font-size:13px;line-height:1.9}
+html[data-detail=restrained] .layout-list .content-card .card-cover{border-radius:6px;width:180px;min-height:120px;aspect-ratio:3/2}
+@media(max-width:600px){
+ html[data-detail=restrained] .layout-list .content-card{padding:14px;gap:12px}
+ html[data-detail=restrained] .layout-list .content-card .card-cover{width:100px;min-height:72px;height:72px}
+ html[data-detail=restrained] .layout-list .content-card .card-title{font-size:14px}
+ html[data-detail=restrained] .layout-list .content-card .card-excerpt{-webkit-line-clamp:1;font-size:12px}
+}

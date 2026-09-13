@@ -8,9 +8,11 @@ final class PlatformPages
     private App $a;public function __construct(App $a){$this->a=$a;}
     public function show(string $route): bool
     {
-        if(!in_array($route,['resource','courses','course','learn','learning','support','tracking'],true)){return false;}
+        if(!in_array($route,['bulletins','bulletin','resource','courses','course','learn','learning','support','tracking'],true)){return false;}
         $a=$this->a;$user=$a->auth->user();$data=['route'=>$route];
         if(in_array($route,['courses','course','learn','learning'],true)){$a->settings->requireModule('courses');}
+        if($route==='bulletins'){render('bulletins',['route'=>$route,'title'=>tr('News bulletins'),'feed'=>$a->bulletins->page($_GET)]);return true;}
+        if($route==='bulletin'){$entry=$a->bulletins->get(Input::integer($_GET['id']??0,1));render('bulletin',['route'=>$route,'title'=>$entry['title'],'entry'=>$entry]);return true;}
         if($route==='resource'){
             header('X-Robots-Tag: noindex, nofollow');header('Referrer-Policy: no-referrer');
             $owner=$user??$a->guests->current();$delivery=$a->resources->destination(Input::integer($_GET['id']??0,1),$owner,($_SERVER['REQUEST_METHOD']??'GET')!=='HEAD');

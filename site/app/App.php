@@ -5,7 +5,7 @@ use Chengyu\Core\{Database, Settings, Crypto, Security, Problem};
 use Chengyu\Services\{Activity, Wallet, Auth, Commerce, Payment, Content, Media, Mailer, Admin};
 final class App
 {
-    public const VERSION = '0.20.0';
+    public const VERSION = '0.21.0';
     public array $config; public Database $db; public Crypto $crypto; public Settings $settings;
     public Activity $activity; public Wallet $wallet; public Auth $auth; public Commerce $commerce;
     public Payment $payment; public Content $content; public Media $media; public Mailer $mailer; public Admin $admin;
@@ -42,6 +42,7 @@ final class App
     public \Chengyu\Services\Backups $backups;
     public \Chengyu\Services\ResourceLibrary $resources;
     public \Chengyu\Services\VisualAssets $visuals;
+    public \Chengyu\Services\Bulletins $bulletins;
     public string $basePath;
     public function __construct(array $config)
     {
@@ -61,6 +62,7 @@ final class App
         $this->catalog = new \Chengyu\Services\Catalog($this->db,$this->activity);
         $this->layout = new \Chengyu\Services\Layout($this->db,$this->activity);
         $this->visuals = new \Chengyu\Services\VisualAssets($this);
+        $this->bulletins = new \Chengyu\Services\Bulletins($this);
         $this->secondFactor = new \Chengyu\Services\SecondFactor($this->db,$this->settings,$this->crypto,$this->activity,$this->wallet);
         $this->pricing = new \Chengyu\Services\Pricing($this->db,$this->settings,$this->membership,$this->activity);
         $this->auth = new Auth($this->db, $this->settings, $this->crypto, $this->activity, $this->wallet, $this->secondFactor);
@@ -119,10 +121,11 @@ final class App
     /** Stable public canonical URL; never reflects passwords, guest passes or arbitrary queries. */
     public function canonical(string $route,array $query=[]): string
     {
-        $allowed=['article'=>['id'],'product'=>['id'],'page'=>['id'],'user'=>['id'],'circle'=>['id'],'collection'=>['id'],'course'=>['id'],
+        $allowed=['bulletin'=>['id'],'bulletins'=>['period','page'],'archives'=>['period','category','page'],'article'=>['id'],'product'=>['id'],'page'=>['id'],'user'=>['id'],'circle'=>['id'],'collection'=>['id'],'course'=>['id'],
             'landing'=>['slot'],'articles'=>['category','page'],'forum'=>['category','page'],'shop'=>['category','page'],'courses'=>['page']];
         $params=[];foreach($allowed[$route]??[] as $key){$value=$query[$key]??null;
             if($key==='slot'){if(is_string($value) && in_array($value,\Chengyu\Services\Layout::PAGES,true)){$params[$key]=$value;}}
+            elseif($key==='period'){if(is_string($value) && preg_match('/^(19[7-9][0-9]|20[0-9]{2}|2100)(?:-(0[1-9]|1[0-2]))?$/D',$value)){$params[$key]=$value;}}
             elseif(is_scalar($value) && preg_match('/^[1-9][0-9]{0,9}$/D',(string)$value)){if($key!=='page' || (int)$value>1){$params[$key]=(int)$value;}}
         }
         return rtrim($this->config['url'],'/').substr($this->url($route,$params),strlen($this->basePath));

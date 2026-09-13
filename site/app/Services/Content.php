@@ -55,10 +55,15 @@ final class Content
             $where[]='c.category_id IN ('.implode(',',array_fill(0,count($ids),'?')).')';
             $params=array_merge($params,$ids);
         }
-        if (!empty($filters['category'])) { $where[] = 'c.category_id=?'; $params[] = Input::integer($filters['category']); }
+        if (!empty($filters['category']) || !empty($filters['category_exact'])) { $where[] = 'c.category_id=?'; $params[] = Input::integer($filters['category']); }
         if (!empty($filters['collection'])) { $where[] = 'EXISTS(SELECT 1 FROM cy_collection_items ci WHERE ci.collection_id=? AND ci.content_id=c.id)'; $params[] = Input::integer($filters['collection'],1); }
         if (!empty($filters['author'])) { $where[] = 'c.author_id=?'; $params[] = Input::integer($filters['author']); }
         if (!empty($filters['courses'])) {$where[]="EXISTS(SELECT 1 FROM cy_courses lc WHERE lc.content_id=c.id AND lc.active=1)";}
+        if(!empty($filters['exclude'])){$where[]='c.id<>?';$params[]=Input::integer($filters['exclude'],1);}
+        if(isset($filters['adjacent'])){
+            $adj=$filters['adjacent'];$direction=Input::choice($adj['direction']??'',['previous','next']);$op=$direction==='previous'?'<':'>';
+            $where[]='(c.created_at'.$op.'? OR (c.created_at=? AND c.id'.$op.'?))';$at=Input::integer($adj['at']??0,0,4133980799);array_push($params,$at,$at,Input::integer($adj['id']??0,1));
+        }
         if (!empty($filters['featured'])) { $where[] = 'c.featured=1'; }
         CatalogFilters::apply($filters,$where,$params,$this->db->driver());
         if(isset($filters['archive_period'])){
@@ -114,6 +119,7 @@ final class Content
             $sortParams=[];$sort='(SELECT hh.updated_at FROM cy_reading_history hh WHERE hh.user_id='.$uid.' AND hh.content_id=c.id) DESC,c.id DESC';
         }
         if(!empty($filters['archive_order'])){$sort='c.created_at DESC,c.id DESC';$sortParams=[];}
+        if(isset($filters['adjacent'])){$order=$direction==='previous'?'DESC':'ASC';$sort='c.created_at '.$order.',c.id '.$order;$sortParams=[];}
         $items = $this->db->all('SELECT ' . $fields . $from . ' ORDER BY ' . $sort . ' LIMIT ? OFFSET ?', array_merge($params,$sortParams,[$size,$offset]));
         $items=Translations::apply($this->db,$items,\Chengyu\Core\Locale::current());
         return ['items' => $items, 'total' => $total, 'page' => $page, 'pages' => max(1, (int)ceil($total / $size)), 'search_backend'=>$searchBackend];
@@ -175,10 +181,15 @@ final class Content
             'product_type' => $productType, 'inventory' => $staff ? Input::integer($input['inventory'] ?? -1, -1, 1000000) : -1,
             'vip_free' => $staff && !empty($input['vip_free']) ? 1 : 0, 'comment_enabled' => !empty($input['comment_enabled']) ? 1 : 0,
             'delivery_text' => $staff ? Input::text($input['delivery_text'] ?? '', 10000) : '', 'updated_at' => time(), 'publish_at' => $publishAt];
+        $data=array_merge($data,Editorial::fields($input,$old??[]));
         $data['creator_pricing']=$staff?(!empty($input['creator_pricing'])?1:0):($creator?1:0);
         $data['invite_uses']=$staff?Input::integer($input['invite_uses']??$old['invite_uses']??1,1,1000):1;
         $data['invite_days']=$staff?Input::integer($input['invite_days']??$old['invite_days']??30,1,3650):30;
         return $this->db->transaction(function () use ($data, $id, $user, $old, $input, $staff, $creator): int {
+            if($staff){
+                $current=$this->db->one('SELECT * FROM cy_users WHERE id=?'.$this->db->lock(),[(int)$user['id']]);
+                if(!$current || $current['status']!=='active' || !in_array($current['role'],['admin','editor'],true)){throw new Problem('Access denied.',403);}
+            }
             if (!$staff) {
                 $current=$this->db->one('SELECT * FROM cy_users WHERE id=?'.$this->db->lock(),[(int)$user['id']]);
                 if (!$current || $current['status']!=='active') {throw new Problem('Account unavailable.',403);}

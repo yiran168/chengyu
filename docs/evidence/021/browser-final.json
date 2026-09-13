@@ -1,0 +1,498 @@
+{
+  "mode": "Actual Chromium navigation to local PHP URLs, real forms/CSP/cookies; not an external production host",
+  "capture_enabled": true,
+  "total": 122,
+  "passed": 122,
+  "failed": 0,
+  "tests": [
+    {
+      "test": "live GET /",
+      "ok": true
+    },
+    {
+      "test": "engine loaded through CSP-compliant external scripts",
+      "ok": true
+    },
+    {
+      "test": "ripple never expands the button hit area",
+      "ok": true
+    },
+    {
+      "test": "pointer press and release still trigger the button",
+      "ok": true
+    },
+    {
+      "test": "home no overflow 320",
+      "ok": true
+    },
+    {
+      "test": "home no overflow 390",
+      "ok": true
+    },
+    {
+      "test": "home no overflow 768",
+      "ok": true
+    },
+    {
+      "test": "home no overflow 1440",
+      "ok": true
+    },
+    {
+      "test": "screenshot home-desktop.png",
+      "ok": true
+    },
+    {
+      "test": "pointer-following card has real interaction state",
+      "ok": true
+    },
+    {
+      "test": "card perspective actually changes computed transform",
+      "ok": true
+    },
+    {
+      "test": "theme changed with actual View Transition API",
+      "ok": true
+    },
+    {
+      "test": "screenshot home-dusk-dark.png",
+      "ok": true
+    },
+    {
+      "test": "theme preference persists after transition and reload",
+      "ok": true
+    },
+    {
+      "test": "screenshot home-mobile.png",
+      "ok": true
+    },
+    {
+      "test": "pageshow preserves intentional disabled state",
+      "ok": true
+    },
+    {
+      "test": "portal presents real content instead of a promotional hero",
+      "ok": true
+    },
+    {
+      "test": "text-only articles do not render generated placeholder covers",
+      "ok": true
+    },
+    {
+      "test": "home category tab navigates without client-only filtering",
+      "ok": true
+    },
+    {
+      "test": "home sorting keeps the selected category",
+      "ok": true
+    },
+    {
+      "test": "live GET /admin/",
+      "ok": true
+    },
+    {
+      "test": "live AJAX login reaches dashboard",
+      "ok": true
+    },
+    {
+      "test": "live GET /admin/index.php?tab=visuals&slot=icon:compass",
+      "ok": true
+    },
+    {
+      "test": "visual studio renders all icon choices",
+      "ok": true
+    },
+    {
+      "test": "visual icon search filters without losing choices",
+      "ok": true
+    },
+    {
+      "test": "built-in choice updates visual preview",
+      "ok": true
+    },
+    {
+      "test": "visual native save persists binding",
+      "ok": true
+    },
+    {
+      "test": "upload widget populates its named field and clears alternate source",
+      "ok": true
+    },
+    {
+      "test": "uploaded image updates actual preview",
+      "ok": true
+    },
+    {
+      "test": "restore keeps new revision and removes custom source",
+      "ok": true
+    },
+    {
+      "test": "visual studio no overflow 320",
+      "ok": true
+    },
+    {
+      "test": "visual studio no overflow 390",
+      "ok": true
+    },
+    {
+      "test": "visual studio no overflow 768",
+      "ok": true
+    },
+    {
+      "test": "visual studio no overflow 1440",
+      "ok": true
+    },
+    {
+      "test": "screenshot visual-studio-desktop.png",
+      "ok": true
+    },
+    {
+      "test": "live GET /index.php?r=archives",
+      "ok": true
+    },
+    {
+      "test": "archive no overflow 320",
+      "ok": true
+    },
+    {
+      "test": "archive no overflow 390",
+      "ok": true
+    },
+    {
+      "test": "archive no overflow 768",
+      "ok": true
+    },
+    {
+      "test": "archive no overflow 1440",
+      "ok": true
+    },
+    {
+      "test": "screenshot archive-desktop.png",
+      "ok": true
+    },
+    {
+      "test": "archive native form preserves calendar filter",
+      "ok": true
+    },
+    {
+      "test": "live GET /admin/index.php?tab=motion",
+      "ok": true
+    },
+    {
+      "test": "motion inspector has shared configurable fields",
+      "ok": true
+    },
+    {
+      "test": "motion inspector no overflow 320",
+      "ok": true
+    },
+    {
+      "test": "motion inspector no overflow 390",
+      "ok": true
+    },
+    {
+      "test": "motion inspector no overflow 768",
+      "ok": true
+    },
+    {
+      "test": "motion inspector no overflow 1440",
+      "ok": true
+    },
+    {
+      "test": "screenshot motion-studio-desktop.png",
+      "ok": true
+    },
+    {
+      "test": "expressive preset sets form and live engine",
+      "ok": true
+    },
+    {
+      "test": "replay creates real Web Animations",
+      "ok": true
+    },
+    {
+      "test": "curve graph matches shared custom parameters",
+      "ok": true
+    },
+    {
+      "test": "motion POST accepted",
+      "ok": true
+    },
+    {
+      "test": "live GET /admin/index.php?tab=motion",
+      "ok": true
+    },
+    {
+      "test": "motion form saved through real authenticated POST",
+      "ok": true
+    },
+    {
+      "test": "live GET /",
+      "ok": true
+    },
+    {
+      "test": "saved admin motion reaches public page",
+      "ok": true
+    },
+    {
+      "test": "live GET /admin/index.php?tab=motion",
+      "ok": true
+    },
+    {
+      "test": "screenshot motion-studio-mobile.png",
+      "ok": true
+    },
+    {
+      "test": "system preference overrides decorative motion",
+      "ok": true
+    },
+    {
+      "test": "preset cannot override system reduced motion",
+      "ok": true
+    },
+    {
+      "test": "motion studio remains usable under reduced motion",
+      "ok": true
+    },
+    {
+      "test": "live media change restores configured motion",
+      "ok": true
+    },
+    {
+      "test": "master off clears decorative animations",
+      "ok": true
+    },
+    {
+      "test": "live GET /index.php?r=article&id=13",
+      "ok": true
+    },
+    {
+      "test": "article TOC generated from actual visible headings",
+      "ok": true
+    },
+    {
+      "test": "private result counts absent before vote",
+      "ok": true
+    },
+    {
+      "test": "poll no overflow 320",
+      "ok": true
+    },
+    {
+      "test": "poll no overflow 390",
+      "ok": true
+    },
+    {
+      "test": "poll no overflow 768",
+      "ok": true
+    },
+    {
+      "test": "poll no overflow 1440",
+      "ok": true
+    },
+    {
+      "test": "screenshot poll-desktop.png",
+      "ok": true
+    },
+    {
+      "test": "browser vote POST accepted",
+      "ok": true
+    },
+    {
+      "test": "real browser vote persists and reveals own results",
+      "ok": true
+    },
+    {
+      "test": "screenshot poll-results.png",
+      "ok": true
+    },
+    {
+      "test": "live GET /index.php?r=article&id=14",
+      "ok": true
+    },
+    {
+      "test": "accepted answer is visible and anchored",
+      "ok": true
+    },
+    {
+      "test": "screenshot question-desktop.png",
+      "ok": true
+    },
+    {
+      "test": "question no overflow 320",
+      "ok": true
+    },
+    {
+      "test": "question no overflow 390",
+      "ok": true
+    },
+    {
+      "test": "question no overflow 768",
+      "ok": true
+    },
+    {
+      "test": "question no overflow 1440",
+      "ok": true
+    },
+    {
+      "test": "screenshot question-mobile.png",
+      "ok": true
+    },
+    {
+      "test": "live GET /admin/index.php?tab=threads",
+      "ok": true
+    },
+    {
+      "test": "screenshot threads-admin.png",
+      "ok": true
+    },
+    {
+      "test": "live GET /admin/index.php?tab=edit_content&kind=thread",
+      "ok": true
+    },
+    {
+      "test": "non-poll editor hides and disables poll fields",
+      "ok": true
+    },
+    {
+      "test": "poll editor enables functional poll fields",
+      "ok": true
+    },
+    {
+      "test": "live GET /admin/index.php?tab=bulletins",
+      "ok": true
+    },
+    {
+      "test": "021 native bulletin form persists with a revision",
+      "ok": true
+    },
+    {
+      "test": "021 bulletin admin no overflow 320",
+      "ok": true
+    },
+    {
+      "test": "021 bulletin admin no overflow 390",
+      "ok": true
+    },
+    {
+      "test": "021 bulletin admin no overflow 768",
+      "ok": true
+    },
+    {
+      "test": "021 bulletin admin no overflow 1440",
+      "ok": true
+    },
+    {
+      "test": "screenshot 021-bulletins-admin.png",
+      "ok": true
+    },
+    {
+      "test": "live GET /index.php?r=bulletins",
+      "ok": true
+    },
+    {
+      "test": "021 posted bulletin appears on real timeline",
+      "ok": true
+    },
+    {
+      "test": "021 original news icon resolves",
+      "ok": true
+    },
+    {
+      "test": "021 bulletin timeline no overflow 320",
+      "ok": true
+    },
+    {
+      "test": "021 bulletin timeline no overflow 390",
+      "ok": true
+    },
+    {
+      "test": "021 bulletin timeline no overflow 768",
+      "ok": true
+    },
+    {
+      "test": "021 bulletin timeline no overflow 1440",
+      "ok": true
+    },
+    {
+      "test": "screenshot 021-bulletins-desktop.png",
+      "ok": true
+    },
+    {
+      "test": "screenshot 021-bulletins-mobile.png",
+      "ok": true
+    },
+    {
+      "test": "021 timeline link opens its own bulletin",
+      "ok": true
+    },
+    {
+      "test": "021 bulletin detail no overflow 320",
+      "ok": true
+    },
+    {
+      "test": "021 bulletin detail no overflow 390",
+      "ok": true
+    },
+    {
+      "test": "021 bulletin detail no overflow 768",
+      "ok": true
+    },
+    {
+      "test": "021 bulletin detail no overflow 1440",
+      "ok": true
+    },
+    {
+      "test": "021 reduced motion keeps timeline readable",
+      "ok": true
+    },
+    {
+      "test": "screenshot 021-bulletin-mobile.png",
+      "ok": true
+    },
+    {
+      "test": "021 no-JavaScript timeline contains real detail links",
+      "ok": true
+    },
+    {
+      "test": "021 no-JavaScript bulletin text is visible",
+      "ok": true
+    },
+    {
+      "test": "live GET /index.php?r=articles",
+      "ok": true
+    },
+    {
+      "test": "021 editorial article listing no overflow 320",
+      "ok": true
+    },
+    {
+      "test": "021 editorial article listing no overflow 390",
+      "ok": true
+    },
+    {
+      "test": "021 editorial article listing no overflow 768",
+      "ok": true
+    },
+    {
+      "test": "021 editorial article listing no overflow 1440",
+      "ok": true
+    },
+    {
+      "test": "screenshot 021-articles-desktop.png",
+      "ok": true
+    },
+    {
+      "test": "no-JavaScript content cards remain visible",
+      "ok": true
+    },
+    {
+      "test": "no-JavaScript sign-in has real action",
+      "ok": true
+    },
+    {
+      "test": "no live browser JavaScript errors",
+      "ok": true
+    }
+  ],
+  "javascript_errors": []
+}

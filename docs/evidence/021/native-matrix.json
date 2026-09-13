@@ -1,0 +1,86 @@
+[
+  {
+    "minor": "7.4",
+    "php": "7.4.33",
+    "adapter": "pdo_sqlite",
+    "exit": 0,
+    "total": 597,
+    "passed": 597,
+    "failed": 0,
+    "stderr_clean": true,
+    "seconds": 45.7,
+    "ok": true
+  },
+  {
+    "minor": "8.0",
+    "php": "8.0.30",
+    "adapter": "pdo_sqlite",
+    "exit": 0,
+    "total": 597,
+    "passed": 597,
+    "failed": 0,
+    "stderr_clean": true,
+    "seconds": 45.77,
+    "ok": true
+  },
+  {
+    "minor": "8.1",
+    "php": "8.1.34",
+    "adapter": "pdo_sqlite",
+    "exit": 0,
+    "total": 597,
+    "passed": 597,
+    "failed": 0,
+    "stderr_clean": true,
+    "seconds": 46.53,
+    "ok": true
+  },
+  {
+    "minor": "8.2",
+    "php": "8.2.33",
+    "adapter": "pdo_sqlite",
+    "exit": 0,
+    "total": 597,
+    "passed": 597,
+    "failed": 0,
+    "stderr_clean": true,
+    "seconds": 47.08,
+    "ok": true
+  },
+  {
+    "minor": "8.3",
+    "php": "8.3.33",
+    "adapter": "pdo_sqlite",
+    "exit": 0,
+    "total": 597,
+    "passed": 597,
+    "failed": 0,
+    "stderr_clean": true,
+    "seconds": 47.44,
+    "ok": true
+  },
+  {
+    "minor": "8.4",
+    "php": "8.4.25",
+    "adapter": "pdo_sqlite",
+    "exit": 0,
+    "total": 597,
+    "passed": 597,
+    "failed": 0,
+    "stderr_clean": true,
+    "seconds": 70.62,
+    "ok": true
+  },
+  {
+    "minor": "8.5",
+    "php": "8.5.10",
+    "adapter": "pdo_sqlite",
+    "exit": 0,
+    "total": 597,
+    "passed": 597,
+    "failed": 0,
+    "stderr_clean": true,
+    "seconds": 65.47,
+    "ok": true
+  }
+]

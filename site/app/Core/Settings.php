@@ -10,7 +10,7 @@ final class Settings
     public function __construct(Database $db, Crypto $crypto)
     {
         $this->db = $db; $this->crypto = $crypto;
-        $this->schema = array_merge(require dirname(__DIR__) . '/settings.php', require dirname(__DIR__) . '/settings016.php', require dirname(__DIR__) . '/settings017.php', require dirname(__DIR__) . '/settings018.php', require dirname(__DIR__) . '/settings019.php', require dirname(__DIR__) . '/settings020.php');
+        $this->schema = array_merge(require dirname(__DIR__) . '/settings.php', require dirname(__DIR__) . '/settings016.php', require dirname(__DIR__) . '/settings017.php', require dirname(__DIR__) . '/settings018.php', require dirname(__DIR__) . '/settings019.php', require dirname(__DIR__) . '/settings020.php', require dirname(__DIR__) . '/settings021.php');
         $this->reload();
     }
     public function reload(): void

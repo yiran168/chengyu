@@ -1,0 +1,6 @@
+<article class="bulletin-entry" id="bulletin-<?= (int)$entry['id'] ?>" data-bulletin-id="<?= (int)$entry['id'] ?>">
+<time class="bulletin-time" datetime="<?= e(date('c',(int)$entry['publish_at'])) ?>"><?= e(date($standalone?'Y-m-d H:i':'H:i',(int)$entry['publish_at'])) ?></time>
+<div class="bulletin-content"><?php if($standalone): ?><h1><?= e($entry['title']) ?></h1><?php else: ?><h3><a href="<?= e(url('bulletin',['id'=>$entry['id']])) ?>"><?= e($entry['title']) ?></a></h3><?php endif ?>
+<div class="bulletin-body"><?= nl2br(e($entry['body'])) ?></div>
+<?php if((int)$entry['cover_id']): ?><a href="<?= e(media_url((int)$entry['cover_id'])) ?>" class="bulletin-image"><img src="<?= e(media_url((int)$entry['cover_id'])) ?>" alt="<?= e($entry['title']) ?>" loading="lazy" width="480" height="300"></a><?php endif ?>
+<div class="bulletin-footer"><?php partial('article_source',['item'=>$entry]); ?><button type="button" class="text-button" data-copy="<?= e(rtrim($a->config['url'],'/').'/index.php?r=bulletin&id='.(int)$entry['id']) ?>"><?= icon('link') ?><?= t('Copy link') ?></button><?php if($a->auth->can('content')): ?><a href="<?= e(au('bulletins',['edit'=>$entry['id']])) ?>"><?= t('Edit') ?></a><?php endif ?></div></div></article>
