@@ -26,7 +26,7 @@ if (ROOT / 'site/app/config.php').exists():
 EXCLUDE = {'__pycache__', '.git', '.pytest_cache', '.DS_Store', '.work', 'INSTALL_KEY.txt', '.env'}
 FONT = {'.woff', '.woff2', '.ttf', '.otf', '.eot'}
 def files(base):
-    return sorted(p for p in base.rglob('*') if p.is_file() and not any(x in EXCLUDE for x in p.relative_to(base).parts) and p.suffix != '.pyc')
+    return sorted(p for p in base.rglob('*') if p.is_file() and not any(x in EXCLUDE for x in p.relative_to(base).parts) and p.suffix.lower() not in {'.pyc', '.log'})
 def sha(data):
     return hashlib.sha256(data).hexdigest()
 
@@ -96,7 +96,7 @@ with zipfile.ZipFile(upload) as uz, zipfile.ZipFile(complete) as cz:
     check('No private installation key in either public archive', 'INSTALL_KEY.txt' not in uz.namelist() and 'chengyu/INSTALL_KEY.txt' not in cz.namelist())
     check('Public package requires a site-specific owner verifier', b"return '';" in uz.read('install/key.php') and 'DEPLOY_PREPARE.html' in uz.namelist())
     check('Installed configuration excluded', 'app/config.php' not in uz.namelist() and 'chengyu/site/app/config.php' not in cz.namelist())
-    check('No font or bytecode files', all(Path(n).suffix.lower() not in FONT | {'.pyc'} for z in (uz, cz) for n in z.namelist()))
+    check('No font, bytecode or local log files', all(Path(n).suffix.lower() not in FONT | {'.pyc', '.log'} for z in (uz, cz) for n in z.namelist()))
     check('Complete and upload production bytes match', all(cz.read('chengyu/site/' + n) == uz.read(n) for n in uz.namelist()))
     lines = cz.read('chengyu/FILE_MANIFEST.sha256').decode().splitlines()
     bad = []
