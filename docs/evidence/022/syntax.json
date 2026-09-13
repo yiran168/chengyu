@@ -1,0 +1,24 @@
+[
+  {
+    "php": "7.4",
+    "files": 306,
+    "ok": true,
+    "failures": []
+  },
+  {
+    "php": "8.5",
+    "files": 306,
+    "ok": true,
+    "failures": []
+  },
+  {
+    "javascript_files": 19,
+    "ok": true,
+    "failures": []
+  },
+  {
+    "spring_exit": 0,
+    "ok": true,
+    "error": ""
+  }
+]

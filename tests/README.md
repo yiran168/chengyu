@@ -171,3 +171,7 @@ Include `node --check site/assets/platform.js` and `node --check site/assets/med
 ## 0.19 当前证据
 
 最新结果以 ../docs/TEST_REPORT.md 为准。Windows 使用 `python tests/run_matrix.py RUNTIME OUT TMP`，由父进程在 PHP 完全退出后清理原生 SQLite 临时目录。HTTP 测试自行生成站点安装密钥。临时目录、报告和依赖应放在当前项目的私有工作目录；不得指向生产库。
+
+## 0.22 导航与正文图片
+
+`platform_022.php` 接入完整核心套件，新增15项服务检查，累计612项。`http_022.py` 和 `browser_022.py` 分别使用真实PHP请求和Chromium操作，覆盖父子菜单权限、循环/修订、上传插入、私有图片撤销、列表排版、Esc/外部关闭及无JS导航。升级脚本接受原始0.21站点，检查结构14、原导航、图片和交易数据保留。证据位于 `docs/evidence/022`。

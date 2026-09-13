@@ -4,7 +4,7 @@
   const root=document.documentElement,engine=()=>window.CYMotion,activeDisclosures=new Map();
   function finishDisclosure(details,record){if(activeDisclosures.get(details)!==record)return;activeDisclosures.delete(details);record.animation?.cancel();details.open=record.open;details.style.removeProperty('height');details.style.removeProperty('overflow');}
   document.addEventListener('click',event=>{
-    const summary=event.target.closest('summary');if(!summary||summary.parentElement.tagName!=='DETAILS'||event.defaultPrevented||event.button!==0)return;
+    const summary=event.target.closest('summary');if(!summary||summary.parentElement.tagName!=='DETAILS'||summary.parentElement.classList.contains('site-nav-branch')||event.defaultPrevented||event.button!==0)return;
     const motion=engine();if(!motion?.enabled()||!motion.config().motion_disclosures||!summary.parentElement.animate)return;
     const details=summary.parentElement,old=activeDisclosures.get(details),open=old?!old.open:!details.open,start=details.getBoundingClientRect().height;
     event.preventDefault();if(old){activeDisclosures.delete(details);old.animation.cancel();}

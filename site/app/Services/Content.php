@@ -112,7 +112,7 @@ final class Content
         if($searchTerms && ($filters['sort']??'relevance')==='relevance'){$weight=[];foreach($searchTerms as $term){$escaped=str_replace(['!','%','_'],['!!','!%','!_'],$term);$weight[]="(CASE WHEN c.title=? THEN 100 WHEN c.title LIKE ? ESCAPE '!' THEN 40 WHEN c.title LIKE ? ESCAPE '!' THEN 20 WHEN c.tags LIKE ? ESCAPE '!' THEN 10 ELSE 1 END)";array_push($sortParams,$term,$escaped.'%','%'.$escaped.'%','%'.$escaped.'%');}$sort='('.implode('+',$weight).') DESC,c.pinned DESC,c.id DESC';}
         if($indexed && ($filters['sort']??'relevance')==='relevance'){$sort=$indexed['sort'];$sortParams=$indexed['sort_params'];}
         if (!empty($filters['collection'])) { $sortParams=[]; $sort='(SELECT ci.sort_order FROM cy_collection_items ci WHERE ci.collection_id='.Input::integer($filters['collection'],1).' AND ci.content_id=c.id) ASC,c.id DESC'; }
-        $fields = '(SELECT MIN(v.price_amount) FROM cy_variants v WHERE v.content_id=c.id AND v.active=1 AND v.inventory<>0) AS variant_min_price,(SELECT COUNT(*) FROM cy_variants v WHERE v.content_id=c.id) AS variant_count,c.id,c.kind,c.title,c.excerpt,c.category_id,c.author_id,c.cover_id,c.cover_art,c.tags,c.price_amount,c.price_currency,c.access_level,c.pinned,c.featured,c.view_count,c.sold_count,c.created_at,c.updated_at,c.edit_version,c.publish_at,c.status,u.display_name,u.username,u.avatar_id,cat.name AS category_name';
+        $fields = '(SELECT MIN(v.price_amount) FROM cy_variants v WHERE v.content_id=c.id AND v.active=1 AND v.inventory<>0) AS variant_min_price,(SELECT COUNT(*) FROM cy_variants v WHERE v.content_id=c.id) AS variant_count,c.id,c.kind,c.title,c.excerpt,c.category_id,c.author_id,c.cover_id,c.cover_art,c.image_layout,c.gallery_ids,c.body_image_ids,c.tags,c.price_amount,c.price_currency,c.access_level,c.pinned,c.featured,c.view_count,c.sold_count,c.created_at,c.updated_at,c.edit_version,c.publish_at,c.status,u.display_name,u.username,u.avatar_id,cat.name AS category_name';
         if (!empty($filters['history']) && $user) {
             $uid=(int)$user['id'];
             $fields.=',(SELECT hh.progress FROM cy_reading_history hh WHERE hh.user_id='.$uid.' AND hh.content_id=c.id) AS reading_progress';
@@ -121,6 +121,7 @@ final class Content
         if(!empty($filters['archive_order'])){$sort='c.created_at DESC,c.id DESC';$sortParams=[];}
         if(isset($filters['adjacent'])){$order=$direction==='previous'?'DESC':'ASC';$sort='c.created_at '.$order.',c.id '.$order;$sortParams=[];}
         $items = $this->db->all('SELECT ' . $fields . $from . ' ORDER BY ' . $sort . ' LIMIT ? OFFSET ?', array_merge($params,$sortParams,[$size,$offset]));
+        $items=ArticleImages::hydrate($this->db,$items);
         $items=Translations::apply($this->db,$items,\Chengyu\Core\Locale::current());
         return ['items' => $items, 'total' => $total, 'page' => $page, 'pages' => max(1, (int)ceil($total / $size)), 'search_backend'=>$searchBackend];
     }
@@ -207,13 +208,14 @@ final class Content
                 if ($data['price_currency']!==$locked['price_currency'] && $this->db->one('SELECT id FROM cy_variants WHERE content_id=? LIMIT 1',[$id])) { throw new Problem('Products with variants keep their pricing asset.'); }
                 if (isset($input['edit_version']) && Input::integer($input['edit_version'],1)!==(int)$locked['edit_version']) { throw new Problem('This content changed in another window. Reload before saving.',409); }
                 if ($data['product_type']!==$locked['product_type'] && ($this->db->one('SELECT id FROM cy_stock_codes WHERE content_id=?',[$id]) || $this->db->one('SELECT id FROM cy_variants WHERE content_id=?',[$id]) || (int)$locked['sold_count']>0)) { throw new Problem('Delivery type cannot change while inventory or sales exist.'); }
+                $data=array_merge($data,ArticleImages::fields($this->db,$input,$locked,$data['body'],(int)$user['id'],$staff));
                 $this->db->insert('cy_revisions',['content_id'=>$id,'actor_id'=>(int)$user['id'],'snapshot'=>json_encode($locked,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR),'created_at'=>time()]);
                 $revisions=$this->db->all('SELECT id FROM cy_revisions WHERE content_id=? ORDER BY id DESC',[$id]);
                 foreach (array_slice($revisions,20) as $revision) { $this->db->execute('DELETE FROM cy_revisions WHERE id=?',[(int)$revision['id']]); }
                 $data['edit_version']=(int)$locked['edit_version']+1;
                 $this->db->update('cy_contents',$id,$data);
             }
-            else { $saved = $this->db->insert('cy_contents', array_merge($data, ['author_id' => (int)$user['id'], 'created_at' => time()])); }
+            else { $data=array_merge($data,ArticleImages::fields($this->db,$input,[],$data['body'],(int)$user['id'],$staff));$saved = $this->db->insert('cy_contents', array_merge($data, ['author_id' => (int)$user['id'], 'created_at' => time()])); }
             if ($data['product_type']==='code' || $this->db->one('SELECT id FROM cy_variants WHERE content_id=?',[$saved])) {
                 // Keep inventory calculations in Inventory, not in editor form fields.
                 if ($this->inventory) { $this->inventory->synchronize($saved); }

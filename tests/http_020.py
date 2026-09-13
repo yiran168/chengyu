@@ -22,7 +22,7 @@ report20=expect_post(admin,'admin_diagnostics',download='1').json()
 check('020 diagnostic report exposes actual upload constraints',all(k in json.dumps(report20) for k in ['memory_limit','post_max_size','upload_max_filesize']))
 
 visual20=html(admin,'/admin/index.php?tab=visuals&slot=icon:anime-discover')
-check('020 admin visual studio lists complete shared icon registry',len(visual20.select('.symbol-grid .visual-tile'))==80 and visual20.select_one('input[name=revision]') is not None)
+check('020 admin visual studio lists complete shared icon registry',len(visual20.select('.symbol-grid .visual-tile'))==81 and visual20.select_one('input[name=revision]') is not None)
 check('020 editor includes selectable independent cover artwork',html(admin,'/admin/index.php?tab=edit_content&id=1').select_one('select[name=cover_art]') is not None)
 expect_post(user,'visual_save',403,slot='icon:compass',asset_key='icon-shop',revision=0)
 expect_post(admin,'visual_save',slot='icon:compass',asset_key='icon-shop',revision=0)

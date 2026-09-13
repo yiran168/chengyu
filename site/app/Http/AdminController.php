@@ -38,7 +38,8 @@ final class AdminController
         if (in_array($tab,['categories','plans','coupons','navigation'],true)) {
             $data['rows']=$a->db->all('SELECT * FROM cy_'.$tab.' ORDER BY id DESC LIMIT 500');
             $data['edit']=!empty($_GET['edit'])?$a->db->one('SELECT * FROM cy_'.$tab.' WHERE id=?',[Input::integer($_GET['edit'],1)]):null;
-            render('admin_entities',$data,true);return;
+            if($tab==='navigation' && !empty($_GET['edit']) && !$data['edit']){throw new Problem('Record not found.',404);}
+            render($tab==='navigation'?'admin_navigation':'admin_entities',$data,true);return;
         }
         if ($tab==='settings') {
             $group=Input::text($_GET['group']??'site',40);$groups=array_unique(array_column($a->settings->schema(),0));

@@ -5,7 +5,7 @@ use Chengyu\Core\{Database, Settings, Crypto, Security, Problem};
 use Chengyu\Services\{Activity, Wallet, Auth, Commerce, Payment, Content, Media, Mailer, Admin};
 final class App
 {
-    public const VERSION = '0.21.0';
+    public const VERSION = '0.22.0';
     public array $config; public Database $db; public Crypto $crypto; public Settings $settings;
     public Activity $activity; public Wallet $wallet; public Auth $auth; public Commerce $commerce;
     public Payment $payment; public Content $content; public Media $media; public Mailer $mailer; public Admin $admin;
@@ -132,14 +132,8 @@ final class App
     }
     public function navigation(): array
     {
-        $user = $this->auth->user(); $items = [];
-        foreach ($this->db->all('SELECT * FROM cy_navigation WHERE active=1 ORDER BY sort_order,id') as $item) {
-            if (!\Chengyu\Services\Navigation::enabled($this->settings,$item['route'])) { continue; }
-            if ($item['visibility'] !== 'public' && !$user) { continue; }
-            if ($item['visibility'] === 'vip' && (int)($user['vip_until'] ?? 0) <= time()) { continue; }
-            if ($item['visibility'] === 'verified' && empty($user['verified'])) { continue; }
-            $item['href'] = $item['route'] === 'external' ? $item['url'] : $this->url($item['route']); $items[] = $item;
-        }
-        return $items;
+        return (new \Chengyu\Services\Navigation($this->db,$this->settings,$this->activity))->visible($this->auth->user(),function(array $item):string{
+            return $item['route']==='external'?$item['url']:$this->url($item['route']);
+        });
     }
 }

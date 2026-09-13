@@ -1,0 +1,199 @@
+{
+  "date": "2026-09-13",
+  "scope": "Specific direct code reads and CSS selectors; not an exhaustive audit. Reference directories were read only. No reference implementations/assets copied.",
+  "files": [
+    {
+      "theme": "Zibll",
+      "file": "inc/functions/zib-header.php",
+      "sha256": "4013c2bc864231eec0890803cf2bf84776ab8f35d43965655d76e20c6cd42b0e",
+      "reviewed_ranges": [
+        [
+          1,
+          165
+        ]
+      ],
+      "total_lines": 948
+    },
+    {
+      "theme": "Zibll",
+      "file": "inc/functions/zib-posts-list.php",
+      "sha256": "d71844d6f91c391d16a12f937ff31547fcaaa8c7e8061a8ff2260b15049d1ba0",
+      "reviewed_ranges": [
+        [
+          112,
+          226
+        ]
+      ],
+      "total_lines": 888
+    },
+    {
+      "theme": "Zibll",
+      "file": "inc/functions/zib-theme.php",
+      "sha256": "dfaebcfbd00f1c669f54e0731b6546720270791f43544600e87f7ad738310634",
+      "reviewed_ranges": [
+        [
+          1631,
+          1685
+        ]
+      ],
+      "total_lines": 3343
+    },
+    {
+      "theme": "Shane",
+      "file": "template-parts/header/menu.php",
+      "sha256": "5f4eddddd3d07ceb680174d847028d6a32941eb3fad803adb78d6b4013077945",
+      "reviewed_ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "total_lines": 90
+    },
+    {
+      "theme": "Shane",
+      "file": "template-parts/loop/item.php",
+      "sha256": "8c1865d3e8a9f4a83701b89d5abd5ed01355dc67d891d98bc7e0821d37c9dda3",
+      "reviewed_ranges": [
+        [
+          1,
+          238
+        ]
+      ],
+      "total_lines": 238
+    },
+    {
+      "theme": "Shane",
+      "file": "template-parts/loop/entry-media-part.php",
+      "sha256": "92bc5a7c662d01875412dc7c95d05c18bcac8c9eedd5658315068630261cae30",
+      "reviewed_ranges": [
+        [
+          1,
+          59
+        ]
+      ],
+      "total_lines": 59
+    },
+    {
+      "theme": "JustNews",
+      "file": "header.php",
+      "sha256": "f9a394d0c3c7c17816df485d399a331274ea53e5d6d5e5c71dc558a650e5dc93",
+      "reviewed_ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "total_lines": 69
+    },
+    {
+      "theme": "JustNews",
+      "file": "templates/loop-multimage.php",
+      "sha256": "6283194f65813ee0e723a0c050b4b6e836940c1c7e983a046235f9d11bff116f",
+      "reviewed_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "total_lines": 58
+    },
+    {
+      "theme": "JustNews",
+      "file": "themer/functions/nav-walker.php",
+      "sha256": "7d08df50cb38472bb9bb50369227fe7827389d3fadecec7a203da329f71adee4",
+      "reviewed_ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "total_lines": 374
+    },
+    {
+      "theme": "Zibll",
+      "file": "css/main.css",
+      "sha256": "eb9798df0da2a1956179db8af67618c76b15ba63c10b821183cc2fcd409055d1",
+      "reviewed_css_matches": [
+        {
+          "selector": ".posts-item.mult-thumb",
+          "start_character": 3987,
+          "end_character": 4073
+        },
+        {
+          "selector": ".posts-item.mult-thumb",
+          "start_character": 141866,
+          "end_character": 141934
+        },
+        {
+          "selector": ".thumb-items",
+          "start_character": 4010,
+          "end_character": 4073
+        },
+        {
+          "selector": ".thumb-items",
+          "start_character": 141889,
+          "end_character": 141934
+        },
+        {
+          "selector": ".sub-menu",
+          "start_character": 2864,
+          "end_character": 2992
+        },
+        {
+          "selector": ".sub-menu",
+          "start_character": 3017,
+          "end_character": 3179
+        }
+      ]
+    },
+    {
+      "theme": "Shane",
+      "file": "assets/css/shane_home.css",
+      "sha256": "6f37f8f1441696c4bded4ed0d31e484e95444837cc2971b6b6be859f8a249e93",
+      "reviewed_ranges": [
+        [
+          1,
+          30
+        ]
+      ]
+    },
+    {
+      "theme": "JustNews",
+      "file": "css/style.css",
+      "sha256": "15ab3694ec39dfb65b8adbe2159f622d7895e6fc4e2d0cdc9398dd7e01cb51a1",
+      "reviewed_css_matches": [
+        {
+          "selector": ".menu-item-wrap",
+          "start_character": 185356,
+          "end_character": 185413
+        },
+        {
+          "selector": ".menu-item-wrap",
+          "start_character": 185490,
+          "end_character": 185548
+        },
+        {
+          "selector": ".item-img",
+          "start_character": 267082,
+          "end_character": 267180
+        },
+        {
+          "selector": ".item-img",
+          "start_character": 267224,
+          "end_character": 267244
+        },
+        {
+          "selector": ".item-title",
+          "start_character": 267006,
+          "end_character": 267062
+        },
+        {
+          "selector": ".item-title",
+          "start_character": 269709,
+          "end_character": 269784
+        }
+      ]
+    }
+  ]
+}

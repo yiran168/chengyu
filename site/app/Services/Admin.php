@@ -38,12 +38,7 @@ final class Admin
             if ($data['content_id'] && ($data['scope_kind']!=='content' || !$this->db->one("SELECT id FROM cy_contents WHERE id=? AND kind<>'page'",[$data['content_id']]))) {throw new Problem('Choose a valid content coupon target.');}
             if ($this->db->one('SELECT id FROM cy_coupons WHERE code=? AND id<>?', [$code, $id])) { throw new Problem('Coupon code already exists.'); }
         } else {
-            $data = ['label' => Input::required($input['label'] ?? '', 100),
-                'route' => Input::choice($input['route'] ?? 'home', Navigation::ROUTES),
-                'icon'=>Input::choice($input['icon']??'',array_merge([''],\Chengyu\Core\Icons::NAMES)),
-                'url' => Input::url($input['url'] ?? ''), 'visibility' => Input::choice($input['visibility'] ?? 'public', ['public', 'login', 'vip', 'verified']),
-                'sort_order' => Input::integer($input['sort_order'] ?? 0, 0, 9999), 'active' => empty($input['active']) ? 0 : 1];
-            if ($data['route'] === 'external' && $data['url'] === '') { throw new Problem('External links require a URL.'); }
+            return (new Navigation($this->db,$this->settings,$this->activity))->save($actor,$input);
         }
         return $this->db->transaction(function () use ($actor, $id, $table, $data, $entity): int {
             if ($id) { if (!$this->db->one('SELECT id FROM '.$table.' WHERE id=?'.$this->db->lock(),[$id])) { throw new Problem('Record not found.',404); } $this->db->update($table, $id, $data); $saved = $id; }

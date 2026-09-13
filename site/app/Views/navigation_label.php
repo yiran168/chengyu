@@ -1,0 +1,2 @@
+<?php if($showImage && !empty($node['image_id'])): ?><img class="nav-thumbnail" src="<?= e(media_url((int)$node['image_id'])) ?>" alt="" width="64" height="48" loading="lazy"><?php elseif(!empty($node['icon'])): ?><?= icon($node['icon']) ?><?php endif ?>
+<span class="nav-label"><span><?= t($node['label']) ?></span><?php if($showImage && $node['description']): ?><small><?= e($node['description']) ?></small><?php endif ?></span>

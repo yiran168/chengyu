@@ -16,6 +16,6 @@ for version in ['7.4','8.5']:
             done=subprocess.run([str(binary),str(root/'tests/upgrade_019.php'),str(site),phase,str(private)],capture_output=True,text=True,encoding='utf-8',timeout=120)
             if done.returncode or done.stderr.strip():raise RuntimeError(done.stdout+done.stderr)
             phases.append(json.loads(done.stdout))
-        assert phases[0]['schema'] in [10,11,12] and phases[1]['version']==json.loads((root/'RELEASE.json').read_text(encoding='utf-8'))['version']
+        assert phases[0]['schema'] in [10,11,12,13] and phases[1]['version']==json.loads((root/'RELEASE.json').read_text(encoding='utf-8'))['version']
         results.append({'php_minor':version,'native_pdo':'sqlite','ok':True,'phases':phases})
 out.parent.mkdir(parents=True,exist_ok=True);out.write_text(json.dumps(results,indent=2),encoding='utf-8');print(json.dumps(results,indent=2))
