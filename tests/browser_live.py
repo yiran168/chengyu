@@ -144,6 +144,7 @@ try:
         page.locator('[name=thread_mode]').select_option('poll');check('poll editor enables functional poll fields',page.locator('[data-poll-fields]').is_visible() and page.locator('[name=poll_question]').is_enabled())
         exec(compile((ROOT/'tests/browser_021.py').read_text(encoding='utf-8'),str(ROOT/'tests/browser_021.py'),'exec'))
         exec(compile((ROOT/'tests/browser_022.py').read_text(encoding='utf-8'),str(ROOT/'tests/browser_022.py'),'exec'))
+        exec(compile((ROOT/'tests/browser_023.py').read_text(encoding='utf-8'),str(ROOT/'tests/browser_023.py'),'exec'))
         # No-JavaScript session still sees content and has ordinary login forms.
         nojs=browser.new_context(java_script_enabled=False,viewport={'width':390,'height':844});static=nojs.new_page();static.goto(BASE,wait_until='load',timeout=20000)
         check('no-JavaScript content cards remain visible',static.locator('.content-card').first.evaluate('(n)=>getComputedStyle(n).opacity')=='1')

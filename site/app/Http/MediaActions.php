@@ -8,6 +8,11 @@ final class MediaActions
     private App $a;public function __construct(App $a){$this->a=$a;}
     public function run(string $action,array $in,array $response): ?array
     {
+        if(in_array($action,['media_catalog','media_select'],true)){
+            $a=$this->a;$user=$a->auth->requireUser();$a->activity->rate('media-catalog',(string)$user['id'],240,60);$catalog=new \Chengyu\Services\MediaCatalog($a->db);
+            if($action==='media_catalog'){$response['catalog']=$catalog->listing((int)$user['id'],$in);}else{$response['media']=$catalog->select((int)$user['id'],Input::integer($in['media_id']??0,1));}
+            return $response;
+        }
         $a=$this->a;if(in_array($action,['upload_start','upload_status','upload_chunk','upload_finish','upload_cancel','object_prepare','object_finish'],true)){
             $u=$a->auth->requirePermission('manage');$a->activity->rate('media-session',(string)$u['id'],20000,3600);$key=Input::text($in['upload_key']??'',48);
             switch($action){

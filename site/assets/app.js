@@ -28,14 +28,18 @@
     close.addEventListener('click',remove);node.addEventListener('pointerenter',()=>clearTimeout(timer));node.addEventListener('pointerleave',()=>{if(!node.contains(document.activeElement))resume();});node.addEventListener('focusin',()=>clearTimeout(timer));node.addEventListener('focusout',()=>resume());
     if(enabled())CYMotion.animate(node,[{opacity:0,transform:'translateY(10px) scale(.97)'},{opacity:1,transform:'none'}],{duration:CYMotion.duration(220)});resume();
   }
-  async function request(data) {
-    const response = await fetch((root.dataset.base || '') + '/action.php', {method: 'POST', body: data, credentials: 'same-origin', headers: {'Accept': 'application/json'}});
+  async function request(data, options = {}) {
+    const response = await fetch((root.dataset.base || '') + '/action.php', {method: 'POST', body: data, signal: options.signal, credentials: 'same-origin', headers: {'Accept': 'application/json'}});
     const text = await response.text(); let result;
     try { result = JSON.parse(text); } catch (_) { throw new Error(strings.network); }
     if (!response.ok || !result.ok) throw new Error(result.message || strings.network);
     return result;
   }
-  window.CYUI = {request,toast};
+  function assignMedia(target, value) {
+    if (!(target instanceof HTMLInputElement) || !Number.isSafeInteger(Number(value)) || Number(value) < 0) return false;
+    target.value = String(value); target.dispatchEvent(new Event('input', {bubbles:true})); target.dispatchEvent(new Event('change', {bubbles:true})); return true;
+  }
+  window.CYUI = {request,toast,assignMedia};
   $$('form[data-async]').forEach(form => {
     form.addEventListener('submit', async event => {
       event.preventDefault();
@@ -127,7 +131,7 @@
     const data = new FormData(); data.append('file', input.files[0]); data.append('action', 'upload'); data.append('csrf', $('meta[name="csrf-token"]')?.content || '');
     if (input.dataset.private === '1') data.append('private', '1');
     input.disabled = true; if (status) status.textContent = strings.uploading;
-    try { const result = await request(data); if (target instanceof HTMLInputElement) { target.value = result.media_id; target.dispatchEvent(new Event('input', {bubbles:true})); target.dispatchEvent(new Event('change', {bubbles:true})); } if (status) status.textContent = strings.saved + result.media_id; toast(result.message); }
+    try { const result = await request(data); assignMedia(target, result.media_id); if (status) status.textContent = strings.saved + result.media_id; toast(result.message); }
     catch (e) { if (status) status.textContent = e.message; toast(e.message, 'error'); }
     finally { input.disabled = false; input.value = ''; }
   }));

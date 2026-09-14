@@ -163,6 +163,7 @@ html[data-motion="0"] .archive-open{transition:none;transform:none!important}
 .desktop-nav .custom-icon{width:1.5rem;height:1.5rem}
 .visual-workbench{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(280px,1fr);gap:24px;align-items:start}
 .visual-editor{position:sticky;top:100px;min-width:0}
+@media(max-height:900px){.visual-editor{position:static}}
 .visual-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:12px}
 .visual-grid.symbol-grid{grid-template-columns:repeat(auto-fill,minmax(100px,1fr))}
 .visual-tile{display:flex;flex-direction:column;align-items:center;gap:9px;border:1px solid var(--line);border-radius:18px;padding:13px 8px;text-align:center;min-width:0;transition:border-color .22s var(--curve),background .22s var(--curve),box-shadow .22s var(--curve)}

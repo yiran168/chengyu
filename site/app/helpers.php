@@ -99,6 +99,7 @@ function button(string $label = 'Save changes', string $class = '', string $symb
 function upload_field(string $name, string $label, int $value, bool $private = false): void
 {
     echo '<div class="upload-field">'; field($name, $label, $value, 'number', ['min' => '0']);
+    if(!$private && app()->auth->user() && empty(app()->auth->user()['is_guest'])) {echo '<div class="media-picker-actions"><button type="button" class="btn secondary small" data-media-open hidden>'.icon('anime-gallery').t('Choose an existing image').'</button><button type="button" class="btn secondary small" data-media-clear hidden>'.t('Clear image').'</button></div>';}
     echo '<label class="upload-button">' . icon('upload') . t('Choose a file') . '<input type="file" data-upload-target="' . e($name) . '" data-private="' . ($private ? '1' : '0') . '"></label><small class="upload-status">' . t($private ? 'Private attachment; access is checked on download.' : 'Public image; use only assets you own.') . '</small></div>';
 }
 function address_select(int $uid): void
