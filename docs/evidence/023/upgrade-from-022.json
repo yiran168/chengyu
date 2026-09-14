@@ -1,0 +1,64 @@
+[
+  {
+    "php_minor": "7.4",
+    "native_pdo": "sqlite",
+    "ok": true,
+    "phases": [
+      {
+        "phase": "baseline",
+        "version": "0.22.0",
+        "schema": 14
+      },
+      {
+        "phase": "upgraded",
+        "version": "0.23.0",
+        "checks": {
+          "schema_current": true,
+          "balance_preserved": true,
+          "one_original_order": true,
+          "paid_access_preserved": true,
+          "protected_body_preserved": true,
+          "new_visual_table_created": true,
+          "existing_covers_not_overwritten": true,
+          "encrypted_resource_preserved": true,
+          "new_bulletins_empty": true,
+          "old_attribution_preserved_as_unset": true,
+          "navigation_preserved": true,
+          "old_navigation_keeps_top_level": true,
+          "old_article_has_no_invented_gallery": true
+        }
+      }
+    ]
+  },
+  {
+    "php_minor": "8.5",
+    "native_pdo": "sqlite",
+    "ok": true,
+    "phases": [
+      {
+        "phase": "baseline",
+        "version": "0.22.0",
+        "schema": 14
+      },
+      {
+        "phase": "upgraded",
+        "version": "0.23.0",
+        "checks": {
+          "schema_current": true,
+          "balance_preserved": true,
+          "one_original_order": true,
+          "paid_access_preserved": true,
+          "protected_body_preserved": true,
+          "new_visual_table_created": true,
+          "existing_covers_not_overwritten": true,
+          "encrypted_resource_preserved": true,
+          "new_bulletins_empty": true,
+          "old_attribution_preserved_as_unset": true,
+          "navigation_preserved": true,
+          "old_navigation_keeps_top_level": true,
+          "old_article_has_no_invented_gallery": true
+        }
+      }
+    ]
+  }
+]

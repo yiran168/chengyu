@@ -175,3 +175,7 @@ Include `node --check site/assets/platform.js` and `node --check site/assets/med
 ## 0.22 导航与正文图片
 
 `platform_022.php` 接入完整核心套件，新增15项服务检查，累计612项。`http_022.py` 和 `browser_022.py` 分别使用真实PHP请求和Chromium操作，覆盖父子菜单权限、循环/修订、上传插入、私有图片撤销、列表排版、Esc/外部关闭及无JS导航。升级脚本接受原始0.21站点，检查结构14、原导航、图片和交易数据保留。证据位于 `docs/evidence/022`。
+
+## 0.23 图片库与窗口可达性
+
+platform_023.php、http_023.py、browser_023.py接入原有总套件。当前结果：核心各620、HTTP1003、Chromium200、PHP/JS语法310/20。CI14组原生数据库全部通过。0.22→0.23升级检查两端PHP，详见docs/evidence/023。较早章节的阻断与测试数量仅代表当时版本，当前证据以TEST_REPORT为准。

@@ -1,6 +1,8 @@
-# 澄屿 Chengyu 0.22.0
+# 澄屿 Chengyu 0.23.0
 
 独立 PHP 内容、社区与数字资源平台，包含前台和可管理的后台。不需要 WordPress、运行期 Composer、Node、Redis 或常驻队列。PHP 7.4–8.5 使用同一套业务代码，支持原生 PDO MySQL / SQLite。
+
+0.23 增加统一图片选择器：搜索、分页、预览、选择和清除，复用已有附件供Logo、图标、菜单、封面、正文、画廊及头像使用；普通成员仅访问自己的公开图片。修复矮桌面窗口中素材编辑栏按钮难以到达、图片库被通用弹窗压窄和分页中文缺失的问题。[0.23操作说明](docs/PLATFORM_023.md)。
 
 0.19 新增资源多版本与私有镜像、失效反馈闭环、组合筛选、22 种可视化区块、响应式轮播与按钮组，以及原创二次元站标和海岛插画。修复 Windows 安装 Cookie 路径、长文本分片上传类型识别、SKU 标价排序和布局布尔值校验问题。
 
@@ -23,7 +25,7 @@
 
 公开包不含通用安装密码或默认管理员。无面板新 VPS 也可使用 [部署脚本](deploy/install-vps.sh)，脚本会生成该站点的独立安装口令；已有面板使用面板创建 PHP 站点。
 
-已有 0.18 / 0.19 / 0.20 / 0.21 站点按 [升级说明](docs/UPGRADE.md) 保留 config.php、原 secret、数据库和 storage，升级至结构 v14，不重新安装。
+已有 0.18 / 0.19 / 0.20 / 0.21 / 0.22 站点按 [升级说明](docs/UPGRADE.md) 保留 config.php、原 secret、数据库和 storage，升级至结构 v15，不重新安装。
 
 ## 部署与验证
 
@@ -33,7 +35,7 @@ PHP 七版本本地原生 SQLite 测试、Linux 原生 MySQL/SQLite 的 14 组 C
 
 - [离线完整手册](START_HERE.html) / [安装与主机配置](docs/DEPLOYMENT.md)
 - [本版功能使用](docs/PLATFORM_022.md) / [后台指南](docs/ADMIN_GUIDE.md)
-- [本轮三主题源码分析](docs/REFERENCE_022.md) / [原创图像出处](docs/ARTWORK.md)
+- [本轮三主题源码分析](docs/REFERENCE_023.md) / [原创图像出处](docs/ARTWORK.md)
 - [代码仓库](https://github.com/yiran168/chengyu) / [发布下载](https://github.com/yiran168/chengyu/releases)
 
 代码按 MIT 许可发布。参考主题仅用于分析功能与交互，本工程不包含其专有代码、素材、字体、授权逻辑或 WordPress 运行时。没有承诺实现所有历史第三方扩展或零知识产权风险。

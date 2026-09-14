@@ -1,0 +1,39 @@
+{
+  "date": "2026-09-14",
+  "scope": "Direct read-only source analysis; no reference bytes distributed.",
+  "files": [
+    {
+      "theme": "Zibll",
+      "file": "inc/functions/admin/admin-main.php",
+      "sha256": "3ece718cf41ac9be6e3d3d748a9661332e33ffc5ae56722e54fe81734266faa9",
+      "reviewed_ranges": [
+        [
+          76,
+          131
+        ]
+      ]
+    },
+    {
+      "theme": "Shane",
+      "file": "inc/gadgets/home/home-slideer.php",
+      "sha256": "342ff09fc0fa9a8a58210f1e086f80ba30b61917be479e98955f53515d3fe5ba",
+      "reviewed_ranges": [
+        [
+          1,
+          115
+        ]
+      ]
+    },
+    {
+      "theme": "JustNews",
+      "file": "themer/core/visual-editor.php",
+      "sha256": "edfcf7501869b027fc46abe9fb665548f6a91844f1b31eb36770f089e726a14c",
+      "reviewed_ranges": [
+        [
+          1,
+          96
+        ]
+      ]
+    }
+  ]
+}
