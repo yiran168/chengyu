@@ -52,9 +52,26 @@ jobs:
           CY_TEST_MYSQL_USER: root
           CY_TEST_MYSQL_PASSWORD: ci-only-disposable-password
         run: php tests/run.php > core-results.json
+      - name: Remove Fileinfo for shared-host compatibility
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: pdo_sqlite, pdo_mysql, openssl, :fileinfo
+          coverage: none
+          ini-values: memory_limit=128M
+      - name: Native database suite without Fileinfo
+        env:
+          CY_EXPECT_NO_FILEINFO: '1'
+          CY_TEST_MYSQL_HOST: ${{ matrix.database == 'mysql' && '127.0.0.1' || '' }}
+          CY_TEST_MYSQL_PORT: '3306'
+          CY_TEST_MYSQL_USER: root
+          CY_TEST_MYSQL_PASSWORD: ci-only-disposable-password
+        run: php tests/run.php > core-no-fileinfo.json
       - name: Preserve exact native database evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: native-${{ matrix.php }}-${{ matrix.database }}
-          path: core-results.json
+          path: |
+            core-results.json
+            core-no-fileinfo.json

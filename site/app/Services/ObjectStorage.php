@@ -2,7 +2,7 @@
 declare(strict_types=1);
 namespace Chengyu\Services;
 use Chengyu\App;
-use Chengyu\Core\{HttpClient,Input,Problem};
+use Chengyu\Core\{HttpClient,Input,Problem,FileType};
 /** Direct browser upload into staging, followed by an authenticated immutable copy. Staff only. */
 final class ObjectStorage
 {
@@ -11,7 +11,7 @@ final class ObjectStorage
     private function config(): array {$s=$this->a->settings;if(!$s->get('object_storage_enabled')){throw new Problem('Object storage is disabled.',403);}$c=[];foreach(['endpoint','region','access','secret','bucket','prefix'] as $key){$c[$key]=$s->get('s3_'.$key);}$c['token']=$s->get('s3_session_token');return S3::validate($c);}
     public function prepare(array $u,string $name,int $bytes): array
     {
-        $this->staff($u);$c=$this->config();$name=Input::required(basename($name),255);$types=['jpg'=>'image/jpeg','jpeg'=>'image/jpeg','png'=>'image/png','webp'=>'image/webp','gif'=>'image/gif','pdf'=>'application/pdf','zip'=>'application/zip','txt'=>'text/plain','mp4'=>'video/mp4','mp3'=>'audio/mpeg'];$ext=strtolower(pathinfo($name,PATHINFO_EXTENSION));if(!isset($types[$ext])||$bytes<1||$bytes>(int)$this->a->settings->get('large_upload_max_mb')*1048576){throw new Problem('Unsupported object type or size.');}$key=bin2hex(random_bytes(24));$object=$c['prefix'].'/staging/'.$key;$final=$c['prefix'].'/media/'.$key;$mime=$types[$ext];$snapshot=['provider'=>$c,'final'=>$final,'etag'=>''];
+        $this->staff($u);$c=$this->config();$name=Input::required(basename($name),255);$types=FileType::EXTENSIONS;$ext=strtolower(pathinfo($name,PATHINFO_EXTENSION));if(!isset($types[$ext])||$bytes<1||$bytes>(int)$this->a->settings->get('large_upload_max_mb')*1048576){throw new Problem('Unsupported object type or size.');}$key=bin2hex(random_bytes(24));$object=$c['prefix'].'/staging/'.$key;$final=$c['prefix'].'/media/'.$key;$mime=$types[$ext];$snapshot=['provider'=>$c,'final'=>$final,'etag'=>''];
         $id=$this->a->db->transaction(function()use($u,$name,$bytes,$mime,$key,$object,$snapshot):int{$db=$this->a->db;$db->one('SELECT id FROM cy_users WHERE id=?'.$db->lock(),[(int)$u['id']]);if((int)$db->value("SELECT COUNT(*) FROM cy_remote_uploads WHERE user_id=? AND state IN ('pending','copying') AND expires_at>?",[(int)$u['id'],time()])>=8){throw new Problem('Too many unfinished object uploads.',429);}return $db->insert('cy_remote_uploads',['user_id'=>(int)$u['id'],'upload_key'=>$key,'name'=>$name,'mime'=>$mime,'bytes'=>$bytes,'object_key'=>$object,'config_cipher'=>$this->a->crypto->seal(json_encode($snapshot,JSON_THROW_ON_ERROR)),'state'=>'pending','created_at'=>time(),'expires_at'=>time()+86400]);});
         $signed=(new S3($c,$this->http))->presign('PUT',$object,900,['content-type'=>$mime,'content-length'=>(string)$bytes,'x-amz-meta-cy-id'=>$key]);unset($signed['headers']['content-length']);return ['upload_key'=>$key,'id'=>$id,'bytes'=>$bytes,'mime'=>$mime]+$signed;
     }
@@ -24,7 +24,20 @@ final class ObjectStorage
     {
         $r=$this->owned($u,$key);if($r['state']==='complete'){return (int)$r['media_id'];}$lease=$this->a->db->transaction(function()use($r):array{$db=$this->a->db;$row=$db->one('SELECT * FROM cy_remote_uploads WHERE id=?'.$db->lock(),[(int)$r['id']]);if($row['state']==='complete'){return $row;}if((int)$row['expires_at']<time()||!in_array($row['state'],['pending','copying'],true)){throw new Problem('Object upload expired or closed.',409);}if((int)$row['lease_until']>time()){throw new Problem('Object verification is already running.',409);}$db->update('cy_remote_uploads',(int)$row['id'],['lease_until'=>time()+180]);return $row;});if($lease['state']==='complete'){return (int)$lease['media_id'];}$r=$lease;$snap=json_decode($this->a->crypto->open($r['config_cipher']),true,32,JSON_THROW_ON_ERROR);$s3=new S3($snap['provider'],$this->http);
         try{
-            if($snap['etag']===''){$head=$s3->request('HEAD',$r['object_key']);$this->checkHead($r,$head);$etag=$head['headers']['etag']??'';if(!preg_match('/^"[a-zA-Z0-9_-]{1,100}"$/D',$etag)){throw new Problem('Object has no usable entity tag.',502);}$end=min(262143,(int)$r['bytes']-1);$sample=$s3->request('GET',$r['object_key'],['Range'=>'bytes=0-'.$end,'If-Match'=>$etag]);if(strlen($sample['body'])!==$end+1||($sample['headers']['etag']??'')!==$etag){throw new Problem('Object changed during verification.',409);}$detected=(new \finfo(FILEINFO_MIME_TYPE))->buffer($sample['body']);if($detected==='application/x-zip-compressed'){$detected='application/zip';}if($detected!==$r['mime']){throw new Problem('Object MIME does not match the selected file type.',409);}if(strpos($detected,'image/')===0){$im=@getimagesizefromstring($sample['body']);if(!$im||$im[0]>12000||$im[1]>12000||$im[0]*$im[1]>40000000){throw new Problem('Image dimensions are invalid or cannot be verified.');}}$snap['etag']=$etag;$this->a->db->update('cy_remote_uploads',(int)$r['id'],['state'=>'copying','config_cipher'=>$this->a->crypto->seal(json_encode($snap,JSON_THROW_ON_ERROR))]);}
+            if($snap['etag']===''){
+                $head=$s3->request('HEAD',$r['object_key']);$this->checkHead($r,$head);$etag=$head['headers']['etag']??'';
+                if(!preg_match('/^"[a-zA-Z0-9_-]{1,100}"$/D',$etag)){throw new Problem('Object has no usable entity tag.',502);}
+                $read=static function(int $start,int $length)use($s3,$r,$etag):string{
+                    $sample=$s3->request('GET',$r['object_key'],['Range'=>'bytes='.$start.'-'.($start+$length-1),'If-Match'=>$etag]);
+                    if($sample['status']!==206||strlen($sample['body'])!==$length||($sample['headers']['etag']??'')!==$etag||($sample['headers']['content-range']??'')!=='bytes '.$start.'-'.($start+$length-1).'/'.$r['bytes']){throw new Problem('Object changed during verification.',409);}
+                    return $sample['body'];
+                };
+                $sample=$read(0,min(FileType::PROBE_BYTES,(int)$r['bytes']));
+                $detected=FileType::detect($sample,(int)$r['bytes'],$read);
+                if($detected!==$r['mime']){throw new Problem('Object MIME does not match the selected file type.',409);}
+                if(strpos($detected,'image/')===0){$im=@getimagesizefromstring($sample);if(!$im||($im['mime']??'')!==$detected||$im[0]<1||$im[1]<1||$im[0]>12000||$im[1]>12000||$im[0]*$im[1]>40000000){throw new Problem('Image dimensions are invalid or cannot be verified.');}}
+                $snap['etag']=$etag;$this->a->db->update('cy_remote_uploads',(int)$r['id'],['state'=>'copying','config_cipher'=>$this->a->crypto->seal(json_encode($snap,JSON_THROW_ON_ERROR))]);
+            }
             $ready=false;try{$h=$s3->request('HEAD',$snap['final']);$this->checkHead($r,$h,$snap['etag']);$ready=true;}catch(Problem $e){/* Missing or uncertain destination: repeating an exact conditional copy is safe. */}
             if(!$ready){$s3->copy($r['object_key'],$snap['final'],$snap['etag'],['content-type'=>$r['mime'],'content-disposition'=>'attachment','cache-control'=>'private, no-store','x-amz-meta-cy-id'=>$key,'x-amz-meta-cy-source'=>hash('sha256',$snap['etag'])]);$this->checkHead($r,$s3->request('HEAD',$snap['final']),$snap['etag']);}
             return $this->a->db->transaction(function()use($r,$snap,$u):int{$db=$this->a->db;$row=$db->one('SELECT * FROM cy_remote_uploads WHERE id=?'.$db->lock(),[(int)$r['id']]);if($row['state']==='complete'){return (int)$row['media_id'];}$id=$db->insert('cy_media',['owner_id'=>(int)$u['id'],'name'=>$r['name'],'mime'=>$r['mime'],'bytes'=>(int)$r['bytes'],'file_key'=>'remote-'.$r['upload_key'],'is_private'=>1,'created_at'=>time(),'backend'=>'s3','remote_cipher'=>$this->a->crypto->seal(json_encode(['provider'=>$snap['provider'],'key'=>$snap['final']],JSON_THROW_ON_ERROR))]);$db->update('cy_remote_uploads',(int)$r['id'],['state'=>'complete','media_id'=>$id,'lease_until'=>0]);return $id;});

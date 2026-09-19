@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 namespace Chengyu\Services;
-use Chengyu\Core\{Database, Settings, Input, Problem};
+use Chengyu\Core\{Database, Settings, Input, Problem, FileType};
 final class Media
 {
     // Even if web-server deny rules are absent, a blob never executes or exposes its payload as PHP.
@@ -26,19 +26,17 @@ final class Media
         $staff=in_array($user['role'],['admin','editor'],true);
         $size=filesize($source);$bytes=$size===false?false:$size-$offset;
         if($offset!==0 && $offset!==strlen(self::GUARD)){throw new \InvalidArgumentException('Invalid envelope offset');}
-        $sample=null;if($offset){$probe=fopen($source,'rb');if(!$probe){throw new Problem('File unavailable.');}try{if(fread($probe,$offset)!==self::GUARD){throw new Problem('Invalid media envelope.');}$sample=fread($probe,262144);}finally{fclose($probe);}}
+        $sample=null;if($offset){$probe=fopen($source,'rb');if(!$probe){throw new Problem('File unavailable.');}try{if(fread($probe,$offset)!==self::GUARD){throw new Problem('Invalid media envelope.');}$sample=fread($probe,FileType::PROBE_BYTES);}finally{fclose($probe);}}
         if ($bytes === false || $bytes < 1 || $bytes > $maximum) { throw new Problem('File exceeds the upload limit.'); }
-        // A bounded signature probe behaves consistently across libmagic versions.
-        // Windows Fileinfo misclassifies long repetitive plain text as octet-stream.
-        $signature=$sample===null?file_get_contents($source,false,null,0,4096):substr($sample,0,4096);
+        $signature=$sample===null?file_get_contents($source,false,null,0,min((int)$bytes,FileType::PROBE_BYTES)):$sample;
         if($signature===false){throw new Problem('File unavailable.');}
-        $fi=new \finfo(FILEINFO_MIME_TYPE);$mime=$fi->buffer($signature);
-        $images = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-        $allowed = $staff ? array_merge($images, ['application/pdf', 'application/zip', 'application/x-zip-compressed', 'text/plain', 'video/mp4', 'audio/mpeg']) : $images;
+        $mime=FileType::detect($signature,(int)$bytes,static function(int $start,int $length)use($source,$offset){return file_get_contents($source,false,null,$offset+$start,$length);});
+        $images = FileType::IMAGES;
+        $allowed = $staff ? array_values(FileType::EXTENSIONS) : $images;
         if (!in_array($mime, $allowed, true)) { throw new Problem('This file type is not allowed. SVG and executable files are blocked.'); }
         if (in_array($mime, $images, true)) {
             $image = $sample===null?@getimagesize($source):@getimagesizefromstring($sample);
-            if (!$image || $image[0] > 12000 || $image[1] > 12000 || $image[0] * $image[1] > 40000000) { throw new Problem('Invalid image or image dimensions are too large.'); }
+            if (!$image || ($image['mime']??'')!==$mime || $image[0]<1 || $image[1]<1 || $image[0] > 12000 || $image[1] > 12000 || $image[0] * $image[1] > 40000000) { throw new Problem('Invalid image or image dimensions are too large.'); }
         } else { $private = true; }
         $key = bin2hex(random_bytes(24)) . '.php'; $dir = $this->storage . '/blobs';
         if (!is_dir($dir) && !mkdir($dir, 0750, true)) { throw new \RuntimeException('Could not create media storage'); }

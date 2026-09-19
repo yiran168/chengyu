@@ -34,7 +34,7 @@ test('016 object lifecycle uses conditional immutable copy, recovers a lost resp
             $head=['Content-Type'=>'text/plain','Content-Length'=>(string)strlen($data),'ETag'=>$etag,'x-amz-meta-cy-id'=>$manifest['upload_key']];
             if($isFinal){$head['x-amz-meta-cy-source']=hash('sha256',$etag);}
             if($method==='HEAD'){if($isFinal&&!$copied){return raw16('',[],404);}return raw16('',$head);}
-            if($method==='GET'){same($etag,$headers['if-match']);return raw16($data,$head,206);}
+            if($method==='GET'){same($etag,$headers['if-match']);$head['Content-Range']='bytes 0-'.(strlen($data)-1).'/'.strlen($data);return raw16($data,$head,206);}
             same('PUT',$method);same($etag,$headers['x-amz-copy-source-if-match']);truth(strpos($headers['x-amz-copy-source'],'/staging/'.$manifest['upload_key'])!==false);
             $copied=true;$copyCount++;
             if($loseResponse){$loseResponse=false;throw new \Chengyu\Core\Problem('Fixture: copy response lost.',502);}

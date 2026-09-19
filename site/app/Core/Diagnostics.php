@@ -13,7 +13,8 @@ final class Diagnostics
         $add=static function(string $name,string $state,string $detail)use(&$checks):void {$checks[]=['check'=>$name,'state'=>$state,'detail'=>$detail];};
         $add('PHP runtime',version_compare(PHP_VERSION,'7.4.0','>=') && PHP_INT_SIZE===8?'pass':'fail',PHP_VERSION.' / '.(PHP_INT_SIZE*8).'-bit');
         $add('Native PDO driver',$app->db->native()?'pass':'warning',$app->db->native()?$app->db->driver():'Test adapter; not native PDO evidence');
-        foreach (['openssl','fileinfo','session','json','hash'] as $extension) {$ok=extension_loaded($extension);$add('Extension '.$extension,$ok?'pass':'fail',$ok?'available':'missing');}
+        foreach (['openssl','session','json','hash'] as $extension) {$ok=extension_loaded($extension);$add('Extension '.$extension,$ok?'pass':'fail',$ok?'available':'missing');}
+        $add('MIME detection','pass','Built-in content checks; Fileinfo is not required.');
         try {
             $plain=bin2hex(random_bytes(24));$ok=hash_equals($plain,$app->crypto->open($app->crypto->seal($plain)));
             $add('Authenticated encryption',$ok?'pass':'fail','AES-256-GCM round trip');

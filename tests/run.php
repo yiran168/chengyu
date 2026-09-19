@@ -148,6 +148,7 @@ require __DIR__.'/platform_021.php';
 require __DIR__.'/platform_022.php';
 require __DIR__.'/platform_023.php';
 require __DIR__.'/audit_20260915.php';
+require __DIR__.'/file_types_0232.php';
 test('ledger reconciles all account balances',static function()use($a){foreach($a->db->all('SELECT * FROM cy_users') as $row){foreach(Wallet::CURRENCIES as $currency){same((int)$row[$currency],(int)$a->db->value('SELECT COALESCE(SUM(delta),0) FROM cy_ledger WHERE user_id=? AND currency=?',[(int)$row['id'],$currency]));}}});
 // True multi-process race against the same database (not a mocked transaction).
 $race=$a->db->insert('cy_users',['username'=>'race','email'=>'race@example.test','password_hash'=>'not-a-login','display_name'=>'Race','role'=>'user','status'=>'active','bio'=>'','created_at'=>time()]);$a->wallet->adjust($race,'balance',500,'race-funding','fixture');
@@ -165,7 +166,7 @@ require __DIR__.'/concurrency_012.php';
 require __DIR__.'/concurrency_013.php';
 require __DIR__.'/concurrency_014.php';
 require __DIR__.'/concurrency_015.php';
-$report=['php'=>PHP_VERSION,'adapter'=>$adapter,'time'=>date(DATE_ATOM),'total'=>count($results),'passed'=>count($results)-$failures,'failed'=>$failures,'tests'=>$results,'not_tested'=>['MySQL/InnoDB and native PDO when unavailable','real merchant network or callback delivery','SMTP network','real shared hosting','certificate issuance','full Zibll feature parity']];
+$report=['php'=>PHP_VERSION,'fileinfo_loaded'=>extension_loaded('fileinfo'),'finfo_available'=>class_exists('finfo'),'adapter'=>$adapter,'time'=>date(DATE_ATOM),'total'=>count($results),'passed'=>count($results)-$failures,'failed'=>$failures,'tests'=>$results,'not_tested'=>['MySQL/InnoDB and native PDO when unavailable','real merchant network or callback delivery','SMTP network','real shared hosting','certificate issuance','full Zibll feature parity']];
 echo json_encode($report,JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES)."\n";
 if(PHP_OS_FAMILY!=='Windows'){
     foreach(new RecursiveIteratorIterator(new RecursiveDirectoryIterator($tmp,FilesystemIterator::SKIP_DOTS),RecursiveIteratorIterator::CHILD_FIRST) as $f){$f->isDir()?rmdir($f->getPathname()):unlink($f->getPathname());}rmdir($tmp);

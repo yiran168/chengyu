@@ -3038,5 +3038,15 @@
   "Clear image": "清除图片",
   "Image is no longer available. Choose another image.": "这张图片已不可用，请重新选择。",
   "Previous": "上一页",
-  "Next": "下一页"
+  "Next": "下一页",
+  "Built-in file type detection (no Fileinfo required)": "内置文件类型识别（无需 Fileinfo 扩展）",
+  "Built-in content checks; Fileinfo is not required.": "使用内置文件内容校验，无需 Fileinfo 扩展。",
+  "Resolve the failed checks above before installing.": "请先处理上方未通过的检测项，再继续安装。",
+  "Enable the PDO driver for the database selected in your hosting panel.": "请在主机面板为所选数据库启用对应的 PDO 驱动。",
+  "Ask your host to enable OpenSSL for the selected PHP version.": "请联系主机商，为当前 PHP 版本启用 OpenSSL。",
+  "Upload the complete application files; the built-in file type detector is missing.": "内置文件识别程序缺失，请重新上传完整的应用文件。",
+  "Allow PHP to write the app directory during installation.": "请在安装期间允许 PHP 写入 app 目录。",
+  "Allow PHP to write the storage directory.": "请允许 PHP 写入 storage 目录。",
+  "Generate key.php using DEPLOY_PREPARE.html and upload it to install/key.php. Keep INSTALL_KEY.txt on your computer.": "请用 DEPLOY_PREPARE.html 生成 key.php，上传覆盖 install/key.php；INSTALL_KEY.txt 留在电脑。",
+  "File verification exceeded its read limit.": "文件结构过于复杂，已超过类型校验的读取限额。"
 }

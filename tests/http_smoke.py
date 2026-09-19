@@ -17,6 +17,9 @@ env=dict(os.environ,CY_TEST_ROOT=str(site))
 smtp=SmtpFixture(work/'private')
 server=subprocess.Popen(['php','-d','opcache.enable=0','-d','ffi.enable=1','-d','openssl.cafile='+str(smtp.cert),'-S',f'127.0.0.1:{port}',str(ROOT/'tests/router.php')],env=env,stdout=log,stderr=log)
 results=[]
+runtime={}
+probe=site/'runtime-fixture232.php'
+probe.write_text('<?php header("Content-Type: application/json"); echo json_encode(["php"=>PHP_VERSION,"fileinfo"=>extension_loaded("fileinfo"),"finfo"=>class_exists("finfo"),"gd"=>extension_loaded("gd"),"zip"=>extension_loaded("zip")]);')
 def check(name,ok,detail=''):
     if os.environ.get('CY_HTTP_TRACE'):
         import sys
@@ -36,8 +39,11 @@ try:
         try:
             requests.get(base+'/install/',timeout=.2); break
         except requests.RequestException: time.sleep(.05)
+    runtime=requests.get(base+'/runtime-fixture232.php').json();probe.unlink()
+    if os.environ.get('CY_EXPECT_NO_FILEINFO')=='1':check('0232 actual web PHP has neither Fileinfo nor finfo',runtime['fileinfo'] is False and runtime['finfo'] is False,runtime)
     guest=requests.Session(); admin=requests.Session(); user=requests.Session(); other=requests.Session()
     install=admin.get(base+'/install/'); soup=BeautifulSoup(install.text,'html.parser'); token=soup.select_one('input[name=csrf]')['value']
+    check('0232 missing verifier has specific preparation advice','DEPLOY_PREPARE.html' in install.text and soup.select_one('form button[type=submit]') is None)
     payload={'csrf':token,'install_key':'wrong','site_name':'Chengyu HTTP test','site_url':base,'driver':'sqlite','sqlite_path':str(work/'private/site.sqlite'),'username':'admin','email':'admin@example.test','password':'TestPassword!2026','examples':'1'}
     admin.post(base+'/install/',data=payload)
     check('public package cannot initialize without its own verifier',not(site/'app/config.php').exists())
@@ -49,6 +55,8 @@ try:
     check('CLI will not overwrite an existing owner verifier',retry_prepare.returncode!=0 and (work/'INSTALL_KEY.txt').read_text().strip()==install_secret)
     admin.post(base+'/install/',data=payload)
     check('installer rejects incorrect configured owner key',not(site/'app/config.php').exists())
+    ready232=html(admin,'/install/')
+    check('0232 installation submit is available without Fileinfo',ready232.select_one('form button[type=submit]') is not None and 'Fileinfo' in ready232.get_text())
     payload['install_key']=install_secret
     r=admin.post(base+'/install/',data=payload)
     check('installer creates configuration and schema',(site/'app/config.php').exists(),r.text)
@@ -148,6 +156,7 @@ try:
     exec(compile((ROOT/'tests/http_022.py').read_text(encoding='utf-8'),str(ROOT/'tests/http_022.py'),'exec'))
     exec(compile((ROOT/'tests/http_023.py').read_text(encoding='utf-8'),str(ROOT/'tests/http_023.py'),'exec'))
     exec(compile((ROOT/'tests/http_audit_20260915.py').read_text(encoding='utf-8'),str(ROOT/'tests/http_audit_20260915.py'),'exec'))
+    exec(compile((ROOT/'tests/http_0232.py').read_text(encoding='utf-8'),str(ROOT/'tests/http_0232.py'),'exec'))
     expect_post(user,'logout')
     check('logout clears authenticated route','r=login' in user.get(base+'/index.php?r=profile').url)
     # Only expected user-error responses may be in app log; no internal runtime errors.
@@ -158,7 +167,7 @@ except Exception as exc:
 finally:
     server.terminate();server.wait(timeout=5);log.close();smtp.close()
     if 'conn' in globals(): conn.close()
-    report={'total':len(results),'passed':sum(x['ok'] for x in results),'failed':sum(not x['ok'] for x in results),'tests':results,'transport':'requests over real local PHP HTTP server; test SQLite adapter if native PDO absent','not_tested':['real shared host','production Apache/Nginx/IIS rules','real merchant or external SMTP provider','browser navigation (separate browser suite)']}
+    report={'runtime':runtime,'total':len(results),'passed':sum(x['ok'] for x in results),'failed':sum(not x['ok'] for x in results),'tests':results,'transport':'requests over real local PHP HTTP server; test SQLite adapter if native PDO absent','not_tested':['real shared host','production Apache/Nginx/IIS rules','real merchant or external SMTP provider','browser navigation (separate browser suite)']}
     print(json.dumps(report,ensure_ascii=False,indent=2))
     if os.environ.get('CY_KEEP_HTTP_FIXTURE'):
         import sys
