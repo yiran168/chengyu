@@ -1,6 +1,8 @@
-# 澄屿 Chengyu 0.23.1
+# 澄屿 Chengyu 0.23.2
 
 独立 PHP 内容、社区与数字资源平台，包含前台和可管理的后台。不需要 WordPress、运行期 Composer、Node、Redis 或常驻队列。PHP 7.4–8.5 使用同一套业务代码，支持原生 PDO MySQL / SQLite。
+
+0.23.2 使用内置文件内容识别，不再要求 Fileinfo。普通上传、分片上传、对象存储共用检测逻辑；安装失败会给出对应处理方法。已上传 0.23.1 但尚未安装的站点可以覆盖专用补丁，保留原安装口令文件。[补丁安装与文件格式](docs/FILE_TYPES.md)。
 
 0.23.1 修复数据库/SMTP 等凭据首尾空白被删除，以及不存在的文章编辑链接误打开新建页面的问题。数据库结构仍为 v15；已安装站点保留原配置、数据库和 storage，覆盖应用文件即可。[检查与复现](docs/CODE_AUDIT-2026-09-19.md)。
 
@@ -31,7 +33,7 @@
 
 ## 部署与验证
 
-最低环境：64 位 PHP 7.4–8.5、PDO MySQL 或 SQLite、OpenSSL、Fileinfo、可写存储。MySQL 需要 InnoDB、utf8mb4 和建表/索引权限；网上收款与外部服务需要 HTTPS 及主机允许的出站网络。
+最低环境：64 位 PHP 7.4–8.5、PDO MySQL 或 SQLite、OpenSSL、可写存储；无需 Fileinfo。MySQL 需要 InnoDB、utf8mb4 和建表/索引权限；网上收款与外部服务需要 HTTPS 及主机允许的出站网络。
 
 PHP 七版本本地原生 SQLite 测试、Linux 原生 MySQL/SQLite 的 14 组 CI 和真实 HTTP 测试分别保存证据，详见 [测试报告](docs/TEST_REPORT.md)。免费主机的具体实例和 VPS 装机尚未实测，不能将语言兼容测试等同于服务商所有套餐均可用。
 

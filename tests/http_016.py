@@ -45,7 +45,7 @@ expect_post(other,'aftersale_request',404,order_id=order16['id'],kind='refund',r
 # Chunk endpoint uses genuine multipart uploads, checks CSRF and then verifies complete bytes.
 blob16=(b'Safe resumable text fixture 016\n'*12000)
 rr16=expect_post(admin,'upload_start',name='resumable-http.txt',bytes=len(blob16),sha256=hashlib.sha256(blob16).hexdigest(),private='1')
-upload16=rr16.json()['upload']; key16=upload16['upload_key'];step16=upload16['chunk_bytes']
+upload16=rr16.json()['upload']; key16=upload16['upload_key'];step16=int(upload16['chunk_bytes'])
 expect_post(user,'upload_status',403,upload_key=key16)
 expect_post(admin,'upload_finish',409,upload_key=key16)
 for part16,offset16 in enumerate(range(0,len(blob16),step16)):

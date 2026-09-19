@@ -49,6 +49,7 @@ manual_parts.extend([('docs/PLATFORM_021.md','0.21 文章阅读与快讯'),('doc
 manual_parts.extend([('docs/PLATFORM_022.md','0.22 分层导航与文章图片'),('docs/REFERENCE_022.md','0.22 三主题源码再读')])
 manual_parts.extend([('docs/PLATFORM_023.md','0.23 图片选择与复用'),('docs/REFERENCE_023.md','0.23 三主题素材配置再读')])
 renderer = MarkdownIt("commonmark", {"html": False}).enable("table")
+manual_parts.append(('docs/FILE_TYPES.md','无需 Fileinfo 的上传与安装补丁'))
 nav = []
 articles = []
 for n, (rel, title) in enumerate(manual_parts, 1):

@@ -1,8 +1,8 @@
 {
   "name": "Chengyu",
-  "version": "0.23.1",
-  "date": "2026-09-19",
-  "baseline": "0.23.0",
+  "version": "0.23.2",
+  "date": "2026-09-20",
+  "baseline": "0.23.1",
   "database_schema_version": 15,
   "installation_config_format_version": 1,
   "settings_fields": 292,
@@ -31,20 +31,20 @@
     "8.5.10"
   ],
   "native_pdo_verified": true,
-  "mysql_verified_on_ci_commit": "eb167346a8cf2d533d04cfa1cadf742f5c8df0de",
+  "mysql_verified_on_ci_commit": "45319be5b629180734c218c80f4d212ed76cf171",
   "ci_native_matrix_jobs": 14,
   "ci_matrix_executed": true,
-  "ci_run_url": "https://github.com/yiran168/chengyu/actions/runs/35439745843",
-  "local_core_tests_per_php": 624,
-  "http_tests": 1024,
+  "ci_run_url": "https://github.com/yiran168/chengyu/actions/runs/35455455248",
+  "local_core_tests_per_php": 673,
+  "http_tests": 1069,
   "spring_tests": 42,
-  "php_syntax_files": 311,
-  "production_php_files": 263,
+  "php_syntax_files": 313,
+  "production_php_files": 264,
   "javascript_syntax_files": 20,
   "screenshots": 193,
   "new_screenshots": 0,
-  "manual_chapters": 39,
-  "locale_dictionary_entries": 3040,
+  "manual_chapters": 40,
+  "locale_dictionary_entries": 3050,
   "real_shared_hosts_verified": false,
   "vps_install_verified": false,
   "live_payments_verified": false,
@@ -55,12 +55,54 @@
   "requires_site_specific_install_verifier": true,
   "proprietary_reference_bytes_included": 0,
   "no_size_padding": true,
-  "upload_archive_bytes": 2230430,
+  "upload_archive_bytes": 2238835,
   "complete_archive_size_location": "External package-verification.json (not self-referential metadata).",
   "interface_symbols": 81,
   "generated_anime_icons": 8,
   "new_distinct_covers": 0,
   "browser_tests": 200,
   "browser_baseline_version": "0.23.0",
-  "browser_verification_scope": "0.23.0 browser results retained; no UI behavior changes or full browser rerun in 0.23.1"
+  "browser_verification_scope": "Full 200-test browser suite and 193 previews retained from 0.23.0; installer/upload changes tested through actual PHP HTTP in 0.23.2, not a new full browser run",
+  "requires_fileinfo": false,
+  "upload_type_detector": "Shared bounded PHP content detector for local, chunked and S3 uploads",
+  "ci_database_extension_states": 28,
+  "local_extension_states_per_php": 2,
+  "http_runtime_suites": [
+    {
+      "file": "http-8.2-absent.json",
+      "runtime": {
+        "php": "8.2.33",
+        "fileinfo": false,
+        "finfo": false,
+        "gd": false,
+        "zip": false
+      },
+      "total": 1069,
+      "passed": 1069
+    },
+    {
+      "file": "http-8.2-present.json",
+      "runtime": {
+        "php": "8.2.33",
+        "fileinfo": true,
+        "finfo": true,
+        "gd": false,
+        "zip": false
+      },
+      "total": 1068,
+      "passed": 1068
+    },
+    {
+      "file": "http-7.4-absent.json",
+      "runtime": {
+        "php": "7.4.33",
+        "fileinfo": false,
+        "finfo": false,
+        "gd": false,
+        "zip": true
+      },
+      "total": 1069,
+      "passed": 1069
+    }
+  ]
 }

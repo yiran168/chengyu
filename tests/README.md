@@ -179,3 +179,9 @@ Include `node --check site/assets/platform.js` and `node --check site/assets/med
 ## 0.23 图片库与窗口可达性
 
 platform_023.php、http_023.py、browser_023.py接入原有总套件。当前结果：核心各620、HTTP1003、Chromium200、PHP/JS语法310/20。CI14组原生数据库全部通过。0.22→0.23升级检查两端PHP，详见docs/evidence/023。较早章节的阻断与测试数量仅代表当时版本，当前证据以TEST_REPORT为准。
+
+## 0.23.2 无 Fileinfo
+
+`file_types_0232.php` 和 `http_0232.py` 接入总套件；内容识别测试素材由本项目生成，存放于 fixtures/file-types.json。使用真正不加载 Fileinfo 的 php.ini，设置 `CY_EXPECT_NO_FILEINFO=1` 后运行总套件。核心 JSON 和临时 HTTP 探针同时记录扩展及 finfo 类状态，不能仅通过改写检测函数模拟关闭。HTTP 子进程必须继承同一个 PHPRC，数据库和临时文件仍使用隔离目录。
+
+GitHub CI 的每个原生数据库作业先启用 Fileinfo 执行，再移除扩展重跑，保存两份独立制品。共 28 组，每组 673 项。新文件识别器不会调用 Fileinfo；开启/关闭时使用相同代码。PHP 7.4 PDO 返回的部分数字字段可能是字符串，Python HTTP 测试对分片步长显式转整数，与前端的数值处理一致。实际结果见 docs/TEST_REPORT.md。

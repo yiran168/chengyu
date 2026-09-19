@@ -40,7 +40,7 @@ read -r -p 'Type INSTALL to continue: ' reply
 [[ "$reply" == INSTALL ]] || fail 'Cancelled.'
 apt-get update
 DEBIAN_FRONTEND=noninteractive apt-get install -y caddy php-cli php-fpm php-sqlite3 php-mysql php-mbstring ca-certificates
-php -r 'exit(PHP_INT_SIZE === 8 && version_compare(PHP_VERSION,"7.4.0",">=") && extension_loaded("openssl") && extension_loaded("fileinfo") && in_array("sqlite", PDO::getAvailableDrivers(), true) ? 0 : 1);' || fail 'Required PHP capabilities are missing.'
+php -r 'exit(PHP_INT_SIZE === 8 && version_compare(PHP_VERSION,"7.4.0",">=") && extension_loaded("openssl") && in_array("sqlite", PDO::getAvailableDrivers(), true) ? 0 : 1);' || fail 'Required PHP capabilities are missing.'
 phpver="$(php -r 'echo PHP_MAJOR_VERSION,".",PHP_MINOR_VERSION;')"
 fpm_service="php${phpver}-fpm"
 socket="/run/php/php${phpver}-fpm.sock"

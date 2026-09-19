@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/>
-<title>澄屿 0.23.1 · 部署与使用手册</title><style>
+<title>澄屿 0.23.2 · 部署与使用手册</title><style>
 :root{--ink:#183b3e;--muted:#5b7274;--accent:#177f79;--line:#dce8e7;--paper:#fff;--bg:#f3f8f7}
 *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:28px}
 body{overflow-wrap:anywhere;margin:0;background:var(--bg);color:var(--ink);font:16px/1.8 system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}
@@ -40,14 +40,15 @@ footer{max-width:1240px;margin:25px auto 50px;padding:0 24px;font-size:13px;colo
 </style></head>
 <body><header class="hero"><div class="brand">CHENGYU / INDEPENDENT PHP SITE</div>
 <h1>澄屿 · 部署与使用手册</h1><p>源码、安装、升级、前后台操作与测试证据，一份可离线阅读的交付说明。</p>
-<div class="badges"><span>版本 0.23.1</span><span>更新于 2026-09-19</span><span>非 WordPress</span><span>13 chapters / screenshots in complete ZIP</span></div></header>
-<div class="shell"><aside class="toc"><details open=""><summary>阅读导航</summary><nav><a href="#chapter-1"><span>01</span>先读这里</a><a href="#chapter-2"><span>02</span>新站安装与部署</a><a href="#chapter-3"><span>03</span>保留数据升级</a><a href="#chapter-8"><span>08</span>环境兼容性</a><a href="#chapter-11"><span>11</span>功能与缺漏</a><a href="#chapter-14"><span>14</span>主机与资料</a><a href="#chapter-27"><span>27</span>真实主机验收清单</a><a href="#chapter-30"><span>30</span>加密备份与安全恢复</a><a href="#chapter-31"><span>31</span>0.19 资源与二次元工作台</a><a href="#chapter-33"><span>33</span>0.20 视觉素材、归档与评论</a><a href="#chapter-34"><span>34</span>0.21 文章阅读与快讯</a><a href="#chapter-36"><span>36</span>0.22 分层导航与文章图片</a><a href="#chapter-38"><span>38</span>0.23 图片选择与复用</a></nav></details></aside>
+<div class="badges"><span>版本 0.23.2</span><span>更新于 2026-09-20</span><span>非 WordPress</span><span>14 chapters / screenshots in complete ZIP</span></div></header>
+<div class="shell"><aside class="toc"><details open=""><summary>阅读导航</summary><nav><a href="#chapter-1"><span>01</span>先读这里</a><a href="#chapter-2"><span>02</span>新站安装与部署</a><a href="#chapter-3"><span>03</span>保留数据升级</a><a href="#chapter-8"><span>08</span>环境兼容性</a><a href="#chapter-11"><span>11</span>功能与缺漏</a><a href="#chapter-14"><span>14</span>主机与资料</a><a href="#chapter-27"><span>27</span>真实主机验收清单</a><a href="#chapter-30"><span>30</span>加密备份与安全恢复</a><a href="#chapter-31"><span>31</span>0.19 资源与二次元工作台</a><a href="#chapter-33"><span>33</span>0.20 视觉素材、归档与评论</a><a href="#chapter-34"><span>34</span>0.21 文章阅读与快讯</a><a href="#chapter-36"><span>36</span>0.22 分层导航与文章图片</a><a href="#chapter-38"><span>38</span>0.23 图片选择与复用</a><a href="#chapter-40"><span>40</span>无需 Fileinfo 的上传与安装补丁</a></nav></details></aside>
 <main><section class="overview"><p class="eyebrow">BEFORE YOU DEPLOY</p><h2>新站与旧站，走不同的安装路径。</h2>
 <p>新站只上传 <code>site/</code>；已有站点先备份，按旧站升级说明保留配置密钥、数据库与存储。根目录部署的后台入口为 <code>/admin</code>。</p>
 <p class="note"><strong>不要上传完整交付目录或 INSTALL_KEY.txt。</strong> 本包含真实业务代码，但不等于全部历史子比模块已完成，也没有把未测试的 PHP 版本、原生数据库或真实商户标成通过。</p>
 <div class="quicklinks"><a href="#chapter-38">0.23 新功能</a><a href="#chapter-33">0.20 模块</a><a href="#chapter-31">0.19 模块</a><a href="#chapter-27">上线验收</a><a href="#chapter-2">新站安装</a><a href="#chapter-3">旧站升级</a><a href="#chapter-11">缺漏清单</a></div></section>
-<article class="chapter" id="chapter-1"><p class="eyebrow">CHAPTER 01 </p><h2>澄屿 Chengyu 0.23.1</h2>
+<article class="chapter" id="chapter-1"><p class="eyebrow">CHAPTER 01 </p><h2>澄屿 Chengyu 0.23.2</h2>
 <p>独立 PHP 内容、社区与数字资源平台，包含前台和可管理的后台。不需要 WordPress、运行期 Composer、Node、Redis 或常驻队列。PHP 7.4–8.5 使用同一套业务代码，支持原生 PDO MySQL / SQLite。</p>
+<p>0.23.2 使用内置文件内容识别，不再要求 Fileinfo。普通上传、分片上传、对象存储共用检测逻辑；安装失败会给出对应处理方法。已上传 0.23.1 但尚未安装的站点可以覆盖专用补丁，保留原安装口令文件。<a href="#chapter-40">补丁安装与文件格式</a>。</p>
 <p>0.23.1 修复数据库/SMTP 等凭据首尾空白被删除，以及不存在的文章编辑链接误打开新建页面的问题。数据库结构仍为 v15；已安装站点保留原配置、数据库和 storage，覆盖应用文件即可。检查与复现。</p>
 <p>0.23 增加统一图片选择器：搜索、分页、预览、选择和清除，复用已有附件供Logo、图标、菜单、封面、正文、画廊及头像使用；普通成员仅访问自己的公开图片。修复矮桌面窗口中素材编辑栏按钮难以到达、图片库被通用弹窗压窄和分页中文缺失的问题。<a href="#chapter-38">0.23操作说明</a>。</p>
 <p>0.19 新增资源多版本与私有镜像、失效反馈闭环、组合筛选、22 种可视化区块、响应式轮播与按钮组，以及原创二次元站标和海岛插画。修复 Windows 安装 Cookie 路径、长文本分片上传类型识别、SKU 标价排序和布局布尔值校验问题。</p>
@@ -66,7 +67,7 @@ footer{max-width:1240px;margin:25px auto 50px;padding:0 24px;font-size:13px;colo
 <p>公开包不含通用安装密码或默认管理员。无面板新 VPS 也可使用 部署脚本，脚本会生成该站点的独立安装口令；已有面板使用面板创建 PHP 站点。</p>
 <p>已有 0.18 / 0.19 / 0.20 / 0.21 / 0.22 / 0.23 站点按 <a href="#chapter-3">升级说明</a> 保留 config.php、原 secret、数据库和 storage，升级至结构 v15，不重新安装。</p>
 <h3>部署与验证</h3>
-<p>最低环境：64 位 PHP 7.4–8.5、PDO MySQL 或 SQLite、OpenSSL、Fileinfo、可写存储。MySQL 需要 InnoDB、utf8mb4 和建表/索引权限；网上收款与外部服务需要 HTTPS 及主机允许的出站网络。</p>
+<p>最低环境：64 位 PHP 7.4–8.5、PDO MySQL 或 SQLite、OpenSSL、可写存储；无需 Fileinfo。MySQL 需要 InnoDB、utf8mb4 和建表/索引权限；网上收款与外部服务需要 HTTPS 及主机允许的出站网络。</p>
 <p>PHP 七版本本地原生 SQLite 测试、Linux 原生 MySQL/SQLite 的 14 组 CI 和真实 HTTP 测试分别保存证据，详见 测试报告。免费主机的具体实例和 VPS 装机尚未实测，不能将语言兼容测试等同于服务商所有套餐均可用。</p>
 <ul>
 <li>离线完整手册 / <a href="#chapter-2">安装与主机配置</a></li>
@@ -76,12 +77,12 @@ footer{max-width:1240px;margin:25px auto 50px;padding:0 24px;font-size:13px;colo
 </ul>
 <p>代码按 MIT 许可发布。参考主题仅用于分析功能与交互，本工程不包含其专有代码、素材、字体、授权逻辑或 WordPress 运行时。没有承诺实现所有历史第三方扩展或零知识产权风险。</p>
 </article><article class="chapter" id="chapter-2"><p class="eyebrow">CHAPTER 02 </p><h2>安装与部署</h2>
-<p>项目版本：0.20.0。主机资料的来源及核查日期见 HOSTS_AND_SOURCES.md。本文描述部署步骤，不代表已登录蓝队云、萌哒云或在真实 VPS 执行过部署。</p>
+<p>项目版本：0.23.2。主机资料的来源及核查日期见 HOSTS_AND_SOURCES.md。本文描述部署步骤，不代表已登录蓝队云、萌哒云或在真实 VPS 执行过部署。</p>
 <h3>一、免费虚拟主机：推荐 MySQL 安装</h3>
 <h4>1. 在面板准备</h4>
 <p>绑定自己的域名，选 PHP 而不是 ASP。建立一个空数据库并记录数据库主机地址、端口、名称、用户名、密码。数据库名称前缀以主机面板实际值为准，不是自行填写一个不存在的名称。
 启用 HTTPS，并确认浏览器能正常访问，不出现证书警告。本站的支付网关回调必须能从公网访问。</p>
-<p>程序面向 64 位 PHP 7.4–8.5，所有版本使用相同功能；检查 <code>pdo_mysql</code>、OpenSSL、Fileinfo。上线仍建议使用获得安全维护的运行时，而不是把兼容旧语法等同于旧运行时安全。安装器会检测运行时、PDO 驱动和基本写权限，但不等于完整安全审计，也不能提前验证真实支付回调。
+<p>程序面向 64 位 PHP 7.4–8.5，所有版本使用相同功能；检查 <code>pdo_mysql</code>、OpenSSL；文件内容识别使用内置程序，无需 Fileinfo。上线仍建议使用获得安全维护的运行时，而不是把兼容旧语法等同于旧运行时安全。安装器会检测运行时、PDO 驱动和基本写权限，但不等于完整安全审计，也不能提前验证真实支付回调。
 蓝队云官方免费主机说明为 Windows 环境、FTP 上传 wwwroot、无 SSH 和单独环境更换；未明确本套餐 PHP 小版本和 PDO 扩展。萌哒云按用户提供的面板截图可选 PHP 7.4、8.0、8.1、8.2，另有旧版本；本程序应选择至少 7.4。截图显示的“萌速”配额为 SSD 2GB、MySQL 1GB、月流量 780GB，尚未独立核实该实例的扩展、权限和请求限制。两者均须以实际面板、安装检测和工单为准；代码不能替主机安装扩展或解除磁盘/网络限额。见 HOSTS_AND_SOURCES.md。</p>
 <h4>2. 上传</h4>
 <p>推荐使用单独的上传 ZIP，在网站根目录解压。或者在本地解压完整包，仅上传 <code>site/</code> 内全部内容，含隐藏文件。根目录应当直接看到：</p>
@@ -221,7 +222,10 @@ sudo chmod 0750 /var/www/chengyu/site/app
 <p>首次上线先到“系统”运行部署自检，确认真实环境的原生 PDO、回滚、加密与写权限。下载报告便于维护，但报告不含公网敏感路径访问检查，不得跳过真实 URL 验收。</p>
 <p>准备好离线恢复码再给管理员启用身份验证器，确认服务器时钟正确。SMTP 密码找回不会移除身份验证器；没有命令权限的免费主机尤其需要事前保管恢复码。完整包的本地恢复脚本不得公开上传。</p>
 <p>先用测试账户/测试商品设置会员价和活动，核对 0/8000/10000 比例含义、单件最高确认额和按成交价退款，再开放促销。详情见 SECURITY_PRICING.md。旧站没有价格规则时不会因升级自动出现优惠。</p>
-</article><article class="chapter" id="chapter-3"><p class="eyebrow">CHAPTER 03 </p><h2>升级到 0.23.1</h2>
+</article><article class="chapter" id="chapter-3"><p class="eyebrow">CHAPTER 03 </p><h2>升级到 0.23.2</h2>
+<p>从 0.23.1 升级：数据库结构保持 v15。备份后将 <code>chengyu-0.23.2-patch-from-0.23.1.zip</code> 内的 app、install 合并覆盖至原站根目录，保留配置、原 secret、数据库和 storage。补丁不包含 install/key.php，不会替换本站安装验证文件；原安装口令继续有效。尚未安装的站点刷新 /install/，检测会显示“内置文件类型识别（无需 Fileinfo 扩展）”。已安装的站点不要重新安装；若此前已删除 install 目录，补丁只需上传 app 部分。操作和格式限制见 <a href="#chapter-40">文件识别说明</a>。</p>
+<p>清理 OPcache 后检查后台环境检测及图片、私有附件上传。完整 upload.zip 含未初始化的安装验证文件，只适用于按流程部署新站；升级不得拿它覆盖原 key.php/config.php。</p>
+<p>以下为已有修复及更早升级步骤：</p>
 <p>从 0.23.0 升级：数据库结构仍为 v15，没有数据迁移。备份后覆盖应用文件，保留 <code>app/config.php</code>、原 secret、数据库和 <code>storage</code>；旧站不要重新安装或覆盖安装口令。清理 OPcache 后，检查 SMTP 测试发送、正常文章编辑及不存在文章的 404。此前若密码已被旧版本裁掉首尾空白，需要重新输入完整原值；系统无法推回被删除的字符。</p>
 <p>以下更早版本先执行原有顺序迁移：</p>
 <p>从0.22.0升级：结构v14 → v15，仅为媒体库增加归属/公开范围查询索引，保留原文件、图标绑定、文章、菜单和交易数据。先备份，覆盖应用与assets，保留app/config.php、原secret、数据库和storage，不重新安装。需要数据库创建索引权限；迁移支持重试。清理OPcache/CDN后检查「选择已有图片」、保存及普通成员的范围限制。</p>
@@ -246,16 +250,18 @@ sudo chmod 0750 /var/www/chengyu/site/app
 <p>0.21 → 0.22 在PHP7.4和8.5的原生SQLite上分别通过13项数据保留检查，证据见 本版升级记录。已有导航保留为一级，旧文章没有凭空添加图片。</p>
 <p>0.22原始包生成的旧库在PHP7.4与8.5分别完成13项升级数据保留检查，见evidence/023/upgrade-from-022.json。</p>
 </article><article class="chapter" id="chapter-8"><p class="eyebrow">CHAPTER 08 </p><h2>PHP 与部署兼容性</h2>
-<p>0.23.0 使用同一套 64 位 PHP 7.4–8.5 代码，功能不按小版本裁剪。需要原生 PDO MySQL 或 SQLite、OpenSSL、Fileinfo，以及可写的私有存储。默认不依赖 curl、mbstring、FFI、Composer、Node、Redis 或常驻服务。</p>
+<p>0.23.2 使用同一套 64 位 PHP 7.4–8.5 代码，功能不按小版本裁剪。需要原生 PDO MySQL 或 SQLite、OpenSSL，以及可写的私有存储。文件类型识别无需 Fileinfo、GD 或 ZipArchive；默认不依赖 curl、mbstring、FFI、Composer、Node、Redis 或常驻服务。</p>
 <p>本地实际执行 PHP 7.4.33 / 8.0.30 / 8.1.34 / 8.2.33 / 8.3.33 / 8.4.25 / 8.5.10，全部使用原生 pdo_sqlite。Linux CI 为七个 PHP 小版本各运行原生 MySQL 8.0 与 SQLite 两组，共 14 组；准确提交、数量与状态见 TEST_REPORT.md，不把旧报告计入最新改动的通过数。</p>
-<p>Windows 安装网址路径已改用专用 WebPath，避免 dirname() 产生反斜杠 Cookie 路径；媒体签名探测有固定字节边界，避免 Windows Fileinfo 将大重复文本误判为二进制。兼容 7.4 不代表旧 PHP 运行时本身仍有官方安全维护。</p>
+<p>Windows 安装网址路径已改用专用 WebPath，避免 dirname() 产生反斜杠 Cookie 路径；媒体签名探测有固定字节边界，采用统一内置识别器，支持无 Fileinfo 的共享主机。兼容 7.4 不代表旧 PHP 运行时本身仍有官方安全维护。</p>
 <p>MySQL 使用 InnoDB、utf8mb4、预处理查询与事务，需要数据库建表、加列和索引权限。SQLite 文件必须放在网站公开目录外；同一数据库并发写入仍受 SQLite 锁和共享主机配额约束，不承诺无限吞吐。</p>
 <p>虚拟主机上传生产目录即可运行普通页面、会员、内容管理和本地资源；自动金融任务需要外部定时触发或手动后台执行。所有外部支付、邮件、云存储、物流和翻译仍需要真实账号、服务授权、允许的 DNS/HTTPS 出站和公网回调。</p>
 <p>提供 Apache/LiteSpeed .htaccess、IIS web.config、Nginx/Caddy 模板及全新无面板 VPS 脚本。实际两家免费主机、生产 IIS/Apache/Nginx 与完整 VPS 装机没有接入测试；通过 PHP 语言测试不能保证任何套餐都有扩展、空间或网络权限。</p>
 <p>0.23图片库复用现有存储，查询每页最多12条并增加公开/归属索引；无需GD或图像处理进程，不按PHP小版本关闭选择功能。</p>
-</article><article class="chapter" id="chapter-11"><p class="eyebrow">CHAPTER 11 </p><h2>0.23.1 功能覆盖与未完成项</h2>
-<p>日期：2026-09-19；本版增量基线0.23.0，原始基线0.18.0；数据库v15。当前版本范围如下，旧报告仅在history目录追溯。生产代码能力与真实服务联调分开记录。</p>
-<h3>0.23.1 修复</h3>
+</article><article class="chapter" id="chapter-11"><p class="eyebrow">CHAPTER 11 </p><h2>0.23.2 功能覆盖与未完成项</h2>
+<p>日期：2026-09-20；本版增量基线0.23.1，原始基线0.18.0；数据库v15。当前版本范围如下，旧报告仅在history目录追溯。生产代码能力与真实服务联调分开记录。</p>
+<h3>0.23.2 修复</h3>
+<p>安装和上传不再依赖Fileinfo；九类允许文件共用有界内容检测，维持图片限制和附件私有权限。S3补充范围、版本和尾部校验，安装器按失败项给出处理办法。详见FILE_TYPES.md与TEST_REPORT.md。</p>
+<h3>0.23.1 保留修复</h3>
 <p>凭据按输入原值校验并加密保存；空密码保留、明确清除语义不变。安装器 MySQL 密码使用相同校验。前台指定编辑目标不存在时返回 404，不再误开新建表单。结构 v15 与既有模块不变，详细验证见 TEST_REPORT.md。</p>
 <h3>0.23 保留新增与修复</h3>
 <div class="table-scroll"><table>
@@ -374,7 +380,7 @@ sudo chmod 0750 /var/www/chengyu/site/app
 </tr>
 <tr>
 <td>安装可靠性</td>
-<td>每站独立口令、Windows URL/Cookie路径、大文本Fileinfo探测、JSON布尔校验</td>
+<td>每站独立口令、Windows URL/Cookie路径、无Fileinfo内容识别、JSON布尔校验</td>
 <td>仍要求主机支持原生扩展和写权限</td>
 </tr>
 <tr>
@@ -660,7 +666,7 @@ sudo chmod 0750 /var/www/chengyu/site/app
 </tr>
 </tbody>
 </table></div>
-<p>本程序要求 PHP 7.4–8.5，不选择面板里的 5.6 / 7.1 / 7.3。面板有版本选项不等于已验证其 PDO、Fileinfo、OpenSSL、HTTPS、64 位或出站网络。用户截图仅用于确认套餐事实，未把带账号信息的截图放入公开源码。</p>
+<p>本程序要求 PHP 7.4–8.5，不选择面板里的 5.6 / 7.1 / 7.3。面板有版本选项不等于已验证其 PDO、OpenSSL、HTTPS、64 位或出站网络。用户截图仅用于确认套餐事实，未把带账号信息的截图放入公开源码。</p>
 <p>网上搜索找到 jszf.me 域名线索；<a href="https://jszf.me/">该站主页</a>在本次直接读取时只返回 JavaScript 防护入口，未取得可公开核对的完整套餐配置。没有把其他用户的投诉或第三方推测当成该实例的技术参数。</p>
 <h3>安装及容量</h3>
 <p>下载 upload.zip，解压后上传包内文件到站点根目录；先用本地 DEPLOY_PREPARE.html 生成独立安装验证文件，私密口令留在本地。数据库在主机面板先建立，安装程序创建业务表。旧站保留 app/config.php、原 secret、数据库和 storage，按 UPGRADE.md 覆盖升级。</p>
@@ -674,7 +680,7 @@ sudo chmod 0750 /var/www/chengyu/site/app
 </article><article class="chapter" id="chapter-27"><p class="eyebrow">CHAPTER 27 </p><h2>0.19 上线前实机验收</h2>
 <p>本地测试报告不能替代本页。先用不涉及真实资金的隔离站点操作，保留故障记录与恢复副本。</p>
 <h3>安装、保护与版本</h3>
-<p>确认64位PHP、原生PDO驱动、OpenSSL、Fileinfo、Session及可写存储。程序版本0.19、数据库v11、配置格式1。旧站必须保留原 <code>secret</code>。不要为绕过错误删除 <code>app/</code>、<code>storage/</code> 等保护规则；访问配置、日志、备份和媒体封装路径时不应输出私密数据。后台仅管理员/对应角色可访问，上传包不能含私有安装口令或测试文件。</p>
+<p>确认64位PHP、原生PDO驱动、OpenSSL、Session及可写存储。程序版本0.23.2、数据库v15、配置格式1。旧站必须保留原 <code>secret</code>。不要为绕过错误删除 <code>app/</code>、<code>storage/</code> 等保护规则；访问配置、日志、备份和媒体封装路径时不应输出私密数据。后台仅管理员/对应角色可访问，上传包不能含私有安装口令或测试文件。</p>
 <h3>共用功能回归</h3>
 <p>验证旧账户和TOTP、钱包账目、会员永久权益和补差、付费正文/附件、访客通行证、购物车计价、原库存/卡密、物流、退款审批、作者收益冻结及导航权限。双语分别设置并刷新前后台；不得把日志或私密付费内容发送给搜索或翻译服务。</p>
 <h3>本轮增量</h3>
@@ -887,7 +893,77 @@ return [
 <p>桌面图片库使用940像素上限的图片网格与预览栏；手机改为单列。支持Esc、焦点返回、原有统一弹窗动效与减少动态效果。低高度桌面下视觉素材编辑栏正常随页面滚动，避免固定栏挡住下面的操作。</p>
 <p>JavaScript关闭时选图按钮不显示，保留编号字段、文件上传和原生表单。新站不会自动产生示例媒体；图片为空时可先在当前字段上传，再使用图片库复用。</p>
 <h3>升级</h3>
-<p>0.22的结构v14升级至v15，为媒体公开范围/归属查询增加两个索引，不搬移文件，不改余额、购买权益和旧图片绑定。按<a href="#chapter-3">升级说明</a>保留配置、数据库和storage，清理代码缓存后再使用。免费主机依然需要原生PDO、OpenSSL、fileinfo等已有运行条件，实际账号验收见<a href="#chapter-27">部署验收</a>。</p>
+<p>0.22的结构v14升级至v15，为媒体公开范围/归属查询增加两个索引，不搬移文件，不改余额、购买权益和旧图片绑定。按<a href="#chapter-3">升级说明</a>保留配置、数据库和storage，清理代码缓存后再使用。免费主机依然需要原生PDO、OpenSSL等运行条件；0.23.2起无需Fileinfo，实际账号验收见<a href="#chapter-27">部署验收</a>。</p>
+</article><article class="chapter" id="chapter-40"><p class="eyebrow">CHAPTER 40 </p><h2>无 Fileinfo 的文件上传</h2>
+<p>从 0.23.2 开始，安装、普通上传、分片上传和 S3 对象存储使用同一个 PHP 文件内容识别器。不需要 Fileinfo、GD、ZipArchive、mbstring、shell 命令或外部识别服务；开启 Fileinfo 的主机也走相同实现。PHP 7.4—8.5 不按版本减少上传格式。</p>
+<h3>已上传 0.23.1，但安装被 Fileinfo 卡住</h3>
+<p>下载本次 Release 的 <code>chengyu-0.23.2-patch-from-0.23.1.zip</code>，在本地解压，将其中的 <code>app</code> 和 <code>install</code> 合并上传到原网站根目录，同名程序文件选择覆盖。不要把整个旧目录先删除，也不要另建一层 chengyu 目录。</p>
+<p>补丁只含本次修改的程序文件，不含 <code>install/key.php</code>、<code>app/config.php</code>、<code>INSTALL_KEY.txt</code> 或 storage。原来生成的安装口令和验证文件继续有效，无需重新生成。刷新 <code>/install/</code> 后，环境检测会显示“内置文件类型识别（无需 Fileinfo 扩展）”；其他项目通过即可显示安装按钮。刷新可能清空尚未提交的表单，请按原数据库信息重新填写。</p>
+<p>若仍显示旧的 Fileinfo 扩展检查，先确认覆盖到了该域名实际绑定的目录；如面板有清理 PHP 缓存/重启 PHP 功能，执行后重新访问。若主机缓存不自动更新且面板没有入口，需要主机商清理 OPcache。缺少 PDO、OpenSSL、目录写权限或本站安装验证文件仍会阻止安装，页面会分别说明处理方法。</p>
+<p>新站从完整上传包安装时，仍须按 DEPLOY_PREPARE.html 生成自己的安装验证文件。补丁仅适用于 0.23.1。已安装站点按升级说明保留配置、原 secret、数据库和上传目录，不重新安装。数据库结构保持 v15。</p>
+<h3>格式与权限</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>格式</th>
+<th>识别依据</th>
+<th>上传权限</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>JPEG</td>
+<td>文件头、尾部结束标记、图像类型和尺寸</td>
+<td>会员按开关上传；可公开或私有</td>
+</tr>
+<tr>
+<td>PNG</td>
+<td>文件头、IHDR、IDAT、IEND 和图像尺寸</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>GIF</td>
+<td>87a/89a 标记、调色板/扩展块、图像块和结束标记</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>WebP</td>
+<td>RIFF 长度、WebP 数据块、VP8/VP8L 或动画帧和尺寸</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>PDF</td>
+<td>支持版本文件头和文件尾 EOF 标记</td>
+<td>管理员/编辑；强制私有</td>
+</tr>
+<tr>
+<td>ZIP</td>
+<td>本地文件头、中央目录、结束记录；支持常规单卷 ZIP64</td>
+<td>管理员/编辑；强制私有</td>
+</tr>
+<tr>
+<td>TXT</td>
+<td>ASCII、UTF-8、带 BOM 的 UTF-16 编码及控制字符检查</td>
+<td>管理员/编辑；强制私有</td>
+</tr>
+<tr>
+<td>MP3</td>
+<td>合法 ID3 大小及可选尾标，至少两个相邻 Layer III 帧</td>
+<td>管理员/编辑；强制私有</td>
+</tr>
+<tr>
+<td>MP4</td>
+<td>ISO 文件类型盒、支持的 MP4 品牌及长度</td>
+<td>管理员/编辑；强制私有</td>
+</tr>
+</tbody>
+</table></div>
+<p>旧编码的 TXT（例如 GBK）请先另存为 UTF-8。未知类型、空文件、明显损坏或截断的受支持结构、脚本、SVG 和 HTML 不会因为修改扩展名而自动获得图片权限。普通上传以内容判断；S3 上传同时要求内容与所选扩展名、清单 MIME 一致。图片维持宽高最多 12000、像素总数最多 4000 万的限制。</p>
+<h3>大文件和安全边界</h3>
+<p>识别器先读取最多 256 KiB，需要时再按范围读取文件尾、中央目录或大 ID3 标签后的音频帧；额外读取最多 256 KiB / 32 次。不会为了识别类型将整份大型资源读入内存，也不解压 ZIP 内容。结构过于复杂、读取超限或读取不完整会拒绝上传。分片先校验每片和整文件，再对合并后的实际内容执行相同检查；PHP 防护封装不计入文件签名或下载内容。</p>
+<p>对象存储每次范围读取都携带同一个 If-Match，并核对 206、Content-Range、实际字节数和 ETag；校验后使用条件复制生成最终对象。对象在读取过程中被替换、响应范围不匹配或类型不符，不会创建媒体记录。</p>
+<p>识别文件类型不等于完整解码、播放保证或病毒扫描。文件可以拥有合法头部但内部数据损坏；ZIP/PDF 中也可能包含不可信内容。大文本检查的是有界前缀，不能声称扫描了全文件脚本内容。安全还依赖原有随机文件名、PHP 防护封装、授权下载、强制私有附件、nosniff 和服务器目录限制；这些保护继续生效。上传格式不因 PHP 版本改变，但配额、上传大小和出站网络仍受具体主机约束。</p>
+<p>实现参考格式规范，未引入第三方检测库：<a href="https://mimesniff.spec.whatwg.org/">MIME Sniffing</a>、<a href="https://developers.google.com/speed/webp/docs/riff_container">WebP RIFF</a>、<a href="https://id3.org/id3v2.4.0-structure">ID3v2.4</a>。<code>getimagesize</code> 只用于补充类型与尺寸检查，不能单独当作安全验证：<a href="https://www.php.net/manual/en/function.getimagesize.php">PHP 文档</a>。实际测试版本和数量见测试报告。</p>
 </article>
 
-</main></div><footer>Chengyu 0.23.1 | Standalone instructions. Screenshots, test evidence and source are in the complete package.</footer></body></html>
+</main></div><footer>Chengyu 0.23.2 | Standalone instructions. Screenshots, test evidence and source are in the complete package.</footer></body></html>

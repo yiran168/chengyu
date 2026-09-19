@@ -8,7 +8,7 @@ This release extends the uploaded **0.17.0** independent PHP application. Databa
 
 ## Install or upgrade
 
-Upload only the upload ZIP contents into the public website root. Keep the complete package, tests, recovery tools and INSTALL_KEY.txt private. Open `/install/`, supply the private installation key, your database and administrator credentials. Remove the installer after successful installation. Required: 64-bit PHP, native PDO MySQL or SQLite, OpenSSL, Fileinfo, writable protected storage and effective web-server directory restrictions. SQLite must be outside the public web root.
+Upload only the upload ZIP contents into the public website root. Keep the complete package, tests, recovery tools and INSTALL_KEY.txt private. Open `/install/`, supply the private installation key, your database and administrator credentials. Remove the installer after successful installation. Required: 64-bit PHP, native PDO MySQL or SQLite, OpenSSL, writable protected storage and effective web-server directory restrictions. SQLite must be outside the public web root. Fileinfo is not required as of 0.23.2: all upload paths use the built-in bounded content detector. The 0.23.1-to-0.23.2 patch preserves the site-specific installation verifier and existing configuration/storage.
 
 For an existing site, pause writes and scheduled financial jobs; consistently back up the database, code, original app/config.php, its secret and all storage. Preserve configuration and storage while updating. Do not reinstall. Rollback requires matching database/code/secrets/storage and reconciliation of money already moved externally.
 

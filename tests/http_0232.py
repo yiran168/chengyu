@@ -25,7 +25,7 @@ image232=fixtures232['png'][:33]+chunk232+fixtures232['png'][33:]
 start232=post(admin,'upload_start',name='large.png',bytes=len(image232),sha256=hashlib.sha256(image232).hexdigest())
 check('0232 image chunk upload starts',start232.status_code==200,start232.text)
 if start232.status_code==200:
-    manifest232=start232.json()['upload'];key232=manifest232['upload_key'];chunk_size232=manifest232['chunk_bytes']
+    manifest232=start232.json()['upload'];key232=manifest232['upload_key'];chunk_size232=int(manifest232['chunk_bytes'])
     for index232,offset232 in enumerate(range(0,len(image232),chunk_size232)):
         part232=admin.post(base+'/action.php',data={'action':'upload_chunk','csrf':csrf(admin),'upload_key':key232,'part':index232},files={'file':('piece.bin',image232[offset232:offset232+chunk_size232],'application/octet-stream')},headers={'Accept':'application/json'})
         check('0232 binary image chunk accepted',part232.status_code==200,part232.text)
