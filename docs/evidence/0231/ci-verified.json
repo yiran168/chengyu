@@ -1,0 +1,182 @@
+{
+  "id": 35439745843,
+  "head_sha": "eb167346a8cf2d533d04cfa1cadf742f5c8df0de",
+  "status": "completed",
+  "conclusion": "success",
+  "html_url": "https://github.com/yiran168/chengyu/actions/runs/35439745843",
+  "created_at": "2026-09-19T11:18:20Z",
+  "updated_at": "2026-09-19T11:21:41Z",
+  "jobs": [
+    {
+      "name": "core (7.4, mysql)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/yiran168/chengyu/actions/runs/35439745843/job/105888389498"
+    },
+    {
+      "name": "core (8.2, mysql)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/yiran168/chengyu/actions/runs/35439745843/job/105888389521"
+    },
+    {
+      "name": "core (8.1, mysql)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/yiran168/chengyu/actions/runs/35439745843/job/105888389530"
+    },
+    {
+      "name": "core (8.1, sqlite)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/yiran168/chengyu/actions/runs/35439745843/job/105888389542"
+    },
+    {
+      "name": "core (8.0, mysql)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/yiran168/chengyu/actions/runs/35439745843/job/105888389566"
+    },
+    {
+      "name": "core (8.4, mysql)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/yiran168/chengyu/actions/runs/35439745843/job/105888389578"
+    },
+    {
+      "name": "core (8.2, sqlite)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/yiran168/chengyu/actions/runs/35439745843/job/105888389584"
+    },
+    {
+      "name": "core (7.4, sqlite)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/yiran168/chengyu/actions/runs/35439745843/job/105888389589"
+    },
+    {
+      "name": "core (8.0, sqlite)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/yiran168/chengyu/actions/runs/35439745843/job/105888389591"
+    },
+    {
+      "name": "core (8.4, sqlite)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/yiran168/chengyu/actions/runs/35439745843/job/105888389594"
+    },
+    {
+      "name": "core (8.5, mysql)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/yiran168/chengyu/actions/runs/35439745843/job/105888389597"
+    },
+    {
+      "name": "core (8.3, mysql)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/yiran168/chengyu/actions/runs/35439745843/job/105888389604"
+    },
+    {
+      "name": "core (8.5, sqlite)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/yiran168/chengyu/actions/runs/35439745843/job/105888389606"
+    },
+    {
+      "name": "core (8.3, sqlite)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/yiran168/chengyu/actions/runs/35439745843/job/105888389641"
+    }
+  ],
+  "test_artifacts": [
+    {
+      "job": "native-7.4-mysql",
+      "total": 624,
+      "passed": 624,
+      "failed": 0
+    },
+    {
+      "job": "native-7.4-sqlite",
+      "total": 624,
+      "passed": 624,
+      "failed": 0
+    },
+    {
+      "job": "native-8.0-mysql",
+      "total": 624,
+      "passed": 624,
+      "failed": 0
+    },
+    {
+      "job": "native-8.0-sqlite",
+      "total": 624,
+      "passed": 624,
+      "failed": 0
+    },
+    {
+      "job": "native-8.1-mysql",
+      "total": 624,
+      "passed": 624,
+      "failed": 0
+    },
+    {
+      "job": "native-8.1-sqlite",
+      "total": 624,
+      "passed": 624,
+      "failed": 0
+    },
+    {
+      "job": "native-8.2-mysql",
+      "total": 624,
+      "passed": 624,
+      "failed": 0
+    },
+    {
+      "job": "native-8.2-sqlite",
+      "total": 624,
+      "passed": 624,
+      "failed": 0
+    },
+    {
+      "job": "native-8.3-mysql",
+      "total": 624,
+      "passed": 624,
+      "failed": 0
+    },
+    {
+      "job": "native-8.3-sqlite",
+      "total": 624,
+      "passed": 624,
+      "failed": 0
+    },
+    {
+      "job": "native-8.4-mysql",
+      "total": 624,
+      "passed": 624,
+      "failed": 0
+    },
+    {
+      "job": "native-8.4-sqlite",
+      "total": 624,
+      "passed": 624,
+      "failed": 0
+    },
+    {
+      "job": "native-8.5-mysql",
+      "total": 624,
+      "passed": 624,
+      "failed": 0
+    },
+    {
+      "job": "native-8.5-sqlite",
+      "total": 624,
+      "passed": 624,
+      "failed": 0
+    }
+  ],
+  "verified": true
+}

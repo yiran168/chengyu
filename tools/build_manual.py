@@ -182,11 +182,11 @@ footer{max-width:1240px;margin:25px auto 50px;padding:0 24px;font-size:13px;colo
 <div class="badges"><span>版本 {release_version}</span><span>更新于 {release_date}</span><span>非 WordPress</span><span>{len(manual_parts)} 篇说明 · {len(previews)} 张实页预览</span></div></header>
 <div class="shell"><aside class="toc"><details open><summary>阅读导航</summary><nav>{''.join(nav)}<a href="#previews"><span>＋</span>页面预览</a></nav></details></aside>
 <main><section class="overview"><p class="eyebrow">BEFORE YOU DEPLOY</p><h2>新站与旧站，走不同的安装路径。</h2>
-<p>新站只上传 <code>site/</code>；已有 0.9.0–0.21.0 先备份，保留配置密钥、数据库与存储，再升级。根目录部署的后台入口为 <code>/admin</code>。</p>
+<p>新站只上传 <code>site/</code>；已有站点先备份，按旧站升级说明保留配置密钥、数据库与存储。根目录部署的后台入口为 <code>/admin</code>。</p>
 <p class="note"><strong>不要上传完整交付目录或 INSTALL_KEY.txt。</strong> 本包含真实业务代码，但不等于全部历史子比模块已完成，也没有把未测试的 PHP 版本、原生数据库或真实商户标成通过。</p>
 <div class="quicklinks"><a href="#chapter-38">0.23 新功能</a><a href="#chapter-39">三主题对照</a><a href="#chapter-33">0.20 模块</a><a href="#chapter-31">0.19 模块</a><a href="#chapter-27">上线验收</a><a href="#chapter-28">历史对照</a><a href="#chapter-22">交易</a><a href="#chapter-23">媒体</a><a href="#chapter-2">新站安装</a><a href="#chapter-3">旧站升级</a><a href="#chapter-5">动效与曲线</a><a href="#chapter-21">连接与运营</a><a href="#chapter-20">安全与定价</a><a href="#chapter-11">缺漏清单</a><a href="#chapter-12">测试证据</a></div></section>
 {''.join(articles)}
-<article id="previews" class="chapter"><p class="eyebrow">ACTUAL APPLICATION PREVIEWS</p><h2>页面预览与历史记录</h2><p>标记 023 的图片来自本轮实际浏览器，完整交互套件通过 {release["browser_tests"]} 项检查；022 及更早图片保留为历史模块预览。页面由本项目临时站点生成并在 Chromium 渲染。点击查看原图，截图来自原创示例数据，不是生产数据或概念海报。</p><div class="gallery">{gallery}</div></article>
+<article id="previews" class="chapter"><p class="eyebrow">ACTUAL APPLICATION PREVIEWS</p><h2>页面预览与历史记录</h2><p>最近一次完整浏览器验证版本为 {release.get("browser_baseline_version", release_version)}，通过 {release["browser_tests"]} 项检查。预览按文件名前缀保留各版本的原始记录，标记 023 的图片属于 0.23.0。页面由本项目临时站点生成并在 Chromium 渲染。点击查看原图，截图来自原创示例数据，不是生产数据或概念海报。</p><div class="gallery">{gallery}</div></article>
 </main></div><footer>澄屿 {release_version} · 本说明与分篇 Markdown 同步生成。离线使用时保持 docs/previews 相对目录不变。代码许可见 LICENSE。</footer></body></html>"""
     (root/"START_HERE.html").write_text(manual,encoding='utf-8')
     print("Offline manual created:", (root/"START_HERE.html").stat().st_size, "bytes")
