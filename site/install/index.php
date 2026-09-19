@@ -31,7 +31,7 @@ if (($_SERVER['REQUEST_METHOD']??'')==='POST') {
         $password=Input::password($_POST['password']??'');$name=Input::required($_POST['site_name']??'',100);
         $driver=Input::choice($_POST['driver']??'',array_values(array_intersect($drivers,['mysql','sqlite'])));
         if ($driver==='mysql') {
-            $dbConfig=['driver'=>'mysql','host'=>Input::required($_POST['db_host']??'localhost',255),'port'=>Input::integer($_POST['db_port']??3306,1,65535),'name'=>Input::required($_POST['db_name']??'',100),'user'=>Input::required($_POST['db_user']??'',100),'password'=>Input::text($_POST['db_password']??'',500)];
+            $dbConfig=['driver'=>'mysql','host'=>Input::required($_POST['db_host']??'localhost',255),'port'=>Input::integer($_POST['db_port']??3306,1,65535),'name'=>Input::required($_POST['db_name']??'',100),'user'=>Input::required($_POST['db_user']??'',100),'password'=>Input::text($_POST['db_password']??'',500,false)];
         } else {
             $path=Input::required($_POST['sqlite_path']??'',1000);$parent=realpath(dirname($path));$webRoot=realpath($root);
             $normalized=str_replace('\\','/',(string)$parent).'/';$public=str_replace('\\','/',(string)$webRoot).'/';

@@ -147,6 +147,7 @@ require __DIR__.'/platform_020.php';
 require __DIR__.'/platform_021.php';
 require __DIR__.'/platform_022.php';
 require __DIR__.'/platform_023.php';
+require __DIR__.'/audit_20260915.php';
 test('ledger reconciles all account balances',static function()use($a){foreach($a->db->all('SELECT * FROM cy_users') as $row){foreach(Wallet::CURRENCIES as $currency){same((int)$row[$currency],(int)$a->db->value('SELECT COALESCE(SUM(delta),0) FROM cy_ledger WHERE user_id=? AND currency=?',[(int)$row['id'],$currency]));}}});
 // True multi-process race against the same database (not a mocked transaction).
 $race=$a->db->insert('cy_users',['username'=>'race','email'=>'race@example.test','password_hash'=>'not-a-login','display_name'=>'Race','role'=>'user','status'=>'active','bio'=>'','created_at'=>time()]);$a->wallet->adjust($race,'balance',500,'race-funding','fixture');

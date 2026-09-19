@@ -120,6 +120,7 @@ final class SiteController
         if ($route === 'write') {
             if (!$a->auth->can('content')) { $s->requireModule('submissions'); }
             $item = !empty($_GET['id']) ? $a->db->one('SELECT * FROM cy_contents WHERE id=?', [Input::integer($_GET['id'], 1)]) : null;
+            if (!empty($_GET['id']) && !$item) { throw new Problem('Content not found.', 404); }
             if ($item && (int)$item['author_id'] !== (int)$me['id'] && !$a->auth->can('content')) { throw new Problem('Access denied.', 403); }
             render('editor', ['title' => tr($item ? 'Edit your story' : 'Something worth sharing'), 'route' => $route, 'item' => $item, 'staff' => $a->auth->can('content'), 'isAdmin' => false]); return;
         }

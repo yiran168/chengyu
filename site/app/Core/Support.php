@@ -10,10 +10,12 @@ final class Problem extends \RuntimeException
 
 final class Input
 {
-    public static function text($value, int $max = 255): string
+    /** Credentials may opt out of trimming; validation still applies to their exact bytes. */
+    public static function text($value, int $max = 255, bool $trim = true): string
     {
         if (!is_scalar($value) && $value !== null) { throw new Problem('Invalid input.'); }
-        $value = trim((string)$value);
+        $value = (string)$value;
+        if ($trim) { $value = trim($value); }
         if (!preg_match('//u', $value) || strlen($value) > $max * 4 || preg_match_all('/./us', $value) > $max || preg_match('/[\x00-\x08\x0b\x0c\x0e-\x1f]/', $value)) {
             throw new Problem('Invalid text or text is too long.');
         }

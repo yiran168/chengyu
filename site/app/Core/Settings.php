@@ -52,7 +52,7 @@ final class Settings
                 if (array_diff($sections, $field[4])) { throw new Problem('Unknown home section.'); }
                 $value = implode(',', $sections);
             } elseif ($type === 'secret') {
-                $plain = Input::text($input[$key] ?? '', 8192);
+                $plain = Input::text($input[$key] ?? '', 8192, false);
                 if (!empty($input['clear_' . $key])) { $value = ''; }
                 elseif ($plain === '') { continue; }
                 else { $value = $this->crypto->seal($plain); }

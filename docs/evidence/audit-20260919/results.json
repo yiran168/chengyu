@@ -1,0 +1,284 @@
+{
+  "date": "2026-09-19",
+  "base_version": "0.23.0",
+  "delivery": "Fixes included in 0.23.1; 0.23.0 packages remain unchanged",
+  "before": {
+    "baseline_core": {
+      "total": 620,
+      "passed": 620,
+      "failed": 0
+    },
+    "new_regression_failures": {
+      "core": [
+        {
+          "test": "secret settings preserve whitespace after encrypted database reload",
+          "ok": false,
+          "error": "RuntimeException: Expected '  Isolated-Smtp-123 \t', got 'Isolated-Smtp-123'"
+        },
+        {
+          "test": "credential text preserves boundary bytes and enforces the full untrimmed length",
+          "ok": false,
+          "error": "RuntimeException: Expected '  Db-123  ', got 'Db-123'"
+        }
+      ],
+      "http": [
+        {
+          "test": "audit missing editor target returns 404 for member",
+          "ok": false,
+          "detail": ""
+        },
+        {
+          "test": "audit missing editor does not become a new article for member",
+          "ok": false,
+          "detail": ""
+        },
+        {
+          "test": "audit missing editor target returns 404 for staff",
+          "ok": false,
+          "detail": ""
+        },
+        {
+          "test": "audit missing editor does not become a new article for staff",
+          "ok": false,
+          "detail": ""
+        },
+        {
+          "test": "action admin_mail_test ",
+          "ok": false,
+          "detail": "{\"ok\":false,\"message\":\"系统出现异常，请将参考编号提供给管理员。\",\"reference\":\"5ed69faf8e5d\"}"
+        },
+        {
+          "test": "audit exact SMTP credential bytes authenticate after initial save",
+          "ok": false,
+          "detail": ""
+        },
+        {
+          "test": "audit authenticated SMTP message is delivered after initial save",
+          "ok": false,
+          "detail": ""
+        },
+        {
+          "test": "action admin_mail_test ",
+          "ok": false,
+          "detail": "{\"ok\":false,\"message\":\"系统出现异常，请将参考编号提供给管理员。\",\"reference\":\"3b3b802379f6\"}"
+        },
+        {
+          "test": "audit exact SMTP credential bytes authenticate after blank secret update",
+          "ok": false,
+          "detail": ""
+        },
+        {
+          "test": "audit authenticated SMTP message is delivered after blank secret update",
+          "ok": false,
+          "detail": ""
+        },
+        {
+          "test": "no internal PHP/application exceptions",
+          "ok": false,
+          "detail": "Bulletin not found.\n2026-09-15T10:50:01+00:00 2b75fc62cb9b Chengyu\\Core\\Problem Bulletins.php:67 Bulletin not found.\n2026-09-15T10:50:04+00:00 b0e30589cc1f Chengyu\\Core\\Problem Settings.php:34 This module is disabled.\n2026-09-15T10:50:14+00:00 1a08b16001ee Chengyu\\Core\\Problem SiteController.php:123"
+        }
+      ]
+    }
+  },
+  "after": {
+    "native_sqlite": [
+      {
+        "minor": "7.4",
+        "php": "7.4.33",
+        "adapter": "pdo_sqlite",
+        "exit": 0,
+        "total": 624,
+        "passed": 624,
+        "failed": 0,
+        "stderr_clean": true,
+        "seconds": 39.36,
+        "ok": true
+      },
+      {
+        "minor": "8.0",
+        "php": "8.0.30",
+        "adapter": "pdo_sqlite",
+        "exit": 0,
+        "total": 624,
+        "passed": 624,
+        "failed": 0,
+        "stderr_clean": true,
+        "seconds": 39.2,
+        "ok": true
+      },
+      {
+        "minor": "8.1",
+        "php": "8.1.34",
+        "adapter": "pdo_sqlite",
+        "exit": 0,
+        "total": 624,
+        "passed": 624,
+        "failed": 0,
+        "stderr_clean": true,
+        "seconds": 38.33,
+        "ok": true
+      },
+      {
+        "minor": "8.2",
+        "php": "8.2.33",
+        "adapter": "pdo_sqlite",
+        "exit": 0,
+        "total": 624,
+        "passed": 624,
+        "failed": 0,
+        "stderr_clean": true,
+        "seconds": 39.67,
+        "ok": true
+      },
+      {
+        "minor": "8.3",
+        "php": "8.3.33",
+        "adapter": "pdo_sqlite",
+        "exit": 0,
+        "total": 624,
+        "passed": 624,
+        "failed": 0,
+        "stderr_clean": true,
+        "seconds": 37.69,
+        "ok": true
+      },
+      {
+        "minor": "8.4",
+        "php": "8.4.25",
+        "adapter": "pdo_sqlite",
+        "exit": 0,
+        "total": 624,
+        "passed": 624,
+        "failed": 0,
+        "stderr_clean": true,
+        "seconds": 59.0,
+        "ok": true
+      },
+      {
+        "minor": "8.5",
+        "php": "8.5.10",
+        "adapter": "pdo_sqlite",
+        "exit": 0,
+        "total": 624,
+        "passed": 624,
+        "failed": 0,
+        "stderr_clean": true,
+        "seconds": 56.84,
+        "ok": true
+      }
+    ],
+    "http": {
+      "total": 1024,
+      "passed": 1024,
+      "failed": 0
+    },
+    "syntax": [
+      {
+        "php": "7.4",
+        "files": 311,
+        "ok": true,
+        "failures": []
+      },
+      {
+        "php": "8.5",
+        "files": 311,
+        "ok": true,
+        "failures": []
+      },
+      {
+        "javascript_files": 20,
+        "ok": true,
+        "failures": []
+      },
+      {
+        "spring_exit": 0,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "spring": {
+      "total": 42,
+      "passed": 42,
+      "failed": 0
+    }
+  },
+  "new_http_checks": [
+    {
+      "test": "audit missing editor target returns 404 for member",
+      "ok": true
+    },
+    {
+      "test": "audit missing editor does not become a new article for member",
+      "ok": true
+    },
+    {
+      "test": "audit new editor remains available for member",
+      "ok": true
+    },
+    {
+      "test": "audit new editor remains available for member&id=0",
+      "ok": true
+    },
+    {
+      "test": "audit missing editor target returns 404 for staff",
+      "ok": true
+    },
+    {
+      "test": "audit missing editor does not become a new article for staff",
+      "ok": true
+    },
+    {
+      "test": "audit new editor remains available for staff",
+      "ok": true
+    },
+    {
+      "test": "audit new editor remains available for staff&id=0",
+      "ok": true
+    },
+    {
+      "test": "audit existing editor remains available for owner",
+      "ok": true
+    },
+    {
+      "test": "audit existing editor remains available for staff",
+      "ok": true
+    },
+    {
+      "test": "audit editor still rejects another member",
+      "ok": true
+    },
+    {
+      "test": "audit exact SMTP credential bytes authenticate after initial save",
+      "ok": true
+    },
+    {
+      "test": "audit authenticated SMTP message is delivered after initial save",
+      "ok": true
+    },
+    {
+      "test": "audit exact SMTP credential bytes authenticate after blank secret update",
+      "ok": true
+    },
+    {
+      "test": "audit authenticated SMTP message is delivered after blank secret update",
+      "ok": true
+    }
+  ],
+  "not_retested": [
+    "native MySQL instance and installation using whitespace-bearing database password",
+    "real shared hosting or VPS",
+    "external SMTP provider",
+    "browser UI suite"
+  ],
+  "sha256": {
+    "site/app/Core/Support.php": "cfc99947781612fd6f3d06d98c0e93a096ba4a4b8ab42cfd7255357bedb9a65b",
+    "site/app/Core/Settings.php": "d0c920515779eb4d5ac5f47de389799dee99b5fd2213ee4c8e1d5173df6d629a",
+    "site/app/Http/SiteController.php": "2ab34d8328808146c9d444722d74df8f6e501caae294ba9489bdc5a50c987780",
+    "site/install/index.php": "4960992d2ca26c88ba275d679e61852d56ecc4339a390d799d4e7564ce53ad73",
+    "tests/audit_20260915.php": "472b8599c5380feb77b63719b466f133de59001008bd81f96f7ed6611661be1e",
+    "tests/http_audit_20260915.py": "b3d59d8a30255bf237c38cfa9bc7bc9e54e3bfe63d0bb1a27a3832c02f290f0c",
+    "tests/smtp_fixture.py": "9c730aea0b03f627664c24d68cd969d1758c67a9e79c152bb46926b25e418345",
+    "tests/run.php": "772b3d8788f2a57df84d2983ac1866977e3bb2529fab94ebd6f86f43ae55ade1",
+    "tests/http_smoke.py": "46cd4f14d885d254970b74b98248fee35ca3e332c97220e34410fcdaa108e4bc"
+  }
+}
