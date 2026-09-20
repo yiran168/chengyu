@@ -131,6 +131,7 @@ foreach($frames234 as $name=>$data){test('0234 reject inconsistent first frame '
     reject(static function()use($a,$admin,$path,$name):void{$a->media->storeLocal(account($admin),$path,$name,false,1048576);});same($before,(int)$a->db->value('SELECT COUNT(*) FROM cy_media'));
 });}
 $remote234['bad-gif']=$frames234['oversized.gif'];$remote234['bad-webp']=$frames234['webp-animation.webp'];
+$remote234['lease-before-copy-mp4']=fixtures232()['mp4'];$remote234['lease-before-register-mp4']=fixtures232()['mp4'];
 test('0234 WebP validates frame rectangle and encoded dimensions independently',static function()use($variants234):void{
     $data=$variants234['webp-animation'];$at=strpos($data,'ANMF');truth($at!==false);
     // Keep canvas large enough, but make the frame dimensions disagree with its bitstream.
@@ -147,9 +148,14 @@ foreach($remote234 as $name=>$data){test('0234 remote shared policy '.$name,stat
     $seed=['object_storage_enabled'=>true];foreach(s3config16() as $key=>$value){if($key!=='token'){$seed['s3_'.$key]=$value;}}settings('media_plus',$seed);
     try{
         $ext=strpos($name,'-')!==false?substr($name,strrpos($name,'-')+1):$name;$mime=FileType::EXTENSIONS[$ext];$manifest=null;$copied=false;$reads=0;$etag='"format234"';$before=(int)$a->db->value('SELECT COUNT(*) FROM cy_media');
-        $http=new \Chengyu\Core\HttpClient(static function($method,$url,$headers)use(&$manifest,$data,$mime,$etag,&$copied,&$reads,$name){
+        $http=new \Chengyu\Core\HttpClient(static function($method,$url,$headers)use($a,&$manifest,$data,$mime,$etag,&$copied,&$reads,$name){
             $final=strpos($url,'/media/')!==false;$h=['Content-Type'=>$mime,'Content-Length'=>(string)strlen($data),'ETag'=>$etag,'x-amz-meta-cy-id'=>$manifest['upload_key']];
-            if($final){$h['x-amz-meta-cy-source']=hash('sha256',$etag);}if($method==='HEAD'){return $final&&!$copied?raw16('',[],404):raw16('',$h);}
+            if($final){$h['x-amz-meta-cy-source']=hash('sha256',$etag);}
+            if(($name==='lease-before-copy-mp4'&&$method==='GET')||($name==='lease-before-register-mp4'&&$method==='HEAD'&&$final&&$copied)){
+                // Model a new worker taking over after the original lease expired during network IO.
+                $a->db->execute('UPDATE cy_remote_uploads SET lease_until=lease_until+1000 WHERE id=?',[(int)$manifest['id']]);
+            }
+            if($method==='HEAD'){return $final&&!$copied?raw16('',[],404):raw16('',$h);}
             if($method==='GET'){
                 same($etag,$headers['if-match']);truth((bool)preg_match('/^bytes=(\d+)-(\d+)$/D',$headers['range'],$m));++$reads;$n=(int)$m[2]-(int)$m[1]+1;
                 $h['Content-Length']=(string)$n;$h['Content-Range']='bytes '.$m[1].'-'.$m[2].'/'.strlen($data);
@@ -158,9 +164,10 @@ foreach($remote234 as $name=>$data){test('0234 remote shared policy '.$name,stat
             same('PUT',$method);same($etag,$headers['x-amz-copy-source-if-match']);$copied=true;return raw16('<CopyObjectResult><ETag>"copied"</ETag></CopyObjectResult>');
         });
         $objects=new \Chengyu\Services\ObjectStorage($a,$http);$actor=account($admin);$manifest=$objects->prepare($actor,'fixture.'.$ext,strlen($data));
-        if(strpos($name,'bad-')===0||$name==='changed-mp4'){
-            reject(static function()use($objects,$actor,$manifest):void{$objects->finish($actor,$manifest['upload_key']);},409);same(false,$copied);same($before,(int)$a->db->value('SELECT COUNT(*) FROM cy_media'));
-            same(0,(int)$a->db->value('SELECT lease_until FROM cy_remote_uploads WHERE id=?',[(int)$manifest['id']]));
+        if(strpos($name,'bad-')===0||$name==='changed-mp4'||strpos($name,'lease-')===0){
+            reject(static function()use($objects,$actor,$manifest):void{$objects->finish($actor,$manifest['upload_key']);},409);same($name==='lease-before-register-mp4',$copied);same($before,(int)$a->db->value('SELECT COUNT(*) FROM cy_media'));
+            $lease=(int)$a->db->value('SELECT lease_until FROM cy_remote_uploads WHERE id=?',[(int)$manifest['id']]);
+            if(strpos($name,'lease-')===0){truth($lease>time()+900);}else{same(0,$lease);}
         }else{$id=$objects->finish($actor,$manifest['upload_key']);same($id,$objects->finish($actor,$manifest['upload_key']));$row=$a->media->readable($id,$actor);same($mime,$row['mime']);same(1,(int)$row['is_private']);truth($copied);}
     }finally{
         if($manifest!==null){$a->db->execute('UPDATE cy_remote_uploads SET expires_at=0 WHERE id=? AND state<>?',[(int)$manifest['id'],'complete']);}
