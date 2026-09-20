@@ -1,0 +1,406 @@
+{
+  "id": 35489457973,
+  "head_sha": "47bc84c2dcbbe20958804cb9316bcb3ccaaf7525",
+  "status": "completed",
+  "conclusion": "success",
+  "html_url": "https://github.com/yiran168/chengyu/actions/runs/35489457973",
+  "created_at": "2026-09-20T04:33:51Z",
+  "updated_at": "2026-09-20T04:37:45Z",
+  "jobs": [
+    {
+      "name": "core (8.1, sqlite)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/yiran168/chengyu/actions/runs/35489457973/job/106021758516"
+    },
+    {
+      "name": "core (8.2, sqlite)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/yiran168/chengyu/actions/runs/35489457973/job/106021758534"
+    },
+    {
+      "name": "core (7.4, mysql)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/yiran168/chengyu/actions/runs/35489457973/job/106021758535"
+    },
+    {
+      "name": "core (8.0, sqlite)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/yiran168/chengyu/actions/runs/35489457973/job/106021758536"
+    },
+    {
+      "name": "core (8.2, mysql)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/yiran168/chengyu/actions/runs/35489457973/job/106021758547"
+    },
+    {
+      "name": "core (8.1, mysql)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/yiran168/chengyu/actions/runs/35489457973/job/106021758560"
+    },
+    {
+      "name": "core (8.4, sqlite)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/yiran168/chengyu/actions/runs/35489457973/job/106021758570"
+    },
+    {
+      "name": "core (8.5, sqlite)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/yiran168/chengyu/actions/runs/35489457973/job/106021758579"
+    },
+    {
+      "name": "core (7.4, sqlite)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/yiran168/chengyu/actions/runs/35489457973/job/106021758583"
+    },
+    {
+      "name": "core (8.5, mysql)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/yiran168/chengyu/actions/runs/35489457973/job/106021758599"
+    },
+    {
+      "name": "core (8.3, sqlite)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/yiran168/chengyu/actions/runs/35489457973/job/106021758610"
+    },
+    {
+      "name": "core (8.4, mysql)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/yiran168/chengyu/actions/runs/35489457973/job/106021758627"
+    },
+    {
+      "name": "core (8.3, mysql)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/yiran168/chengyu/actions/runs/35489457973/job/106021758636"
+    },
+    {
+      "name": "core (8.0, mysql)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/yiran168/chengyu/actions/runs/35489457973/job/106021758917"
+    }
+  ],
+  "test_artifacts": [
+    {
+      "job": "native-7.4-mysql",
+      "result": "core-no-fileinfo.json",
+      "php": "7.4.33",
+      "adapter": "native pdo_mysql / isolated temporary database",
+      "fileinfo": false,
+      "finfo": false,
+      "total": 692,
+      "passed": 692,
+      "failed": 0
+    },
+    {
+      "job": "native-7.4-mysql",
+      "result": "core-results.json",
+      "php": "7.4.33",
+      "adapter": "native pdo_mysql / isolated temporary database",
+      "fileinfo": true,
+      "finfo": true,
+      "total": 692,
+      "passed": 692,
+      "failed": 0
+    },
+    {
+      "job": "native-7.4-sqlite",
+      "result": "core-no-fileinfo.json",
+      "php": "7.4.33",
+      "adapter": "pdo_sqlite",
+      "fileinfo": false,
+      "finfo": false,
+      "total": 692,
+      "passed": 692,
+      "failed": 0
+    },
+    {
+      "job": "native-7.4-sqlite",
+      "result": "core-results.json",
+      "php": "7.4.33",
+      "adapter": "pdo_sqlite",
+      "fileinfo": true,
+      "finfo": true,
+      "total": 692,
+      "passed": 692,
+      "failed": 0
+    },
+    {
+      "job": "native-8.0-mysql",
+      "result": "core-no-fileinfo.json",
+      "php": "8.0.30",
+      "adapter": "native pdo_mysql / isolated temporary database",
+      "fileinfo": false,
+      "finfo": false,
+      "total": 692,
+      "passed": 692,
+      "failed": 0
+    },
+    {
+      "job": "native-8.0-mysql",
+      "result": "core-results.json",
+      "php": "8.0.30",
+      "adapter": "native pdo_mysql / isolated temporary database",
+      "fileinfo": true,
+      "finfo": true,
+      "total": 692,
+      "passed": 692,
+      "failed": 0
+    },
+    {
+      "job": "native-8.0-sqlite",
+      "result": "core-no-fileinfo.json",
+      "php": "8.0.30",
+      "adapter": "pdo_sqlite",
+      "fileinfo": false,
+      "finfo": false,
+      "total": 692,
+      "passed": 692,
+      "failed": 0
+    },
+    {
+      "job": "native-8.0-sqlite",
+      "result": "core-results.json",
+      "php": "8.0.30",
+      "adapter": "pdo_sqlite",
+      "fileinfo": true,
+      "finfo": true,
+      "total": 692,
+      "passed": 692,
+      "failed": 0
+    },
+    {
+      "job": "native-8.1-mysql",
+      "result": "core-no-fileinfo.json",
+      "php": "8.1.34",
+      "adapter": "native pdo_mysql / isolated temporary database",
+      "fileinfo": false,
+      "finfo": false,
+      "total": 692,
+      "passed": 692,
+      "failed": 0
+    },
+    {
+      "job": "native-8.1-mysql",
+      "result": "core-results.json",
+      "php": "8.1.34",
+      "adapter": "native pdo_mysql / isolated temporary database",
+      "fileinfo": true,
+      "finfo": true,
+      "total": 692,
+      "passed": 692,
+      "failed": 0
+    },
+    {
+      "job": "native-8.1-sqlite",
+      "result": "core-no-fileinfo.json",
+      "php": "8.1.34",
+      "adapter": "pdo_sqlite",
+      "fileinfo": false,
+      "finfo": false,
+      "total": 692,
+      "passed": 692,
+      "failed": 0
+    },
+    {
+      "job": "native-8.1-sqlite",
+      "result": "core-results.json",
+      "php": "8.1.34",
+      "adapter": "pdo_sqlite",
+      "fileinfo": true,
+      "finfo": true,
+      "total": 692,
+      "passed": 692,
+      "failed": 0
+    },
+    {
+      "job": "native-8.2-mysql",
+      "result": "core-no-fileinfo.json",
+      "php": "8.2.33",
+      "adapter": "native pdo_mysql / isolated temporary database",
+      "fileinfo": false,
+      "finfo": false,
+      "total": 692,
+      "passed": 692,
+      "failed": 0
+    },
+    {
+      "job": "native-8.2-mysql",
+      "result": "core-results.json",
+      "php": "8.2.33",
+      "adapter": "native pdo_mysql / isolated temporary database",
+      "fileinfo": true,
+      "finfo": true,
+      "total": 692,
+      "passed": 692,
+      "failed": 0
+    },
+    {
+      "job": "native-8.2-sqlite",
+      "result": "core-no-fileinfo.json",
+      "php": "8.2.33",
+      "adapter": "pdo_sqlite",
+      "fileinfo": false,
+      "finfo": false,
+      "total": 692,
+      "passed": 692,
+      "failed": 0
+    },
+    {
+      "job": "native-8.2-sqlite",
+      "result": "core-results.json",
+      "php": "8.2.33",
+      "adapter": "pdo_sqlite",
+      "fileinfo": true,
+      "finfo": true,
+      "total": 692,
+      "passed": 692,
+      "failed": 0
+    },
+    {
+      "job": "native-8.3-mysql",
+      "result": "core-no-fileinfo.json",
+      "php": "8.3.33",
+      "adapter": "native pdo_mysql / isolated temporary database",
+      "fileinfo": false,
+      "finfo": false,
+      "total": 692,
+      "passed": 692,
+      "failed": 0
+    },
+    {
+      "job": "native-8.3-mysql",
+      "result": "core-results.json",
+      "php": "8.3.33",
+      "adapter": "native pdo_mysql / isolated temporary database",
+      "fileinfo": true,
+      "finfo": true,
+      "total": 692,
+      "passed": 692,
+      "failed": 0
+    },
+    {
+      "job": "native-8.3-sqlite",
+      "result": "core-no-fileinfo.json",
+      "php": "8.3.33",
+      "adapter": "pdo_sqlite",
+      "fileinfo": false,
+      "finfo": false,
+      "total": 692,
+      "passed": 692,
+      "failed": 0
+    },
+    {
+      "job": "native-8.3-sqlite",
+      "result": "core-results.json",
+      "php": "8.3.33",
+      "adapter": "pdo_sqlite",
+      "fileinfo": true,
+      "finfo": true,
+      "total": 692,
+      "passed": 692,
+      "failed": 0
+    },
+    {
+      "job": "native-8.4-mysql",
+      "result": "core-no-fileinfo.json",
+      "php": "8.4.25",
+      "adapter": "native pdo_mysql / isolated temporary database",
+      "fileinfo": false,
+      "finfo": false,
+      "total": 692,
+      "passed": 692,
+      "failed": 0
+    },
+    {
+      "job": "native-8.4-mysql",
+      "result": "core-results.json",
+      "php": "8.4.25",
+      "adapter": "native pdo_mysql / isolated temporary database",
+      "fileinfo": true,
+      "finfo": true,
+      "total": 692,
+      "passed": 692,
+      "failed": 0
+    },
+    {
+      "job": "native-8.4-sqlite",
+      "result": "core-no-fileinfo.json",
+      "php": "8.4.25",
+      "adapter": "pdo_sqlite",
+      "fileinfo": false,
+      "finfo": false,
+      "total": 692,
+      "passed": 692,
+      "failed": 0
+    },
+    {
+      "job": "native-8.4-sqlite",
+      "result": "core-results.json",
+      "php": "8.4.25",
+      "adapter": "pdo_sqlite",
+      "fileinfo": true,
+      "finfo": true,
+      "total": 692,
+      "passed": 692,
+      "failed": 0
+    },
+    {
+      "job": "native-8.5-mysql",
+      "result": "core-no-fileinfo.json",
+      "php": "8.5.10",
+      "adapter": "native pdo_mysql / isolated temporary database",
+      "fileinfo": false,
+      "finfo": false,
+      "total": 692,
+      "passed": 692,
+      "failed": 0
+    },
+    {
+      "job": "native-8.5-mysql",
+      "result": "core-results.json",
+      "php": "8.5.10",
+      "adapter": "native pdo_mysql / isolated temporary database",
+      "fileinfo": true,
+      "finfo": true,
+      "total": 692,
+      "passed": 692,
+      "failed": 0
+    },
+    {
+      "job": "native-8.5-sqlite",
+      "result": "core-no-fileinfo.json",
+      "php": "8.5.10",
+      "adapter": "pdo_sqlite",
+      "fileinfo": false,
+      "finfo": false,
+      "total": 692,
+      "passed": 692,
+      "failed": 0
+    },
+    {
+      "job": "native-8.5-sqlite",
+      "result": "core-results.json",
+      "php": "8.5.10",
+      "adapter": "pdo_sqlite",
+      "fileinfo": true,
+      "finfo": true,
+      "total": 692,
+      "passed": 692,
+      "failed": 0
+    }
+  ],
+  "verified": true
+}

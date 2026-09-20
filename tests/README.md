@@ -185,3 +185,7 @@ platform_023.php、http_023.py、browser_023.py接入原有总套件。当前结
 `file_types_0232.php` 和 `http_0232.py` 接入总套件；内容识别测试素材由本项目生成，存放于 fixtures/file-types.json。使用真正不加载 Fileinfo 的 php.ini，设置 `CY_EXPECT_NO_FILEINFO=1` 后运行总套件。核心 JSON 和临时 HTTP 探针同时记录扩展及 finfo 类状态，不能仅通过改写检测函数模拟关闭。HTTP 子进程必须继承同一个 PHPRC，数据库和临时文件仍使用隔离目录。
 
 GitHub CI 的每个原生数据库作业先启用 Fileinfo 执行，再移除扩展重跑，保存两份独立制品。共 28 组，每组 673 项。新文件识别器不会调用 Fileinfo；开启/关闭时使用相同代码。PHP 7.4 PDO 返回的部分数字字段可能是字符串，Python HTTP 测试对分片步长显式转整数，与前端的数值处理一致。实际结果见 docs/TEST_REPORT.md。
+
+## 0.23.3 无扩展识别再检查
+
+file_types_0233.php 新增 19 项核心检查，http_0233.py 新增 33 项真实 HTTP 检查。样本覆盖大 JPEG 注释段、渐进式/CMYK JPEG、透明/无损/动画 WebP、调色板 PNG、空 ZIP64 与特殊 ZIP 注释，及 GBK/GB18030。真实编码器生成的小图保存在 fixtures/file-types-variants.json；运行期不依赖生成工具。旧“非法 UTF-8”反例增加明确 UTF-8 BOM，因为无 BOM 的 C0 AF 也是合法 GBK 双字节；检测必须区分声明编码与无声明的文本兼容策略。

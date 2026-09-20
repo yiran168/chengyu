@@ -1,0 +1,27 @@
+{
+    "baseline": "v0.23.2",
+    "fileinfo": false,
+    "cases": {
+        "zip_comment": {
+            "before": "application/octet-stream",
+            "after": "application/zip"
+        },
+        "pk_text": {
+            "before": "application/octet-stream",
+            "after": "text/plain"
+        },
+        "gbk": {
+            "before": "application/octet-stream",
+            "after": "text/plain"
+        },
+        "large_jpeg_dimensions": {
+            "before": false,
+            "after": {
+                "0": 3,
+                "1": 2,
+                "mime": "image/jpeg"
+            }
+        }
+    },
+    "verified": true
+}

@@ -1,0 +1,2788 @@
+{
+    "php": "8.3.33",
+    "fileinfo_loaded": true,
+    "finfo_available": true,
+    "adapter": "pdo_sqlite",
+    "time": "2026-09-20T12:34:21+08:00",
+    "total": 692,
+    "passed": 692,
+    "failed": 0,
+    "tests": [
+        {
+            "test": "integer money 0.01",
+            "ok": true
+        },
+        {
+            "test": "integer money 1",
+            "ok": true
+        },
+        {
+            "test": "integer money 9.9",
+            "ok": true
+        },
+        {
+            "test": "integer money 9999999.99",
+            "ok": true
+        },
+        {
+            "test": "invalid money 1.001",
+            "ok": true
+        },
+        {
+            "test": "invalid money 1e2",
+            "ok": true
+        },
+        {
+            "test": "invalid money -1",
+            "ok": true
+        },
+        {
+            "test": "invalid money NaN",
+            "ok": true
+        },
+        {
+            "test": "invalid money 01",
+            "ok": true
+        },
+        {
+            "test": "invalid money  1",
+            "ok": true
+        },
+        {
+            "test": "invalid money 0",
+            "ok": true
+        },
+        {
+            "test": "negative ledger formatting",
+            "ok": true
+        },
+        {
+            "test": "CSRF valid",
+            "ok": true
+        },
+        {
+            "test": "CSRF forgery rejected",
+            "ok": true
+        },
+        {
+            "test": "safe Markdown escapes scripts",
+            "ok": true
+        },
+        {
+            "test": "safe Markdown blocks javascript link",
+            "ok": true
+        },
+        {
+            "test": "safe Markdown keeps https link",
+            "ok": true
+        },
+        {
+            "test": "AES GCM round trip",
+            "ok": true
+        },
+        {
+            "test": "AES GCM rejects corruption",
+            "ok": true
+        },
+        {
+            "test": "registration points",
+            "ok": true
+        },
+        {
+            "test": "registration duplicate rejected",
+            "ok": true
+        },
+        {
+            "test": "login authenticates and rotates session",
+            "ok": true
+        },
+        {
+            "test": "ordinary user cannot manage",
+            "ok": true
+        },
+        {
+            "test": "ordinary user cannot access admin action",
+            "ok": true
+        },
+        {
+            "test": "external redirect blocked",
+            "ok": true
+        },
+        {
+            "test": "local redirect allowed",
+            "ok": true
+        },
+        {
+            "test": "wallet retry is idempotent",
+            "ok": true
+        },
+        {
+            "test": "wallet conflicting key rejected",
+            "ok": true
+        },
+        {
+            "test": "wallet cannot overdraw",
+            "ok": true
+        },
+        {
+            "test": "outer transaction rollback includes ledger",
+            "ok": true
+        },
+        {
+            "test": "daily check-in credits once",
+            "ok": true
+        },
+        {
+            "test": "7-day streak bonus",
+            "ok": true
+        },
+        {
+            "test": "transfer balances and idempotence",
+            "ok": true
+        },
+        {
+            "test": "self transfer blocked",
+            "ok": true
+        },
+        {
+            "test": "voucher exact once",
+            "ok": true
+        },
+        {
+            "test": "expired voucher rejected",
+            "ok": true
+        },
+        {
+            "test": "exchange preserves integer assets and idempotence",
+            "ok": true
+        },
+        {
+            "test": "exchange rejects fractional yuan",
+            "ok": true
+        },
+        {
+            "test": "digital purchase debits once and grants entitlement",
+            "ok": true
+        },
+        {
+            "test": "refund credits back and removes entitlement",
+            "ok": true
+        },
+        {
+            "test": "another user cannot request refund",
+            "ok": true
+        },
+        {
+            "test": "insufficient purchase rolls back order and coupon",
+            "ok": true
+        },
+        {
+            "test": "points purchase uses points not balance",
+            "ok": true
+        },
+        {
+            "test": "tokens purchase uses tokens",
+            "ok": true
+        },
+        {
+            "test": "membership extends duration on renewals",
+            "ok": true
+        },
+        {
+            "test": "unique card inventory imported",
+            "ok": true
+        },
+        {
+            "test": "duplicate inventory import fully rolls back",
+            "ok": true
+        },
+        {
+            "test": "card allocation delivers distinct encrypted codes",
+            "ok": true
+        },
+        {
+            "test": "empty inventory rejects without debit",
+            "ok": true
+        },
+        {
+            "test": "refund one repeatable order preserves other entitlement",
+            "ok": true
+        },
+        {
+            "test": "physical order requires owned shipping address",
+            "ok": true
+        },
+        {
+            "test": "physical stock, encrypted address and manual shipment",
+            "ok": true
+        },
+        {
+            "test": "referral commission and refund reversal",
+            "ok": true
+        },
+        {
+            "test": "withdrawal hold and rejection release exactly once",
+            "ok": true
+        },
+        {
+            "test": "guest cannot access VIP body",
+            "ok": true
+        },
+        {
+            "test": "logged in required content gate",
+            "ok": true
+        },
+        {
+            "test": "reply gate opens only after approved reply",
+            "ok": true
+        },
+        {
+            "test": "public search cannot match protected body",
+            "ok": true
+        },
+        {
+            "test": "search SQL metacharacters are literal",
+            "ok": true
+        },
+        {
+            "test": "future publication hidden without scheduler",
+            "ok": true
+        },
+        {
+            "test": "ordinary submission cannot publish or set price",
+            "ok": true
+        },
+        {
+            "test": "like and bookmark toggle safely",
+            "ok": true
+        },
+        {
+            "test": "private message stored with recipient binding",
+            "ok": true
+        },
+        {
+            "test": "self administrator demotion blocked",
+            "ok": true
+        },
+        {
+            "test": "CSV neutralizes formula injection and excludes hashes",
+            "ok": true
+        },
+        {
+            "test": "checkout signed fields and matching callback URL",
+            "ok": true
+        },
+        {
+            "test": "forged payment rejected without credit",
+            "ok": true
+        },
+        {
+            "test": "signed payment mismatch money",
+            "ok": true
+        },
+        {
+            "test": "signed payment mismatch pid",
+            "ok": true
+        },
+        {
+            "test": "signed payment mismatch type",
+            "ok": true
+        },
+        {
+            "test": "signed payment mismatch trade_status",
+            "ok": true
+        },
+        {
+            "test": "gateway secrets encrypted in database",
+            "ok": true
+        },
+        {
+            "test": "old order verifies snapshot after key rotation; duplicate credits once",
+            "ok": true
+        },
+        {
+            "test": "same order conflicting receipt rejected",
+            "ok": true
+        },
+        {
+            "test": "receipt reuse across orders rejected",
+            "ok": true
+        },
+        {
+            "test": "valid late payment credits expired top-up",
+            "ok": true
+        },
+        {
+            "test": "HTTP canonical URL blocks payment creation",
+            "ok": true
+        },
+        {
+            "test": "legacy CodePay signed exact amount protocol fixture",
+            "ok": true
+        },
+        {
+            "test": "legacy CodePay floating amount mode deliberately rejected",
+            "ok": true
+        },
+        {
+            "test": "cleanup does not delete financial ledger",
+            "ok": true
+        },
+        {
+            "test": "migration is additive, repeatable and versioned",
+            "ok": true
+        },
+        {
+            "test": "direct zero-price purchase cannot unlock public",
+            "ok": true
+        },
+        {
+            "test": "direct zero-price purchase cannot unlock login",
+            "ok": true
+        },
+        {
+            "test": "direct zero-price purchase cannot unlock reply",
+            "ok": true
+        },
+        {
+            "test": "direct zero-price purchase cannot unlock vip",
+            "ok": true
+        },
+        {
+            "test": "direct zero-price purchase cannot unlock password",
+            "ok": true
+        },
+        {
+            "test": "legacy zero-price order does not bypass VIP policy",
+            "ok": true
+        },
+        {
+            "test": "malformed password input is a controlled rejection array",
+            "ok": true
+        },
+        {
+            "test": "malformed password input is a controlled rejection string",
+            "ok": true
+        },
+        {
+            "test": "password whitespace is preserved",
+            "ok": true
+        },
+        {
+            "test": "guest password access uses exact password",
+            "ok": true
+        },
+        {
+            "test": "changing password revokes previous browser grant",
+            "ok": true
+        },
+        {
+            "test": "bounded password sessions preserve content ID keys",
+            "ok": true
+        },
+        {
+            "test": "purchased access expiry is captured in the order",
+            "ok": true
+        },
+        {
+            "test": "expired purchase no longer authorizes protected body",
+            "ok": true
+        },
+        {
+            "test": "expired digital access can be purchased again",
+            "ok": true
+        },
+        {
+            "test": "higher tier and lower tier have separate expiry dates",
+            "ok": true
+        },
+        {
+            "test": "tier 1 cannot open tier 2 content",
+            "ok": true
+        },
+        {
+            "test": "ordinary admin profile edit preserves all tier grants",
+            "ok": true
+        },
+        {
+            "test": "explicit administrator replacement can revoke memberships",
+            "ok": true
+        },
+        {
+            "test": "variant stock aggregation replaces base inventory",
+            "ok": true
+        },
+        {
+            "test": "variant selection is required for direct purchase",
+            "ok": true
+        },
+        {
+            "test": "variant price, allocation and metadata use server values",
+            "ok": true
+        },
+        {
+            "test": "unshipped variant refund restores only its own stock",
+            "ok": true
+        },
+        {
+            "test": "variant cannot be moved to a different product",
+            "ok": true
+        },
+        {
+            "test": "foreign product variant rejected",
+            "ok": true
+        },
+        {
+            "test": "variant pricing asset cannot silently change",
+            "ok": true
+        },
+        {
+            "test": "code variants ignore forged inventory quantities",
+            "ok": true
+        },
+        {
+            "test": "code variant import synchronizes stock and preserves zero code",
+            "ok": true
+        },
+        {
+            "test": "code variant purchase consumes one matching secret",
+            "ok": true
+        },
+        {
+            "test": "unassigned base codes prevent ambiguous variant conversion",
+            "ok": true
+        },
+        {
+            "test": "multi-variant checkout consumes exact per-unit quantities",
+            "ok": true
+        },
+        {
+            "test": "checkout replay returns the same order IDs without debit",
+            "ok": true
+        },
+        {
+            "test": "checkout intent cannot be reused with changed quantity",
+            "ok": true
+        },
+        {
+            "test": "checkout stock failure rolls back orders ledger and earlier unit",
+            "ok": true
+        },
+        {
+            "test": "digital access quantity cannot cause duplicate charges",
+            "ok": true
+        },
+        {
+            "test": "shipment can be corrected and owner can confirm receipt",
+            "ok": true
+        },
+        {
+            "test": "withdrawn referral commission does not block buyer refund",
+            "ok": true
+        },
+        {
+            "test": "revision saves old text and rejects stale editor version",
+            "ok": true
+        },
+        {
+            "test": "revision restore does not roll back current pricing",
+            "ok": true
+        },
+        {
+            "test": "revision cannot be restored to another content item",
+            "ok": true
+        },
+        {
+            "test": "layout validation strips unknown fields and uses safe choices",
+            "ok": true
+        },
+        {
+            "test": "layout saves with revision check and exports no unrelated settings",
+            "ok": true
+        },
+        {
+            "test": "layout rejects executable/unknown block php",
+            "ok": true
+        },
+        {
+            "test": "layout rejects executable/unknown block javascript",
+            "ok": true
+        },
+        {
+            "test": "layout rejects executable/unknown block <script>",
+            "ok": true
+        },
+        {
+            "test": "layout rejects duplicate IDs and oversized block lists",
+            "ok": true
+        },
+        {
+            "test": "layout rejects external/script destinations",
+            "ok": true
+        },
+        {
+            "test": "collection deduplicates IDs and preserves editorial order",
+            "ok": true
+        },
+        {
+            "test": "invalid collection update rolls back previous membership",
+            "ok": true
+        },
+        {
+            "test": "link directory blocks script and credential URLs",
+            "ok": true
+        },
+        {
+            "test": "announcements honor audience and scheduled start",
+            "ok": true
+        },
+        {
+            "test": "task requires server-verified progress",
+            "ok": true
+        },
+        {
+            "test": "task claim is idempotent and credits points plus experience",
+            "ok": true
+        },
+        {
+            "test": "claimed task reward rules cannot be silently changed",
+            "ok": true
+        },
+        {
+            "test": "daily profile reward farming is rejected",
+            "ok": true
+        },
+        {
+            "test": "pending comments do not qualify for task rewards",
+            "ok": true
+        },
+        {
+            "test": "task module disable blocks claim endpoint",
+            "ok": true
+        },
+        {
+            "test": "invitation plaintext is never stored",
+            "ok": true
+        },
+        {
+            "test": "registration requires a valid invitation when configured",
+            "ok": true
+        },
+        {
+            "test": "invitation is consumed once with new account transaction",
+            "ok": true
+        },
+        {
+            "test": "failed registration never spends invitation allowance",
+            "ok": true
+        },
+        {
+            "test": "disabled invitation is rejected",
+            "ok": true
+        },
+        {
+            "test": "download counts authorized unique files rather than range retries",
+            "ok": true
+        },
+        {
+            "test": "daily download quota rejects another file without recording it",
+            "ok": true
+        },
+        {
+            "test": "unauthorized file access is not recorded",
+            "ok": true
+        },
+        {
+            "test": "byte-range parser supports whole suffix and open-ended ranges",
+            "ok": true
+        },
+        {
+            "test": "invalid range rejected bytes=20-",
+            "ok": true
+        },
+        {
+            "test": "invalid range rejected bytes=9-2",
+            "ok": true
+        },
+        {
+            "test": "invalid range rejected bytes=0-1,3-4",
+            "ok": true
+        },
+        {
+            "test": "invalid range rejected bytes=-0",
+            "ok": true
+        },
+        {
+            "test": "comment visibility rejects unauthorized readers and writers",
+            "ok": true
+        },
+        {
+            "test": "long SKU order labels fit the MySQL title column",
+            "ok": true
+        },
+        {
+            "test": "catalog shows actual minimum available variant price",
+            "ok": true
+        },
+        {
+            "test": "UTF-8 body and revision can exceed 64 KB without being shortened",
+            "ok": true
+        },
+        {
+            "test": "eight concurrent SKU purchases settle exactly one unit",
+            "ok": true
+        },
+        {
+            "test": "nested exception cannot be swallowed into a partial commit",
+            "ok": true
+        },
+        {
+            "test": "transaction remains reusable after rollback-only failure",
+            "ok": true
+        },
+        {
+            "test": "logout clears all authorization and one-time secret state",
+            "ok": true
+        },
+        {
+            "test": "password change invalidates recovery links and rotates session version",
+            "ok": true
+        },
+        {
+            "test": "incorrect password change cannot consume recovery links",
+            "ok": true
+        },
+        {
+            "test": "admin credential or email change invalidates all outstanding recovery links",
+            "ok": true
+        },
+        {
+            "test": "admin display-only change preserves valid recovery proof",
+            "ok": true
+        },
+        {
+            "test": "poll requires 2-10 distinct options and rolls back entire post",
+            "ok": true
+        },
+        {
+            "test": "unvoted poll snapshot never contains counts for after-vote privacy",
+            "ok": true
+        },
+        {
+            "test": "first vote recorded exactly once despite duplicate submit",
+            "ok": true
+        },
+        {
+            "test": "second choice after voting is rejected without changing result",
+            "ok": true
+        },
+        {
+            "test": "another reader cannot see private poll counts after someone else votes",
+            "ok": true
+        },
+        {
+            "test": "foreign option cannot be used in a vote",
+            "ok": true
+        },
+        {
+            "test": "poll freezes poll_question after first vote",
+            "ok": true
+        },
+        {
+            "test": "poll freezes poll_options after first vote",
+            "ok": true
+        },
+        {
+            "test": "poll freezes poll_results after first vote",
+            "ok": true
+        },
+        {
+            "test": "poll freezes poll_closes_at after first vote",
+            "ok": true
+        },
+        {
+            "test": "poll freezes thread_mode after first vote",
+            "ok": true
+        },
+        {
+            "test": "failed poll edit leaves content revision unchanged",
+            "ok": true
+        },
+        {
+            "test": "content authorization protects poll metadata and voting",
+            "ok": true
+        },
+        {
+            "test": "unvoted poll deadline can be cleared explicitly",
+            "ok": true
+        },
+        {
+            "test": "closed-only poll requires an actual closing time",
+            "ok": true
+        },
+        {
+            "test": "closed poll rejects votes and releases closed-only results",
+            "ok": true
+        },
+        {
+            "test": "closed-only results remain private even to a voter before deadline",
+            "ok": true
+        },
+        {
+            "test": "future scheduled poll cannot accept votes even from its author",
+            "ok": true
+        },
+        {
+            "test": "suspended user cannot vote with a stale account snapshot",
+            "ok": true
+        },
+        {
+            "test": "disabled poll module blocks write endpoint and snapshot",
+            "ok": true
+        },
+        {
+            "test": "only question author or editor can accept an answer",
+            "ok": true
+        },
+        {
+            "test": "pending, nested and foreign answers cannot be accepted",
+            "ok": true
+        },
+        {
+            "test": "accepting an answer is idempotent and notifies once",
+            "ok": true
+        },
+        {
+            "test": "moderation revokes rejected accepted answer atomically",
+            "ok": true
+        },
+        {
+            "test": "question feature switch blocks answer acceptance",
+            "ok": true
+        },
+        {
+            "test": "motion presets reference only shared validated fields",
+            "ok": true
+        },
+        {
+            "test": "partial motion save preserves theme and unrelated appearance settings",
+            "ok": true
+        },
+        {
+            "test": "custom curve cannot inject CSS or invalid x coordinates",
+            "ok": true
+        },
+        {
+            "test": "mandatory email verification cannot be enabled without SMTP",
+            "ok": true
+        },
+        {
+            "test": "verification stores no plaintext email or code",
+            "ok": true
+        },
+        {
+            "test": "wrong code attempt persists despite the validation exception",
+            "ok": true
+        },
+        {
+            "test": "correct code produces a proof consumed exactly once",
+            "ok": true
+        },
+        {
+            "test": "code proof rolls back with a failed account transaction",
+            "ok": true
+        },
+        {
+            "test": "code is bound to browser session and original purpose",
+            "ok": true
+        },
+        {
+            "test": "five wrong codes exhaust the challenge even when next code is correct",
+            "ok": true
+        },
+        {
+            "test": "expired code cannot validate",
+            "ok": true
+        },
+        {
+            "test": "failed delivery never leaves a usable challenge",
+            "ok": true
+        },
+        {
+            "test": "mail rate limiter is shared across purposes and password recovery",
+            "ok": true
+        },
+        {
+            "test": "verified registration records proof and reward in one transaction",
+            "ok": true
+        },
+        {
+            "test": "registration without required proof creates neither account nor reward",
+            "ok": true
+        },
+        {
+            "test": "duplicate username does not spend a correct email proof",
+            "ok": true
+        },
+        {
+            "test": "email change requires current password and binds proof to current user",
+            "ok": true
+        },
+        {
+            "test": "ordinary author edits preserve staff-owned content policy and prices",
+            "ok": true
+        },
+        {
+            "test": "circle content is excluded from guest and nonmember feeds",
+            "ok": true
+        },
+        {
+            "test": "circle single content blocks even its nonmember author",
+            "ok": true
+        },
+        {
+            "test": "circle joining charges once and opens content",
+            "ok": true
+        },
+        {
+            "test": "active circle membership cannot be charged a second time",
+            "ok": true
+        },
+        {
+            "test": "circle private file enforces the same category boundary",
+            "ok": true
+        },
+        {
+            "test": "circle read and post gates are independently enforced",
+            "ok": true
+        },
+        {
+            "test": "circle replies also enforce the posting gate",
+            "ok": true
+        },
+        {
+            "test": "suspension takes precedence over paid access and forbids repurchase",
+            "ok": true
+        },
+        {
+            "test": "manual grant expires without creating a fictitious paid order",
+            "ok": true
+        },
+        {
+            "test": "refund restores circle asset and revokes its exact term",
+            "ok": true
+        },
+        {
+            "test": "expired circle term can be renewed and old refund does not revoke renewal",
+            "ok": true
+        },
+        {
+            "test": "circle balance price uses integer cents",
+            "ok": true
+        },
+        {
+            "test": "free circle joins produce no zero-value ledger entry",
+            "ok": true
+        },
+        {
+            "test": "unaffordable circle leaves no order or membership",
+            "ok": true
+        },
+        {
+            "test": "closed circle denies joining while existing membership remains valid",
+            "ok": true
+        },
+        {
+            "test": "a public child cannot weaken a members-only parent",
+            "ok": true
+        },
+        {
+            "test": "category cycles rejected without modifying the existing tree",
+            "ok": true
+        },
+        {
+            "test": "missing category is fail-closed",
+            "ok": true
+        },
+        {
+            "test": "existing category update to nonexisting ID returns 404",
+            "ok": true
+        },
+        {
+            "test": "circle with membership history cannot be silently converted to a public category",
+            "ok": true
+        },
+        {
+            "test": "multi-choice results and counts stay absent before authorized result visibility",
+            "ok": true
+        },
+        {
+            "test": "multi-choice ballot stores two selections but one voter",
+            "ok": true
+        },
+        {
+            "test": "same multiselect ballot in different order is idempotent",
+            "ok": true
+        },
+        {
+            "test": "cannot change previously recorded multiselect ballot",
+            "ok": true
+        },
+        {
+            "test": "too many options and duplicate options leave no ballot",
+            "ok": true
+        },
+        {
+            "test": "foreign poll options are rejected transactionally",
+            "ok": true
+        },
+        {
+            "test": "maximum choices cannot be changed after voting",
+            "ok": true
+        },
+        {
+            "test": "v3 to v4 ballot backfill is restartable and preserves multiselect choices",
+            "ok": true
+        },
+        {
+            "test": "funded question holds points once under repeated submission",
+            "ok": true
+        },
+        {
+            "test": "third party cannot fund another authors question",
+            "ok": true
+        },
+        {
+            "test": "unexpired bounty cannot be withdrawn by owner",
+            "ok": true
+        },
+        {
+            "test": "self answer cannot claim bounty",
+            "ok": true
+        },
+        {
+            "test": "unapproved answer cannot receive bounty",
+            "ok": true
+        },
+        {
+            "test": "accepting an answer atomically pays held points once",
+            "ok": true
+        },
+        {
+            "test": "awarded bounty cannot be reassigned or returned",
+            "ok": true
+        },
+        {
+            "test": "moderating an awarded answer does not erase or duplicate financial history",
+            "ok": true
+        },
+        {
+            "test": "expired unanswered bounty returns once without cron",
+            "ok": true
+        },
+        {
+            "test": "bounty return remains available when new bounties are disabled",
+            "ok": true
+        },
+        {
+            "test": "oversized or unaffordable bounty creates no escrow",
+            "ok": true
+        },
+        {
+            "test": "bounty-bearing question cannot be converted into a poll",
+            "ok": true
+        },
+        {
+            "test": "nonbuyer cannot create a verified review",
+            "ok": true
+        },
+        {
+            "test": "new verified review waits for moderation and is not in public aggregate",
+            "ok": true
+        },
+        {
+            "test": "approved review appears in accurate rating aggregate",
+            "ok": true
+        },
+        {
+            "test": "editing review re-enters moderation and never creates second review",
+            "ok": true
+        },
+        {
+            "test": "refund removes verified review from public score without deleting its audit history",
+            "ok": true
+        },
+        {
+            "test": "invalid review rating cannot reach storage",
+            "ok": true
+        },
+        {
+            "test": "automatic invitation product delivers a unique encrypted code exactly once",
+            "ok": true
+        },
+        {
+            "test": "unused invitation refund revokes the generated registration code",
+            "ok": true
+        },
+        {
+            "test": "used invitation cannot be refunded automatically or create a double credit",
+            "ok": true
+        },
+        {
+            "test": "failed invitation purchase leaves no usable invitation or spent stock",
+            "ok": true
+        },
+        {
+            "test": "disabling invitation products cannot silently fulfill them as plain text",
+            "ok": true
+        },
+        {
+            "test": "category with children cannot change kind and orphan child policy",
+            "ok": true
+        },
+        {
+            "test": "revalidation rejects a credential invalidated after Auth cache was populated",
+            "ok": true
+        },
+        {
+            "test": "private attachment linked after one hundred denied items remains readable",
+            "ok": true
+        },
+        {
+            "test": "suspended sender cannot transfer assets through the service boundary",
+            "ok": true
+        },
+        {
+            "test": "creator accrual snapshots independent author, net price and share",
+            "ok": true
+        },
+        {
+            "test": "pending earnings are not spendable or settled before hold expiry",
+            "ok": true
+        },
+        {
+            "test": "foreign creator cannot settle another author income",
+            "ok": true
+        },
+        {
+            "test": "settlement and replay credit exactly one author ledger entry",
+            "ok": true
+        },
+        {
+            "test": "earnings conversion is atomic, idempotent and input-bound",
+            "ok": true
+        },
+        {
+            "test": "creator refund reverses settled earnings even after conversion and module disable",
+            "ok": true
+        },
+        {
+            "test": "income debt prevents withdrawal rather than creating spendable funds",
+            "ok": true
+        },
+        {
+            "test": "pending refund freezes creator settlement",
+            "ok": true
+        },
+        {
+            "test": "rejected refund releases settlement and new revenue repays income debt",
+            "ok": true
+        },
+        {
+            "test": "earnings withdrawal rejection returns the same asset",
+            "ok": true
+        },
+        {
+            "test": "self purchases never accrue author earnings",
+            "ok": true
+        },
+        {
+            "test": "author share uses net amount after referral not gross twice",
+            "ok": true
+        },
+        {
+            "test": "unapproved author and points sales create no monetary author liability",
+            "ok": true
+        },
+        {
+            "test": "approved author can create paid content but cannot self-publish",
+            "ok": true
+        },
+        {
+            "test": "approved author retains editor constraints while adjusting own permitted price",
+            "ok": true
+        },
+        {
+            "test": "revoked author cannot newly add a paid gate",
+            "ok": true
+        },
+        {
+            "test": "creator approval does not unlock administrator-owned pricing controls",
+            "ok": true
+        },
+        {
+            "test": "history progress is private, monotonic and replay safe",
+            "ok": true
+        },
+        {
+            "test": "another user cannot see private reading history",
+            "ok": true
+        },
+        {
+            "test": "disabling reading history clears records and prevents new writes",
+            "ok": true
+        },
+        {
+            "test": "history rejects denied content and never indexes protected body",
+            "ok": true
+        },
+        {
+            "test": "search suggestions escape SQL wildcards and expose only safe fields",
+            "ok": true
+        },
+        {
+            "test": "following feed contains only followed authors",
+            "ok": true
+        },
+        {
+            "test": "pinning a missing comment returns not found",
+            "ok": true
+        },
+        {
+            "test": "points sales never generate money-denominated author earnings",
+            "ok": true
+        },
+        {
+            "test": "refund while earnings withdrawal is held blocks manual paid confirmation",
+            "ok": true
+        },
+        {
+            "test": "history retention is bounded by configured count",
+            "ok": true
+        },
+        {
+            "test": "restarting additive v5 preserves author ledger and history",
+            "ok": true
+        },
+        {
+            "test": "physical creator revenue requires confirmed receipt even after hold expiry",
+            "ok": true
+        },
+        {
+            "test": "old revenue retains its rate and hold after author and global terms change",
+            "ok": true
+        },
+        {
+            "test": "pending author income refund cancels liability without crediting earnings",
+            "ok": true
+        },
+        {
+            "test": "free content orders create no creator income",
+            "ok": true
+        },
+        {
+            "test": "014: first tier-one purchase does not extend from a higher-tier expiry",
+            "ok": true
+        },
+        {
+            "test": "014: suspended account cannot consume a voucher at the service boundary",
+            "ok": true
+        },
+        {
+            "test": "014: login service rejects bcrypt-truncated passwords longer than 72 bytes",
+            "ok": true
+        },
+        {
+            "test": "014: RFC 6238 SHA1 vector 59",
+            "ok": true
+        },
+        {
+            "test": "014: RFC 6238 SHA1 vector 1111111109",
+            "ok": true
+        },
+        {
+            "test": "014: RFC 6238 SHA1 vector 1111111111",
+            "ok": true
+        },
+        {
+            "test": "014: RFC 6238 SHA1 vector 1234567890",
+            "ok": true
+        },
+        {
+            "test": "014: RFC 6238 SHA1 vector 2000000000",
+            "ok": true
+        },
+        {
+            "test": "014: RFC 6238 SHA1 vector 20000000000",
+            "ok": true
+        },
+        {
+            "test": "014: base32 round trip canonical random secrets",
+            "ok": true
+        },
+        {
+            "test": "014: authenticator drift window and replay rejection",
+            "ok": true
+        },
+        {
+            "test": "014: factor enrollment encrypts secret and hashes all recovery codes",
+            "ok": true
+        },
+        {
+            "test": "014: pending enrollment requires current password and matching session",
+            "ok": true
+        },
+        {
+            "test": "014: factor verification requires transaction",
+            "ok": true
+        },
+        {
+            "test": "014: protected login fails without proof; recovery logs in only once",
+            "ok": true
+        },
+        {
+            "test": "014: enrollment switch does not disable existing second factors",
+            "ok": true
+        },
+        {
+            "test": "014: failed outer transaction restores recovery code",
+            "ok": true
+        },
+        {
+            "test": "014: recovery rotation invalidates old codes and prior sessions",
+            "ok": true
+        },
+        {
+            "test": "014: bad password does not burn a recovery code",
+            "ok": true
+        },
+        {
+            "test": "014: session revocation also works for accounts without second factor",
+            "ok": true
+        },
+        {
+            "test": "014: CLI recovery removes factor and revokes sessions",
+            "ok": true
+        },
+        {
+            "test": "014: guest list price, membership inheritance and integer rounding",
+            "ok": true
+        },
+        {
+            "test": "014: promotion active interval and best price rather than multiplication",
+            "ok": true
+        },
+        {
+            "test": "014: stale rule editor rejected without overwriting",
+            "ok": true
+        },
+        {
+            "test": "014: impossible promotion dates rejected",
+            "ok": true
+        },
+        {
+            "test": "014: checkout snapshot and refund use paid amount after rules change",
+            "ok": true
+        },
+        {
+            "test": "014: default coupon stacking rejection does not consume quota",
+            "ok": true
+        },
+        {
+            "test": "014: scoped coupons enforce item, kind, schedule and membership",
+            "ok": true
+        },
+        {
+            "test": "014: enabled stacking reserves once and snapshot explains both discounts",
+            "ok": true
+        },
+        {
+            "test": "014: disabling pricing restores list price without deleting rules",
+            "ok": true
+        },
+        {
+            "test": "014: free member access price and maximum integer price are exact",
+            "ok": true
+        },
+        {
+            "test": "014: diagnostics verifies rollback and never exposes app secret",
+            "ok": true
+        },
+        {
+            "test": "014: additive v6 restart preserves security and pricing records",
+            "ok": true
+        },
+        {
+            "test": "014: price ceiling rejects increases and rolls back coupon reservations",
+            "ok": true
+        },
+        {
+            "test": "014: password reset leaves enrolled factor active and invalidates sessions",
+            "ok": true
+        },
+        {
+            "test": "014: coupon use and discounted funds roll back on insufficient balance",
+            "ok": true
+        },
+        {
+            "test": "014: zero timed duration can be saved through the common settings validator",
+            "ok": true
+        },
+        {
+            "test": "015: revoked cached session cannot change password and resurrect itself",
+            "ok": true
+        },
+        {
+            "test": "015: password proof rejects overlong bcrypt input at service boundary",
+            "ok": true
+        },
+        {
+            "test": "015: profile edit rejects a concurrently suspended cached identity",
+            "ok": true
+        },
+        {
+            "test": "015: HTTPS transport rejects non-global address 127.0.0.1",
+            "ok": true
+        },
+        {
+            "test": "015: HTTPS transport rejects non-global address 10.1.1.1",
+            "ok": true
+        },
+        {
+            "test": "015: HTTPS transport rejects non-global address 172.16.0.1",
+            "ok": true
+        },
+        {
+            "test": "015: HTTPS transport rejects non-global address 192.168.1.1",
+            "ok": true
+        },
+        {
+            "test": "015: HTTPS transport rejects non-global address 169.254.169.254",
+            "ok": true
+        },
+        {
+            "test": "015: HTTPS transport rejects non-global address 100.64.0.1",
+            "ok": true
+        },
+        {
+            "test": "015: HTTPS transport rejects non-global address 198.18.0.1",
+            "ok": true
+        },
+        {
+            "test": "015: HTTPS transport rejects non-global address 192.0.2.1",
+            "ok": true
+        },
+        {
+            "test": "015: HTTPS transport rejects non-global address 198.51.100.1",
+            "ok": true
+        },
+        {
+            "test": "015: HTTPS transport rejects non-global address 203.0.113.1",
+            "ok": true
+        },
+        {
+            "test": "015: HTTPS transport rejects non-global address 0.0.0.0",
+            "ok": true
+        },
+        {
+            "test": "015: HTTPS transport rejects non-global address 224.0.0.1",
+            "ok": true
+        },
+        {
+            "test": "015: HTTPS transport rejects non-global address ::1",
+            "ok": true
+        },
+        {
+            "test": "015: HTTPS transport rejects non-global address fc00::1",
+            "ok": true
+        },
+        {
+            "test": "015: HTTPS transport rejects non-global address fe80::1",
+            "ok": true
+        },
+        {
+            "test": "015: HTTPS transport rejects non-global address ::ffff:8.8.8.8",
+            "ok": true
+        },
+        {
+            "test": "015: HTTPS transport rejects non-global address 2001:db8::1",
+            "ok": true
+        },
+        {
+            "test": "015: HTTPS transport rejects non-global address 2002:0808:0808::1",
+            "ok": true
+        },
+        {
+            "test": "015: rejects unsafe endpoint http://example.test",
+            "ok": true
+        },
+        {
+            "test": "015: rejects unsafe endpoint https://name:secret@example.test",
+            "ok": true
+        },
+        {
+            "test": "015: rejects unsafe endpoint https://example.test:8443",
+            "ok": true
+        },
+        {
+            "test": "015: rejects unsafe endpoint https://example.test/#private",
+            "ok": true
+        },
+        {
+            "test": "015: rejects unsafe endpoint https://127.0.0.1/api",
+            "ok": true
+        },
+        {
+            "test": "015: rejects unsafe endpoint https://localhost/api",
+            "ok": true
+        },
+        {
+            "test": "015: rejects unsafe endpoint https://name.localhost/api",
+            "ok": true
+        },
+        {
+            "test": "015: rejects unsafe endpoint https://example.test/aCRLFInjected: yes",
+            "ok": true
+        },
+        {
+            "test": "015: integration framing accepts exact JSON and chunked body",
+            "ok": true
+        },
+        {
+            "test": "015: malformed or redirected HTTPS response 0",
+            "ok": true
+        },
+        {
+            "test": "015: malformed or redirected HTTPS response 1",
+            "ok": true
+        },
+        {
+            "test": "015: malformed or redirected HTTPS response 2",
+            "ok": true
+        },
+        {
+            "test": "015: malformed or redirected HTTPS response 3",
+            "ok": true
+        },
+        {
+            "test": "015: malformed or redirected HTTPS response 4",
+            "ok": true
+        },
+        {
+            "test": "015: malformed or redirected HTTPS response 5",
+            "ok": true
+        },
+        {
+            "test": "015: bounded integration body rejects oversize",
+            "ok": true
+        },
+        {
+            "test": "015: private transport rejects nonobject invalid JSON",
+            "ok": true
+        },
+        {
+            "test": "015: google code exchange binds stable subject with PKCE and no token storage",
+            "ok": true
+        },
+        {
+            "test": "015: github code exchange binds stable subject with PKCE and no token storage",
+            "ok": true
+        },
+        {
+            "test": "015: microsoft code exchange binds stable subject with PKCE and no token storage",
+            "ok": true
+        },
+        {
+            "test": "015: callback state is session-bound and consumed once",
+            "ok": true
+        },
+        {
+            "test": "015: expired OAuth state never calls provider",
+            "ok": true
+        },
+        {
+            "test": "015: provider mismatch consumes but does not exchange state",
+            "ok": true
+        },
+        {
+            "test": "015: provider client rotation invalidates in-flight proof",
+            "ok": true
+        },
+        {
+            "test": "015: email equality never attaches unknown provider to local account",
+            "ok": true
+        },
+        {
+            "test": "015: linking requires current password and cannot steal another subject",
+            "ok": true
+        },
+        {
+            "test": "015: OAuth login preserves enrolled second factor and recovery replay protection",
+            "ok": true
+        },
+        {
+            "test": "015: account revocation after provider callback blocks login",
+            "ok": true
+        },
+        {
+            "test": "015: unlink only owns identity, remains possible after enrollment disabled",
+            "ok": true
+        },
+        {
+            "test": "015: external registration follows invitation and local password rules",
+            "ok": true
+        },
+        {
+            "test": "015: active payment query credits once and uses original credential snapshot",
+            "ok": true
+        },
+        {
+            "test": "015: reconciliation rejects mismatched pid",
+            "ok": true
+        },
+        {
+            "test": "015: reconciliation rejects mismatched out_trade_no",
+            "ok": true
+        },
+        {
+            "test": "015: reconciliation rejects mismatched money",
+            "ok": true
+        },
+        {
+            "test": "015: reconciliation rejects mismatched type",
+            "ok": true
+        },
+        {
+            "test": "015: reconciliation rejects mismatched status",
+            "ok": true
+        },
+        {
+            "test": "015: reconciliation rejects mismatched code",
+            "ok": true
+        },
+        {
+            "test": "015: pending query never credits and foreign user never queries",
+            "ok": true
+        },
+        {
+            "test": "015: valid callback during payment query still credits once",
+            "ok": true
+        },
+        {
+            "test": "015: disabled reconciliation does not contact remote",
+            "ok": true
+        },
+        {
+            "test": "015: expired topup can be recovered by exact merchant proof",
+            "ok": true
+        },
+        {
+            "test": "015: lifetime grant is explicit and cannot be shortened by timed grant",
+            "ok": true
+        },
+        {
+            "test": "015: lifetime plan purchase rejects redundant equal or lower-tier purchase",
+            "ok": true
+        },
+        {
+            "test": "015: whole cart ceiling mismatch rolls back every order and debit",
+            "ok": true
+        },
+        {
+            "test": "015: single purchase currency changes are rejected before any debit",
+            "ok": true
+        },
+        {
+            "test": "015: settings snapshot encrypts secrets and rejects cross-site archives",
+            "ok": true
+        },
+        {
+            "test": "015: preview masks changed credentials and rejects stale restore",
+            "ok": true
+        },
+        {
+            "test": "015: valid restore refreshes cache and retains pre-restore snapshot",
+            "ok": true
+        },
+        {
+            "test": "015: snapshots restore email and SMTP dependency as one atomic configuration",
+            "ok": true
+        },
+        {
+            "test": "015: nonadmin cannot read or change configuration archives",
+            "ok": true
+        },
+        {
+            "test": "015: recognition is idempotent and cannot grant account or financial privileges",
+            "ok": true
+        },
+        {
+            "test": "015: expired or disabled badges disappear without deleting audit records",
+            "ok": true
+        },
+        {
+            "test": "015: badge editing never accepts unsupported symbols or nonadmin actor",
+            "ok": true
+        },
+        {
+            "test": "015: handoff preserves complete signed URL without exposing it as a form action",
+            "ok": true
+        },
+        {
+            "test": "015: handoff rejects invalid destination 0",
+            "ok": true
+        },
+        {
+            "test": "015: handoff rejects invalid destination 1",
+            "ok": true
+        },
+        {
+            "test": "015: handoff rejects invalid destination 2",
+            "ok": true
+        },
+        {
+            "test": "015: handoff rejects invalid destination 3",
+            "ok": true
+        },
+        {
+            "test": "015: handoff rejects invalid destination 4",
+            "ok": true
+        },
+        {
+            "test": "015: handoff rejects invalid destination 5",
+            "ok": true
+        },
+        {
+            "test": "015: handoff rejects invalid destination 6",
+            "ok": true
+        },
+        {
+            "test": "015: handoff is not a public URL forwarding endpoint",
+            "ok": true
+        },
+        {
+            "test": "016 integer ratio 0",
+            "ok": true
+        },
+        {
+            "test": "016 integer ratio 1",
+            "ok": true
+        },
+        {
+            "test": "016 integer ratio 2",
+            "ok": true
+        },
+        {
+            "test": "016 integer ratio 3",
+            "ok": true
+        },
+        {
+            "test": "016 exact cent allocation retains all remainders",
+            "ok": true
+        },
+        {
+            "test": "016 invalid promotion and delivery documents fail closed",
+            "ok": true
+        },
+        {
+            "test": "016 wallet checkout is atomically paid, fulfilled and idempotent",
+            "ok": true
+        },
+        {
+            "test": "016 price ceiling rollback releases all reservations and ledger effects",
+            "ok": true
+        },
+        {
+            "test": "016 saved shipping uses first and additional units; old checkout cannot skip it",
+            "ok": true
+        },
+        {
+            "test": "016 weight shipping and excluded regions enforce exact server policy",
+            "ok": true
+        },
+        {
+            "test": "016 best-in-group promotions stack across distinct groups and allocate exactly",
+            "ok": true
+        },
+        {
+            "test": "016 promotions optimistic revision prevents lost edits",
+            "ok": true
+        },
+        {
+            "test": "016 external orders reserve stock, do not grant access, and cancel only before sending",
+            "ok": true
+        },
+        {
+            "test": "016 verified provider receipt grants access once and never credits wallet",
+            "ok": true
+        },
+        {
+            "test": "016 wrong amount or currency cannot settle a reserved order",
+            "ok": true
+        },
+        {
+            "test": "016 guest pass is encrypted/hashed and is not login or category membership",
+            "ok": true
+        },
+        {
+            "test": "016 guest paid access is order-scoped and can be explicitly claimed",
+            "ok": true
+        },
+        {
+            "test": "016 full unit wallet refund includes freight and restocks exactly once",
+            "ok": true
+        },
+        {
+            "test": "016 direct original refund cannot mint wallet credit",
+            "ok": true
+        },
+        {
+            "test": "016 refund timeout holds assets and retains the original refund reference",
+            "ok": true
+        },
+        {
+            "test": "016 same-SKU exchange requires return transit, inspection and customer receipt",
+            "ok": true
+        },
+        {
+            "test": "016 finite upgrade consumes actual paid lots and rolls back cash only",
+            "ok": true
+        },
+        {
+            "test": "016 lifetime-to-lifetime upgrades preserve permanent rights and block finite target",
+            "ok": true
+        },
+        {
+            "test": "016 upgrade refund refuses to erase a later manual grant",
+            "ok": true
+        },
+        {
+            "test": "016 changed upgrade price invalidates the signed review",
+            "ok": true
+        },
+        {
+            "test": "016 store currency cannot be relabelled after ledger activity",
+            "ok": true
+        },
+        {
+            "test": "016 local resumable chunks reject cross-owner writes and missing pieces",
+            "ok": true
+        },
+        {
+            "test": "016 chunk completion checks hashes and streams into a protected media envelope once",
+            "ok": true
+        },
+        {
+            "test": "016 corrupted chunks and wrong whole-file hashes never register media",
+            "ok": true
+        },
+        {
+            "test": "016 executable and SVG chunks cannot bypass the shared MIME policy",
+            "ok": true
+        },
+        {
+            "test": "016 S3 presigned signature matches an independent fixed-time implementation",
+            "ok": true
+        },
+        {
+            "test": "016 S3 limits signatures to a safe namespace and brief link lifetime",
+            "ok": true
+        },
+        {
+            "test": "016 S3 CopyObject rejects embedded error despite HTTP 200",
+            "ok": true
+        },
+        {
+            "test": "016 S3 conditional copy binds the inspected source entity tag",
+            "ok": true
+        },
+        {
+            "test": "016 published translations are source-version-bound and never alter protected body",
+            "ok": true
+        },
+        {
+            "test": "016 automatic translation sends only public fields and stores drafts",
+            "ok": true
+        },
+        {
+            "test": "016 token search requires every term, ranks titles and never searches paid secrets",
+            "ok": true
+        },
+        {
+            "test": "016 site compositions validate audience, custom pages and media IDs",
+            "ok": true
+        },
+        {
+            "test": "016 Stripe exact binding, mode, amount and currency verification",
+            "ok": true
+        },
+        {
+            "test": "016 Stripe HMAC rejects replay age and modified bytes",
+            "ok": true
+        },
+        {
+            "test": "016 Alipay RSA2 signs requests and verifies exact original response bytes",
+            "ok": true
+        },
+        {
+            "test": "016 duplicate signed JSON fields are rejected before settlement",
+            "ok": true
+        },
+        {
+            "test": "016 WeChat RSA response binds merchant, app, timestamp and platform serial",
+            "ok": true
+        },
+        {
+            "test": "016 PayPal active capture validates merchant and amount before fulfillment",
+            "ok": true
+        },
+        {
+            "test": "016 object lifecycle uses conditional immutable copy, recovers a lost response and returns one media ID",
+            "ok": true
+        },
+        {
+            "test": "016 future schema version is rejected before older code can write data",
+            "ok": true
+        },
+        {
+            "test": "017 migration is repeatable and retains existing data",
+            "ok": true
+        },
+        {
+            "test": "017 active member count excludes guest checkout shadow identities",
+            "ok": true
+        },
+        {
+            "test": "017 base and translated metadata do not overfetch public or paid bodies",
+            "ok": true
+        },
+        {
+            "test": "017 canonical URL preserves custom page identity without checkout secrets",
+            "ok": true
+        },
+        {
+            "test": "017 independent site/admin locale selection survives context changes",
+            "ok": true
+        },
+        {
+            "test": "017 CJK bigrams and English normalization share a deterministic index",
+            "ok": true
+        },
+        {
+            "test": "017 resumable rebuild finishes without indexing protected or public bodies",
+            "ok": true
+        },
+        {
+            "test": "017 indexed multi-token search ranks title, includes CJK and excludes false positives",
+            "ok": true
+        },
+        {
+            "test": "017 content edits update index and stale revisions fail closed",
+            "ok": true
+        },
+        {
+            "test": "017 draft and future content are hidden by live permissions even if indexed",
+            "ok": true
+        },
+        {
+            "test": "017 published translations are indexed but stale translation tokens disappear",
+            "ok": true
+        },
+        {
+            "test": "017 legacy search remains available while rebuilding",
+            "ok": true
+        },
+        {
+            "test": "017 layout drafts never change published output",
+            "ok": true
+        },
+        {
+            "test": "017 layout publish restores history using a new revision, not stale overwrite",
+            "ok": true
+        },
+        {
+            "test": "017 restored layout marks an existing draft stale",
+            "ok": true
+        },
+        {
+            "test": "017 layout history retains only the latest twenty snapshots",
+            "ok": true
+        },
+        {
+            "test": "017 course permissions block members from creating lessons",
+            "ok": true
+        },
+        {
+            "test": "017 paid course previews do not expose other lesson bodies",
+            "ok": true
+        },
+        {
+            "test": "017 paid lesson permission is rechecked after a completed refund",
+            "ok": true
+        },
+        {
+            "test": "017 archived course and source publication immediately withdraw access",
+            "ok": true
+        },
+        {
+            "test": "017 progress is private, clamped, revision-checked and self-reported",
+            "ok": true
+        },
+        {
+            "test": "017 lesson source and course source cannot be reassigned by stale forms",
+            "ok": true
+        },
+        {
+            "test": "017 private media inherits the course entitlement and disappears after archive",
+            "ok": true
+        },
+        {
+            "test": "017 shipment state is encrypted, owner-scoped and revision-checked",
+            "ok": true
+        },
+        {
+            "test": "017 manual shipment events never automatically confirm receipt",
+            "ok": true
+        },
+        {
+            "test": "017 missing carrier phone does not consume the query interval",
+            "ok": true
+        },
+        {
+            "test": "017 carrier query signs exact parameters and caches matching results without financial side effects",
+            "ok": true
+        },
+        {
+            "test": "017 mismatched carrier identity is rejected instead of replacing a timeline",
+            "ok": true
+        },
+        {
+            "test": "017 shipment edits while querying discard stale carrier responses",
+            "ok": true
+        },
+        {
+            "test": "017 statement date requires explicit timezone and a real calendar date",
+            "ok": true
+        },
+        {
+            "test": "017 statement parser rejects formulas, decimal minor units and duplicate references atomically",
+            "ok": true
+        },
+        {
+            "test": "017 statement import is idempotent and report-only with bidirectional differences",
+            "ok": true
+        },
+        {
+            "test": "017 statement amount mismatch cannot mutate a verified sale",
+            "ok": true
+        },
+        {
+            "test": "017 ticket creation is owner-bound and repeat submission idempotent",
+            "ok": true
+        },
+        {
+            "test": "017 tickets cannot attach another buyers order",
+            "ok": true
+        },
+        {
+            "test": "017 support replies use revision conflicts, deduplication and owner notifications",
+            "ok": true
+        },
+        {
+            "test": "017 members cannot set urgent priority or staff-only support states",
+            "ok": true
+        },
+        {
+            "test": "017 support templates require staff and prevent lost updates",
+            "ok": true
+        },
+        {
+            "test": "017 module switches deny new private and public feature entrypoints",
+            "ok": true
+        },
+        {
+            "test": "017 Alipay desktop page-pay preserves the RSA2 signature and exact amount",
+            "ok": true
+        },
+        {
+            "test": "017 dynamic headings, empty states and reconciliation messages have Chinese translations",
+            "ok": true
+        },
+        {
+            "test": "018 JSON transport rejects duplicate case-insensitive headers before network I/O",
+            "ok": true
+        },
+        {
+            "test": "018 form requests share the one-MiB bound",
+            "ok": true
+        },
+        {
+            "test": "018 ambiguous HEAD framing is rejected",
+            "ok": true
+        },
+        {
+            "test": "018 JSON refactor retains form encoding and response decoding",
+            "ok": true
+        },
+        {
+            "test": "018 multi-dimensional denial rolls back every quota increment",
+            "ok": true
+        },
+        {
+            "test": "018 duplicate quota definitions are rejected without writes",
+            "ok": true
+        },
+        {
+            "test": "018 delivery quotas share normalized recipient identity",
+            "ok": true
+        },
+        {
+            "test": "018 all three IP windows are configurable",
+            "ok": true
+        },
+        {
+            "test": "018 one order supports isolated named parcels",
+            "ok": true
+        },
+        {
+            "test": "018 explicit parcel creation key is idempotent",
+            "ok": true
+        },
+        {
+            "test": "018 repeated waybill under another key is rejected",
+            "ok": true
+        },
+        {
+            "test": "018 parcel selection cannot cross order ownership",
+            "ok": true
+        },
+        {
+            "test": "018 shipment migration is restartable and preserves parcel IDs and events",
+            "ok": true
+        },
+        {
+            "test": "018 a literal zero query is not mistaken for an empty search",
+            "ok": true
+        },
+        {
+            "test": "018 search document excludes bodies, credentials and private categories",
+            "ok": true
+        },
+        {
+            "test": "018 search export hides future and archived entries",
+            "ok": true
+        },
+        {
+            "test": "018 accepted indexing task remains queued until a matching success",
+            "ok": true
+        },
+        {
+            "test": "018 stale remote acknowledgements cannot drop a newer content update",
+            "ok": true
+        },
+        {
+            "test": "018 remote processing and failure never claim completion",
+            "ok": true
+        },
+        {
+            "test": "018 leased search work cannot be submitted twice",
+            "ok": true
+        },
+        {
+            "test": "018 transport uncertainty retains retryable search work",
+            "ok": true
+        },
+        {
+            "test": "018 deleting a private entry uses the document deletion API",
+            "ok": true
+        },
+        {
+            "test": "018 task polling checks both task and index identity",
+            "ok": true
+        },
+        {
+            "test": "018 remote search validates identity types and ignores supplied HTML",
+            "ok": true
+        },
+        {
+            "test": "018 remote search does not trust stale content revisions",
+            "ok": true
+        },
+        {
+            "test": "018 failed remote search falls back to local matching",
+            "ok": true
+        },
+        {
+            "test": "018 search configuration rejects private endpoints and index injection",
+            "ok": true
+        },
+        {
+            "test": "018 recipient cooldown is elapsed-time based and resets atomically",
+            "ok": true
+        },
+        {
+            "test": "018 backup table registry matches all installed application tables",
+            "ok": true
+        },
+        {
+            "test": "018 backup create rejects non-administrators and short passwords",
+            "ok": true
+        },
+        {
+            "test": "018 consistent encrypted database and media backup completes",
+            "ok": true
+        },
+        {
+            "test": "018 archive can be inspected after stripping the protected storage envelope",
+            "ok": true
+        },
+        {
+            "test": "018 encrypted archive rejects a wrong password",
+            "ok": true
+        },
+        {
+            "test": "018 encrypted archive rejects a truncated completion marker",
+            "ok": true
+        },
+        {
+            "test": "018 encrypted archive rejects a modified authentication tag",
+            "ok": true
+        },
+        {
+            "test": "018 encrypted archive rejects data after a valid completion marker",
+            "ok": true
+        },
+        {
+            "test": "018 backup file retrieval remains administrator-only",
+            "ok": true
+        },
+        {
+            "test": "018 archive parser rejects a signed but unsupported table identifier",
+            "ok": true
+        },
+        {
+            "test": "018 archive parser rejects a signed path traversal file",
+            "ok": true
+        },
+        {
+            "test": "018 archive writer enforces its byte budget",
+            "ok": true
+        },
+        {
+            "test": "018 recovery refuses a nonempty database before changing data",
+            "ok": true
+        },
+        {
+            "test": "018 recovery verifies before creating any tables or storage",
+            "ok": true
+        },
+        {
+            "test": "018 complete recovery preserves money, site-key encryption and media; disables remote jobs",
+            "ok": true
+        },
+        {
+            "test": "018 a missing local file aborts complete media backup without a success record",
+            "ok": true
+        },
+        {
+            "test": "018 database-only archive clearly reports omitted local bytes",
+            "ok": true
+        },
+        {
+            "test": "018 backup retention keeps the latest successful copy only",
+            "ok": true
+        },
+        {
+            "test": "018 deleting a recovery copy removes file and catalog entry",
+            "ok": true
+        },
+        {
+            "test": "019 installer paths are portable for root and subdirectory URLs",
+            "ok": true
+        },
+        {
+            "test": "019 price ordering uses the displayed available SKU price",
+            "ok": true
+        },
+        {
+            "test": "019 importing string false cannot silently enable a layout block",
+            "ok": true
+        },
+        {
+            "test": "019 long text media has portable bounded MIME detection",
+            "ok": true
+        },
+        {
+            "test": "019 new resource tables are included in authenticated backups",
+            "ok": true
+        },
+        {
+            "test": "019 edition files remain unavailable until real purchase and revoke on refund",
+            "ok": true
+        },
+        {
+            "test": "019 mirrors are encrypted and cannot be listed by unauthorized readers",
+            "ok": true
+        },
+        {
+            "test": "019 resource configuration rejects dual sources, public files and unsafe URLs",
+            "ok": true
+        },
+        {
+            "test": "019 revision checks prevent lost updates and disabled editions stop new access",
+            "ok": true
+        },
+        {
+            "test": "019 mirror quota is shared with files and repeated access is idempotent",
+            "ok": true
+        },
+        {
+            "test": "019 reports require access and resolving produces one notification",
+            "ok": true
+        },
+        {
+            "test": "019 layout entries reject executable URLs and overfull blocks",
+            "ok": true
+        },
+        {
+            "test": "019 filter validation keeps zero, integer assets and price ranges exact",
+            "ok": true
+        },
+        {
+            "test": "019 shop filters combine tag, asset, list price, stock and delivery",
+            "ok": true
+        },
+        {
+            "test": "019 a resource module toggle revokes linked file access",
+            "ok": true
+        },
+        {
+            "test": "019 carousel validates mobile media and real boolean autoplay",
+            "ok": true
+        },
+        {
+            "test": "019 decorative images never disclose private media",
+            "ok": true
+        },
+        {
+            "test": "020 archive calendar uses exact local boundaries including leap days",
+            "ok": true
+        },
+        {
+            "test": "020 archives paginate chronologically without loading bodies or draft titles",
+            "ok": true
+        },
+        {
+            "test": "020 archive count and titles inherit ancestor access and module controls",
+            "ok": true
+        },
+        {
+            "test": "020 category tiles respect limit after permission evaluation and change immediately",
+            "ok": true
+        },
+        {
+            "test": "020 comments paginate beyond fifty with exact count and stable pinned order",
+            "ok": true
+        },
+        {
+            "test": "020 comment filters cannot reveal other authors or locked discussion data",
+            "ok": true
+        },
+        {
+            "test": "020 runtime limits handle unlimited and overflow without PHP version coercion",
+            "ok": true
+        },
+        {
+            "test": "020 visual assets reject unauthorized actors and re-read a demoted account",
+            "ok": true
+        },
+        {
+            "test": "020 visual bindings publish immediately and restore cannot bypass revision conflicts",
+            "ok": true
+        },
+        {
+            "test": "020 private nonimage missing and executable image media cannot be used as public visuals",
+            "ok": true
+        },
+        {
+            "test": "020 covers survive edits and feed projection without reusing default illustrations",
+            "ok": true
+        },
+        {
+            "test": "020 categories navigation and builder use the extended shared icon registry",
+            "ok": true
+        },
+        {
+            "test": "021 editor identity is rechecked for staff content writes",
+            "ok": true
+        },
+        {
+            "test": "021 attribution survives old editors and escapes templates without execution",
+            "ok": true
+        },
+        {
+            "test": "021 reading navigation honors exact ordering and visibility without body projection",
+            "ok": true
+        },
+        {
+            "test": "021 bulletin create is idempotent and changed retries conflict",
+            "ok": true
+        },
+        {
+            "test": "021 bulletin updates require revision and can be archived without deletion",
+            "ok": true
+        },
+        {
+            "test": "021 future bulletins and drafts never leak in details counts or searches",
+            "ok": true
+        },
+        {
+            "test": "021 bulletin timestamps reject normalization and non-date values",
+            "ok": true
+        },
+        {
+            "test": "021 bulletin pagination uses unique ties and literal search characters",
+            "ok": true
+        },
+        {
+            "test": "021 bulletin admin rights module state and image access are enforced",
+            "ok": true
+        },
+        {
+            "test": "021 schema is restartable and recovery includes bulletins",
+            "ok": true
+        },
+        {
+            "test": "022 navigation rechecks actual administrator authority",
+            "ok": true
+        },
+        {
+            "test": "022 menu creates are idempotent with conflicting payload rejection",
+            "ok": true
+        },
+        {
+            "test": "022 menu edits reject stale revisions missing parents and self cycles",
+            "ok": true
+        },
+        {
+            "test": "022 depth validation covers moved subtrees and indirect cycles",
+            "ok": true
+        },
+        {
+            "test": "022 parent visibility and enabled modules hide entire menu branches",
+            "ok": true
+        },
+        {
+            "test": "022 corrupt cyclic or orphaned menu rows fail closed on public reads",
+            "ok": true
+        },
+        {
+            "test": "022 menu images reject private media and fall back after revocation",
+            "ok": true
+        },
+        {
+            "test": "022 Markdown image parsing excludes fenced and inline code",
+            "ok": true
+        },
+        {
+            "test": "022 explicit article images preserve order deduplicate and survive old editors",
+            "ok": true
+        },
+        {
+            "test": "022 article gallery only indexes public-body images and avoids protected projection",
+            "ok": true
+        },
+        {
+            "test": "022 gallery permissions reject stolen private and nonimage media",
+            "ok": true
+        },
+        {
+            "test": "022 public media revocation removes both gallery URLs and inline images",
+            "ok": true
+        },
+        {
+            "test": "022 image rendering uses subdirectory URLs and escaped captions without remote fetching",
+            "ok": true
+        },
+        {
+            "test": "022 image presentation follows per-article settings and safe fallbacks",
+            "ok": true
+        },
+        {
+            "test": "022 schema repeat migration keeps data and registers the original gallery icon",
+            "ok": true
+        },
+        {
+            "test": "023 catalog rechecks active actor guest status and current role",
+            "ok": true
+        },
+        {
+            "test": "023 member catalog returns only own public supported images without private storage data",
+            "ok": true
+        },
+        {
+            "test": "023 filename wildcard characters are literal and scope is validated",
+            "ok": true
+        },
+        {
+            "test": "023 staff may select another public image but members cannot enumerate or select it",
+            "ok": true
+        },
+        {
+            "test": "023 keyset pages remain bounded and do not repeat after a newer upload",
+            "ok": true
+        },
+        {
+            "test": "023 final selection rejects media revoked after listing",
+            "ok": true
+        },
+        {
+            "test": "023 selection reuses media without copying bytes and survives disabled new uploads",
+            "ok": true
+        },
+        {
+            "test": "023 catalog indexes are restartable and snapshot schema stays valid",
+            "ok": true
+        },
+        {
+            "test": "secret settings preserve whitespace after encrypted database reload",
+            "ok": true
+        },
+        {
+            "test": "blank secret retains credentials and explicit clear removes them",
+            "ok": true
+        },
+        {
+            "test": "secret validation rejects malformed values without changing saved credentials",
+            "ok": true
+        },
+        {
+            "test": "credential text preserves boundary bytes and enforces the full untrimmed length",
+            "ok": true
+        },
+        {
+            "test": "0232 environment evidence proves the requested Fileinfo state",
+            "ok": true
+        },
+        {
+            "test": "0232 content detection png",
+            "ok": true
+        },
+        {
+            "test": "0232 media storage and permissions png",
+            "ok": true
+        },
+        {
+            "test": "0232 content detection jpg",
+            "ok": true
+        },
+        {
+            "test": "0232 media storage and permissions jpg",
+            "ok": true
+        },
+        {
+            "test": "0232 content detection gif",
+            "ok": true
+        },
+        {
+            "test": "0232 media storage and permissions gif",
+            "ok": true
+        },
+        {
+            "test": "0232 content detection webp",
+            "ok": true
+        },
+        {
+            "test": "0232 media storage and permissions webp",
+            "ok": true
+        },
+        {
+            "test": "0232 content detection zip",
+            "ok": true
+        },
+        {
+            "test": "0232 media storage and permissions zip",
+            "ok": true
+        },
+        {
+            "test": "0232 content detection pdf",
+            "ok": true
+        },
+        {
+            "test": "0232 media storage and permissions pdf",
+            "ok": true
+        },
+        {
+            "test": "0232 content detection txt",
+            "ok": true
+        },
+        {
+            "test": "0232 media storage and permissions txt",
+            "ok": true
+        },
+        {
+            "test": "0232 content detection mp3",
+            "ok": true
+        },
+        {
+            "test": "0232 media storage and permissions mp3",
+            "ok": true
+        },
+        {
+            "test": "0232 content detection mp4",
+            "ok": true
+        },
+        {
+            "test": "0232 media storage and permissions mp4",
+            "ok": true
+        },
+        {
+            "test": "0232 guarded image uses the payload offset for every range",
+            "ok": true
+        },
+        {
+            "test": "0232 PNG permits an empty IDAT before actual image data",
+            "ok": true
+        },
+        {
+            "test": "0232 large embedded MP3 tags use bounded reads and validate the footer",
+            "ok": true
+        },
+        {
+            "test": "0232 truncated reads fail closed rather than accepting a guessed type",
+            "ok": true
+        },
+        {
+            "test": "0232 valid empty ZIP and a ZIP comment containing a false EOCD",
+            "ok": true
+        },
+        {
+            "test": "0232 ZIP64 end records are checked against the central directory",
+            "ok": true
+        },
+        {
+            "test": "0232 Unicode text includes BOM, surrogate pairs and valid probe boundaries",
+            "ok": true
+        },
+        {
+            "test": "0232 reject svg without creating media",
+            "ok": true
+        },
+        {
+            "test": "0232 reject php without creating media",
+            "ok": true
+        },
+        {
+            "test": "0232 reject html without creating media",
+            "ok": true
+        },
+        {
+            "test": "0232 reject elf without creating media",
+            "ok": true
+        },
+        {
+            "test": "0232 reject windows without creating media",
+            "ok": true
+        },
+        {
+            "test": "0232 reject shell without creating media",
+            "ok": true
+        },
+        {
+            "test": "0232 reject binary without creating media",
+            "ok": true
+        },
+        {
+            "test": "0232 reject utf8 without creating media",
+            "ok": true
+        },
+        {
+            "test": "0232 reject pdf without creating media",
+            "ok": true
+        },
+        {
+            "test": "0232 reject zip without creating media",
+            "ok": true
+        },
+        {
+            "test": "0232 reject mp3 without creating media",
+            "ok": true
+        },
+        {
+            "test": "0232 reject mp4 without creating media",
+            "ok": true
+        },
+        {
+            "test": "0232 reject webp without creating media",
+            "ok": true
+        },
+        {
+            "test": "0232 reject truncated-png without creating media",
+            "ok": true
+        },
+        {
+            "test": "0232 reject truncated-gif without creating media",
+            "ok": true
+        },
+        {
+            "test": "0232 reject truncated-jpg without creating media",
+            "ok": true
+        },
+        {
+            "test": "0232 reject truncated-webp without creating media",
+            "ok": true
+        },
+        {
+            "test": "0232 dimension limits still reject oversized images",
+            "ok": true
+        },
+        {
+            "test": "0232 truncated prefixes and random bytes produce no PHP warnings",
+            "ok": true
+        },
+        {
+            "test": "0232 object range verification ok",
+            "ok": true
+        },
+        {
+            "test": "0232 object range verification changed-tail",
+            "ok": true
+        },
+        {
+            "test": "0232 object range verification wrong-range",
+            "ok": true
+        },
+        {
+            "test": "0232 object range verification wrong-mime",
+            "ok": true
+        },
+        {
+            "test": "0233 real encoder variant jpeg-progressive",
+            "ok": true
+        },
+        {
+            "test": "0233 real encoder variant jpeg-cmyk",
+            "ok": true
+        },
+        {
+            "test": "0233 real encoder variant webp-lossless",
+            "ok": true
+        },
+        {
+            "test": "0233 real encoder variant webp-alpha",
+            "ok": true
+        },
+        {
+            "test": "0233 real encoder variant webp-animation",
+            "ok": true
+        },
+        {
+            "test": "0233 real encoder variant png-palette",
+            "ok": true
+        },
+        {
+            "test": "0233 legacy Chinese text is byte-preserving private media",
+            "ok": true
+        },
+        {
+            "test": "0233 legacy text rejects active markup, explicit invalid UTF-8 and broken sequences",
+            "ok": true
+        },
+        {
+            "test": "0233 ZIP comment may contain false ZIP64 and central directory candidates",
+            "ok": true
+        },
+        {
+            "test": "0233 valid empty single-volume ZIP64 and a damaged locator",
+            "ok": true
+        },
+        {
+            "test": "0233 ordinary text beginning with PK is not treated as a damaged ZIP",
+            "ok": true
+        },
+        {
+            "test": "0233 JPEG dimension inspection skips large metadata within one read budget",
+            "ok": true
+        },
+        {
+            "test": "0233 JPEG is identical through plain, guarded and resumable storage",
+            "ok": true
+        },
+        {
+            "test": "0233 invalid JPEG lengths and excessive marker padding cannot bypass dimensions",
+            "ok": true
+        },
+        {
+            "test": "0233 JPEG dimension reads fail when the source becomes unavailable",
+            "ok": true
+        },
+        {
+            "test": "0233 image inspection rejects malformed prefixes without PHP warnings",
+            "ok": true
+        },
+        {
+            "test": "0233 remote JPEG ok",
+            "ok": true
+        },
+        {
+            "test": "0233 remote JPEG changed-metadata",
+            "ok": true
+        },
+        {
+            "test": "0233 remote JPEG oversized",
+            "ok": true
+        },
+        {
+            "test": "ledger reconciles all account balances",
+            "ok": true
+        },
+        {
+            "test": "eight concurrent debits: five settle, no overdraft",
+            "ok": true
+        },
+        {
+            "test": "eight concurrent votes from one account leave exactly one vote",
+            "ok": true
+        },
+        {
+            "test": "eight concurrent circle joins make one membership and one charge",
+            "ok": true
+        },
+        {
+            "test": "eight concurrent answer acceptances award held points exactly once",
+            "ok": true
+        },
+        {
+            "test": "post-concurrency asset ledger still reconciles",
+            "ok": true
+        },
+        {
+            "test": "eight concurrent author settlement requests credit one earnings entry",
+            "ok": true
+        },
+        {
+            "test": "eight parallel uses of one recovery code accept exactly once",
+            "ok": true
+        },
+        {
+            "test": "eight parallel purchases compete for one coupon quota without overuse",
+            "ok": true
+        },
+        {
+            "test": "015: four queries race four signed callbacks and credit once",
+            "ok": true
+        },
+        {
+            "test": "015: eight concurrent badge grants create one grant and one notification",
+            "ok": true
+        }
+    ],
+    "not_tested": [
+        "MySQL/InnoDB and native PDO when unavailable",
+        "real merchant network or callback delivery",
+        "SMTP network",
+        "real shared hosting",
+        "certificate issuance",
+        "full Zibll feature parity"
+    ]
+}

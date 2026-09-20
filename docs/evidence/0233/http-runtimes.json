@@ -1,0 +1,38 @@
+[
+  {
+    "file": "http-8.2-absent.json",
+    "runtime": {
+      "php": "8.2.33",
+      "fileinfo": false,
+      "finfo": false,
+      "gd": false,
+      "zip": false
+    },
+    "total": 1102,
+    "passed": 1102
+  },
+  {
+    "file": "http-8.2-present.json",
+    "runtime": {
+      "php": "8.2.33",
+      "fileinfo": true,
+      "finfo": true,
+      "gd": false,
+      "zip": false
+    },
+    "total": 1101,
+    "passed": 1101
+  },
+  {
+    "file": "http-7.4-absent.json",
+    "runtime": {
+      "php": "7.4.33",
+      "fileinfo": false,
+      "finfo": false,
+      "gd": false,
+      "zip": true
+    },
+    "total": 1102,
+    "passed": 1102
+  }
+]

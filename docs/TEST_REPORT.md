@@ -1,27 +1,37 @@
-# 0.23.2 实际测试记录
+# 0.23.3 实际测试记录
 
-2026-09-20，数据库结构 v15。本次改动为取消 Fileinfo 依赖并加强统一文件内容识别与安装提示。使用隔离测试库、临时网站和项目内临时目录，未连接用户生产数据库。
+2026-09-20，结构 v15。此次再次检查无 Fileinfo 的识别方式，修复 JPEG 大附加信息在不同入口的差异、ZIP 注释标记与空 ZIP64 的误拒绝，并补充中文旧编码及真实图片变体的覆盖。
 
 | 检查 | 实际结果 | 证据 |
 | --- | --- | --- |
-| Windows 原生 PDO SQLite | PHP 7.4—8.5，分别启用和关闭 Fileinfo，共 14 组，每组 673/673，stderr 为空 | evidence/0232/matrix.json、php-*.json |
-| Linux 原生 MySQL / SQLite | 七版本 × 两数据库 × 两种扩展状态，共 28 组，每组 673/673；14 个 CI 作业全部成功 | evidence/0232/ci-verified.json、native-*.json |
-| PHP 8.2.33，无 Fileinfo/GD/ZipArchive 的 HTTP | 1069/1069；实际服务器报告 finfo 类及扩展均不存在 | evidence/0232/http-8.2-absent.json |
-| PHP 8.2.33，开启 Fileinfo 的 HTTP | 1068/1068；少一项“扩展关闭”专用断言，功能路径相同 | evidence/0232/http-8.2-present.json |
-| PHP 7.4.33，无 Fileinfo 的 HTTP | 1069/1069；实际服务器报告 finfo 类及扩展均不存在 | evidence/0232/http-7.4-absent.json |
-| PHP / JS 语法 | PHP 7.4 与 8.5 各 313 文件通过，JS 20 文件通过 | evidence/0232/syntax.json |
-| 动画曲线不变量 | 42/42 | evidence/0232/spring.json |
+| Windows 原生 PDO SQLite | PHP 7.4—8.5 × Fileinfo 开启/关闭，14 组，每组 692/692，stderr 为空 | evidence/0233/matrix.json、php-*.json |
+| Linux 原生 MySQL / SQLite | 七版本 × 两数据库 × 两种扩展状态，28 组各 692/692；14 个 CI 作业成功 | evidence/0233/ci-verified.json、native-*.json |
+| PHP 8.2.33，无 Fileinfo/GD/ZipArchive | 1102/1102 实际 HTTP 检查 | evidence/0233/http-8.2-absent.json |
+| PHP 7.4.33，无 Fileinfo | 1102/1102 实际 HTTP 检查 | evidence/0233/http-7.4-absent.json |
+| PHP 8.2.33，开启 Fileinfo | 1101/1101；少一项扩展关闭专用断言 | evidence/0233/http-8.2-present.json |
+| PHP / JS 语法 | PHP 7.4 和 8.5 各 314 文件，JS 20 文件全部通过 | evidence/0233/syntax.json |
+| 动画曲线不变量 | 42/42 | evidence/0233/spring.json |
 
-CI 测试提交 `45319be5b629180734c218c80f4d212ed76cf171`：[实际运行](https://github.com/yiran168/chengyu/actions/runs/35455455248)。下载并核验全部 28 份结果，检查具体 PHP 版本、原生 PDO 驱动、扩展/类的真实状态及通过数，没有以模拟关闭函数或旧版 CI 代替。后续发布提交仅调整文档、包清单和 HTTP 测试脚本对旧 PDO 数字字符串的处理，PHP 业务文件保持一致。
+CI 对应 `47bc84c2dcbbe20958804cb9316bcb3ccaaf7525`：[实际执行](https://github.com/yiran168/chengyu/actions/runs/35489457973)。逐份下载 28 个结果，核对 PHP、原生 PDO、Fileinfo/finfo 实际状态和通过数。后续发布提交只更新说明、证据、清单与包元数据，业务代码与此提交一致。
 
-新增 49 项核心回归覆盖全部九类允许文件、错误后缀与客户端 MIME、不完整文件、Unicode 文本边界、大 ID3 标签及尾标、ZIP64、带伪造结束标记的 ZIP 注释、PNG 空 IDAT、受保护文件偏移、图像尺寸限制、随机/截断输入，以及对象存储的 ETag、Content-Range、类型冲突和拒绝后无媒体记录。原有多进程余额、订单和上传幂等测试继续执行。
+## 先复现，再修复
 
-新增 HTTP 检查使用真实 PHP 服务和 multipart 请求，验证无扩展安装按钮与建库、缺少安装验证文件时的对应提示、上传后的真实 MIME/原始字节/私有权限、大 PNG 分片合并与后台自检。运行时探针只写入隔离临时站点，取证后立即删除，不加入生产上传包。
+从 Git 标签 v0.23.2 提取旧识别器，在关闭 Fileinfo 的相同运行时与新实现对照。旧版对带特殊注释的合法 ZIP、PK 开头普通文本和 GBK 文本返回未知类型；300 KiB 附加信息后的 JPEG 尺寸在有界前缀中不可见。新实现通过，证据为 evidence/0233/reproduction.json。该对照是回归说明，不重复计入核心通过总数。
 
-测试期间发现 UTF-16 LE 字节序标记可能落入 MPEG 同步标记分支，已先修复再重跑全部核心矩阵。PHP 7.4 的额外 HTTP 首轮在旧测试脚本使用 PDO 数字字符串作为 Python range 步长时中断；将两个步长显式转为整数后重新执行全套通过。这不是业务代码绕过错误。
+新加 19 项核心检查和 33 项 HTTP 检查：
 
-本版没有重新执行完整视觉交互套件。193 张预览与 200/200 完整浏览器记录来自 0.23.0；新安装/上传行为以本次实际 HTTP 结果为证。发布手册重新生成并检查，见 manual-checks.json。历史 0.23.1 报告存入 history/0.23.1。
+- JPEG 按段读取 SOF，类型和尺寸共用最多 256 KiB 前缀、额外 256 KiB/32 次的读取预算；普通、受保护文件、分片和 S3 均使用同一结果。尺寸超限、标记畸形、读取中途失败或 ETag 改变时拒绝，并检查未产生媒体记录。
+- ZIP 继续查找不成立的注释候选，验证空 ZIP64 和损坏定位记录；PK/RIFF/ID3 字母开头的普通文本不因短前缀误拒绝。
+- 编码器实际生成并独立解码的渐进式/CMYK JPEG、透明/无损/动画 WebP、调色板 PNG，均通过识别、尺寸、媒体写入和 HTTP 字节验证。
+- GBK/GB18030 保持原始字节和私有权限，普通会员不能借文本冒充图片。显式 UTF-8 BOM 不合法、截断序列、非法四字节区间、脚本和 SVG/HTML 仍拒绝。无 BOM 的 C0 AF 同时是合法 GBK，因此旧“非法 UTF-8”反例现在带明确 BOM，避免把编码歧义当作校验成功。
+- 对截断图片前缀及 500 次 JPEG 字节变异执行警告转异常检查，无 PHP 警告或越界读取。既有账户、权限、余额、交易、备份、幂等和并发测试继续执行。
 
-文件类型识别不是完整解码或病毒扫描。MP3/MP4 的小型核心测试素材用于结构识别，不能据此宣称完成真实编码器的全面播放兼容测试。具体支持范围与有界读取限制见 FILE_TYPES.md。无扩展不等于无其他运行条件：PDO、OpenSSL、写权限、空间和出站网络仍按主机配置。
+真实 HTTP 服务的临时探针记录扩展状态后删除，生产包不包含探针。测试仅使用隔离数据库与测试账号，不访问用户生产数据库。安装安全口令流程、可用安装按钮和附件授权下载仍在总套件中执行。
 
-实际萌哒云/蓝队云实例、VPS 装机、外部支付、SMTP 和 S3 服务未联调；S3 为协议测试。没有声称已替用户部署成功。发布包、覆盖补丁和 SHA-256 另由打包工具校验。
+## 验证范围
+
+文件类型检测不能替代完整解码或病毒扫描；文本编码没有唯一可判定性，GBK/GB18030 检查字节结构而非完整字形映射，下载不会自动转码。S3 测试为协议夹具；实际免费主机/VPS、外部支付、SMTP 和云存储未联调。读取限制及格式范围见 FILE_TYPES.md。
+
+本版未重跑完整视觉交互套件；193 张预览和完整浏览器 200/200 记录沿用 0.23.0，并注明来源。本次手册重新生成并检查，见 manual-checks.json。旧版报告存入 history/0.23.2。
+
+包校验和累计补丁的双基线覆盖模拟另见 Release 的 package-verification.json 与 SHA256SUMS.txt。补丁不含 app/config.php、install/key.php、数据库或 storage，不需要重新安装或生成口令。
