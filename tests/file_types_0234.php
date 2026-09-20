@@ -121,6 +121,27 @@ $remote234=fixtures232();$remote234['padded-mp4']=videos234()['large-padding'];
 $remote234['bad-png']=substr_replace(fixtures232()['png'],str_repeat("\0",4),29,4);
 $remote234['bad-mp4']=substr(fixtures232()['mp4'],0,24).str_repeat('X',20);
 $remote234['changed-mp4']=videos234()['large-padding'];
+$frames234=[];$gif234=fixtures232()['gif'];$frameAt234=strpos($gif234,',');
+$frames234['oversized.gif']=substr_replace($gif234,pack('vv',65535,65535),$frameAt234+5,4);
+$frames234['outside.gif']=substr_replace($gif234,pack('v',65535),$frameAt234+1,2);
+$variants234=array_map('base64_decode',json_decode(file_get_contents(__DIR__.'/fixtures/file-types-variants.json'),true));
+foreach(['webp-alpha','webp-animation'] as $name){$frames234[$name.'.webp']=substr_replace($variants234[$name],str_repeat("\0",6),24,6);}
+foreach($frames234 as $name=>$data){test('0234 reject inconsistent first frame '.$name,static function()use($a,$admin,$tmp,$name,$data):void{
+    same('application/octet-stream',sniff232($data));$path=$tmp.'/frame234-'.$name;file_put_contents($path,$data);$before=(int)$a->db->value('SELECT COUNT(*) FROM cy_media');
+    reject(static function()use($a,$admin,$path,$name):void{$a->media->storeLocal(account($admin),$path,$name,false,1048576);});same($before,(int)$a->db->value('SELECT COUNT(*) FROM cy_media'));
+});}
+$remote234['bad-gif']=$frames234['oversized.gif'];$remote234['bad-webp']=$frames234['webp-animation.webp'];
+test('0234 WebP validates frame rectangle and encoded dimensions independently',static function()use($variants234):void{
+    $data=$variants234['webp-animation'];$at=strpos($data,'ANMF');truth($at!==false);
+    // Keep canvas large enough, but make the frame dimensions disagree with its bitstream.
+    $bad=substr_replace($data,"\x01\0\0",$at+10,3);same('application/octet-stream',sniff232($bad));
+    $bad=$variants234['webp-alpha'];$bad[20]=chr(ord($bad[20])|128);same('application/octet-stream',sniff232($bad));
+    $bad=$variants234['webp-lossless'];$at=strpos($bad,'VP8L');$bad[$at+12]=chr(ord($bad[$at+12])|224);same('application/octet-stream',sniff232($bad));
+});
+test('0234 GIF permits a smaller frame positioned inside its canvas',static function():void{
+    $data=fixtures232()['gif'];$at=strpos($data,',');$data=substr_replace($data,pack('vv',10,10),6,4);$data=substr_replace($data,pack('vv',2,3),$at+1,4);
+    $result=inspect233($data);same('image/gif',$result['mime']);same(10,$result['image'][0]);same(10,$result['image'][1]);
+});
 foreach($remote234 as $name=>$data){test('0234 remote shared policy '.$name,static function()use($a,$admin,$name,$data):void{
     $saved=[];foreach(['object_storage_enabled','s3_endpoint','s3_region','s3_access','s3_secret','s3_bucket','s3_prefix'] as $key){$saved[$key]=$a->settings->get($key);}
     $seed=['object_storage_enabled'=>true];foreach(s3config16() as $key=>$value){if($key!=='token'){$seed['s3_'.$key]=$value;}}settings('media_plus',$seed);
@@ -141,5 +162,8 @@ foreach($remote234 as $name=>$data){test('0234 remote shared policy '.$name,stat
             reject(static function()use($objects,$actor,$manifest):void{$objects->finish($actor,$manifest['upload_key']);},409);same(false,$copied);same($before,(int)$a->db->value('SELECT COUNT(*) FROM cy_media'));
             same(0,(int)$a->db->value('SELECT lease_until FROM cy_remote_uploads WHERE id=?',[(int)$manifest['id']]));
         }else{$id=$objects->finish($actor,$manifest['upload_key']);same($id,$objects->finish($actor,$manifest['upload_key']));$row=$a->media->readable($id,$actor);same($mime,$row['mime']);same(1,(int)$row['is_private']);truth($copied);}
-    }finally{foreach($saved as $key=>$value){if($value===''&&($a->settings->schema()[$key][2]??'')==='secret'){$saved['clear_'.$key]='1';}}settings('media_plus',$saved);}
+    }finally{
+        if($manifest!==null){$a->db->execute('UPDATE cy_remote_uploads SET expires_at=0 WHERE id=? AND state<>?',[(int)$manifest['id'],'complete']);}
+        foreach($saved as $key=>$value){if($value===''&&($a->settings->schema()[$key][2]??'')==='secret'){$saved['clear_'.$key]='1';}}settings('media_plus',$saved);
+    }
 });}

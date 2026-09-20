@@ -26,6 +26,13 @@ for name234 in ['color-0-depth-16-interlace-0','color-2-depth-16-interlace-1','c
 for name234,data234 in [('fake.mp4',ftyp234+b'X'*20),('broken.png',fixtures232['png'][:29]+b'\0'*4+fixtures232['png'][33:])]:
     response234=admin.post(base+'/action.php',data={'action':'upload','csrf':csrf(admin)},files={'file':(name234,data234,'image/png')},headers={'Accept':'application/json'})
     check('0234 malformed content rejected '+name234,response234.status_code==400,response234.text)
+gif234=fixtures232['gif'];at234=gif234.index(b',')
+badframes234={'oversized.gif':gif234[:at234+5]+struct.pack('<HH',65535,65535)+gif234[at234+9:]}
+for name234 in ['webp-alpha','webp-animation']:
+    data234=base64.b64decode(variants233[name234]);badframes234[name234+'.webp']=data234[:24]+b'\0'*6+data234[30:]
+for name234,data234 in badframes234.items():
+    response234=admin.post(base+'/action.php',data={'action':'upload','csrf':csrf(admin)},files={'file':(name234,data234,'image/gif')},headers={'Accept':'application/json'})
+    check('0234 inconsistent first frame blocked '+name234,response234.status_code==400,response234.text)
 
 data234=videos234['large-padding']
 start234=post(admin,'upload_start',name='resume.mp4',bytes=len(data234),sha256=hashlib.sha256(data234).hexdigest(),private='0')

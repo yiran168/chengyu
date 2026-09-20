@@ -104,6 +104,7 @@ final class FileType
     }
 
     private static function le16(string $s, int $at): int { return unpack('v', substr($s, $at, 2))[1]; }
+    private static function le24(string $s, int $at): int { return ord($s[$at]) | (ord($s[$at + 1]) << 8) | (ord($s[$at + 2]) << 16); }
     private static function le32(string $s, int $at): int { return unpack('V', substr($s, $at, 4))[1]; }
     private static function be32(string $s, int $at): int { return unpack('N', substr($s, $at, 4))[1]; }
 
@@ -134,35 +135,53 @@ final class FileType
 
     private static function webp(int $bytes, callable $range): bool
     {
-        $extended = false; $animation = false;
+        $extended = false; $animation = false; $canvas = null;
         for ($at = 12, $chunks = 0; $chunks < 128 && $at + 8 <= $bytes; ++$chunks) {
             $header = $range($at, 8); if (strlen($header) !== 8) { return false; }
             $type = substr($header, 0, 4); $length = self::le32($header, 4);
             if ($length + ($length % 2) > $bytes - $at - 8) { return false; }
             if ($type === 'VP8 ' || $type === 'VP8L') {
                 $data = $range($at + 8, min($length, 10));
-                return $type === 'VP8 ' ? strlen($data) === 10 && (ord($data[0]) & 1) === 0 && substr($data, 3, 3) === "\x9d\x01\x2a" : strlen($data) >= 5 && $data[0] === "\x2f";
+                $size = self::webpSize($type, $data);
+                return $size !== null && !$animation && ($canvas === null || $canvas === $size);
             }
             if ($at === 12) {
                 if ($type !== 'VP8X' || $length !== 10) { return false; }
                 $data = $range($at + 8, 10); $extended = true; $animation = (ord($data[0]) & 2) !== 0;
+                if ((ord($data[0]) & 193) !== 0 || substr($data, 1, 3) !== "\0\0\0") { return false; }
+                $canvas = [self::le24($data, 4) + 1, self::le24($data, 7) + 1];
             } elseif (!$extended) { return false; }
             if ($type === 'ANMF' && $animation && $length >= 30) {
                 // Frame header is 16 bytes; optional alpha precedes the encoded image chunk.
-                $end = $at + 8 + $length; $frame = $at + 24;
+                $info = $range($at + 8, 16); $frameSize = [self::le24($info, 6) + 1, self::le24($info, 9) + 1];
+                if ((ord($info[15]) & 252) !== 0 || self::le24($info, 0) * 2 + $frameSize[0] > $canvas[0]
+                    || self::le24($info, 3) * 2 + $frameSize[1] > $canvas[1]) { return false; }
+                $end = $at + 8 + $length; $frame = $at + 24; $alpha = false;
                 for ($n = 0; $n < 2 && $frame + 8 <= $end; ++$n) {
                     $h = $range($frame, 8); $size = self::le32($h, 4); $kind = substr($h, 0, 4);
                     if ($size + ($size % 2) > $end - $frame - 8) { return false; }
                     $data = $range($frame + 8, min($size, 10));
-                    if ($kind === 'VP8 ') { return strlen($data) === 10 && (ord($data[0]) & 1) === 0 && substr($data, 3, 3) === "\x9d\x01\x2a"; }
-                    if ($kind === 'VP8L') { return strlen($data) >= 5 && $data[0] === "\x2f"; }
-                    if ($kind !== 'ALPH') { return false; }
+                    if ($kind === 'VP8 ' || $kind === 'VP8L') { return (!$alpha || $kind === 'VP8 ') && self::webpSize($kind, $data) === $frameSize; }
+                    if ($kind !== 'ALPH' || $alpha) { return false; } $alpha = true;
                     $frame += 8 + $size + ($size % 2);
                 }
             }
             $at += 8 + $length + ($length % 2);
         }
         return false;
+    }
+
+    /** Encoded dimensions must agree with the extended canvas or animation frame header. */
+    private static function webpSize(string $type, string $data): ?array
+    {
+        if ($type === 'VP8 ') {
+            if (strlen($data) !== 10 || (ord($data[0]) & 1) !== 0 || substr($data, 3, 3) !== "\x9d\x01\x2a") { return null; }
+            $width = self::le16($data, 6) & 16383; $height = self::le16($data, 8) & 16383;
+            return $width > 0 && $height > 0 ? [$width, $height] : null;
+        }
+        if (strlen($data) < 5 || $data[0] !== "\x2f") { return null; }
+        $bits = self::le32($data, 1);
+        return ($bits >> 29) === 0 ? [1 + ($bits & 16383), 1 + (($bits >> 14) & 16383)] : null;
     }
 
     private static function gif(string $head, int $bytes, callable $range): bool
@@ -174,6 +193,8 @@ final class FileType
             if ($marker === ',') {
                 $descriptor = $range($at, 9);
                 if (strlen($descriptor) !== 9 || self::le16($descriptor, 4) === 0 || self::le16($descriptor, 6) === 0) { return false; }
+                if (self::le16($descriptor, 0) + self::le16($descriptor, 4) > self::le16($head, 6)
+                    || self::le16($descriptor, 2) + self::le16($descriptor, 6) > self::le16($head, 8)) { return false; }
                 $packed = ord($descriptor[8]); $at += 9 + (($packed & 128) ? 3 * (1 << (($packed & 7) + 1)) : 0);
                 $data = $range($at, 2);
                 return strlen($data) === 2 && ord($data[0]) >= 2 && ord($data[0]) <= 8 && ord($data[1]) > 0 && $at + 2 + ord($data[1]) < $bytes - 1;
