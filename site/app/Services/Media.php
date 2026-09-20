@@ -30,12 +30,13 @@ final class Media
         if ($bytes === false || $bytes < 1 || $bytes > $maximum) { throw new Problem('File exceeds the upload limit.'); }
         $signature=$sample===null?file_get_contents($source,false,null,0,min((int)$bytes,FileType::PROBE_BYTES)):$sample;
         if($signature===false){throw new Problem('File unavailable.');}
-        $mime=FileType::detect($signature,(int)$bytes,static function(int $start,int $length)use($source,$offset){return file_get_contents($source,false,null,$offset+$start,$length);});
+        $inspection=FileType::inspect($signature,(int)$bytes,static function(int $start,int $length)use($source,$offset){return file_get_contents($source,false,null,$offset+$start,$length);});
+        $mime=$inspection['mime'];
         $images = FileType::IMAGES;
         $allowed = $staff ? array_values(FileType::EXTENSIONS) : $images;
         if (!in_array($mime, $allowed, true)) { throw new Problem('This file type is not allowed. SVG and executable files are blocked.'); }
         if (in_array($mime, $images, true)) {
-            $image = $sample===null?@getimagesize($source):@getimagesizefromstring($sample);
+            $image = $inspection['image'];
             if (!$image || ($image['mime']??'')!==$mime || $image[0]<1 || $image[1]<1 || $image[0] > 12000 || $image[1] > 12000 || $image[0] * $image[1] > 40000000) { throw new Problem('Invalid image or image dimensions are too large.'); }
         } else { $private = true; }
         $key = bin2hex(random_bytes(24)) . '.php'; $dir = $this->storage . '/blobs';

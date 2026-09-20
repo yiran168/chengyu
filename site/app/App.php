@@ -5,7 +5,7 @@ use Chengyu\Core\{Database, Settings, Crypto, Security, Problem};
 use Chengyu\Services\{Activity, Wallet, Auth, Commerce, Payment, Content, Media, Mailer, Admin};
 final class App
 {
-    public const VERSION = '0.23.2';
+    public const VERSION = '0.23.3';
     public array $config; public Database $db; public Crypto $crypto; public Settings $settings;
     public Activity $activity; public Wallet $wallet; public Auth $auth; public Commerce $commerce;
     public Payment $payment; public Content $content; public Media $media; public Mailer $mailer; public Admin $admin;

@@ -74,7 +74,7 @@ test('0232 Unicode text includes BOM, surrogate pairs and valid probe boundaries
 });
 $bad232=[
  'svg'=>'<svg xmlns="http://www.w3.org/2000/svg"><script>1</script></svg>', 'php'=>'<?php echo 1;', 'html'=>'<!doctype html><html></html>',
- 'elf'=>"\x7fELF\x02\x01\0",'windows'=>'MZ executable', 'shell'=>"#!/bin/sh\necho 1",'binary'=>"text\0binary",'utf8'=>"\xc0\xaf",
+ 'elf'=>"\x7fELF\x02\x01\0",'windows'=>'MZ executable', 'shell'=>"#!/bin/sh\necho 1",'binary'=>"text\0binary",'utf8'=>"\xef\xbb\xbf\xc0\xaf",
  'pdf'=>'%PDF-1.4' . "\nno end marker",'zip'=>"PK\x03\x04".str_repeat("\0",50),'mp3'=>'ID3'."\x04\0\0\0\0\0\0",
  'mp4'=>pack('N',24).'ftypisom'.str_repeat("\0",12), 'webp'=>'RIFF'.pack('V',40).'WEBPVP8X'.pack('V',10).str_repeat("\0",10).'JUNK'.pack('V',10).str_repeat('A',10),
 ];

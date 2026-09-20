@@ -33,9 +33,9 @@ final class ObjectStorage
                     return $sample['body'];
                 };
                 $sample=$read(0,min(FileType::PROBE_BYTES,(int)$r['bytes']));
-                $detected=FileType::detect($sample,(int)$r['bytes'],$read);
+                $inspection=FileType::inspect($sample,(int)$r['bytes'],$read);$detected=$inspection['mime'];
                 if($detected!==$r['mime']){throw new Problem('Object MIME does not match the selected file type.',409);}
-                if(strpos($detected,'image/')===0){$im=@getimagesizefromstring($sample);if(!$im||($im['mime']??'')!==$detected||$im[0]<1||$im[1]<1||$im[0]>12000||$im[1]>12000||$im[0]*$im[1]>40000000){throw new Problem('Image dimensions are invalid or cannot be verified.');}}
+                if(strpos($detected,'image/')===0){$im=$inspection['image'];if(!$im||($im['mime']??'')!==$detected||$im[0]<1||$im[1]<1||$im[0]>12000||$im[1]>12000||$im[0]*$im[1]>40000000){throw new Problem('Image dimensions are invalid or cannot be verified.');}}
                 $snap['etag']=$etag;$this->a->db->update('cy_remote_uploads',(int)$r['id'],['state'=>'copying','config_cipher'=>$this->a->crypto->seal(json_encode($snap,JSON_THROW_ON_ERROR))]);
             }
             $ready=false;try{$h=$s3->request('HEAD',$snap['final']);$this->checkHead($r,$h,$snap['etag']);$ready=true;}catch(Problem $e){/* Missing or uncertain destination: repeating an exact conditional copy is safe. */}

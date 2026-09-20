@@ -16,9 +16,25 @@ final class FileType
     /** $read reads an exact range from the same immutable file, excluding any storage envelope. */
     public static function detect(string $head, int $bytes, callable $read): string
     {
+        return self::identify($head, $bytes, self::reader($head, $bytes, $read));
+    }
+
+    /** All upload paths use the same type/dimension inspection and a single read budget. */
+    public static function inspect(string $head, int $bytes, callable $read): array
+    {
+        $range = self::reader($head, $bytes, $read);
+        $mime = self::identify($head, $bytes, $range); $image = null;
+        if (in_array($mime, self::IMAGES, true)) {
+            $image = $mime === 'image/jpeg' ? self::jpegInfo($bytes, $range) : @getimagesizefromstring($head);
+        }
+        return ['mime' => $mime, 'image' => $image];
+    }
+
+    private static function reader(string $head, int $bytes, callable $read): callable
+    {
         if ($bytes < 1 || strlen($head) !== min($bytes, self::PROBE_BYTES)) { throw new Problem('File unavailable.'); }
         $budget = 262144; $requests = 32;
-        $range = static function (int $start, int $length) use ($head, $bytes, $read, &$budget, &$requests): string {
+        return static function (int $start, int $length) use ($head, $bytes, $read, &$budget, &$requests): string {
             if ($start < 0 || $length < 1 || $length > 65558 || $start > $bytes - $length) { return ''; }
             if ($start + $length <= strlen($head)) { return substr($head, $start, $length); }
             if ($length > $budget || --$requests < 0) { throw new Problem('File verification exceeded its read limit.'); }
@@ -26,6 +42,10 @@ final class FileType
             if (!is_string($data) || strlen($data) !== $length) { throw new Problem('File unavailable.'); }
             return $data;
         };
+    }
+
+    private static function identify(string $head, int $bytes, callable $range): string
+    {
         if (substr($head, 0, 2) === "\xff\xfe" || substr($head, 0, 2) === "\xfe\xff") {
             return self::text($head, strlen($head) === $bytes) ? 'text/plain' : self::UNKNOWN;
         }
@@ -52,7 +72,7 @@ final class FileType
             $tail = $range(max(0, $bytes - 4096), min($bytes, 4096));
             return $bytes >= 12 && strpos($tail, "\xff\xd9") !== false ? 'image/jpeg' : self::UNKNOWN;
         }
-        if (substr($head, 0, 4) === 'RIFF') {
+        if (substr($head, 0, 4) === 'RIFF' && substr($head, 8, 4) === 'WEBP') {
             if ($bytes < 30 || substr($head, 8, 4) !== 'WEBP' || self::le32($head, 4) + 8 !== $bytes) { return self::UNKNOWN; }
             return self::webp($bytes, $range) ? 'image/webp' : self::UNKNOWN;
         }
@@ -61,8 +81,8 @@ final class FileType
             $tail = $range(max(0, $bytes - 4096), min($bytes, 4096));
             return preg_match('/%%EOF[\x00\x09\x0a\x0c\x0d\x20]*$/D', $tail) ? 'application/pdf' : self::UNKNOWN;
         }
-        if (substr($head, 0, 2) === 'PK') { return self::zip($head, $bytes, $range) ? 'application/zip' : self::UNKNOWN; }
-        if (substr($head, 0, 3) === 'ID3' || (strlen($head) >= 2 && ord($head[0]) === 255 && (ord($head[1]) & 224) === 224)) {
+        if (in_array(substr($head, 0, 4), ["PK\x03\x04", "PK\x05\x06", "PK\x06\x06"], true)) { return self::zip($head, $bytes, $range) ? 'application/zip' : self::UNKNOWN; }
+        if ((strlen($head) >= 4 && substr($head, 0, 3) === 'ID3' && ord($head[3]) < 32) || (strlen($head) >= 2 && ord($head[0]) === 255 && (ord($head[1]) & 224) === 224)) {
             return self::mp3($head, $bytes, $range) ? 'audio/mpeg' : self::UNKNOWN;
         }
         if (strlen($head) >= 8 && in_array(substr($head, 4, 4), ['ftyp','free','skip','wide'], true)) {
@@ -74,6 +94,31 @@ final class FileType
     private static function le16(string $s, int $at): int { return unpack('v', substr($s, $at, 2))[1]; }
     private static function le32(string $s, int $at): int { return unpack('V', substr($s, $at, 4))[1]; }
     private static function be32(string $s, int $at): int { return unpack('N', substr($s, $at, 4))[1]; }
+
+    private static function jpegInfo(int $bytes, callable $range): ?array
+    {
+        // EXIF/ICC/comment segments may precede SOF by more than the prefix size.
+        // Skip segment bodies by length; never load their potentially large contents.
+        for ($at = 2, $markers = 0; $markers < 256 && $at + 4 <= $bytes; ++$markers) {
+            $marker = $range($at, 2);
+            if (strlen($marker) !== 2 || $marker[0] !== "\xff") { return null; }
+            $type = ord($marker[1]);
+            if ($type === 255) { ++$at; continue; } // Marker fill bytes.
+            if ($type === 0 || $type === 216 || $type === 217 || $type === 218 || ($type >= 208 && $type <= 215)) { return null; }
+            if ($type === 1) { $at += 2; continue; }
+            $length = unpack('n', $range($at + 2, 2))[1];
+            if ($length < 2 || $length > $bytes - $at - 2) { return null; }
+            if (in_array($type, [192,193,194,195,197,198,199,201,202,203,205,206,207], true)) {
+                if ($length < 11) { return null; }
+                $sof = $range($at + 4, 6);
+                $components = ord($sof[5]);
+                if ($components < 1 || $length !== 8 + 3 * $components || !in_array(ord($sof[0]), [8,12,16], true)) { return null; }
+                return [unpack('n', substr($sof, 3, 2))[1], unpack('n', substr($sof, 1, 2))[1], 'mime' => 'image/jpeg'];
+            }
+            $at += 2 + $length;
+        }
+        return null;
+    }
 
     private static function webp(int $bytes, callable $range): bool
     {
@@ -134,26 +179,28 @@ final class FileType
 
     private static function zip(string $head, int $bytes, callable $range): bool
     {
-        if ($bytes < 22 || !in_array(substr($head, 0, 4), ["PK\x03\x04", "PK\x05\x06"], true)) { return false; }
+        if ($bytes < 22 || !in_array(substr($head, 0, 4), ["PK\x03\x04", "PK\x05\x06", "PK\x06\x06"], true)) { return false; }
         $tailStart = max(0, $bytes - 65557); $tail = $range($tailStart, $bytes - $tailStart);
         // An EOCD-looking sequence in the archive comment is not necessarily the real EOCD.
         for ($at = strlen($tail) - 22; $at >= 0; --$at) {
             if (substr($tail, $at, 4) !== "PK\x05\x06" || $at + 22 + self::le16($tail, $at + 20) !== strlen($tail)) { continue; }
             if (self::le16($tail, $at + 4) !== 0 || self::le16($tail, $at + 6) !== 0) { continue; }
             $entries = self::le16($tail, $at + 10); $length = self::le32($tail, $at + 12); $offset = self::le32($tail, $at + 16);
+            $directoryEnd = $tailStart + $at;
             if (self::le16($tail, $at + 8) !== $entries) { continue; }
             if ($entries === 65535 || $length === 4294967295 || $offset === 4294967295) {
                 $locator = $range($tailStart + $at - 20, 20);
-                if (strlen($locator) !== 20 || substr($locator, 0, 4) !== "PK\x06\x07" || self::le32($locator, 4) !== 0 || self::le32($locator, 16) !== 1 || self::le32($locator, 12) !== 0) { return false; }
+                if (strlen($locator) !== 20 || substr($locator, 0, 4) !== "PK\x06\x07" || self::le32($locator, 4) !== 0 || self::le32($locator, 16) !== 1 || self::le32($locator, 12) !== 0) { continue; }
                 $recordOffset = self::le32($locator, 8); $record = $range($recordOffset, 56);
-                if (strlen($record) !== 56 || substr($record, 0, 4) !== "PK\x06\x06" || self::le32($record, 4) < 44 || self::le32($record, 8) !== 0 || self::le32($record, 16) !== 0 || self::le32($record, 20) !== 0 || self::le32($record, 36) !== 0 || self::le32($record, 44) !== 0 || self::le32($record, 52) !== 0) { return false; }
+                if (strlen($record) !== 56 || substr($record, 0, 4) !== "PK\x06\x06" || self::le32($record, 4) < 44 || self::le32($record, 8) !== 0 || self::le32($record, 16) !== 0 || self::le32($record, 20) !== 0 || self::le32($record, 36) !== 0 || self::le32($record, 44) !== 0 || self::le32($record, 52) !== 0) { continue; }
                 $entries = self::le32($record, 32); $length = self::le32($record, 40); $offset = self::le32($record, 48);
-                if (substr($record, 24, 8) !== substr($record, 32, 8) || $offset + $length > $recordOffset || $recordOffset + 12 + self::le32($record, 4) !== $tailStart + $at - 20) { return false; }
+                if (substr($record, 24, 8) !== substr($record, 32, 8) || $offset + $length > $recordOffset || $recordOffset + 12 + self::le32($record, 4) !== $tailStart + $at - 20) { continue; }
+                $directoryEnd = $recordOffset;
             }
-            if ($entries === 0) { if ($length === 0 && $offset === 0 && $tailStart + $at === 0) { return true; } continue; }
+            if ($entries === 0) { if ($length === 0 && $offset === 0 && $directoryEnd === 0) { return true; } continue; }
             if ($offset < 30 || $length < 46 || $offset + $length > $tailStart + $at) { continue; }
             $first = $range($offset, 46);
-            return substr($head, 0, 4) === "PK\x03\x04" && substr($first, 0, 4) === "PK\x01\x02";
+            if (substr($head, 0, 4) === "PK\x03\x04" && substr($first, 0, 4) === "PK\x01\x02") { return true; }
         }
         return false;
     }
@@ -224,7 +271,8 @@ final class FileType
             if ($high && $complete) { return false; }
             $s = $decoded;
         } else {
-            if (substr($s, 0, 3) === "\xef\xbb\xbf") { $s = substr($s, 3); }
+            $utf8Bom = substr($s, 0, 3) === "\xef\xbb\xbf";
+            if ($utf8Bom) { $s = substr($s, 3); }
             // A bounded probe can end inside the final UTF-8 code point.
             if (!preg_match('//u', $s)) {
                 $valid = false;
@@ -239,7 +287,13 @@ final class FileType
                         if (preg_match('//u', $tail . $padding) && preg_match('//u', substr($s, 0, -$n))) { $s = substr($s, 0, -$n); $valid = true; break; }
                     }
                 }
-                if (!$valid) { return false; }
+                if (!$valid) {
+                    // Legacy Chinese text has no reliable encoding signature. Validate byte
+                    // structure only; do not transcode or override an explicit UTF-8 BOM.
+                    $legacy = $utf8Bom ? null : self::gbText($s, $complete);
+                    if ($legacy === null) { return false; }
+                    $s = $legacy;
+                }
             }
         }
         if ($s === '' || preg_match('/[\x00-\x08\x0b\x0e-\x1f\x7f]/', $s)) { return false; }
@@ -247,5 +301,29 @@ final class FileType
         if (substr($start, 0, 2) === '#!' || substr($start, 0, 2) === 'MZ' || strpos($s, '<?') !== false || strpos($s, '<%') !== false) { return false; }
         // Never promote active markup to text/plain on a host without libmagic.
         return !preg_match('/<\s*(?:!doctype|!--|\/?(?:html|head|body|script|svg|iframe|object|embed|style|link|meta|title|div|span|p|br|h[1-6]|table|a)\b)/i', $s);
+    }
+
+    /** Preserve ASCII for active-markup checks; this is not a character-set converter. */
+    private static function gbText(string $s, bool $complete): ?string
+    {
+        $out = ''; $size = strlen($s);
+        for ($at = 0; $at < $size; ++$at) {
+            $lead = ord($s[$at]);
+            if ($lead < 128) { $out .= $s[$at]; continue; }
+            if ($lead === 128) { $out .= '?'; continue; } // Legacy GBK euro sign.
+            if ($lead < 129 || $lead > 254) { return null; }
+            if ($at + 1 >= $size) { return $complete ? null : $out; }
+            $next = ord($s[++$at]);
+            if ($next >= 64 && $next <= 254 && $next !== 127) { $out .= '?'; continue; }
+            if ($next < 48 || $next > 57) { return null; }
+            if ($at + 1 >= $size) { return $complete ? null : $out; }
+            $third = ord($s[++$at]); if ($third < 129 || $third > 254) { return null; }
+            if ($at + 1 >= $size) { return $complete ? null : $out; }
+            $fourth = ord($s[++$at]); if ($fourth < 48 || $fourth > 57) { return null; }
+            $pointer = (($lead - 129) * 10 + $next - 48) * 1260 + ($third - 129) * 10 + $fourth - 48;
+            if (($pointer > 39419 && $pointer < 189000) || $pointer > 1237575) { return null; }
+            $out .= '?';
+        }
+        return $out;
     }
 }
