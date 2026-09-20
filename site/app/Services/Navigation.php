@@ -6,6 +6,9 @@ use Chengyu\Core\{Database,Settings,Input,Problem,Icons};
 final class Navigation
 {
     public const MAX_ITEMS=500;
+    public const MAX_PREVIEW_MENUS=8;
+    public const CONTENT_ROUTES=['articles'=>'article','forum'=>'thread','shop'=>'product'];
+    public const PREVIEW_SORTS=['latest','popular','updated'];
     private Database $db; private Settings $settings; private Activity $activity;
     public function __construct(Database $db,Settings $settings,Activity $activity){$this->db=$db;$this->settings=$settings;$this->activity=$activity;}
     public function save(int $actor,array $input): int
@@ -24,13 +27,21 @@ final class Navigation
             $data=['label'=>Input::required($input['label']??'',100),'route'=>Input::choice($input['route']??'home',self::ROUTES),'icon'=>Input::choice($input['icon']??'',array_merge([''],Icons::NAMES)),
                 'url'=>Input::url($input['url']??''),'visibility'=>Input::choice($input['visibility']??'public',['public','login','vip','verified']),
                 'parent_id'=>Input::integer($input['parent_id']??0),'description'=>Input::text($input['description']??'',160),'image_id'=>Input::integer($input['image_id']??0),
-                'panel_style'=>Input::choice($input['panel_style']??'dropdown',['dropdown','columns']),'sort_order'=>Input::integer($input['sort_order']??0,0,9999),'active'=>empty($input['active'])?0:1];
+                'panel_style'=>Input::choice($input['panel_style']??'dropdown',['dropdown','columns']),'sort_order'=>Input::integer($input['sort_order']??0,0,9999),'active'=>empty($input['active'])?0:1,
+                'category_id'=>Input::integer($input['category_id']??$old['category_id']??0),'preview_count'=>Input::integer($input['preview_count']??$old['preview_count']??0,0,6),'preview_sort'=>Input::choice($input['preview_sort']??$old['preview_sort']??'latest',self::PREVIEW_SORTS)];
             if($data['route']==='external' && $data['url']===''){throw new Problem('External links require a URL.');}
+            if($data['category_id'] || $data['preview_count']){
+                $kind=self::CONTENT_ROUTES[$data['route']]??'';
+                if(!$kind){throw new Problem('Categories and content previews require an articles, forum or shop destination.');}
+                if($data['category_id'] && !$this->db->one('SELECT id FROM cy_categories WHERE id=? AND kind=?'.$this->db->lock(),[$data['category_id'],$kind])){throw new Problem('Choose a matching category.');}
+            }
             if($data['image_id']){$image=$this->db->one('SELECT mime,is_private FROM cy_media WHERE id=?'.$this->db->lock(),[$data['image_id']]);if(!$image || (int)$image['is_private'] || !in_array($image['mime'],VisualAssets::IMAGE_TYPES,true)){throw new Problem('Choose a public image.');}}
             $fingerprint=hash('sha256',json_encode($data,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR));$request=$key!==''?$actor.':'.$key:null;
             if(!$id && $request!==null){$prior=$this->db->one('SELECT id,fingerprint FROM cy_navigation WHERE request_key=?',[$request]);if($prior){if(!hash_equals($prior['fingerprint'],$fingerprint)){throw new Problem('A request key cannot be reused with different content.',409);}return (int)$prior['id'];}}
             if(!$id && count($map)>=self::MAX_ITEMS){throw new Problem('At most 500 menu entries are supported.');}
             $node=$id?:-1;$map[$node]=$data;
+            $panels=0;foreach($map as $row){if(!empty($row['active']) && !empty($row['preview_count'])){$panels++;}}
+            if($panels>self::MAX_PREVIEW_MENUS){throw new Problem('At most eight content menus can be enabled.');}
             foreach($map as $start=>$row){
                 $seen=[];$cursor=$start;
                 while($cursor){
@@ -49,12 +60,20 @@ final class Navigation
         if($user && (!empty($user['is_guest']) || ($user['status']??'active')!=='active')){$user=null;}
         $vip=$user?(new Membership($this->db))->tier($user)>0:false;$map=[];$items=[];
         foreach($this->db->all('SELECT * FROM cy_navigation ORDER BY sort_order,id LIMIT 500') as $row){$map[(int)$row['id']]=$row;}
+        $categories=[];$allowedIds=[];
+        if(array_filter(array_column($map,'category_id'))){
+            foreach($this->db->all('SELECT id,kind FROM cy_categories') as $category){$categories[(int)$category['id']]=$category['kind'];}
+            $allowedIds=array_fill_keys((new Categories($this->db,$this->settings,$this->activity))->visibleIds($user),true);
+        }
+        $staff=$user && in_array($user['role'],['admin','editor'],true);
         foreach($map as $id=>$row){
             $cursor=$id;$seen=[];$allowed=true;
             while($cursor){
                 if(isset($seen[$cursor]) || count($seen)>=3 || !isset($map[$cursor])){$allowed=false;break;}
                 $seen[$cursor]=true;$ancestor=$map[$cursor];$rule=$ancestor['visibility'];
                 if(!(int)$ancestor['active'] || !self::enabled($this->settings,$ancestor['route']) || ($rule!=='public' && !$user) || ($rule==='vip' && !$vip) || ($rule==='verified' && empty($user['verified']))){$allowed=false;break;}
+                $category=(int)$ancestor['category_id'];
+                if($category && (!isset($categories[$category]) || $categories[$category]!== (self::CONTENT_ROUTES[$ancestor['route']]??'') || (!$staff && !isset($allowedIds[$category])))){$allowed=false;break;}
                 $cursor=(int)$ancestor['parent_id'];
             }
             if(!$allowed){continue;}
@@ -63,6 +82,12 @@ final class Navigation
         $imageIds=array_values(array_unique(array_filter(array_map(static function(array $r):int{return (int)$r['image_id'];},$items))));$public=[];
         if($imageIds){foreach($this->db->all('SELECT id,mime FROM cy_media WHERE is_private=0 AND id IN ('.implode(',',array_fill(0,count($imageIds),'?')).')',$imageIds) as $image){if(in_array($image['mime'],VisualAssets::IMAGE_TYPES,true)){$public[(int)$image['id']]=true;}}}
         foreach($items as &$item){if(!isset($public[(int)$item['image_id']])){$item['image_id']=0;}}unset($item);
+        $groups=[];foreach($items as $item){
+            if(count($groups)>=self::MAX_PREVIEW_MENUS){break;}
+            if((int)$item['preview_count']>0 && isset(self::CONTENT_ROUTES[$item['route']]) && in_array($item['preview_sort'],self::PREVIEW_SORTS,true)){$groups[(int)$item['id']]=['kind'=>self::CONTENT_ROUTES[$item['route']],'category_id'=>(int)$item['category_id'],'preview_count'=>min(6,(int)$item['preview_count']),'preview_sort'=>$item['preview_sort']];}
+        }
+        $previews=(new Content($this->db,$this->settings,$this->activity))->menuPreviews($groups,$user);
+        foreach($items as &$item){$item['previews']=$previews[(int)$item['id']]??[];}unset($item);
         return $items;
     }
     public static function tree(array $rows): array

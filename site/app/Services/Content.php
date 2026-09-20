@@ -39,22 +39,52 @@ final class Content
         if ($item['access_level'] === 'reply') { return (bool)$this->db->one('SELECT id FROM cy_comments WHERE user_id=? AND content_id=? AND status=?', [(int)$user['id'], (int)$item['id'], 'approved']); }
         return false;
     }
-    public function feed(string $kind, ?array $user, array $filters = []): array
+    /** Shared publication, module and inherited-category policy for lists and menus. */
+    private function publishedCriteria(string $kind, ?array $user, ?array $visibleIds=null): array
     {
         Input::choice($kind, ['article', 'thread', 'product', 'all']);
         $where = ['c.status=?', 'c.publish_at<=?']; $params = ['published', time()];
-        if ($kind !== 'all') { if (!$this->settings->enabled(['article'=>'articles','thread'=>'forum','product'=>'shop'][$kind])) { return ['items'=>[], 'total'=>0, 'page'=>1, 'pages'=>1]; } $where[] = 'c.kind=?'; $params[] = $kind; }
+        if ($kind !== 'all') { if (!$this->settings->enabled(['article'=>'articles','thread'=>'forum','product'=>'shop'][$kind])) { return [['1=0'],[]]; } $where[] = 'c.kind=?'; $params[] = $kind; }
         else {
             $kinds = [];
             foreach (['article' => 'articles', 'thread' => 'forum', 'product' => 'shop'] as $k => $module) { if ($this->settings->enabled($module)) { $kinds[] = $k; } }
-            if (!$kinds) { return ['items' => [], 'total' => 0, 'page' => 1, 'pages' => 1]; }
+            if (!$kinds) { return [['1=0'],[]]; }
             $where[] = 'c.kind IN (' . implode(',', array_fill(0, count($kinds), '?')) . ')'; $params = array_merge($params, $kinds);
         }
         if (!$user || !in_array($user['role'], ['admin', 'editor'], true)) {
-            $ids=(new Categories($this->db,$this->settings,$this->activity))->visibleIds($user);
+            $ids=$visibleIds??(new Categories($this->db,$this->settings,$this->activity))->visibleIds($user);
             $where[]='c.category_id IN ('.implode(',',array_fill(0,count($ids),'?')).')';
             $params=array_merge($params,$ids);
         }
+        return [$where,$params];
+    }
+    /** Bounded metadata-only previews; one policy snapshot and no COUNT or body reads. */
+    public function menuPreviews(array $groups, ?array $user): array
+    {
+        if(count($groups)>Navigation::MAX_PREVIEW_MENUS){throw new Problem('At most eight content menus can be enabled.');}
+        if(!$groups){return [];}
+        $ids=(new Categories($this->db,$this->settings,$this->activity))->visibleIds($user);
+        $buckets=[];$items=[];$cache=[];
+        foreach($groups as $key=>$group){
+            $kind=Input::choice($group['kind']??'',['article','thread','product']);
+            $category=Input::integer($group['category_id']??0);$count=Input::integer($group['preview_count']??0,1,6);
+            $sort=Input::choice($group['preview_sort']??'latest',Navigation::PREVIEW_SORTS);$signature=$kind.':'.$category.':'.$sort.':'.$count;
+            if(isset($cache[$signature])){$buckets[$key]=$cache[$signature];continue;}
+            [$where,$params]=$this->publishedCriteria($kind,$user,$ids);
+            if($category){$where[]='c.category_id=?';$params[]=$category;}
+            $order=['latest'=>'c.pinned DESC,c.created_at DESC,c.id DESC','popular'=>'c.pinned DESC,c.view_count DESC,c.id DESC','updated'=>'c.updated_at DESC,c.id DESC'][$sort];
+            $fields='c.id,c.kind,c.title,c.category_id,c.cover_id,c.cover_art,c.access_level,c.created_at,c.edit_version';
+            $rows=$this->db->all('SELECT '.$fields.' FROM cy_contents c JOIN cy_users u ON u.id=c.author_id WHERE '.implode(' AND ',$where).' ORDER BY '.$order.' LIMIT ?',array_merge($params,[$count]));
+            $buckets[$key]=[];foreach($rows as $row){$id=(int)$row['id'];$items[$id]=$row;$buckets[$key][]=$id;}$cache[$signature]=$buckets[$key];
+        }
+        $public=ArticleImages::publicMap($this->db,array_column($items,'cover_id'));
+        $translated=Translations::apply($this->db,array_values($items),\Chengyu\Core\Locale::current());$items=[];
+        foreach($translated as $row){if(!isset($public[(int)$row['cover_id']])){$row['cover_id']=0;}$items[(int)$row['id']]=$row;}
+        $result=[];foreach($buckets as $key=>$bucket){$result[$key]=array_map(static function(int $id)use($items):array{return $items[$id];},$bucket);}return $result;
+    }
+    public function feed(string $kind, ?array $user, array $filters = []): array
+    {
+        [$where,$params]=$this->publishedCriteria($kind,$user);
         if (!empty($filters['category']) || !empty($filters['category_exact'])) { $where[] = 'c.category_id=?'; $params[] = Input::integer($filters['category']); }
         if (!empty($filters['collection'])) { $where[] = 'EXISTS(SELECT 1 FROM cy_collection_items ci WHERE ci.collection_id=? AND ci.content_id=c.id)'; $params[] = Input::integer($filters['collection'],1); }
         if (!empty($filters['author'])) { $where[] = 'c.author_id=?'; $params[] = Input::integer($filters['author']); }

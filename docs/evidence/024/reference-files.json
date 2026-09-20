@@ -1,0 +1,162 @@
+{
+  "date": "2026-09-21",
+  "scope": "Selected files read wholly or in relevant sections; hashes identify files, not a claim of full-file or full-theme security audit. No reference source is distributed.",
+  "files": [
+    {
+      "reference": "zibll8.9开心版/zibll",
+      "file": "header.php",
+      "bytes": 1164,
+      "sha256": "194afceaf90f6c63a1d3346abbcdff8085b786e3d0bd2e197dbd4444b7291de3"
+    },
+    {
+      "reference": "zibll8.9开心版/zibll",
+      "file": "inc/functions/zib-header.php",
+      "bytes": 38589,
+      "sha256": "4013c2bc864231eec0890803cf2bf84776ab8f35d43965655d76e20c6cd42b0e"
+    },
+    {
+      "reference": "zibll8.9开心版/zibll",
+      "file": "inc/functions/zib-posts-list.php",
+      "bytes": 34254,
+      "sha256": "d71844d6f91c391d16a12f937ff31547fcaaa8c7e8061a8ff2260b15049d1ba0"
+    },
+    {
+      "reference": "zibll8.9开心版/zibll",
+      "file": "inc/widgets/widget-user.php",
+      "bytes": 24634,
+      "sha256": "8f56d3df2aaf4d61ac0fa97ea45c564af5e0976e452fd7f4270b2482e897b5f0"
+    },
+    {
+      "reference": "zibll8.9开心版/zibll",
+      "file": "css/main.css",
+      "bytes": 288362,
+      "sha256": "eb9798df0da2a1956179db8af67618c76b15ba63c10b821183cc2fcd409055d1"
+    },
+    {
+      "reference": "RiProV5子主题/Shane",
+      "file": "header.php",
+      "bytes": 776,
+      "sha256": "76f0dbf6f7aea0350f101998c1e826eafa9e509d95df15192deadcfc1461e973"
+    },
+    {
+      "reference": "RiProV5子主题/Shane",
+      "file": "template-parts/header/menu.php",
+      "bytes": 3144,
+      "sha256": "5f4eddddd3d07ceb680174d847028d6a32941eb3fad803adb78d6b4013077945"
+    },
+    {
+      "reference": "RiProV5子主题/Shane",
+      "file": "template-parts/header/action-hover.php",
+      "bytes": 5801,
+      "sha256": "afb767051dc92563cd6d564b7828cf497454753b8bcee22d2f30079229e02d0d"
+    },
+    {
+      "reference": "RiProV5子主题/Shane",
+      "file": "inc/gadgets/home/home-slideer.php",
+      "bytes": 8680,
+      "sha256": "342ff09fc0fa9a8a58210f1e086f80ba30b61917be479e98955f53515d3fe5ba"
+    },
+    {
+      "reference": "RiProV5子主题/Shane",
+      "file": "template-parts/loop/entry-meta-part.php",
+      "bytes": 1148,
+      "sha256": "1942c7be3e8ca18406942a9082ebbd4836ef73a83f0119c2fbf0afe5604fece2"
+    },
+    {
+      "reference": "RiProV5子主题/Shane",
+      "file": "template-parts/single/post-content-new.php",
+      "bytes": 2626,
+      "sha256": "d328adf3f076d4ccc64a187f93980db041d9e3af95ff0f173fcfdae6ec081880"
+    },
+    {
+      "reference": "RiProV5子主题/Shane",
+      "file": "assets/css/shane_home.css",
+      "bytes": 713,
+      "sha256": "6f37f8f1441696c4bded4ed0d31e484e95444837cc2971b6b6be859f8a249e93"
+    },
+    {
+      "reference": "Justnews主题6.16.7开心版+问答社区+用户中心高级版插件/justnews",
+      "file": "header.php",
+      "bytes": 4962,
+      "sha256": "f9a394d0c3c7c17816df485d399a331274ea53e5d6d5e5c71dc558a650e5dc93"
+    },
+    {
+      "reference": "Justnews主题6.16.7开心版+问答社区+用户中心高级版插件/justnews",
+      "file": "templates/loop-list.php",
+      "bytes": 253,
+      "sha256": "e58ee6eae2d68ab33b4de0cf9dec0831f023c8b18299effe5cfac206e0576285"
+    },
+    {
+      "reference": "Justnews主题6.16.7开心版+问答社区+用户中心高级版插件/justnews",
+      "file": "modules/category-posts.php",
+      "bytes": 7315,
+      "sha256": "1b4493c779b5bff8723dbbe643fc40345675c52e9478fed0d60d001a5ba8200d"
+    },
+    {
+      "reference": "Justnews主题6.16.7开心版+问答社区+用户中心高级版插件/justnews",
+      "file": "modules/main-list.php",
+      "bytes": 8656,
+      "sha256": "2ec0c0ff4d6629a23633e750ba2fa471a5fa104b16c373117e5b08acff7b3f4e"
+    },
+    {
+      "reference": "Justnews主题6.16.7开心版+问答社区+用户中心高级版插件/justnews",
+      "file": "widgets/post-tabs.php",
+      "bytes": 6600,
+      "sha256": "08371cbe1fc73e9a39d251583ed926564221a35ffe880bf8831bd82446573436"
+    },
+    {
+      "reference": "Justnews主题6.16.7开心版+问答社区+用户中心高级版插件/justnews",
+      "file": "themer/functions/nav-walker.php",
+      "bytes": 13244,
+      "sha256": "7d08df50cb38472bb9bb50369227fe7827389d3fadecec7a203da329f71adee4"
+    },
+    {
+      "reference": "7B2 PRO主题5.4.2 WordPress主题",
+      "file": "header.php",
+      "bytes": 1494,
+      "sha256": "4f75927763f4e3015529f3f7291f3fe8ecbbe47dfe9f932db60bde96720efb6b"
+    },
+    {
+      "reference": "7B2 PRO主题5.4.2 WordPress主题",
+      "file": "Modules/Templates/Menu.php",
+      "bytes": 13384,
+      "sha256": "ab13d9b9b65edcbb9334626020cf302b76683af8df2f9b400a5f744b73dfa3cb"
+    },
+    {
+      "reference": "7B2 PRO主题5.4.2 WordPress主题",
+      "file": "Modules/Settings/Menu.php",
+      "bytes": 3160,
+      "sha256": "a65949e7542fc4ba99809b430b177f6d75bb0403382dfc1244daddd12d39ec7c"
+    },
+    {
+      "reference": "7B2 PRO主题5.4.2 WordPress主题",
+      "file": "Modules/Templates/Modules/Posts.php",
+      "bytes": 63174,
+      "sha256": "8b63735ea9a3bc0b65b08a22c5b55507016a58acc97cd5e7a0ed00da320acf9b"
+    },
+    {
+      "reference": "7B2 PRO主题5.4.2 WordPress主题",
+      "file": "TempParts/Document/item-normal.php",
+      "bytes": 636,
+      "sha256": "32eb6dab984f83dff15e79238200e4598147d649ce1ae793d112b13c0585761d"
+    },
+    {
+      "reference": "7B2 PRO主题5.4.2 WordPress主题",
+      "file": "Modules/Settings/Document.php",
+      "bytes": 23068,
+      "sha256": "296402a89fe8451d48ab8deafd28b4b8ccfcf818421f0ca8ad7b72d7ad9c349b"
+    },
+    {
+      "reference": "7B2 PRO主题5.4.2 WordPress主题",
+      "file": "Modules/Templates/Widgets/Author.php",
+      "bytes": 9054,
+      "sha256": "f07598f458d8e80e86d4dd3e8e4c9627b652e884680d548e54ccd3c6acc889b8"
+    },
+    {
+      "reference": "7B2 PRO主题5.4.2 WordPress主题",
+      "file": "Assets/fontend/style.css",
+      "bytes": 319409,
+      "sha256": "6cf913c0926d8df71edf086f2ea907c81161a8c887cbdba320a853e9214f9159"
+    }
+  ]
+}

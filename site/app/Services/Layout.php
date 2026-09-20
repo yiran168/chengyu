@@ -6,7 +6,7 @@ use Chengyu\Core\{Database,Input,Problem};
 final class Layout
 {
     public const TYPES=['heading','text','content','collection','cta','stats','links','spacer','hero','faq','media','features','tabs','gallery','timeline','categories','plans','titles','noticeboard','creators','slider','buttons'];
-    public const ITEM_TYPES=['features','tabs','gallery','timeline','slider','buttons'];
+    public const ITEM_TYPES=['features','tabs','gallery','timeline','slider','buttons','faq'];
     public const SYMBOLS=\Chengyu\Core\Icons::NAMES;
     public const PAGES=['page1','page2','page3','page4','page5','page6','page7','page8','page9','page10','page11','page12'];
     public const SLOTS=['home','articles','forum','shop','global_before','global_after','article_before','article_after','page_before','page_after','page1','page2','page3','page4','page5','page6','page7','page8','page9','page10','page11','page12'];
@@ -16,6 +16,17 @@ final class Layout
     {
         Input::choice($slot,self::SLOTS);$row=$this->db->one('SELECT * FROM cy_layouts WHERE slot=?',[$slot]);
         return ['revision'=>$row?(int)$row['revision']:0,'document'=>$row?json_decode($row['document'],true,32,JSON_THROW_ON_ERROR):['format'=>'chengyu-layout','version'=>1,'blocks'=>[]]];
+    }
+    /** Keep existing pipe-separated FAQs readable; new entries support multiline Markdown. */
+    public static function faqEntries(array $block): array
+    {
+        $items=[];
+        foreach(array_slice(preg_split('/\r?\n/',(string)($block['text']??''))?:[],0,20) as $line){
+            $parts=explode('|',$line,2);
+            if(count($parts)===2 && trim($parts[0])!=='' && trim($parts[1])!==''){$items[]=['title'=>trim($parts[0]),'text'=>trim($parts[1])];}
+        }
+        foreach(array_slice($block['items']??[],0,12) as $entry){$items[]=['title'=>$entry['title'],'text'=>$entry['text']];}
+        return $items;
     }
     public function validate(string $json):array
     {
@@ -32,6 +43,7 @@ final class Layout
             if(!is_array($items) || count($items)>12){throw new Problem('Maximum 12 entries per block.');}
             $entries=[];foreach($items as $entry){
                 if(!is_array($entry)){throw new Problem('Invalid block entry.');}
+                if(($b['type']??'')==='faq' && Input::text($entry['text']??'',2000)===''){throw new Problem('Write an answer for every FAQ question.');}
                 $entries[]=['title'=>Input::required($entry['title']??'',120),'text'=>Input::text($entry['text']??'',2000),'icon'=>Input::choice($entry['icon']??'sparkles',self::SYMBOLS),'media_id'=>Input::integer($entry['media_id']??0),'mobile_media_id'=>Input::integer($entry['mobile_media_id']??0),'url'=>Input::url($entry['url']??'')];
             }
             $blocks[]=['id'=>$id,'type'=>Input::choice($b['type']??'',self::TYPES),'enabled'=>($b['enabled']??true)?true:false,'autoplay'=>$b['autoplay']??false,'interval'=>Input::integer($b['interval']??6,3,20),

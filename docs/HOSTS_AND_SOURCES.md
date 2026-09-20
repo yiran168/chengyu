@@ -45,3 +45,11 @@
 ## 2026-09-13 再次核对
 
 本轮再次取得蓝队云官方免费主机FAQ并按Windows、FTP/wwwroot、无SSH及不能升级环境的条件检查交付结构；没有用付费套餐页面代替免费套餐配额。萌哒云仍按用户截图记录，实际账号扩展、TLS和目录保护未核验。参考页面及本轮检索状态见 [三主题与主机记录](REFERENCE_022.md)。
+
+## 2026-09-21 再次核对与用户实测信息
+
+重新查询[蓝队云官方免费主机FAQ](https://www.landui.com/help/show-12693.html)。其中免费Windows环境不可自行升级、数据库使用localhost/127.0.0.1；以具体账户面板和安装检测为准，不能用其他营销页替代套餐能力。
+
+用户随后提供的萌哒云安装检测文字为PHP8.2.31，PDO mysql/sqlite，OpenSSL通过，Fileinfo缺失；memory_limit128M、post_max_size50M、upload_max_filesize50M、file_uploads开启、max_execution_time300、max_input_time60、max_input_vars1000。它比早期截图中的PHP7.4选择更新，但仍是用户提供的检测结果，非本地代理登录账户验证。项目自0.23.2起不要求Fileinfo，0.24的内容菜单、FAQ和图片图标也不增加扩展依赖。
+
+本版菜单内容查询最多8组、每组6条，相同配置请求内复用；没有运行期远程生成、全库正文读取或新常驻进程。安装器仍会检查必须的PDO/OpenSSL、可写目录等实际能力；语言兼容不能替代IIS/Nginx目录保护、主机账户配额与外部网络验收。

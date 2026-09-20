@@ -1,0 +1,142 @@
+[
+  {
+    "minor": "7.4",
+    "state": "present",
+    "php": "7.4.33",
+    "adapter": "pdo_sqlite",
+    "total": 761,
+    "passed": 761,
+    "failed": 0,
+    "fileinfo_loaded": true
+  },
+  {
+    "minor": "7.4",
+    "state": "absent",
+    "php": "7.4.33",
+    "adapter": "pdo_sqlite",
+    "total": 761,
+    "passed": 761,
+    "failed": 0,
+    "fileinfo_loaded": false
+  },
+  {
+    "minor": "8.0",
+    "state": "present",
+    "php": "8.0.30",
+    "adapter": "pdo_sqlite",
+    "total": 761,
+    "passed": 761,
+    "failed": 0,
+    "fileinfo_loaded": true
+  },
+  {
+    "minor": "8.0",
+    "state": "absent",
+    "php": "8.0.30",
+    "adapter": "pdo_sqlite",
+    "total": 761,
+    "passed": 761,
+    "failed": 0,
+    "fileinfo_loaded": false
+  },
+  {
+    "minor": "8.1",
+    "state": "present",
+    "php": "8.1.34",
+    "adapter": "pdo_sqlite",
+    "total": 761,
+    "passed": 761,
+    "failed": 0,
+    "fileinfo_loaded": true
+  },
+  {
+    "minor": "8.1",
+    "state": "absent",
+    "php": "8.1.34",
+    "adapter": "pdo_sqlite",
+    "total": 761,
+    "passed": 761,
+    "failed": 0,
+    "fileinfo_loaded": false
+  },
+  {
+    "minor": "8.2",
+    "state": "present",
+    "php": "8.2.33",
+    "adapter": "pdo_sqlite",
+    "total": 761,
+    "passed": 761,
+    "failed": 0,
+    "fileinfo_loaded": true
+  },
+  {
+    "minor": "8.2",
+    "state": "absent",
+    "php": "8.2.33",
+    "adapter": "pdo_sqlite",
+    "total": 761,
+    "passed": 761,
+    "failed": 0,
+    "fileinfo_loaded": false
+  },
+  {
+    "minor": "8.3",
+    "state": "present",
+    "php": "8.3.33",
+    "adapter": "pdo_sqlite",
+    "total": 761,
+    "passed": 761,
+    "failed": 0,
+    "fileinfo_loaded": true
+  },
+  {
+    "minor": "8.3",
+    "state": "absent",
+    "php": "8.3.33",
+    "adapter": "pdo_sqlite",
+    "total": 761,
+    "passed": 761,
+    "failed": 0,
+    "fileinfo_loaded": false
+  },
+  {
+    "minor": "8.4",
+    "state": "present",
+    "php": "8.4.25",
+    "adapter": "pdo_sqlite",
+    "total": 761,
+    "passed": 761,
+    "failed": 0,
+    "fileinfo_loaded": true
+  },
+  {
+    "minor": "8.4",
+    "state": "absent",
+    "php": "8.4.25",
+    "adapter": "pdo_sqlite",
+    "total": 761,
+    "passed": 761,
+    "failed": 0,
+    "fileinfo_loaded": false
+  },
+  {
+    "minor": "8.5",
+    "state": "present",
+    "php": "8.5.10",
+    "adapter": "pdo_sqlite",
+    "total": 761,
+    "passed": 761,
+    "failed": 0,
+    "fileinfo_loaded": true
+  },
+  {
+    "minor": "8.5",
+    "state": "absent",
+    "php": "8.5.10",
+    "adapter": "pdo_sqlite",
+    "total": 761,
+    "passed": 761,
+    "failed": 0,
+    "fileinfo_loaded": false
+  }
+]

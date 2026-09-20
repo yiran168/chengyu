@@ -5,7 +5,7 @@ namespace Chengyu\Core;
 /** Additive and restartable upgrades. Never execute a migration received over HTTP. */
 final class Migrations
 {
-    public const VERSION = 15;
+    public const VERSION = 16;
     public static function version(Database $db): int
     {
         return (int)$db->value('SELECT value FROM cy_settings WHERE name=?', ['_schema_version']);
@@ -35,6 +35,7 @@ final class Migrations
             if (self::version($db) < 13) { Migration021::up($db); }
             if (self::version($db) < 14) { Migration022::up($db); }
             if (self::version($db) < 15) { Migration023::up($db); }
+            if (self::version($db) < 16) { Migration024::up($db); }
             $db->transaction(static function () use ($db): void {
                 if ($db->one('SELECT name FROM cy_settings WHERE name=?', ['_schema_version'])) {
                     $db->execute('UPDATE cy_settings SET value=? WHERE name=?', [(string)self::VERSION, '_schema_version']);

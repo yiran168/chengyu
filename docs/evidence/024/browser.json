@@ -1,0 +1,161 @@
+{
+  "total": 38,
+  "passed": 38,
+  "failed": 0,
+  "tests": [
+    {
+      "test": "GET /admin/",
+      "ok": true
+    },
+    {
+      "test": "GET /admin/index.php?tab=navigation",
+      "ok": true
+    },
+    {
+      "test": "category selector has actual article categories",
+      "ok": true
+    },
+    {
+      "test": "backend persists source category",
+      "ok": true
+    },
+    {
+      "test": "menu editor mobile has no overflow",
+      "ok": true
+    },
+    {
+      "test": "GET /",
+      "ok": true
+    },
+    {
+      "test": "menu contains actual article previews",
+      "ok": true
+    },
+    {
+      "test": "open menu no overflow 1100",
+      "ok": true
+    },
+    {
+      "test": "open menu stays inside viewport 1100",
+      "ok": true
+    },
+    {
+      "test": "open menu no overflow 1280",
+      "ok": true
+    },
+    {
+      "test": "open menu stays inside viewport 1280",
+      "ok": true
+    },
+    {
+      "test": "open menu no overflow 1440",
+      "ok": true
+    },
+    {
+      "test": "open menu stays inside viewport 1440",
+      "ok": true
+    },
+    {
+      "test": "Escape returns focus to summary",
+      "ok": true
+    },
+    {
+      "test": "mobile preview is visible",
+      "ok": true
+    },
+    {
+      "test": "mobile menu no overflow",
+      "ok": true
+    },
+    {
+      "test": "GET /admin/index.php?tab=builder&slot=page10",
+      "ok": true
+    },
+    {
+      "test": "FAQ can reorder real entries",
+      "ok": true
+    },
+    {
+      "test": "entry add button fits its complete label",
+      "ok": true
+    },
+    {
+      "test": "duplicate receives a unique block ID",
+      "ok": true
+    },
+    {
+      "test": "block reorder updates document",
+      "ok": true
+    },
+    {
+      "test": "GET /index.php?r=landing&slot=page10",
+      "ok": true
+    },
+    {
+      "test": "saved draft is not public",
+      "ok": true
+    },
+    {
+      "test": "GET /admin/index.php?tab=builder&slot=page10",
+      "ok": true
+    },
+    {
+      "test": "draft restores block order and every submitted field",
+      "ok": true
+    },
+    {
+      "test": "GET /index.php?r=landing&slot=page10",
+      "ok": true
+    },
+    {
+      "test": "FAQ answer expands",
+      "ok": true
+    },
+    {
+      "test": "FAQ reordered publication retained",
+      "ok": true
+    },
+    {
+      "test": "published ordinary block renders and removed duplicate stays absent",
+      "ok": true
+    },
+    {
+      "test": "FAQ no overflow 320",
+      "ok": true
+    },
+    {
+      "test": "FAQ no overflow 390",
+      "ok": true
+    },
+    {
+      "test": "FAQ no overflow 768",
+      "ok": true
+    },
+    {
+      "test": "FAQ no overflow 1440",
+      "ok": true
+    },
+    {
+      "test": "no-JavaScript content menu remains operable",
+      "ok": true
+    },
+    {
+      "test": "no-JavaScript FAQ remains operable",
+      "ok": true
+    },
+    {
+      "test": "GET /",
+      "ok": true
+    },
+    {
+      "test": "reduced-motion menu has no entrance animation",
+      "ok": true
+    },
+    {
+      "test": "no uncaught browser errors",
+      "ok": true
+    }
+  ],
+  "browser_errors": [],
+  "scope": "Real localhost PHP 8.2 / native SQLite, new 0.24 menu and FAQ paths only"
+}

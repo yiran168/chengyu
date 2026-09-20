@@ -81,7 +81,7 @@ try:
         check('home sorting keeps the selected category','sort=popular' in page.url and 'category=' in page.url)
         page.set_viewport_size({'width':1440,'height':1000});login()
         go('/admin/index.php?tab=visuals&slot=icon:compass')
-        check('visual studio renders all icon choices',page.locator('.symbol-grid .visual-tile').count()==81)
+        check('visual studio renders all icon choices',page.locator('.symbol-grid .visual-tile').count()==83)
         page.locator('[data-visual-search]').fill('anime-')
         check('visual icon search filters without losing choices',page.locator('.symbol-grid .visual-tile:visible').count()==8)
         page.locator('[data-visual-search]').fill('')

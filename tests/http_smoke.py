@@ -159,6 +159,7 @@ try:
     exec(compile((ROOT/'tests/http_0232.py').read_text(encoding='utf-8'),str(ROOT/'tests/http_0232.py'),'exec'))
     exec(compile((ROOT/'tests/http_0233.py').read_text(encoding='utf-8'),str(ROOT/'tests/http_0233.py'),'exec'))
     exec(compile((ROOT/'tests/http_0234.py').read_text(encoding='utf-8'),str(ROOT/'tests/http_0234.py'),'exec'))
+    exec(compile((ROOT/'tests/http_024.py').read_text(encoding='utf-8'),str(ROOT/'tests/http_024.py'),'exec'))
     expect_post(user,'logout')
     check('logout clears authenticated route','r=login' in user.get(base+'/index.php?r=profile').url)
     # Only expected user-error responses may be in app log; no internal runtime errors.

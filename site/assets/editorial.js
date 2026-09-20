@@ -1,12 +1,27 @@
 (() => {
   'use strict';
+  const fitPanel = branch => {
+    if (branch.parentElement?.classList.contains('desktop-nav') !== true) return;
+    const panel = branch.querySelector(':scope > .site-nav-panel');
+    if (!panel) return;
+    panel.style.marginLeft = '0px';
+    const bounds = panel.getBoundingClientRect(), width = document.documentElement.clientWidth;
+    const shift = bounds.right > width - 16 ? width - 16 - bounds.right : (bounds.left < 16 ? 16 - bounds.left : 0);
+    panel.style.marginLeft = `${shift}px`;
+  };
   document.addEventListener('toggle', event => {
     const branch = event.target;
     if (!(branch instanceof HTMLDetailsElement) || !branch.open || !branch.classList.contains('site-nav-branch')) return;
     for (const other of branch.parentElement.children) {
       if (other !== branch && other.matches('details.site-nav-branch[open]')) other.open = false;
     }
+    fitPanel(branch);
   }, true);
+  let resizeFrame;
+  window.addEventListener('resize', () => {
+    cancelAnimationFrame(resizeFrame);
+    resizeFrame = requestAnimationFrame(() => document.querySelectorAll('.desktop-nav > details[open]').forEach(fitPanel));
+  }, { passive: true });
   document.addEventListener('click', event => {
     if (!event.target.closest('.desktop-nav')) document.querySelectorAll('.desktop-nav details[open]').forEach(node => { node.open = false; });
     const trigger = event.target.closest('[data-insert-image]');

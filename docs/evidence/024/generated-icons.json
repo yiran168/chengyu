@@ -1,0 +1,32 @@
+[
+  {
+    "file": "site/assets/art/icon-reading.webp",
+    "sha256": "eb190cf19c2f6ea6384abd9d0f49a169dc8259b574b455b8a8afcdb2510561af",
+    "bytes": 77358,
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "alpha": true,
+    "generator": "image_gen tool, separate original generation per asset",
+    "prompt_summary": "Original open cream book with teal details, Japanese animation prop style, clean silhouette, transparent background, no lettering or existing character.",
+    "processing": "PNG to WebP, Pillow quality 85 / method 6; no drawing, crop or reference-theme asset reuse",
+    "original_sha256": "30607fa84e9122931070bdbd4c59b225dfc655539b3ea9862b882c5563c5cbec",
+    "original_project_path": ".work/art024/reading-source.png"
+  },
+  {
+    "file": "site/assets/art/icon-support.webp",
+    "sha256": "e2e771f7c501edf2eaa53dd4023643ac284bac648572ffda17a84329dba01d97",
+    "bytes": 95344,
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "alpha": true,
+    "generator": "image_gen tool, separate original generation per asset",
+    "prompt_summary": "Original indigo and orange support headset with microphone, Japanese animation prop style, clean silhouette, transparent background, no lettering or existing character.",
+    "processing": "PNG to WebP, Pillow quality 85 / method 6; no drawing, crop or reference-theme asset reuse",
+    "original_sha256": "f0fc3c73105e3688d5a79c33eaa808c4aa63cab6b669f5bb3fcc4fd25aebb151",
+    "original_project_path": ".work/art024/support-source.png"
+  }
+]

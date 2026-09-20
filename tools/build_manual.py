@@ -50,6 +50,7 @@ manual_parts.extend([('docs/PLATFORM_022.md','0.22 分层导航与文章图片')
 manual_parts.extend([('docs/PLATFORM_023.md','0.23 图片选择与复用'),('docs/REFERENCE_023.md','0.23 三主题素材配置再读')])
 renderer = MarkdownIt("commonmark", {"html": False}).enable("table")
 manual_parts.append(('docs/FILE_TYPES.md','无需 Fileinfo 的上传与安装补丁'))
+manual_parts.extend([('docs/PLATFORM_024.md','0.24 内容菜单与FAQ'),('docs/REFERENCE_024.md','四主题源码再次对照')])
 nav = []
 articles = []
 for n, (rel, title) in enumerate(manual_parts, 1):
@@ -185,7 +186,7 @@ footer{max-width:1240px;margin:25px auto 50px;padding:0 24px;font-size:13px;colo
 <main><section class="overview"><p class="eyebrow">BEFORE YOU DEPLOY</p><h2>新站与旧站，走不同的安装路径。</h2>
 <p>新站只上传 <code>site/</code>；已有站点先备份，按旧站升级说明保留配置密钥、数据库与存储。根目录部署的后台入口为 <code>/admin</code>。</p>
 <p class="note"><strong>不要上传完整交付目录或 INSTALL_KEY.txt。</strong> 本包含真实业务代码，但不等于全部历史子比模块已完成，也没有把未测试的 PHP 版本、原生数据库或真实商户标成通过。</p>
-<div class="quicklinks"><a href="#chapter-38">0.23 新功能</a><a href="#chapter-39">三主题对照</a><a href="#chapter-33">0.20 模块</a><a href="#chapter-31">0.19 模块</a><a href="#chapter-27">上线验收</a><a href="#chapter-28">历史对照</a><a href="#chapter-22">交易</a><a href="#chapter-23">媒体</a><a href="#chapter-2">新站安装</a><a href="#chapter-3">旧站升级</a><a href="#chapter-5">动效与曲线</a><a href="#chapter-21">连接与运营</a><a href="#chapter-20">安全与定价</a><a href="#chapter-11">缺漏清单</a><a href="#chapter-12">测试证据</a></div></section>
+<div class="quicklinks"><a href="#chapter-41">0.24 新功能</a><a href="#chapter-42">四主题对照</a><a href="#chapter-33">0.20 模块</a><a href="#chapter-31">0.19 模块</a><a href="#chapter-27">上线验收</a><a href="#chapter-28">历史对照</a><a href="#chapter-22">交易</a><a href="#chapter-23">媒体</a><a href="#chapter-2">新站安装</a><a href="#chapter-3">旧站升级</a><a href="#chapter-5">动效与曲线</a><a href="#chapter-21">连接与运营</a><a href="#chapter-20">安全与定价</a><a href="#chapter-11">缺漏清单</a><a href="#chapter-12">测试证据</a></div></section>
 {''.join(articles)}
 <article id="previews" class="chapter"><p class="eyebrow">ACTUAL APPLICATION PREVIEWS</p><h2>页面预览与历史记录</h2><p>最近一次完整浏览器验证版本为 {release.get("browser_baseline_version", release_version)}，通过 {release["browser_tests"]} 项检查。预览按文件名前缀保留各版本的原始记录，标记 023 的图片属于 0.23.0。页面由本项目临时站点生成并在 Chromium 渲染。点击查看原图，截图来自原创示例数据，不是生产数据或概念海报。</p><div class="gallery">{gallery}</div></article>
 </main></div><footer>澄屿 {release_version} · 本说明与分篇 Markdown 同步生成。离线使用时保持 docs/previews 相对目录不变。代码许可见 LICENSE。</footer></body></html>"""

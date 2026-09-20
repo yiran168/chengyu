@@ -5,7 +5,7 @@ use Chengyu\Core\{Database, Settings, Crypto, Security, Problem};
 use Chengyu\Services\{Activity, Wallet, Auth, Commerce, Payment, Content, Media, Mailer, Admin};
 final class App
 {
-    public const VERSION = '0.23.3';
+    public const VERSION = '0.24.0';
     public array $config; public Database $db; public Crypto $crypto; public Settings $settings;
     public Activity $activity; public Wallet $wallet; public Auth $auth; public Commerce $commerce;
     public Payment $payment; public Content $content; public Media $media; public Mailer $mailer; public Admin $admin;
@@ -133,7 +133,7 @@ final class App
     public function navigation(): array
     {
         return (new \Chengyu\Services\Navigation($this->db,$this->settings,$this->activity))->visible($this->auth->user(),function(array $item):string{
-            return $item['route']==='external'?$item['url']:$this->url($item['route']);
+            return $item['route']==='external'?$item['url']:$this->url($item['route'],!empty($item['category_id'])?['category'=>(int)$item['category_id']]:[]);
         });
     }
 }

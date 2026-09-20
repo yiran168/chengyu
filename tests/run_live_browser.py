@@ -2,7 +2,7 @@
 Requires a local Chromium, Playwright, requests and PHP; never uses production.
 """
 from pathlib import Path
-import json,os,secrets,shutil,socket,subprocess,tempfile,time
+import json,os,secrets,shutil,socket,subprocess,tempfile,time,sys
 import requests
 ROOT=Path(__file__).resolve().parents[1]
 if (ROOT/'site/app/config.php').exists():raise SystemExit('Refusing an installed source tree')
@@ -20,7 +20,9 @@ with tempfile.TemporaryDirectory(prefix='chengyu-live-') as directory:
             for _ in range(100):
                 try:requests.get(base,timeout=.3).raise_for_status();break
                 except requests.RequestException:time.sleep(.05)
-            result=subprocess.run(['python',str(ROOT/'tests/browser_live.py')],env=env)
+            suite=os.environ.get('CY_BROWSER_SUITE','browser_live.py')
+            if suite not in ['browser_live.py','browser_024.py']:raise ValueError('Unknown browser suite')
+            result=subprocess.run([sys.executable,str(ROOT/'tests'/suite)],env=env)
             code=result.returncode
         finally:
             server.terminate();server.wait(timeout=5)

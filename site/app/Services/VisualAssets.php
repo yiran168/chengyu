@@ -13,7 +13,7 @@ final class VisualAssets
         'cover-weekend'=>'Coastal weekend','cover-glass'=>'Glass garden',
         'cover-collection'=>'Inspiration library','cover-launch'=>'Ready for takeoff',
     ];
-    public const ICONS=['icon-gallery'=>'Anime gallery','icon-news'=>'Anime news','icon-discover'=>'Anime discovery','icon-community'=>'Anime community','icon-shop'=>'Anime shop','icon-member'=>'Anime membership','icon-create'=>'Anime writing','icon-archive'=>'Anime archive'];
+    public const ICONS=['icon-reading'=>'Anime reading','icon-support'=>'Anime support','icon-gallery'=>'Anime gallery','icon-news'=>'Anime news','icon-discover'=>'Anime discovery','icon-community'=>'Anime community','icon-shop'=>'Anime shop','icon-member'=>'Anime membership','icon-create'=>'Anime writing','icon-archive'=>'Anime archive'];
     public const SCENES=['home'=>'Home illustration','archives'=>'Archive illustration','auth'=>'Sign-in illustration','empty'=>'Empty-state decoration','footer'=>'Footer decoration','favicon'=>'Browser icon','touch'=>'Mobile bookmark icon'];
     public const DEFAULTS=['home'=>'island-anime','archives'=>'blue-hour'];
     public const IMAGE_TYPES=['image/png','image/jpeg','image/webp','image/gif'];

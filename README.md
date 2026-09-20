@@ -1,6 +1,8 @@
-# 澄屿 Chengyu 0.23.4
+# 澄屿 Chengyu 0.24.0
 
 独立 PHP 内容、社区与数字资源平台，包含前台和可管理的后台。不需要 WordPress、运行期 Composer、Node、Redis 或常驻队列。PHP 7.4–8.5 使用同一套业务代码，支持原生 PDO MySQL / SQLite。
+
+0.24.0 增加由分类真实内容驱动的图文菜单、逐条编辑的 FAQ、可配置页头副标题和两枚原创二次元图标。修复布局工作台无法添加组件、条目按钮文字溢出及程序版本号滞后的问题。旧菜单、布局和无 Fileinfo 上传保留；数据库升级至 v16。[本版使用](docs/PLATFORM_024.md) / [四套主题源码再次对照](docs/REFERENCE_024.md)。
 
 0.23.4 补齐 MP4 大填充块、64 位长度和尾块校验，强化 PNG 头部与调色板检查，并修复损坏分片重传、磁盘写入失败清理、数据库重试导致的孤立附件。累计补丁可从 0.23.1 / 0.23.2 / 0.23.3 升级；不需要重新安装。
 
@@ -33,17 +35,17 @@
 
 公开包不含通用安装密码或默认管理员。无面板新 VPS 也可使用 [部署脚本](deploy/install-vps.sh)，脚本会生成该站点的独立安装口令；已有面板使用面板创建 PHP 站点。
 
-已有 0.18 / 0.19 / 0.20 / 0.21 / 0.22 / 0.23 站点按 [升级说明](docs/UPGRADE.md) 保留 config.php、原 secret、数据库和 storage，升级至结构 v15，不重新安装。
+已有 0.18 / 0.19 / 0.20 / 0.21 / 0.22 / 0.23 站点按 [升级说明](docs/UPGRADE.md) 保留 config.php、原 secret、数据库和 storage，升级至结构 v16，不重新安装。
 
 ## 部署与验证
 
 最低环境：64 位 PHP 7.4–8.5、PDO MySQL 或 SQLite、OpenSSL、可写存储；无需 Fileinfo。MySQL 需要 InnoDB、utf8mb4 和建表/索引权限；网上收款与外部服务需要 HTTPS 及主机允许的出站网络。
 
-PHP 七版本本地原生 SQLite 测试、Linux 原生 MySQL/SQLite 的 14 组 CI 和真实 HTTP 测试分别保存证据，详见 [测试报告](docs/TEST_REPORT.md)。免费主机的具体实例和 VPS 装机尚未实测，不能将语言兼容测试等同于服务商所有套餐均可用。
+本版完成 PHP 七版本本地原生 SQLite 双扩展状态测试、真实 HTTP、38 项浏览器检查和旧库升级；Linux 原生 MySQL/SQLite 的 CI 证据仍为 0.23.4 历史基线，本版尚未重新执行。各项分别保存证据，详见 [测试报告](docs/TEST_REPORT.md)。免费主机的具体实例和 VPS 装机尚未实测，不能将语言兼容测试等同于服务商所有套餐均可用。
 
 - [离线完整手册](START_HERE.html) / [安装与主机配置](docs/DEPLOYMENT.md)
-- [本版功能使用](docs/PLATFORM_023.md) / [后台指南](docs/ADMIN_GUIDE.md)
-- [本轮三主题源码分析](docs/REFERENCE_023.md) / [原创图像出处](docs/ARTWORK.md)
+- [本版功能使用](docs/PLATFORM_024.md) / [后台指南](docs/ADMIN_GUIDE.md)
+- [本轮四主题源码分析](docs/REFERENCE_024.md) / [原创图像出处](docs/ARTWORK.md)
 - [代码仓库](https://github.com/yiran168/chengyu) / [发布下载](https://github.com/yiran168/chengyu/releases)
 
 代码按 MIT 许可发布。参考主题仅用于分析功能与交互，本工程不包含其专有代码、素材、字体、授权逻辑或 WordPress 运行时。没有承诺实现所有历史第三方扩展或零知识产权风险。

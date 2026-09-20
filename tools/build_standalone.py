@@ -42,7 +42,7 @@ def render(allowed=None):
     soup.find('footer').string = 'Chengyu ' + version + ' | Standalone instructions. Screenshots, test evidence and source are in the complete package.'
     return str(soup)
 
-(ROOT / 'site/DEPLOY_README.html').write_text(render({1,2,3,8,11,14,27,30,31,33,34,36,38,40}),encoding='utf-8')
+(ROOT / 'site/DEPLOY_README.html').write_text(render({1,2,3,8,11,14,27,30,31,33,34,36,38,40,41}),encoding='utf-8')
 output = Path(sys.argv[1]).resolve() if len(sys.argv)>1 else ROOT.parent / ('chengyu-' + version + '-manual.html')
 output.parent.mkdir(parents=True, exist_ok=True)
 output.write_text(render(),encoding='utf-8')

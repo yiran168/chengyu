@@ -72,6 +72,7 @@ return [
     'site_tagline' => ['site', 'Site tagline', 'text', 'A place for ideas to find their people.'],
     'site_description' => ['site', 'Site description', 'textarea', 'An independent community for thoughtful stories, resources and conversations.'],
     'logo_text' => ['site', 'Logo monogram', 'text', 'C'],
+    'brand_caption' => ['site', 'Header subtitle (leave empty to hide)', 'text', ''],
     'notice' => ['site', 'Announcement', 'textarea', 'Welcome to your new space. Publish your first story from the dashboard.'],
     'footer_text' => ['site', 'Footer text', 'text', 'Made for the things worth sharing.'],
     'icp_number' => ['site', 'ICP registration', 'text', ''],

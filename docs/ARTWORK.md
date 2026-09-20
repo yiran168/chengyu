@@ -30,3 +30,9 @@
 `icon-gallery.webp` 独立生成：薄荷绿相机、奶白边框、深蓝镜头、杏色背带与两张小照片，透明背景、克制赛璐璐阴影，不含文字、品牌或已有角色。输出192×192 RGBA，原始PNG留在项目 `.work/generated-022`，运行期不调用图像生成服务。来源与SHA-256见 [生成记录](evidence/022/generated-gallery-icon.json)。
 
 使用逻辑名称 `anime-gallery`，可在编辑器、菜单和视觉素材库中使用并替换。没有截取参考主题的图标或插画。
+
+## 0.24 新图标（2026-09-21）
+
+分别调用图像生成工具制作书本 `icon-reading.webp` 与客服耳机 `icon-support.webp`。书本采用奶白纸页和青绿细节；耳机采用深蓝/橙色配色，两者均为原创日系动画道具风格、透明底，无文字、品牌或既有角色。保留1254×1254的RGBA构图，仅转换WebP格式，文件分别约76/93KiB。原PNG留项目.work/art024，不加入部署包。
+
+对应逻辑符号anime-reading、anime-support，已接入统一视觉素材后台，可选择已有图片、上传替换或恢复默认。图像哈希、提示词摘要与处理方式见[evidence/024/generated-icons.json](evidence/024/generated-icons.json)。没有使用参考主题图片，也没有把一张图截成两枚。

@@ -77,7 +77,7 @@
       const badge=document.createElement('span');badge.className='studio-block-type';badge.textContent=labels[block.type]||block.type;
       const preview=document.createElement('div');preview.className='studio-mini-preview';preview.textContent=block.text || labels[block.type] || block.type;preview.setAttribute('aria-hidden','true');
       const fields=document.createElement('div');fields.className='studio-fields';
-      const fieldNames=['title','text','button','route','tone','align','device','animation','audience','min_vip_tier','page_slot','background_id'];
+      const fieldNames=['title',...(block.type!=='faq' || block.text?['text']:[]),'button','route','tone','align','device','animation','audience','min_vip_tier','page_slot','background_id'];
       if(block.type==='slider')fieldNames.push('autoplay','interval');
       if(block.type==='media')fieldNames.push('media_id');
       if(['features','gallery','categories','plans','creators'].includes(block.type))fieldNames.push('columns');
@@ -86,7 +86,7 @@
       if (['spacer','links','plans','noticeboard','creators'].includes(block.type)) fieldNames.push('size');
       fieldNames.forEach(name=>{
         const wrap=document.createElement('label');wrap.className='field'+(name==='text'?' field-wide':'');
-        const label=document.createElement('span');label.textContent=labels[name];
+        const label=document.createElement('span');label.textContent=block.type==='faq' && name==='text'?labels.legacyFaq:labels[name];
         let input;
         if(name==='autoplay'){input=document.createElement('input');input.type='checkbox';input.checked=!!block.autoplay;}
         else if(choices[name]) {input=document.createElement('select');choices[name].forEach(value=>{const option=document.createElement('option');option.value=value;option.textContent=labels[value]||value;input.append(option);});}
@@ -98,13 +98,13 @@
       });
       if(JSON.parse(source.dataset.layoutEntryTypes).includes(block.type)){
         const section=document.createElement('section');section.className='studio-entry-editor field-wide';
-        const caption=document.createElement('strong');caption.textContent=labels.entries||'Entries';section.append(caption);
+        const caption=document.createElement('strong');caption.textContent=block.type==='faq'?labels.faqEntries:(labels.entries||'Entries');section.append(caption);
         if(!Array.isArray(block.items))block.items=[];
         const entries=document.createElement('div');section.append(entries);
         function paintEntries(){entries.replaceChildren();block.items.forEach((entry,entryIndex)=>{
           const box=document.createElement('div');box.className='studio-entry panel';
           ['title','text',...(['gallery','slider'].includes(block.type)?['media_id']:[]),...(block.type==='slider'?['mobile_media_id']:[]),...(['features','buttons'].includes(block.type)?['icon']:[]),...(['features','tabs','gallery','slider','buttons'].includes(block.type)?['url']:[])].forEach(name=>{
-            const wrap=document.createElement('label');wrap.className='field';const label=document.createElement('span');label.textContent=labels[name]||name;
+            const wrap=document.createElement('label');wrap.className='field';const label=document.createElement('span');label.textContent=block.type==='faq'?(name==='title'?labels.question:labels.answer):(labels[name]||name);
             let input;if(name==='icon'){input=document.createElement('select');JSON.parse(source.dataset.layoutSymbols).forEach(value=>{const option=document.createElement('option');option.value=value;option.textContent=labels[value]||value;input.append(option);});}else{input=document.createElement(name==='text'?'textarea':'input');if(name==='text'){input.rows=3;input.maxLength=2000;}else{input.type=['media_id','mobile_media_id'].includes(name)?'number':name==='url'?'url':'text';input.maxLength=name==='url'?1000:120;if(['media_id','mobile_media_id'].includes(name))input.min='0';}}
             input.value=entry[name]??(name==='icon'?'sparkles':'');input.addEventListener('input',()=>{entry[name]=['media_id','mobile_media_id'].includes(name)?Number(input.value):input.value;sync();});wrap.append(label,input);box.append(wrap);
           });
@@ -112,7 +112,8 @@
           commands.append(control(labels.moveUp,()=>{if(entryIndex>0){[block.items[entryIndex-1],block.items[entryIndex]]=[block.items[entryIndex],block.items[entryIndex-1]];paintEntries();sync();}},'↑'),control(labels.remove,()=>{block.items.splice(entryIndex,1);paintEntries();sync();},'×'));
           box.append(commands);entries.append(box);
         });}
-        paintEntries();const append=control(labels.addEntry||'Add entry',()=>{if(block.items.length>=12){fail(labels.entryLimit||'Maximum 12 entries.');return;}block.items.push({title:labels.blockTitle||'New entry',text:'',icon:'sparkles',media_id:0,url:''});paintEntries();sync();},'+ '+(labels.addEntry||'Add entry'));section.append(append);fields.append(section);
+        const addLabel=block.type==='faq'?labels.addQuestion:(labels.addEntry||'Add entry');
+        paintEntries();const append=control(addLabel,()=>{if(block.items.length>=12){fail(labels.entryLimit||'Maximum 12 entries.');return;}block.items.push({title:block.type==='faq'?labels.question:(labels.blockTitle||'New entry'),text:'',icon:'sparkles',media_id:0,url:''});paintEntries();sync();entries.lastElementChild?.querySelector('input')?.focus();},'+ '+addLabel,'studio-add-entry');section.append(append);fields.append(section);
       }
       const enabled=document.createElement('label');enabled.className='checkbox';const checkbox=document.createElement('input');checkbox.type='checkbox';checkbox.checked=block.enabled!==false;checkbox.addEventListener('change',()=>{block.enabled=checkbox.checked;sync();});enabled.append(checkbox,document.createTextNode(labels.enabled));
       const details=document.createElement('details');details.open=expanded.has(block.id)?expanded.get(block.id):index===documentModel.blocks.length-1;const summary=document.createElement('summary');summary.textContent=labels.title+' / '+labels.text;details.append(summary,fields,enabled);

@@ -71,7 +71,7 @@ function field(string $name, string $label, $value = '', string $type = 'text', 
     $id = 'f_' . $name . '_' . bin2hex(random_bytes(2)); $extra = '';
     foreach ($attrs as $key => $val) { if (preg_match('/^[a-z][a-z0-9\-]*$/D', $key)) { $extra .= ' ' . $key . '="' . e($val) . '"'; } }
     echo '<div class="field"><label for="' . $id . '">' . t($label) . '</label>';
-    if ($type === 'textarea') { echo '<textarea id="' . $id . '" name="' . e($name) . '" rows="5"' . $extra . '>' . e($value) . '</textarea>'; }
+    if ($type === 'textarea') { echo '<textarea id="' . $id . '" name="' . e($name) . '"' . (isset($attrs['rows'])?'':' rows="5"') . $extra . '>' . e($value) . '</textarea>'; }
     else { echo '<input id="' . $id . '" type="' . e($type) . '" name="' . e($name) . '" value="' . e($value) . '"' . $extra . '>'; }
     echo '</div>';
 }

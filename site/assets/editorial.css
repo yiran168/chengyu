@@ -232,6 +232,22 @@ html[data-detail=restrained] .layout-list .content-card .card-cover{border-radiu
 .site-nav-panel .nav-parent-link{display:flex;justify-content:space-between;margin:0 5px 6px;padding:8px 4px;border-bottom:1px solid var(--line);font-size:11px;color:var(--muted)}
 .site-nav-panel .site-nav-link:hover,.site-nav-branch>summary:hover,.site-nav-branch[open]>summary{background:var(--accent-soft);color:var(--accent)}
 .nav-thumbnail{width:56px;height:42px;object-fit:cover;border-radius:5px;flex-shrink:0}
+.desktop-nav>.nav-with-content>.site-nav-panel{width:390px}
+.desktop-nav>.nav-with-content.nav-columns>.site-nav-panel{width:520px}
+.site-nav-branch.active>summary{color:var(--accent)}
+.nav-content-list{display:grid;gap:2px;padding-top:4px;min-width:0}
+.nav-children+.nav-content-list{border-top:1px solid var(--line);margin-top:7px;padding-top:9px}
+.nav-content-item{display:flex!important;align-items:center;gap:12px;padding:9px!important;border-radius:6px;text-decoration:none;color:var(--ink);white-space:normal!important;min-width:0}
+.nav-content-item>img{width:88px;height:60px;object-fit:cover;border-radius:5px;flex-shrink:0}
+.nav-content-copy{display:flex;flex-direction:column;gap:5px;min-width:0;flex:1}
+.nav-content-title{font-size:13px;font-weight:500;line-height:1.65;overflow-wrap:anywhere;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
+.nav-content-meta{display:flex;flex-wrap:wrap;gap:4px 10px;color:var(--muted);font-size:10px;line-height:1.5}
+.nav-content-meta>span{display:inline-flex;align-items:center;gap:3px}.nav-content-meta .icon{width:11px;height:11px}
+.nav-content-item:hover,.nav-content-item:focus-visible{background:var(--accent-soft);color:var(--accent)}
+.nav-content-item:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.navigation-content-fields{border:1px solid var(--line);border-radius:8px;padding:16px;margin:18px 0}
+.navigation-content-fields legend{padding:0 7px;font-size:13px;font-weight:600}
+@media(max-width:600px){.nav-content-item{gap:9px;padding:9px 0!important}.nav-content-item>img{width:72px;height:52px}.nav-content-title{font-size:13px}}
 .nav-mobile>.site-nav-panel,.fallback-navigation .site-nav-panel{position:static;padding:4px 0 5px 13px;margin-left:10px;border-left:1px solid var(--line)}
 .mobile-dialog-nav{display:block!important}.mobile-dialog-nav .site-nav-link{justify-content:flex-start}.mobile-dialog-nav .site-nav-branch{width:100%}
 .mobile-dialog-nav .site-nav-link,.mobile-dialog-nav summary{padding:13px 8px;border-bottom:1px solid var(--line);border-radius:0}
