@@ -52,14 +52,26 @@ final class FileType
         // Recognized but malformed binary headers never fall through to plain text.
         if (substr($head, 0, 8) === "\x89PNG\r\n\x1a\n") {
             if ($bytes < 57 || substr($head, 8, 8) !== "\x00\x00\x00\x0dIHDR") { return self::UNKNOWN; }
+            $depths = [0=>[1,2,4,8,16], 2=>[8,16], 3=>[1,2,4,8], 4=>[8,16], 6=>[8,16]];
+            if (!in_array(ord($head[24]), $depths[ord($head[25])] ?? [], true)
+                || ord($head[26]) !== 0 || ord($head[27]) !== 0 || ord($head[28]) > 1
+                || hash('crc32b', substr($head, 12, 17), true) !== substr($head, 29, 4)) { return self::UNKNOWN; }
             $end = $range($bytes - 12, 12);
             if ($end !== "\x00\x00\x00\x00IEND\xae\x42\x60\x82") { return self::UNKNOWN; }
+            $palette = false;
             for ($at = 33, $chunks = 0; $chunks < 128 && $at + 12 < $bytes; ++$chunks) {
                 $chunk = $range($at, 8); if (strlen($chunk) !== 8) { return self::UNKNOWN; }
                 $length = self::be32($chunk, 0); $type = substr($chunk, 4);
                 if ($length > $bytes - $at - 12 || !preg_match('/^[A-Za-z]{4}$/D', $type)) { return self::UNKNOWN; }
-                if ($type === 'IDAT' && $length > 0) { return 'image/png'; }
+                if ($type === 'IDAT' && $length > 0) { return ord($head[25]) !== 3 || $palette ? 'image/png' : self::UNKNOWN; }
                 if ($type === 'IEND' || $type === 'IHDR') { return self::UNKNOWN; }
+                if ($type === 'PLTE') {
+                    if ($palette || in_array(ord($head[25]), [0,4], true) || $length < 3 || $length > 768 || $length % 3 !== 0
+                        || (ord($head[25]) === 3 && $length / 3 > (1 << ord($head[24])))) { return self::UNKNOWN; }
+                    $colors = $range($at + 8, $length + 4);
+                    if (hash('crc32b', 'PLTE' . substr($colors, 0, $length), true) !== substr($colors, $length)) { return self::UNKNOWN; }
+                    $palette = true;
+                } elseif ($type !== 'IDAT' && ord($type[0]) < 97) { return self::UNKNOWN; }
                 $at += 12 + $length;
             }
             return self::UNKNOWN;
@@ -86,7 +98,7 @@ final class FileType
             return self::mp3($head, $bytes, $range) ? 'audio/mpeg' : self::UNKNOWN;
         }
         if (strlen($head) >= 8 && in_array(substr($head, 4, 4), ['ftyp','free','skip','wide'], true)) {
-            return self::mp4($head, $bytes) ? 'video/mp4' : self::UNKNOWN;
+            return self::mp4($bytes, $range) ? 'video/mp4' : self::UNKNOWN;
         }
         return self::text($head, strlen($head) === $bytes) ? 'text/plain' : self::UNKNOWN;
     }
@@ -205,22 +217,34 @@ final class FileType
         return false;
     }
 
-    private static function mp4(string $head, int $bytes): bool
+    private static function mp4(int $bytes, callable $range): bool
     {
-        $at = 0;
-        for ($boxes = 0; $boxes < 32 && $at + 16 <= strlen($head); ++$boxes) {
-            $size = self::be32($head, $at); $type = substr($head, $at + 4, 4);
-            if ($size < 8 || $size > $bytes - $at || $size > strlen($head) - $at) { return false; }
+        $at = 0; $recognized = false; $media = false;
+        // Read headers, not media/padding payloads. The shared range budget still applies.
+        for ($boxes = 0; $boxes < 128 && $at + 8 <= $bytes; ++$boxes) {
+            $header = $range($at, 8); $size = self::be32($header, 0); $type = substr($header, 4); $headerBytes = 8;
+            if ($size === 1) {
+                if ($bytes - $at < 16) { return false; }
+                $large = $range($at + 8, 8); $high = self::be32($large, 0); $low = self::be32($large, 4);
+                // Compare before multiplication: hostile uint64 values must not become floats.
+                $remaining = $bytes - $at;
+                if ($high > intdiv($remaining, 4294967296) || ($high === intdiv($remaining, 4294967296) && $low > $remaining % 4294967296)) { return false; }
+                $size = $high * 4294967296 + $low; $headerBytes = 16;
+            } elseif ($size === 0) { $size = $bytes - $at; }
+            if ($size < $headerBytes || $size > $bytes - $at) { return false; }
+            $payload = $size - $headerBytes;
             if ($type === 'ftyp') {
-                if ($size < 16 || $size % 4 !== 0) { return false; }
-                for ($brand = $at + 8; $brand < $at + $size; $brand += 4) {
-                    if ($brand === $at + 12) { continue; } // Minor version is not a brand.
-                    if (in_array(substr($head, $brand, 4), ['isom','iso2','iso3','iso4','iso5','iso6','iso7','iso8','iso9','mp41','mp42','avc1','hvc1','hev1','M4V ','MSNV','dash','cmfc','cmfs'], true)) { return $bytes > $at + $size + 8; }
+                if ($recognized || $payload < 8 || $payload > 4096 || $payload % 4 !== 0) { return false; }
+                $brands = $range($at + $headerBytes, $payload);
+                for ($brand = 0; $brand < $payload; $brand += 4) {
+                    if ($brand === 4) { continue; } // Minor version is not a brand.
+                    if (in_array(substr($brands, $brand, 4), ['isom','iso2','iso3','iso4','iso5','iso6','iso7','iso8','iso9','mp41','mp42','avc1','hvc1','hev1','M4V ','MSNV','dash','cmfc','cmfs'], true)) { $recognized = true; break; }
                 }
-                return false;
-            }
-            if (!in_array($type, ['free','skip','wide'], true)) { return false; }
+                if (!$recognized) { return false; }
+            } elseif (!$recognized && !in_array($type, ['free','skip','wide'], true)) { return false; }
+            elseif (in_array($type, ['moov','mdat'], true) && $payload > 0) { $media = true; }
             $at += $size;
+            if ($at === $bytes) { return $recognized && $media; }
         }
         return false;
     }

@@ -2,6 +2,7 @@
 declare(strict_types=1);
 // Destructive tests use a new temporary SQLite database, NEVER a production configuration.
 if (PHP_SAPI !== 'cli') { exit(1); }
+require __DIR__.'/Support/UploadIoFaults.php';
 define('CY_BOOT', true); error_reporting(E_ALL); date_default_timezone_set('Asia/Shanghai');
 require dirname(__DIR__) . '/site/app/autoload.php';
 require dirname(__DIR__) . '/site/app/schema.php';
@@ -150,6 +151,7 @@ require __DIR__.'/platform_023.php';
 require __DIR__.'/audit_20260915.php';
 require __DIR__.'/file_types_0232.php';
 require __DIR__.'/file_types_0233.php';
+require __DIR__.'/file_types_0234.php';
 test('ledger reconciles all account balances',static function()use($a){foreach($a->db->all('SELECT * FROM cy_users') as $row){foreach(Wallet::CURRENCIES as $currency){same((int)$row[$currency],(int)$a->db->value('SELECT COALESCE(SUM(delta),0) FROM cy_ledger WHERE user_id=? AND currency=?',[(int)$row['id'],$currency]));}}});
 // True multi-process race against the same database (not a mocked transaction).
 $race=$a->db->insert('cy_users',['username'=>'race','email'=>'race@example.test','password_hash'=>'not-a-login','display_name'=>'Race','role'=>'user','status'=>'active','bio'=>'','created_at'=>time()]);$a->wallet->adjust($race,'balance',500,'race-funding','fixture');

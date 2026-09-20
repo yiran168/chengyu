@@ -2269,6 +2269,7 @@
   "Choose different source and target languages.": "原文语言和目标语言不能相同。",
   "Choose evidence uploaded by this account.": "请选择本账号上传的凭证。",
   "Chunk checksum failed.": "分片校验失败。",
+  "Stored chunks were damaged. Retry the upload to resend them.": "部分分片已损坏，请再次点击上传以补传这些分片。",
   "Chunk size does not match the upload manifest.": "分片大小与上传清单不符。",
   "Chunk upload failed.": "分片上传失败。",
   "Complete the direct payment credentials before enabling checkout.": "启用官方直付前，请完整配置支付凭据。",

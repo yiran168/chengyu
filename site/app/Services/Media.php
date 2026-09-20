@@ -20,8 +20,8 @@ final class Media
         if (($file['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK || !is_uploaded_file($file['tmp_name'] ?? '')) { throw new Problem('Upload failed. Check the host upload limit.'); }
         return $this->storeLocal($user,$file['tmp_name'],(string)$file['name'],$private,(int)$this->settings->get('max_upload_mb')*1048576);
     }
-    /** Internal server-file ingestion; callers must authorize the source, never accept a client path. */
-    public function storeLocal(array $user,string $source,string $name,bool $private,int $maximum,int $offset=0): int
+    /** Internal ingestion. $onRegistered may update DB state in the same transaction, without external side effects. */
+    public function storeLocal(array $user,string $source,string $name,bool $private,int $maximum,int $offset=0,?callable $onRegistered=null): int
     {
         $staff=in_array($user['role'],['admin','editor'],true);
         $size=filesize($source);$bytes=$size===false?false:$size-$offset;
@@ -48,14 +48,18 @@ final class Media
         try {
             if($offset && fseek($input,$offset)!==0){throw new \RuntimeException('Could not seek source');}
             if (fwrite($output, self::GUARD) !== strlen(self::GUARD) || stream_copy_to_stream($input, $output) !== $bytes) { throw new \RuntimeException('Incomplete media write'); }
-            fflush($output);
+            if (!fflush($output)) { throw new \RuntimeException('Incomplete media write'); }
         } catch (\Throwable $e) { $writeError=$e; }
         finally { fclose($input); fclose($output); }
         // Windows cannot unlink an open stream. Close both handles before cleanup.
         if($writeError!==null){@unlink($path);throw $writeError;}
         @chmod($path, 0640);
         try {
-            return $this->db->insert('cy_media', ['owner_id' => (int)$user['id'], 'name' => Input::text(basename($name), 255), 'mime' => $mime, 'bytes' => (int)$bytes, 'file_key' => $key, 'is_private' => $private ? 1 : 0, 'created_at' => time()]);
+            // File copying is outside the retried transaction: a DB retry must not create orphan blobs.
+            return $this->db->transaction(function()use($user,$name,$mime,$bytes,$key,$private,$onRegistered):int{
+                $id=$this->db->insert('cy_media', ['owner_id' => (int)$user['id'], 'name' => Input::text(basename($name), 255), 'mime' => $mime, 'bytes' => (int)$bytes, 'file_key' => $key, 'is_private' => $private ? 1 : 0, 'created_at' => time()]);
+                if($onRegistered!==null){$onRegistered($id);}return $id;
+            });
         } catch (\Throwable $e) { @unlink($path); throw $e; }
     }
     public function readable(int $id, ?array $user): array

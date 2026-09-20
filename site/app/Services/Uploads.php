@@ -23,16 +23,70 @@ final class Uploads
     /** Only the HTTP controller may supply an is_uploaded_file-checked path. */
     public function put(array $u,string $key,int $part,string $source): array
     {
-        $r=$this->owned($u,$key);return $this->locked($r,function($dir)use($u,$key,$part,$source):array{$r=$this->owned($u,$key);if($r['state']!=='open'||(int)$r['expires_at']<time()){throw new Problem('Upload is closed or expired.',409);}if($part<0||$part>=(int)$r['chunk_count']){throw new Problem('Invalid chunk number.');}$expected=min(self::CHUNK,(int)$r['total_bytes']-$part*self::CHUNK);$bytes=filesize($source);if($bytes!==$expected){throw new Problem('Chunk size does not match the upload manifest.');}$hash=hash_file('sha256',$source);$old=$this->a->db->one('SELECT * FROM cy_upload_parts WHERE upload_id=? AND part_number=?',[(int)$r['id'],$part]);$target=$dir.'/'.$part.'.php';if($old){if(!hash_equals($old['sha256'],$hash)){throw new Problem('A different chunk already occupies this position.',409);}if(is_file($target)&&filesize($target)===$bytes+strlen(Media::GUARD)){return ['upload_key'=>$key,'part'=>$part,'state'=>'open'];}}
-            $tmp=$dir.'/part-'.bin2hex(random_bytes(8)).'.php';$out=fopen($tmp,'xb');$in=fopen($source,'rb');if(!$out||!$in){if($out){fclose($out);}if($in){fclose($in);}@unlink($tmp);throw new Problem('Could not write upload chunk.',503);}try{if(fwrite($out,Media::GUARD)!==strlen(Media::GUARD)||stream_copy_to_stream($in,$out)!==$bytes){throw new Problem('Incomplete chunk write.',503);}fflush($out);}catch(\Throwable $e){@unlink($tmp);throw $e;}finally{fclose($out);fclose($in);}if(!rename($tmp,$target)){@unlink($tmp);throw new Problem('Could not commit upload chunk.',503);}@chmod($target,0640);if(!$old){$this->a->db->insert('cy_upload_parts',['upload_id'=>(int)$r['id'],'part_number'=>$part,'bytes'=>$bytes,'sha256'=>$hash]);}return ['upload_key'=>$key,'part'=>$part,'state'=>'open'];});
+        $r=$this->owned($u,$key);
+        return $this->locked($r,function($dir)use($u,$key,$part,$source):array{
+            $r=$this->owned($u,$key);
+            if($r['state']!=='open'||(int)$r['expires_at']<time()){throw new Problem('Upload is closed or expired.',409);}
+            if($part<0||$part>=(int)$r['chunk_count']){throw new Problem('Invalid chunk number.');}
+            $expected=min(self::CHUNK,(int)$r['total_bytes']-$part*self::CHUNK);
+            // Hash and write the same bounded bytes, even if the input stream changes later.
+            $data=@file_get_contents($source,false,null,0,self::CHUNK+1);
+            if($data===false||strlen($data)!==$expected){throw new Problem('Chunk size does not match the upload manifest.');}
+            $hash=hash('sha256',$data);$target=$dir.'/'.$part.'.php';
+            $old=$this->a->db->one('SELECT * FROM cy_upload_parts WHERE upload_id=? AND part_number=?',[(int)$r['id'],$part]);
+            if($old){
+                if(!hash_equals($old['sha256'],$hash)){throw new Problem('A different chunk already occupies this position.',409);}
+                if($this->chunk($target,$expected,$hash)!==null){return ['upload_key'=>$key,'part'=>$part,'state'=>'open'];}
+            }
+            $tmp=$dir.'/part-'.bin2hex(random_bytes(8)).'.php';$out=@fopen($tmp,'xb');
+            if(!$out){throw new Problem('Could not write upload chunk.',503);}
+            $error=null;
+            try{
+                if(fwrite($out,Media::GUARD)!==strlen(Media::GUARD)||fwrite($out,$data)!==$expected||!fflush($out)){throw new Problem('Incomplete chunk write.',503);}
+            }catch(\Throwable $e){$error=$e;}finally{fclose($out);}
+            if($error!==null){@unlink($tmp);throw $error;}
+            if(!@rename($tmp,$target)){@unlink($tmp);throw new Problem('Could not commit upload chunk.',503);}
+            @chmod($target,0640);
+            if(!$old){$this->a->db->insert('cy_upload_parts',['upload_id'=>(int)$r['id'],'part_number'=>$part,'bytes'=>$expected,'sha256'=>$hash]);}
+            return ['upload_key'=>$key,'part'=>$part,'state'=>'open'];
+        });
+    }
+    /** One bounded verifier for resume deduplication and assembly; null means resend this part. */
+    private function chunk(string $path,int $expected,string $hash): ?string
+    {
+        if($expected<1||$expected>self::CHUNK){return null;}$in=@fopen($path,'rb');if(!$in){return null;}
+        try{
+            if(fread($in,strlen(Media::GUARD))!==Media::GUARD){return null;}
+            $data=stream_get_contents($in,self::CHUNK+1);
+            return is_string($data)&&strlen($data)===$expected&&hash_equals($hash,hash('sha256',$data))?$data:null;
+        }finally{fclose($in);}
     }
     public function finish(array $u,string $key): int
     {
         $r=$this->owned($u,$key);return $this->locked($r,function($dir)use($u,$key):int{$r=$this->owned($u,$key);if($r['state']==='complete'){return (int)$r['media_id'];}if($r['state']!=='open'||(int)$r['expires_at']<time()){throw new Problem('Upload is closed or expired.',409);}$parts=$this->a->db->all('SELECT * FROM cy_upload_parts WHERE upload_id=? ORDER BY part_number',[(int)$r['id']]);if(count($parts)!==(int)$r['chunk_count']){throw new Problem('Some chunks are still missing.',409);}
             // The assembly file lives outside the public application; .php guard protects misconfigured roots.
-            $assembly=$dir.'/assembled.php';$out=fopen($assembly,'wb');if(!$out){throw new Problem('Could not assemble the file.',503);}$hash=hash_init('sha256');try{fwrite($out,Media::GUARD);foreach($parts as $i=>$part){if((int)$part['part_number']!==$i){throw new Problem('Invalid chunk manifest.',409);}$in=fopen($dir.'/'.$i.'.php','rb');if(!$in){throw new Problem('A stored chunk is missing.',409);}try{if(fread($in,strlen(Media::GUARD))!==Media::GUARD){throw new Problem('Invalid chunk envelope.',409);}$data=stream_get_contents($in,self::CHUNK+1);if(strlen($data)!==(int)$part['bytes']||!hash_equals($part['sha256'],hash('sha256',$data))){throw new Problem('Chunk checksum failed.',409);}if(fwrite($out,$data)!==strlen($data)){throw new Problem('Assembly storage is full.',507);}hash_update($hash,$data);}finally{fclose($in);}}fflush($out);}catch(\Throwable $e){@unlink($assembly);throw $e;}finally{fclose($out);}
+            $assembly=$dir.'/assembled.php';$out=@fopen($assembly,'wb');if(!$out){throw new Problem('Could not assemble the file.',503);}
+            $hash=hash_init('sha256');$error=null;$damaged=false;
+            try{
+                if(fwrite($out,Media::GUARD)!==strlen(Media::GUARD)){throw new Problem('Assembly storage is full.',507);}
+                foreach($parts as $i=>$part){
+                    if((int)$part['part_number']!==$i){throw new Problem('Invalid chunk manifest.',409);}
+                    $expected=min(self::CHUNK,(int)$r['total_bytes']-$i*self::CHUNK);$path=$dir.'/'.$i.'.php';
+                    $data=(int)$part['bytes']===$expected?$this->chunk($path,$expected,$part['sha256']):null;
+                    if($data===null){
+                        $this->a->db->execute('DELETE FROM cy_upload_parts WHERE upload_id=? AND part_number=?',[(int)$r['id'],$i]);
+                        @unlink($path);$damaged=true;continue;
+                    }
+                    if(fwrite($out,$data)!==strlen($data)){throw new Problem('Assembly storage is full.',507);}hash_update($hash,$data);
+                }
+                if($damaged){throw new Problem('Stored chunks were damaged. Retry the upload to resend them.',409);}
+                if(!fflush($out)){throw new Problem('Assembly storage is full.',507);}
+            }catch(\Throwable $e){$error=$e;}finally{fclose($out);}
+            if($error!==null){@unlink($assembly);throw $error;}
             $actual=hash_final($hash);if($r['sha256']!==''&&!hash_equals($r['sha256'],$actual)){@unlink($assembly);throw new Problem('Whole-file checksum failed.',409);}
-            try{$id=$this->a->db->transaction(function()use($u,$assembly,$r):int{$id=$this->a->media->storeLocal($u,$assembly,$r['name'],(bool)$r['is_private'],(int)$r['total_bytes'],strlen(Media::GUARD));$this->a->db->update('cy_upload_sessions',(int)$r['id'],['state'=>'complete','media_id'=>$id]);return $id;});}finally{@unlink($assembly);}foreach(glob($dir.'/*.php')?:[] as $f){if(basename($f)!=='lock.php'){@unlink($f);}}return $id;});
+            try{$id=$this->a->media->storeLocal($u,$assembly,$r['name'],(bool)$r['is_private'],(int)$r['total_bytes'],strlen(Media::GUARD),function(int $id)use($r):void{
+                $this->a->db->update('cy_upload_sessions',(int)$r['id'],['state'=>'complete','media_id'=>$id]);
+            });}finally{@unlink($assembly);}foreach(glob($dir.'/*.php')?:[] as $f){if(basename($f)!=='lock.php'){@unlink($f);}}return $id;});
     }
     public function cancel(array $u,string $key): void {$r=$this->owned($u,$key);$this->locked($r,function($dir)use($u,$key):void{$r=$this->owned($u,$key);if($r['state']==='complete'){throw new Problem('Completed media cannot be deleted through an upload session.',409);}$this->a->db->update('cy_upload_sessions',(int)$r['id'],['state'=>'cancelled']);foreach(glob($dir.'/*.php')?:[] as $f){if(basename($f)!=='lock.php'){@unlink($f);}}$this->a->db->execute('DELETE FROM cy_upload_parts WHERE upload_id=?',[(int)$r['id']]);});}
 }
