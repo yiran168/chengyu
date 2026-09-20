@@ -189,3 +189,7 @@ GitHub CI 的每个原生数据库作业先启用 Fileinfo 执行，再移除扩
 ## 0.23.3 无扩展识别再检查
 
 file_types_0233.php 新增 19 项核心检查，http_0233.py 新增 33 项真实 HTTP 检查。样本覆盖大 JPEG 注释段、渐进式/CMYK JPEG、透明/无损/动画 WebP、调色板 PNG、空 ZIP64 与特殊 ZIP 注释，及 GBK/GB18030。真实编码器生成的小图保存在 fixtures/file-types-variants.json；运行期不依赖生成工具。旧“非法 UTF-8”反例增加明确 UTF-8 BOM，因为无 BOM 的 C0 AF 也是合法 GBK 双字节；检测必须区分声明编码与无声明的文本兼容策略。
+
+## 0.23.4 上传流程检查
+
+file_types_0234.php 新增 48 项核心检查，http_0234.py 新增 52 项 HTTP 检查。png-formats.json 的 30 个单像素文件按 PNG 结构生成后由 Pillow 独立解码，运行期不需要 Pillow。MP4 为容器结构夹具，不代表编解码或播放验证。UploadIoFaults.php 仅在 CLI 核心测试加载，用命名空间函数在指定文件的指定一次写入/刷新中注入故障，生产上传包不包含它。另用临时数据库触发器复现完成状态提交失败，并测试死锁重试只保留一份媒体。

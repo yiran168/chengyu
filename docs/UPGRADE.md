@@ -1,4 +1,14 @@
-# 升级到 0.23.3
+# 升级到 0.23.4
+
+0.23.1、0.23.2、0.23.3 均可使用 `chengyu-0.23.4-patch-from-0.23.1.zip` 累计补丁。备份后合并覆盖网站根目录，不先删除原目录。补丁不含 app/config.php、install/key.php、INSTALL_KEY.txt、storage 或数据库；原安装口令继续有效，数据库结构仍为 v15，不重新安装。
+
+已安装并删除 install 的站点只上传 app；尚未安装的站点同时覆盖补丁里的 install/index.php，保留原 install/key.php。覆盖后清理 PHP 代码缓存或让主机商清理 OPcache。
+
+本版强化 MP4/PNG 内容检查、修复损坏分片补传和写入失败清理。若提示分片损坏，再次点击上传即可补传损坏片，已经通过校验的片会保留。建议更新后检查图片、私有附件和大文件上传。格式范围、读取上限与各入口检查见 [文件识别说明](FILE_TYPES.md)。
+
+以下为历史升级说明：
+
+## 升级到 0.23.3（已包含）
 
 0.23.1、0.23.2 均可使用 `chengyu-0.23.3-patch-from-0.23.1.zip` 累计补丁直接升级。备份后合并覆盖原网站根目录；补丁不包含 app/config.php、install/key.php 或 storage，原安装口令继续有效，结构保持 v15。已安装并删除 install 的站点只上传 app 部分；未安装的站点保留原 install/key.php，刷新安装页继续。
 

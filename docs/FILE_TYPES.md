@@ -2,38 +2,53 @@
 
 从 0.23.2 开始，安装、普通上传、分片上传和 S3 对象存储使用同一个 PHP 文件内容识别器。不需要 Fileinfo、GD、ZipArchive、mbstring、shell 命令或外部识别服务；开启 Fileinfo 的主机也走相同实现。PHP 7.4—8.5 不按版本减少上传格式。
 
-## 已上传 0.23.1 / 0.23.2，更新文件识别
+## 已上传 0.23.1 / 0.23.2 / 0.23.3，更新文件识别
 
-下载本次 Release 的 `chengyu-0.23.3-patch-from-0.23.1.zip`，在本地解压，将其中的 `app` 和 `install` 合并上传到原网站根目录，同名程序文件选择覆盖。不要把整个旧目录先删除，也不要另建一层 chengyu 目录。
+下载本次 Release 的 `chengyu-0.23.4-patch-from-0.23.1.zip`，在本地解压，将其中的 `app` 和 `install` 合并上传到原网站根目录，同名程序文件选择覆盖。不要把整个旧目录先删除，也不要另建一层 chengyu 目录。
 
 补丁只含本次修改的程序文件，不含 `install/key.php`、`app/config.php`、`INSTALL_KEY.txt` 或 storage。原来生成的安装口令和验证文件继续有效，无需重新生成。刷新 `/install/` 后，环境检测会显示“内置文件类型识别（无需 Fileinfo 扩展）”；其他项目通过即可显示安装按钮。刷新可能清空尚未提交的表单，请按原数据库信息重新填写。
 
 若仍显示旧的 Fileinfo 扩展检查，先确认覆盖到了该域名实际绑定的目录；如面板有清理 PHP 缓存/重启 PHP 功能，执行后重新访问。若主机缓存不自动更新且面板没有入口，需要主机商清理 OPcache。缺少 PDO、OpenSSL、目录写权限或本站安装验证文件仍会阻止安装，页面会分别说明处理方法。
 
-新站从完整上传包安装时，仍须按 DEPLOY_PREPARE.html 生成自己的安装验证文件。此累计补丁适用于 0.23.1 和 0.23.2，已分别验证覆盖结果。已安装站点按升级说明保留配置、原 secret、数据库和上传目录，不重新安装。数据库结构保持 v15。
+新站从完整上传包安装时，仍须按 DEPLOY_PREPARE.html 生成自己的安装验证文件。此累计补丁适用于 0.23.1、0.23.2 和 0.23.3，已分别验证覆盖结果。已安装站点按升级说明保留配置、原 secret、数据库和上传目录，不重新安装。数据库结构保持 v15。
 
 ## 格式与权限
 
 | 格式 | 识别依据 | 上传权限 |
 | --- | --- | --- |
 | JPEG | 文件头、尾部结束标记、SOF 图像类型和尺寸；按段跳过大 EXIF/ICC/注释信息 | 会员按开关上传；可公开或私有 |
-| PNG | 文件头、IHDR、IDAT、IEND 和图像尺寸 | 同上 |
-| GIF | 87a/89a 标记、调色板/扩展块、图像块和结束标记 | 同上 |
-| WebP | RIFF 长度、WebP 数据块、VP8/VP8L 或动画帧和尺寸 | 同上 |
+| PNG | 文件头、IHDR/PLTE CRC、合法位深/颜色/交错组合、IDAT/IEND 和尺寸；索引色须有合法调色板 | 同上 |
+| GIF | 87a/89a 标记、调色板/扩展块、首帧边界和结束标记 | 同上 |
+| WebP | RIFF 长度、WebP 数据块、VP8/VP8L 尺寸与画布或首个动画帧一致、首帧边界 | 同上 |
 | PDF | 支持版本文件头和文件尾 EOF 标记 | 管理员/编辑；强制私有 |
 | ZIP | 本地文件头、中央目录、结束记录；支持常规单卷 ZIP64（含空文件归档），跳过 ZIP 注释内不成立的结束记录 | 管理员/编辑；强制私有 |
 | TXT | ASCII、UTF-8、带 BOM 的 UTF-16、GBK/GB18030 字节结构及控制字符检查 | 管理员/编辑；强制私有 |
 | MP3 | 合法 ID3 大小及可选尾标，至少两个相邻 Layer III 帧 | 管理员/编辑；强制私有 |
-| MP4 | ISO 文件类型盒、支持的 MP4 品牌及长度 | 管理员/编辑；强制私有 |
+| MP4 | ISO 文件类型盒和支持品牌，顶层盒完整边界；支持大前置填充、64 位长度、延伸至文件末尾的数据盒 | 管理员/编辑；强制私有 |
 
 0.23.3 支持常见 GBK/GB18030 文本，无需转码，下载保持原始字节。无 BOM 的文本编码可能存在歧义；这里检查字节结构，不声称能唯一确认字符集或检查全部字形映射。带 UTF-8 BOM 的文件必须按 UTF-8 通过检查，不会回退到 GBK。新文本仍推荐保存为 UTF-8。未知类型、空文件、明显损坏或截断的受支持结构、脚本、SVG 和 HTML 不会因为修改扩展名而自动获得图片权限。普通上传以内容判断；S3 上传同时要求内容与所选扩展名、清单 MIME 一致。图片维持宽高最多 12000、像素总数最多 4000 万的限制。
 
+## 本次检查覆盖范围
+
+| 流程 | 检查与恢复 |
+| --- | --- |
+| 安装 | Fileinfo 不作为安装条件；原有 PDO、OpenSSL、写权限、安装验证文件检查保留 |
+| 普通上传 | 真实上传临时文件、内容识别、图片尺寸、会员权限、强制私有附件 |
+| 分片上传 | 身份、大小、片序、SHA-256、防护封装、重复请求和整文件校验；合并后同一类型策略 |
+| 损坏恢复 | 同尺寸损坏也不能当作已完成；合并一次找出所有损坏片，重试只补传它们 |
+| 磁盘故障 | 检查防护头、数据写入和缓冲刷新；关闭句柄后清理临时文件，保留可重试分片 |
+| 数据库故障 | 文件只复制一次；媒体登记与分片完成状态同事务，回滚清理新附件，重试不产生孤立副本 |
+| S3 | 九种受支持格式使用相同检测器，Range/ETag/条件复制与清单一致性；提交前核对校验锁归属，失败只释放自己持有的锁 |
+| 下载 | 私有权限、字节范围、nosniff、防护封装隔离；分片完成重复请求返回同一媒体 |
+
+PNG 验证覆盖全部 15 种合法颜色/位深组合及两种交错方式，共 30 个可解码小样本。MP4 检查最多 128 个顶层盒，ftyp 内容最多 4096 字节，仍受额外读取预算限制；格式识别不分析编解码器或保证播放。PNG 不遍历所有图像数据 CRC，也不解压像素。GIF/WebP 额外核对首帧与画布边界、WebP 位流尺寸与声明尺寸的一致性；这是有界识别，不声称遍历或解码所有动画帧。
+
 ## 大文件和安全边界
 
-类型和图片尺寸检查共用一个读取预算。JPEG 可按段跳过大附加信息，普通上传、分片合并与 S3 不再因尺寸标记落在前缀外而出现不同结果。识别器先读取最多 256 KiB，需要时再按范围读取文件尾、中央目录或大 ID3 标签后的音频帧；额外读取最多 256 KiB / 32 次。不会为了识别类型将整份大型资源读入内存，也不解压 ZIP 内容。结构过于复杂、读取超限或读取不完整会拒绝上传。分片先校验每片和整文件，再对合并后的实际内容执行相同检查；PHP 防护封装不计入文件签名或下载内容。
+类型和图片尺寸检查共用一个读取预算。JPEG 可按段跳过大附加信息，普通上传、分片合并与 S3 不再因尺寸标记落在前缀外而出现不同结果。识别器先读取最多 256 KiB，需要时再按范围读取文件尾、中央目录或大 ID3 标签后的音频帧、MP4 填充或媒体数据之后的盒头；额外读取最多 256 KiB / 32 次。不会为了识别类型将整份大型资源读入内存，也不解压 ZIP 内容。结构过于复杂、读取超限或读取不完整会拒绝上传。分片先校验每片和整文件，再对合并后的实际内容执行相同检查；PHP 防护封装不计入文件签名或下载内容。
 
-对象存储每次范围读取都携带同一个 If-Match，并核对 206、Content-Range、实际字节数和 ETag；校验后使用条件复制生成最终对象。对象在读取过程中被替换、响应范围不匹配或类型不符，不会创建媒体记录。
+对象存储每次范围读取都携带同一个 If-Match，并核对 206、Content-Range、实际字节数和 ETag；校验后使用条件复制生成最终对象。对象在读取过程中被替换、响应范围不匹配或类型不符，不会创建媒体记录。网络校验期间若锁过期并由另一请求接管，旧请求不能覆盖新状态或清除新锁；再次请求返回已完成的媒体或提示稍后重试。
 
 识别文件类型不等于完整解码、播放保证或病毒扫描。文件可以拥有合法头部但内部数据损坏；ZIP/PDF 中也可能包含不可信内容。大文本检查的是有界前缀，不能声称扫描了全文件脚本内容。安全还依赖原有随机文件名、PHP 防护封装、授权下载、强制私有附件、nosniff 和服务器目录限制；这些保护继续生效。上传格式不因 PHP 版本改变，但配额、上传大小和出站网络仍受具体主机约束。
 
-实现参考格式规范，未引入第三方检测库：[MIME Sniffing](https://mimesniff.spec.whatwg.org/)、[WebP RIFF](https://developers.google.com/speed/webp/docs/riff_container)、[ID3v2.4](https://id3.org/id3v2.4.0-structure)、[PKWARE ZIP 格式](https://pkware.cachefly.net/webdocs/casestudies/APPNOTE.TXT)、[Encoding Standard](https://encoding.spec.whatwg.org/)。JPEG 使用有界 SOF 解析，其他图片的 `getimagesizefromstring` 只用于补充类型与尺寸检查，不能单独当作安全验证：[PHP 文档](https://www.php.net/manual/en/function.getimagesize.php)。实际测试版本和数量见测试报告。
+实现参考格式规范，未引入第三方检测库：[MIME Sniffing](https://mimesniff.spec.whatwg.org/)、[WebP RIFF](https://developers.google.com/speed/webp/docs/riff_container)、[ID3v2.4](https://id3.org/id3v2.4.0-structure)、[PKWARE ZIP 格式](https://pkware.cachefly.net/webdocs/casestudies/APPNOTE.TXT)、[Encoding Standard](https://encoding.spec.whatwg.org/)、[PNG](https://www.w3.org/TR/png-3/)、[GIF89a](https://giflib.sourceforge.net/gifstandard/GIF89a.html)、[Apple Atom 长度说明](https://developer.apple.com/documentation/quicktime-file-format/atoms)、[W3C ISO BMFF](https://www.w3.org/TR/mse-byte-stream-format-isobmff/)。JPEG 使用有界 SOF 解析，其他图片的 `getimagesizefromstring` 只用于补充类型与尺寸检查，不能单独当作安全验证：[PHP 文档](https://www.php.net/manual/en/function.getimagesize.php)。实际测试版本和数量见测试报告。

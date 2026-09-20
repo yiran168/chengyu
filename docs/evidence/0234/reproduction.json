@@ -1,0 +1,105 @@
+{
+    "fileinfo": false,
+    "cases": [
+        {
+            "case": "large-padding",
+            "expected": "video\/mp4",
+            "v0.23.3": {
+                "mime": "application\/octet-stream",
+                "image": null
+            },
+            "current": {
+                "mime": "video\/mp4",
+                "image": null
+            },
+            "fixed": true
+        },
+        {
+            "case": "wide-ftyp",
+            "expected": "video\/mp4",
+            "v0.23.3": {
+                "mime": "application\/octet-stream",
+                "image": null
+            },
+            "current": {
+                "mime": "video\/mp4",
+                "image": null
+            },
+            "fixed": true
+        },
+        {
+            "case": "fake-mp4",
+            "expected": "application\/octet-stream",
+            "v0.23.3": {
+                "mime": "video\/mp4",
+                "image": null
+            },
+            "current": {
+                "mime": "application\/octet-stream",
+                "image": null
+            },
+            "fixed": true
+        },
+        {
+            "case": "broken-png",
+            "expected": "application\/octet-stream",
+            "v0.23.3": {
+                "mime": "image\/png",
+                "image": {
+                    "0": 3,
+                    "1": 2,
+                    "2": 3,
+                    "3": "width=\"3\" height=\"2\"",
+                    "bits": 8,
+                    "mime": "image\/png"
+                }
+            },
+            "current": {
+                "mime": "application\/octet-stream",
+                "image": null
+            },
+            "fixed": true
+        },
+        {
+            "case": "oversized-gif-frame",
+            "expected": "application\/octet-stream",
+            "v0.23.3": {
+                "mime": "image\/gif",
+                "image": {
+                    "0": 3,
+                    "1": 2,
+                    "2": 1,
+                    "3": "width=\"3\" height=\"2\"",
+                    "bits": 2,
+                    "channels": 3,
+                    "mime": "image\/gif"
+                }
+            },
+            "current": {
+                "mime": "application\/octet-stream",
+                "image": null
+            },
+            "fixed": true
+        },
+        {
+            "case": "tiny-webp-canvas",
+            "expected": "application\/octet-stream",
+            "v0.23.3": {
+                "mime": "image\/webp",
+                "image": {
+                    "0": 1,
+                    "1": 1,
+                    "2": 18,
+                    "3": "width=\"1\" height=\"1\"",
+                    "bits": 8,
+                    "mime": "image\/webp"
+                }
+            },
+            "current": {
+                "mime": "application\/octet-stream",
+                "image": null
+            },
+            "fixed": true
+        }
+    ]
+}

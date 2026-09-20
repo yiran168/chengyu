@@ -1,8 +1,8 @@
 {
   "name": "Chengyu",
-  "version": "0.23.4",
+  "version": "0.23.3",
   "date": "2026-09-20",
-  "baseline": "0.23.3",
+  "baseline": "0.23.2",
   "database_schema_version": 15,
   "installation_config_format_version": 1,
   "settings_fields": 292,
@@ -31,20 +31,20 @@
     "8.5.10"
   ],
   "native_pdo_verified": true,
-  "mysql_verified_on_ci_commit": "804060c4a53ef5e043e6f43477b8ee0239357fca",
+  "mysql_verified_on_ci_commit": "47bc84c2dcbbe20958804cb9316bcb3ccaaf7525",
   "ci_native_matrix_jobs": 14,
   "ci_matrix_executed": true,
-  "ci_run_url": "https://github.com/yiran168/chengyu/actions/runs/35503757700",
-  "local_core_tests_per_php": 740,
-  "http_tests": 1154,
+  "ci_run_url": "https://github.com/yiran168/chengyu/actions/runs/35489457973",
+  "local_core_tests_per_php": 692,
+  "http_tests": 1102,
   "spring_tests": 42,
-  "php_syntax_files": 316,
+  "php_syntax_files": 314,
   "production_php_files": 264,
   "javascript_syntax_files": 20,
   "screenshots": 193,
   "new_screenshots": 0,
   "manual_chapters": 40,
-  "locale_dictionary_entries": 3052,
+  "locale_dictionary_entries": 3050,
   "real_shared_hosts_verified": false,
   "vps_install_verified": false,
   "live_payments_verified": false,
@@ -55,14 +55,14 @@
   "requires_site_specific_install_verifier": true,
   "proprietary_reference_bytes_included": 0,
   "no_size_padding": true,
-  "upload_archive_bytes": 2244052,
+  "upload_archive_bytes": 2240780,
   "complete_archive_size_location": "External package-verification.json (not self-referential metadata).",
   "interface_symbols": 81,
   "generated_anime_icons": 8,
   "new_distinct_covers": 0,
   "browser_tests": 200,
   "browser_baseline_version": "0.23.0",
-  "browser_verification_scope": "Full 200-test browser suite and 193 previews retained from 0.23.0; actual PHP HTTP tests cover 0.23.4 installation and uploads, not a new full browser run",
+  "browser_verification_scope": "Full 200-test browser suite and 193 previews retained from 0.23.0; actual PHP HTTP tests cover 0.23.3 installation and upload changes, not a new full browser run",
   "requires_fileinfo": false,
   "upload_type_detector": "Shared bounded PHP content detector for local, chunked and S3 uploads",
   "ci_database_extension_states": 28,
@@ -77,8 +77,8 @@
         "gd": false,
         "zip": false
       },
-      "total": 1154,
-      "passed": 1154
+      "total": 1102,
+      "passed": 1102
     },
     {
       "file": "http-8.2-present.json",
@@ -89,8 +89,8 @@
         "gd": false,
         "zip": false
       },
-      "total": 1153,
-      "passed": 1153
+      "total": 1101,
+      "passed": 1101
     },
     {
       "file": "http-7.4-absent.json",
@@ -101,8 +101,8 @@
         "gd": false,
         "zip": true
       },
-      "total": 1154,
-      "passed": 1154
+      "total": 1102,
+      "passed": 1102
     }
   ]
 }
