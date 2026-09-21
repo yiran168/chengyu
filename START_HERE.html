@@ -70,7 +70,7 @@ footer{max-width:1240px;margin:25px auto 50px;padding:0 24px;font-size:13px;colo
 <p>已有 0.18 / 0.19 / 0.20 / 0.21 / 0.22 / 0.23 站点按 <a href="docs\UPGRADE.md">升级说明</a> 保留 config.php、原 secret、数据库和 storage，升级至结构 v16，不重新安装。</p>
 <h3>部署与验证</h3>
 <p>最低环境：64 位 PHP 7.4–8.5、PDO MySQL 或 SQLite、OpenSSL、可写存储；无需 Fileinfo。MySQL 需要 InnoDB、utf8mb4 和建表/索引权限；网上收款与外部服务需要 HTTPS 及主机允许的出站网络。</p>
-<p>本版完成 PHP 七版本本地原生 SQLite 双扩展状态测试、真实 HTTP、38 项浏览器检查和旧库升级；Linux 原生 MySQL/SQLite 的 CI 证据仍为 0.23.4 历史基线，本版尚未重新执行。各项分别保存证据，详见 <a href="docs\TEST_REPORT.md">测试报告</a>。免费主机的具体实例和 VPS 装机尚未实测，不能将语言兼容测试等同于服务商所有套餐均可用。</p>
+<p>本版完成 PHP 七版本本地原生 SQLite 双扩展状态测试、真实 HTTP、38 项浏览器检查和旧库升级；本版Linux原生MySQL/SQLite的14组CI已完成，28个数据库/扩展状态各761/761。各项分别保存证据，详见 <a href="docs\TEST_REPORT.md">测试报告</a>。免费主机的具体实例和 VPS 装机尚未实测，不能将语言兼容测试等同于服务商所有套餐均可用。</p>
 <ul>
 <li><a href="START_HERE.html">离线完整手册</a> / <a href="docs\DEPLOYMENT.md">安装与主机配置</a></li>
 <li><a href="docs\PLATFORM_024.md">本版功能使用</a> / <a href="docs\ADMIN_GUIDE.md">后台指南</a></li>
@@ -538,7 +538,7 @@ sudo chmod 0750 /var/www/chengyu/site/app
 <p>推荐佣金的退款冲销允许形成内部负债记录，以免推荐人已提现导致买家永远不能退款；负数佣金不等于普通余额可以透支，也不是自动向推荐人的银行卡追回。运营者应审核此情况并人工对账。提现仍为人工审核/人工打款后确认，不是自动代付。</p>
 </article><article id="chapter-8" class="chapter"><p class="eyebrow">CHAPTER 08 <a href="docs/COMPATIBILITY.md">分篇源文件</a></p><h2>PHP 与部署兼容性</h2>
 <p>0.24.0 使用同一套 64 位 PHP 7.4–8.5 代码，功能不按小版本裁剪。需要原生 PDO MySQL 或 SQLite、OpenSSL，以及可写的私有存储。文件类型识别无需 Fileinfo、GD 或 ZipArchive；默认不依赖 curl、mbstring、FFI、Composer、Node、Redis 或常驻服务。</p>
-<p>本地实际执行 PHP 7.4.33 / 8.0.30 / 8.1.34 / 8.2.33 / 8.3.33 / 8.4.25 / 8.5.10，全部使用原生 pdo_sqlite。0.23.4历史Linux CI为七个PHP小版本各运行原生MySQL8.0与SQLite两组，共14组；0.24尚未执行新的MySQL CI；准确提交、数量与状态见 TEST_REPORT.md，不把旧报告计入最新改动的通过数。</p>
+<p>本地实际执行 PHP 7.4.33 / 8.0.30 / 8.1.34 / 8.2.33 / 8.3.33 / 8.4.25 / 8.5.10，全部使用原生 pdo_sqlite。本版Linux CI为七个PHP小版本各运行原生MySQL8.0与SQLite两组，共14组，分别开/关Fileinfo，共28个状态均通过；准确提交、数量与状态见 TEST_REPORT.md，不把旧报告计入最新改动的通过数。</p>
 <p>Windows 安装网址路径已改用专用 WebPath，避免 dirname() 产生反斜杠 Cookie 路径；媒体签名探测有固定字节边界，采用统一内置识别器，支持无 Fileinfo 的共享主机。兼容 7.4 不代表旧 PHP 运行时本身仍有官方安全维护。</p>
 <p>MySQL 使用 InnoDB、utf8mb4、预处理查询与事务，需要数据库建表、加列和索引权限。SQLite 文件必须放在网站公开目录外；同一数据库并发写入仍受 SQLite 锁和共享主机配额约束，不承诺无限吞吐。</p>
 <p>虚拟主机上传生产目录即可运行普通页面、会员、内容管理和本地资源；自动金融任务需要外部定时触发或手动后台执行。所有外部支付、邮件、云存储、物流和翻译仍需要真实账号、服务授权、允许的 DNS/HTTPS 出站和公网回调。</p>
@@ -710,7 +710,7 @@ SQLite 使用 SQLite 在线备份 API / sqlite3 <code>.backup</code> 或停止�
 <tr>
 <td>版本与升级</td>
 <td>App版本与RELEASE元数据一致；导航增量迁移可重试</td>
-<td>本次SQLite旧库升级，MySQL CI和真实主机尚待执行</td>
+<td>本次SQLite旧库升级及MySQL/SQLite CI通过；真实主机尚待执行</td>
 </tr>
 </tbody>
 </table></div>
@@ -1070,7 +1070,7 @@ SQLite 使用 SQLite 在线备份 API / sqlite3 <code>.backup</code> 或停止�
 <tr>
 <td>PHP与主机</td>
 <td>同一PHP7.4–8.5源码，不按版本裁剪功能；无WordPress/运行期Composer/Node/Redis/常驻队列依赖；Apache/IIS/Nginx/Caddy/VPS说明</td>
-<td>本版原生PHP七版本通过；14组CI仍为0.23.4历史基线，准确范围见测试报告；两免费主机和VPS装机未实测；主机必须有必要扩展/权限/HTTPS</td>
+<td>本版原生PHP七版本及14组MySQL/SQLite CI通过，准确范围见测试报告；两免费主机和VPS装机未实测；主机必须有必要扩展/权限/HTTPS</td>
 </tr>
 </tbody>
 </table></div>
@@ -1094,6 +1094,11 @@ SQLite 使用 SQLite 在线备份 API / sqlite3 <code>.backup</code> 或停止�
 <td>Windows 原生 PDO SQLite</td>
 <td>PHP7.4—8.5 × Fileinfo开启/关闭，14组，每组761/761</td>
 <td>evidence/024/matrix.json、php-*.json</td>
+</tr>
+<tr>
+<td>Linux 原生 MySQL / SQLite</td>
+<td>七PHP版本 × 两数据库 × 两扩展状态，28组各761/761；14个作业成功</td>
+<td>evidence/024/ci-verified.json、native-*.json</td>
 </tr>
 <tr>
 <td>PHP8.2.33 无Fileinfo/GD/ZipArchive</td>
@@ -1143,8 +1148,8 @@ SQLite 使用 SQLite 在线备份 API / sqlite3 <code>.backup</code> 或停止�
 <p>菜单检查覆盖1100/1280/1440桌面边界、390手机、Enter/Escape/焦点、无JS路径及减少动态效果。FAQ页面覆盖320/390/768/1440宽度、原生展开、旧文本兼容与转义。8张新截图单独标记024；先前193张截图及完整200项浏览器结果仍属于0.23.0，未混入本轮通过数。</p>
 <p>升级保留余额、原订单、付费访问、受保护正文、加密资源和全部原菜单字段；新菜单字段默认关闭，重复迁移不改变数据。旧包版本号错误已如实保留在升级证据中，未篡改为0.23.4。</p>
 <h3>未验证的环境</h3>
-<p>本轮未执行原生MySQL的最新CI。此前0.23.4已验证七PHP版本 × MySQL/SQLite × 两扩展状态共28组，各740/740，提交804060c4a53ef5e043e6f43477b8ee0239357fca：<a href="https://github.com/yiran168/chengyu/actions/runs/35503757700">历史CI</a>。它不能证明本版新增查询与迁移已在MySQL执行；RELEASE.json已明确区分。</p>
-<p>蓝队云/萌哒云真实账号、VPS装机、支付/SMTP/S3实际商户均未联调。Fileinfo-free检测的格式范围和有界读取限制仍见FILE_TYPES.md，不等于杀毒或全部媒体解码。GitHub远程验证/发布受工具自动审批阻塞，源码本地包完成不等于远程Release已经发布。</p>
+<p>本版CI提交为<code>cd1ee7c68ca9836cde491069741723172b9379f0</code>：<a href="https://github.com/yiran168/chengyu/actions/runs/35545588108">实际执行</a>。14个作业全部成功，下载并核对28份原始结果中的PHP版本、原生PDO驱动、Fileinfo状态和761/761通过数。后续发布提交只补充说明、证据、手册和清单，业务代码与该提交一致。0.23.4历史CI另保留，不计入本版结果。</p>
+<p>蓝队云/萌哒云真实账号、VPS装机、支付/SMTP/S3实际商户均未联调。Fileinfo-free检测的格式范围和有界读取限制仍见FILE_TYPES.md，不等于杀毒或全部媒体解码。具体发行状态以GitHub Release为准，测试证据本身不代替远程附件校验。</p>
 <p>离线手册检查见manual-checks.json；包CRC、部署文件、私密文件排除、逐文件哈希及四个基线补丁覆盖验证随交付包存放于package-verification.json。0.23.4报告保存在history/0.23.4。</p>
 </article><article id="chapter-13" class="chapter"><p class="eyebrow">CHAPTER 13 <a href="docs/REFERENCE_AUDIT.md">分篇源文件</a></p><h2>0.19 源码与版本功能分析</h2>
 <p>核查日期：2026-09-08。实际读取用户指定的子比 8.9 和 Shane 2.2 子主题目录；不运行参考 PHP、导入数据库或复制其素材。Shane 依赖 RiPro 父主题，本地这份目录不是完整 RiPro 产品源码，缺失父主题部分以官方功能日志核对。</p>
@@ -1644,6 +1649,10 @@ bash -n deploy/install-vps.sh
 <p>file_types_0233.php 新增 19 项核心检查，http_0233.py 新增 33 项真实 HTTP 检查。样本覆盖大 JPEG 注释段、渐进式/CMYK JPEG、透明/无损/动画 WebP、调色板 PNG、空 ZIP64 与特殊 ZIP 注释，及 GBK/GB18030。真实编码器生成的小图保存在 fixtures/file-types-variants.json；运行期不依赖生成工具。旧“非法 UTF-8”反例增加明确 UTF-8 BOM，因为无 BOM 的 C0 AF 也是合法 GBK 双字节；检测必须区分声明编码与无声明的文本兼容策略。</p>
 <h3>0.23.4 上传流程检查</h3>
 <p>file_types_0234.php 新增 48 项核心检查，http_0234.py 新增 52 项 HTTP 检查。png-formats.json 的 30 个单像素文件按 PNG 结构生成后由 Pillow 独立解码，运行期不需要 Pillow。MP4 为容器结构夹具，不代表编解码或播放验证。UploadIoFaults.php 仅在 CLI 核心测试加载，用命名空间函数在指定文件的指定一次写入/刷新中注入故障，生产上传包不包含它。另用临时数据库触发器复现完成状态提交失败，并测试死锁重试只保留一份媒体。</p>
+<h3>0.24复现入口</h3>
+<p><code>php tests/run.php</code>自动包含platform_024.php；<code>python tests/http_smoke.py</code>自动包含http_024.py。核心使用原生PDO，GitHub工作流分别运行MySQL和SQLite及Fileinfo两种状态。</p>
+<p>设置CY_BROWSER_SUITE=browser_024.py、CY_CHROMIUM为本地Chromium绝对路径、CY_VISUAL_OUT为项目内输出目录，执行<code>python tests/run_live_browser.py</code>可复现38项真实URL浏览器检查；默认仍运行browser_live.py。需要开发机安装Playwright、requests，生产主机不需要Python或浏览器。</p>
+<p><code>python tests/upgrade_019.py OLD_SITE RUNTIME TEMP OUT_JSON</code>支持原0.18至0.23.4目录，使用隔离SQLite数据库验证升级，不读取生产配置。最新0.24验证范围见docs/TEST_REPORT.md，不用历史截图替代新增模块测试。</p>
 </article><article id="chapter-19" class="chapter"><p class="eyebrow">CHAPTER 19 <a href="docs/CREATOR_AND_DISCOVERY.md">分篇源文件</a></p><h2>作者收益、阅读历史与关注发现</h2>
 <p>适用 0.13.0–0.14.0。新模块无 WordPress、队列、cron 或额外生产依赖；与旧模块共用数据库、权限、钱包和前后台模板。下面的默认值只适用于未被管理员修改的站点。</p>
 <h3>一、开启作者经营</h3>
@@ -2708,7 +2717,7 @@ return [
 <p>新增分别生成的「阅读手记」书本图标和「帮助与售后」耳机图标，逻辑名称为 <code>anime-reading</code>、<code>anime-support</code>。全站共有 83 个符号，其中 10 个独立生成的二次元图标。进入「视觉素材库」即可绑定自己的公开图片、换图或恢复默认，也可从菜单选择它们。</p>
 <p>「站点设置 → 页头副标题」留空即隐藏，取代之前固定显示的英文口号。主标题、站标和既有视觉素材绑定保留。动效沿用站点统一曲线、减少动态效果偏好和键盘焦点，避免为了展示动效影响阅读。</p>
 <h3>升级与验证</h3>
-<p>按 <a href="docs\UPGRADE.md">升级说明</a> 备份后覆盖 app 和 assets。v16 只给导航加 3 个字段，旧菜单默认不开启内容预览。PHP 7.4–8.5 本地原生 SQLite、真实 HTTP、浏览器和旧库升级的结果见 <a href="docs\TEST_REPORT.md">测试报告</a>。萌哒云和蓝队云实际账号、最新 MySQL CI 与 VPS 装机未在本轮完成验证，不能把本地通过等同于全部套餐实测。</p>
+<p>按 <a href="docs\UPGRADE.md">升级说明</a> 备份后覆盖 app 和 assets。v16 只给导航加 3 个字段，旧菜单默认不开启内容预览。PHP 7.4–8.5 本地原生 SQLite、真实 HTTP、浏览器和旧库升级的结果见 <a href="docs\TEST_REPORT.md">测试报告</a>。本版MySQL/SQLite的14组CI已通过；萌哒云和蓝队云实际账号与VPS装机未在本轮完成验证，不能把本地通过等同于全部套餐实测。</p>
 </article><article id="chapter-42" class="chapter"><p class="eyebrow">CHAPTER 42 <a href="docs/REFERENCE_024.md">分篇源文件</a></p><h2>四套主题源码再次审阅：2026-09-21</h2>
 <p>本次再次直接阅读用户指定的四个本地源码目录，并查询官方产品与说明页面。下面记录实际读取的文件、可借鉴的行为和本项目实现；不是“完整审计每个文件”，也不代表全部历史付费模块均已实现。参考源码只读，不执行，不随本项目分发。文件哈希清单见 <a href="docs\evidence\024\reference-files.json">审阅记录</a>。</p>
 <h3>子比 Zibll 8.9</h3>

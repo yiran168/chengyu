@@ -5,6 +5,7 @@
 | 检查 | 实际结果 | 证据 |
 | --- | --- | --- |
 | Windows 原生 PDO SQLite | PHP7.4—8.5 × Fileinfo开启/关闭，14组，每组761/761 | evidence/024/matrix.json、php-*.json |
+| Linux 原生 MySQL / SQLite | 七PHP版本 × 两数据库 × 两扩展状态，28组各761/761；14个作业成功 | evidence/024/ci-verified.json、native-*.json |
 | PHP8.2.33 无Fileinfo/GD/ZipArchive | 1188/1188 实际HTTP检查 | evidence/024/http-8.2-absent.json |
 | PHP7.4.33 无Fileinfo | 1188/1188 实际HTTP检查 | evidence/024/http-7.4-absent.json |
 | PHP8.2.33 开启Fileinfo | 1187/1187；少一项关闭扩展专用断言 | evidence/024/http-8.2-present.json |
@@ -28,8 +29,8 @@
 
 ## 未验证的环境
 
-本轮未执行原生MySQL的最新CI。此前0.23.4已验证七PHP版本 × MySQL/SQLite × 两扩展状态共28组，各740/740，提交804060c4a53ef5e043e6f43477b8ee0239357fca：[历史CI](https://github.com/yiran168/chengyu/actions/runs/35503757700)。它不能证明本版新增查询与迁移已在MySQL执行；RELEASE.json已明确区分。
+本版CI提交为`cd1ee7c68ca9836cde491069741723172b9379f0`：[实际执行](https://github.com/yiran168/chengyu/actions/runs/35545588108)。14个作业全部成功，下载并核对28份原始结果中的PHP版本、原生PDO驱动、Fileinfo状态和761/761通过数。后续发布提交只补充说明、证据、手册和清单，业务代码与该提交一致。0.23.4历史CI另保留，不计入本版结果。
 
-蓝队云/萌哒云真实账号、VPS装机、支付/SMTP/S3实际商户均未联调。Fileinfo-free检测的格式范围和有界读取限制仍见FILE_TYPES.md，不等于杀毒或全部媒体解码。GitHub远程验证/发布受工具自动审批阻塞，源码本地包完成不等于远程Release已经发布。
+蓝队云/萌哒云真实账号、VPS装机、支付/SMTP/S3实际商户均未联调。Fileinfo-free检测的格式范围和有界读取限制仍见FILE_TYPES.md，不等于杀毒或全部媒体解码。具体发行状态以GitHub Release为准，测试证据本身不代替远程附件校验。
 
 离线手册检查见manual-checks.json；包CRC、部署文件、私密文件排除、逐文件哈希及四个基线补丁覆盖验证随交付包存放于package-verification.json。0.23.4报告保存在history/0.23.4。

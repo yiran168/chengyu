@@ -31,10 +31,10 @@
     "8.5.10"
   ],
   "native_pdo_verified": true,
-  "mysql_verified_on_ci_commit": null,
-  "ci_native_matrix_jobs": 0,
-  "ci_matrix_executed": false,
-  "ci_run_url": null,
+  "mysql_verified_on_ci_commit": "cd1ee7c68ca9836cde491069741723172b9379f0",
+  "ci_native_matrix_jobs": 14,
+  "ci_matrix_executed": true,
+  "ci_run_url": "https://github.com/yiran168/chengyu/actions/runs/35545588108",
   "local_core_tests_per_php": 761,
   "http_tests": 1188,
   "spring_tests": 42,
@@ -55,7 +55,7 @@
   "requires_site_specific_install_verifier": true,
   "proprietary_reference_bytes_included": 0,
   "no_size_padding": true,
-  "upload_archive_bytes": 2422167,
+  "upload_archive_bytes": 2422182,
   "complete_archive_size_location": "External package-verification.json (not self-referential metadata).",
   "interface_symbols": 83,
   "generated_anime_icons": 10,
@@ -65,7 +65,7 @@
   "browser_verification_scope": "0.24.0: 38 focused real-URL browser checks for content menus and layout draft/publish/FAQ paths. The 200-test full suite and 193 earlier screenshots remain historical 0.23.0 evidence.",
   "requires_fileinfo": false,
   "upload_type_detector": "Shared bounded PHP content detector for local, chunked and S3 uploads",
-  "ci_database_extension_states": 0,
+  "ci_database_extension_states": 28,
   "local_extension_states_per_php": 2,
   "http_runtime_suites": [
     {

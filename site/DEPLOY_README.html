@@ -71,7 +71,7 @@ footer{max-width:1240px;margin:25px auto 50px;padding:0 24px;font-size:13px;colo
 <p>已有 0.18 / 0.19 / 0.20 / 0.21 / 0.22 / 0.23 站点按 <a href="#chapter-3">升级说明</a> 保留 config.php、原 secret、数据库和 storage，升级至结构 v16，不重新安装。</p>
 <h3>部署与验证</h3>
 <p>最低环境：64 位 PHP 7.4–8.5、PDO MySQL 或 SQLite、OpenSSL、可写存储；无需 Fileinfo。MySQL 需要 InnoDB、utf8mb4 和建表/索引权限；网上收款与外部服务需要 HTTPS 及主机允许的出站网络。</p>
-<p>本版完成 PHP 七版本本地原生 SQLite 双扩展状态测试、真实 HTTP、38 项浏览器检查和旧库升级；Linux 原生 MySQL/SQLite 的 CI 证据仍为 0.23.4 历史基线，本版尚未重新执行。各项分别保存证据，详见 测试报告。免费主机的具体实例和 VPS 装机尚未实测，不能将语言兼容测试等同于服务商所有套餐均可用。</p>
+<p>本版完成 PHP 七版本本地原生 SQLite 双扩展状态测试、真实 HTTP、38 项浏览器检查和旧库升级；本版Linux原生MySQL/SQLite的14组CI已完成，28个数据库/扩展状态各761/761。各项分别保存证据，详见 测试报告。免费主机的具体实例和 VPS 装机尚未实测，不能将语言兼容测试等同于服务商所有套餐均可用。</p>
 <ul>
 <li>离线完整手册 / <a href="#chapter-2">安装与主机配置</a></li>
 <li><a href="#chapter-41">本版功能使用</a> / 后台指南</li>
@@ -269,7 +269,7 @@ sudo chmod 0750 /var/www/chengyu/site/app
 <p>0.22原始包生成的旧库在PHP7.4与8.5分别完成13项升级数据保留检查，见evidence/023/upgrade-from-022.json。</p>
 </article><article class="chapter" id="chapter-8"><p class="eyebrow">CHAPTER 08 </p><h2>PHP 与部署兼容性</h2>
 <p>0.24.0 使用同一套 64 位 PHP 7.4–8.5 代码，功能不按小版本裁剪。需要原生 PDO MySQL 或 SQLite、OpenSSL，以及可写的私有存储。文件类型识别无需 Fileinfo、GD 或 ZipArchive；默认不依赖 curl、mbstring、FFI、Composer、Node、Redis 或常驻服务。</p>
-<p>本地实际执行 PHP 7.4.33 / 8.0.30 / 8.1.34 / 8.2.33 / 8.3.33 / 8.4.25 / 8.5.10，全部使用原生 pdo_sqlite。0.23.4历史Linux CI为七个PHP小版本各运行原生MySQL8.0与SQLite两组，共14组；0.24尚未执行新的MySQL CI；准确提交、数量与状态见 TEST_REPORT.md，不把旧报告计入最新改动的通过数。</p>
+<p>本地实际执行 PHP 7.4.33 / 8.0.30 / 8.1.34 / 8.2.33 / 8.3.33 / 8.4.25 / 8.5.10，全部使用原生 pdo_sqlite。本版Linux CI为七个PHP小版本各运行原生MySQL8.0与SQLite两组，共14组，分别开/关Fileinfo，共28个状态均通过；准确提交、数量与状态见 TEST_REPORT.md，不把旧报告计入最新改动的通过数。</p>
 <p>Windows 安装网址路径已改用专用 WebPath，避免 dirname() 产生反斜杠 Cookie 路径；媒体签名探测有固定字节边界，采用统一内置识别器，支持无 Fileinfo 的共享主机。兼容 7.4 不代表旧 PHP 运行时本身仍有官方安全维护。</p>
 <p>MySQL 使用 InnoDB、utf8mb4、预处理查询与事务，需要数据库建表、加列和索引权限。SQLite 文件必须放在网站公开目录外；同一数据库并发写入仍受 SQLite 锁和共享主机配额约束，不承诺无限吞吐。</p>
 <p>虚拟主机上传生产目录即可运行普通页面、会员、内容管理和本地资源；自动金融任务需要外部定时触发或手动后台执行。所有外部支付、邮件、云存储、物流和翻译仍需要真实账号、服务授权、允许的 DNS/HTTPS 出站和公网回调。</p>
@@ -310,7 +310,7 @@ sudo chmod 0750 /var/www/chengyu/site/app
 <tr>
 <td>版本与升级</td>
 <td>App版本与RELEASE元数据一致；导航增量迁移可重试</td>
-<td>本次SQLite旧库升级，MySQL CI和真实主机尚待执行</td>
+<td>本次SQLite旧库升级及MySQL/SQLite CI通过；真实主机尚待执行</td>
 </tr>
 </tbody>
 </table></div>
@@ -670,7 +670,7 @@ sudo chmod 0750 /var/www/chengyu/site/app
 <tr>
 <td>PHP与主机</td>
 <td>同一PHP7.4–8.5源码，不按版本裁剪功能；无WordPress/运行期Composer/Node/Redis/常驻队列依赖；Apache/IIS/Nginx/Caddy/VPS说明</td>
-<td>本版原生PHP七版本通过；14组CI仍为0.23.4历史基线，准确范围见测试报告；两免费主机和VPS装机未实测；主机必须有必要扩展/权限/HTTPS</td>
+<td>本版原生PHP七版本及14组MySQL/SQLite CI通过，准确范围见测试报告；两免费主机和VPS装机未实测；主机必须有必要扩展/权限/HTTPS</td>
 </tr>
 </tbody>
 </table></div>
@@ -1090,7 +1090,7 @@ return [
 <p>新增分别生成的「阅读手记」书本图标和「帮助与售后」耳机图标，逻辑名称为 <code>anime-reading</code>、<code>anime-support</code>。全站共有 83 个符号，其中 10 个独立生成的二次元图标。进入「视觉素材库」即可绑定自己的公开图片、换图或恢复默认，也可从菜单选择它们。</p>
 <p>「站点设置 → 页头副标题」留空即隐藏，取代之前固定显示的英文口号。主标题、站标和既有视觉素材绑定保留。动效沿用站点统一曲线、减少动态效果偏好和键盘焦点，避免为了展示动效影响阅读。</p>
 <h3>升级与验证</h3>
-<p>按 <a href="#chapter-3">升级说明</a> 备份后覆盖 app 和 assets。v16 只给导航加 3 个字段，旧菜单默认不开启内容预览。PHP 7.4–8.5 本地原生 SQLite、真实 HTTP、浏览器和旧库升级的结果见 测试报告。萌哒云和蓝队云实际账号、最新 MySQL CI 与 VPS 装机未在本轮完成验证，不能把本地通过等同于全部套餐实测。</p>
+<p>按 <a href="#chapter-3">升级说明</a> 备份后覆盖 app 和 assets。v16 只给导航加 3 个字段，旧菜单默认不开启内容预览。PHP 7.4–8.5 本地原生 SQLite、真实 HTTP、浏览器和旧库升级的结果见 测试报告。本版MySQL/SQLite的14组CI已通过；萌哒云和蓝队云实际账号与VPS装机未在本轮完成验证，不能把本地通过等同于全部套餐实测。</p>
 </article>
 
 </main></div><footer>Chengyu 0.24.0 | Standalone instructions. Screenshots, test evidence and source are in the complete package.</footer></body></html>

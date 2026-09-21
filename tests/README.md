@@ -193,3 +193,11 @@ file_types_0233.php 新增 19 项核心检查，http_0233.py 新增 33 项真实
 ## 0.23.4 上传流程检查
 
 file_types_0234.php 新增 48 项核心检查，http_0234.py 新增 52 项 HTTP 检查。png-formats.json 的 30 个单像素文件按 PNG 结构生成后由 Pillow 独立解码，运行期不需要 Pillow。MP4 为容器结构夹具，不代表编解码或播放验证。UploadIoFaults.php 仅在 CLI 核心测试加载，用命名空间函数在指定文件的指定一次写入/刷新中注入故障，生产上传包不包含它。另用临时数据库触发器复现完成状态提交失败，并测试死锁重试只保留一份媒体。
+
+## 0.24复现入口
+
+`php tests/run.php`自动包含platform_024.php；`python tests/http_smoke.py`自动包含http_024.py。核心使用原生PDO，GitHub工作流分别运行MySQL和SQLite及Fileinfo两种状态。
+
+设置CY_BROWSER_SUITE=browser_024.py、CY_CHROMIUM为本地Chromium绝对路径、CY_VISUAL_OUT为项目内输出目录，执行`python tests/run_live_browser.py`可复现38项真实URL浏览器检查；默认仍运行browser_live.py。需要开发机安装Playwright、requests，生产主机不需要Python或浏览器。
+
+`python tests/upgrade_019.py OLD_SITE RUNTIME TEMP OUT_JSON`支持原0.18至0.23.4目录，使用隔离SQLite数据库验证升级，不读取生产配置。最新0.24验证范围见docs/TEST_REPORT.md，不用历史截图替代新增模块测试。

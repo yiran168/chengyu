@@ -41,7 +41,7 @@
 
 最低环境：64 位 PHP 7.4–8.5、PDO MySQL 或 SQLite、OpenSSL、可写存储；无需 Fileinfo。MySQL 需要 InnoDB、utf8mb4 和建表/索引权限；网上收款与外部服务需要 HTTPS 及主机允许的出站网络。
 
-本版完成 PHP 七版本本地原生 SQLite 双扩展状态测试、真实 HTTP、38 项浏览器检查和旧库升级；Linux 原生 MySQL/SQLite 的 CI 证据仍为 0.23.4 历史基线，本版尚未重新执行。各项分别保存证据，详见 [测试报告](docs/TEST_REPORT.md)。免费主机的具体实例和 VPS 装机尚未实测，不能将语言兼容测试等同于服务商所有套餐均可用。
+本版完成 PHP 七版本本地原生 SQLite 双扩展状态测试、真实 HTTP、38 项浏览器检查和旧库升级；本版Linux原生MySQL/SQLite的14组CI已完成，28个数据库/扩展状态各761/761。各项分别保存证据，详见 [测试报告](docs/TEST_REPORT.md)。免费主机的具体实例和 VPS 装机尚未实测，不能将语言兼容测试等同于服务商所有套餐均可用。
 
 - [离线完整手册](START_HERE.html) / [安装与主机配置](docs/DEPLOYMENT.md)
 - [本版功能使用](docs/PLATFORM_024.md) / [后台指南](docs/ADMIN_GUIDE.md)
