@@ -94,7 +94,7 @@
 | 本地 PHP 7.4—8.5，Fileinfo 开启 / 关闭 | 14 组原生 PDO SQLite 测试，每组 **769 项通过** |
 | PHP 7.4 / 8.2 / 8.5，关闭 Fileinfo | 每个版本 **1,188 项 HTTP 检查通过** |
 | 重点浏览器操作 | **38 项通过**，覆盖退款、账户恢复、资料保存、头像预览等 |
-| Linux 原生 MySQL / SQLite | 七个 PHP 版本的 CI 矩阵；执行记录与原始结果见下方报告 |
+| Linux 原生 MySQL / SQLite | **28 个数据库 / 扩展状态全部通过**；SQLite 每组 769 项，MySQL 每组 770 项 |
 
 **[测试报告与原始证据](docs/TEST_REPORT.md) · [GitHub Actions](https://github.com/yiran168/chengyu/actions/workflows/php.yml) · [真实主机验收](docs/ACCEPTANCE_018.md)**
 
@@ -119,7 +119,7 @@ php tests/run.php > core-results.json
 
 MySQL、HTTP 与浏览器测试的依赖和命令见 [开发者测试说明](tests/README.md)。测试会创建临时账户、订单和数据库，请勿连接生产数据。
 
-欢迎提交 Issue 或 Pull Request。问题报告请附版本、PHP / 数据库环境、最小复现步骤和脱敏错误日志；不要提交数据库密码、安装口令、支付密钥或用户隐私。涉及可被利用的安全问题，请先通过仓库维护者提供的私密渠道沟通，避免在公开 Issue 中附带可攻击线上站点的信息。
+欢迎提交 Issue 或 Pull Request。问题报告请附版本、PHP / 数据库环境、最小复现步骤和脱敏错误日志；不要提交数据库密码、安装口令、支付密钥或用户隐私。安全问题请先说明影响范围，与维护者确认复现材料的提供方式，避免公开可攻击线上站点的信息。
 
 ## 文档导航
 

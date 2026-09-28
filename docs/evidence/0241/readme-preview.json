@@ -1,0 +1,14 @@
+{
+  "scope": "Local Markdown layout approximation; external status badges rendered as labels, not a claim of GitHub browser verification.",
+  "local_links_valid": true,
+  "viewports": [
+    {
+      "width": 390,
+      "no_page_overflow": true
+    },
+    {
+      "width": 1280,
+      "no_page_overflow": true
+    }
+  ]
+}

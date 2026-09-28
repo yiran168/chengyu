@@ -1,0 +1,106 @@
+{
+  "run": "https://github.com/yiran168/chengyu/actions/runs/36403215490",
+  "commit": "c7a4af425605e8f39238db36fbb3e0ead1c7d648",
+  "conclusion": "failure",
+  "failed_results": [
+    {
+      "job": "native-7.4-mysql",
+      "total": 770,
+      "passed": 769,
+      "failed": 1,
+      "failures": [
+        {
+          "test": "0241 documented no-SSH MySQL recovery checks identity and revokes sessions once",
+          "ok": false,
+          "error": "PDOException: SQLSTATE[HY000]: General error: 1267 Illegal mix of collations (utf8mb4_unicode_ci,IMPLICIT) and (utf8mb4_general_ci,IMPLICIT) for operation '='"
+        }
+      ]
+    },
+    {
+      "job": "native-8.0-mysql",
+      "total": 770,
+      "passed": 769,
+      "failed": 1,
+      "failures": [
+        {
+          "test": "0241 documented no-SSH MySQL recovery checks identity and revokes sessions once",
+          "ok": false,
+          "error": "PDOException: SQLSTATE[HY000]: General error: 1267 Illegal mix of collations (utf8mb4_unicode_ci,IMPLICIT) and (utf8mb4_general_ci,IMPLICIT) for operation '='"
+        }
+      ]
+    },
+    {
+      "job": "native-8.1-mysql",
+      "total": 770,
+      "passed": 769,
+      "failed": 1,
+      "failures": [
+        {
+          "test": "0241 documented no-SSH MySQL recovery checks identity and revokes sessions once",
+          "ok": false,
+          "error": "PDOException: SQLSTATE[HY000]: General error: 1267 Illegal mix of collations (utf8mb4_unicode_ci,IMPLICIT) and (utf8mb4_general_ci,IMPLICIT) for operation '='"
+        }
+      ]
+    },
+    {
+      "job": "native-8.2-mysql",
+      "total": 770,
+      "passed": 769,
+      "failed": 1,
+      "failures": [
+        {
+          "test": "0241 documented no-SSH MySQL recovery checks identity and revokes sessions once",
+          "ok": false,
+          "error": "PDOException: SQLSTATE[HY000]: General error: 1267 Illegal mix of collations (utf8mb4_unicode_ci,IMPLICIT) and (utf8mb4_general_ci,IMPLICIT) for operation '='"
+        }
+      ]
+    },
+    {
+      "job": "native-8.3-mysql",
+      "total": 770,
+      "passed": 769,
+      "failed": 1,
+      "failures": [
+        {
+          "test": "0241 documented no-SSH MySQL recovery checks identity and revokes sessions once",
+          "ok": false,
+          "error": "PDOException: SQLSTATE[HY000]: General error: 1267 Illegal mix of collations (utf8mb4_unicode_ci,IMPLICIT) and (utf8mb4_general_ci,IMPLICIT) for operation '='"
+        }
+      ]
+    },
+    {
+      "job": "native-8.4-mysql",
+      "total": 770,
+      "passed": 769,
+      "failed": 1,
+      "failures": [
+        {
+          "test": "0241 documented no-SSH MySQL recovery checks identity and revokes sessions once",
+          "ok": false,
+          "error": "PDOException: SQLSTATE[HY000]: General error: 1267 Illegal mix of collations (utf8mb4_unicode_ci,IMPLICIT) and (utf8mb4_general_ci,IMPLICIT) for operation '='"
+        }
+      ]
+    },
+    {
+      "job": "native-8.5-mysql",
+      "total": 770,
+      "passed": 769,
+      "failed": 1,
+      "failures": [
+        {
+          "test": "0241 documented no-SSH MySQL recovery checks identity and revokes sessions once",
+          "ok": false,
+          "error": "PDOException: SQLSTATE[HY000]: General error: 1267 Illegal mix of collations (utf8mb4_unicode_ci,IMPLICIT) and (utf8mb4_general_ci,IMPLICIT) for operation '='"
+        }
+      ]
+    }
+  ],
+  "correction": "Use binary exact username comparison in the operator SQL, independent of connection collation; run the documented transaction via text protocol like an SQL console.",
+  "followup_attempt": {
+    "run": "https://github.com/yiran168/chengyu/actions/runs/36435181024",
+    "commit": "4c0a868068e750d1ed414d472d3d71b5e16bae42",
+    "conclusion": "failure",
+    "error": "PDO SQLSTATE HY000 / 2014: unconsumed SELECT result in the operator SQL regression runner.",
+    "correction": "Consume the final SELECT via Database::all; preserve text protocol for transaction statements and ROW_COUNT. Assert final 0/1/0 result values."
+  }
+}

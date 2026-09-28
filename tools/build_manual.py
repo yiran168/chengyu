@@ -63,6 +63,10 @@ for n, (rel, title) in enumerate(manual_parts, 1):
         href = link["href"]
         if not href.startswith(("#", "/", "http:", "https:", "mailto:", "tel:")):
             link["href"] = str(Path(rel).parent / href)
+    # Repository badges stay live on GitHub; the offline manual uses their labels.
+    for external_image in parsed.select('img[src]'):
+        if external_image['src'].startswith(('http:', 'https:', '//')):
+            external_image.replace_with(external_image.get('alt', 'External image'))
     for heading in parsed.select("h1,h2,h3,h4,h5"):
         heading.name = "h" + str(min(6, int(heading.name[1:])+1))
     for table in parsed.select("table"):

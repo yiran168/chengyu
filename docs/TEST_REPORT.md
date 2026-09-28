@@ -5,7 +5,7 @@
 | 检查 | 实际结果 | 证据 |
 | --- | --- | --- |
 | Windows 原生 PDO SQLite | PHP 7.4—8.5 × Fileinfo 开启/关闭，14 组，每组 769/769 | evidence/0241/matrix.json、php-*.json |
-| Linux 原生 MySQL / SQLite | 本版待执行 | 上版记录不计入本版结果 |
+| Linux 原生 MySQL / SQLite | 七版本 × 两数据库 × 两扩展状态，28 组全部通过；SQLite 769/769、MySQL 770/770 | evidence/0241/ci-verified.json、native-*.json |
 | PHP 7.4 / 8.2 / 8.5，关闭 Fileinfo | 各 1188/1188 实际 HTTP 检查 | evidence/0241/http-*.json |
 | Chromium 真实页面 | 38/38；桌面、平板、手机边界，无未捕获 JS 异常 | evidence/0241/browser.json、previews/0241-*.png |
 | PHP / JS 语法 | PHP 7.4 和 8.5 各 323 文件；JS 20 文件通过 | evidence/0241/syntax.json |
@@ -15,7 +15,9 @@
 
 原有 HTTP 测试中相邻敏感操作曾累积触发测试账户的验证限额。本版在独立售后测试开始前清空隔离夹具的限流表，生产验证限额保持不变；后台普通退款也统一执行密码与已启用双重验证的检查。
 
-本版 Linux 原生 MySQL/SQLite CI 尚待执行；不把历史 CI 作为本版通过结果。
+首次 CI 的 SQLite 作业通过，MySQL 各有一项恢复说明 SQL 检查失败：连接与用户表的排序规则不同。已改为按二进制精确匹配用户名。随后修正测试执行器未消费末尾 SELECT 结果集的问题；原文事务按 SQL 控制台的文本协议执行，并验证未匹配返回 0、成功返回 1、重复执行返回 0。早期失败记录单独保留在 evidence/0241/ci-initial-failure.json，不隐藏为通过结果。
+
+本版 CI 提交 `32e334f38e42d43076ecb929e1b46e853eefd4b6` 的 14 个作业成功；下载并逐一核对 28 份 PHP/原生数据库/Fileinfo 结果，SQLite 每组 769/769、MySQL 每组 770/770。MySQL 多一项直接执行本版恢复说明中的 SQL，验证身份不匹配和重复执行均不会扩大影响。[实际运行](https://github.com/yiran168/chengyu/actions/runs/36435738612)。后续发布提交仅更新说明、证据和生成文件，业务代码与该提交一致。
 
 本轮新增 7 张截图。旧 0.24.0 / 0.23.0 浏览器和升级结果属于历史证据，不混计为本轮通过数量。0.24.1 没有数据库结构迁移；累计补丁另核对 0.23.1、0.23.2、0.23.3、0.23.4、0.24.0 五个部署基线，结果随包存放于 package-verification.json。
 
