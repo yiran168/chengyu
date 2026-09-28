@@ -51,6 +51,7 @@ manual_parts.extend([('docs/PLATFORM_023.md','0.23 图片选择与复用'),('doc
 renderer = MarkdownIt("commonmark", {"html": False}).enable("table")
 manual_parts.append(('docs/FILE_TYPES.md','无需 Fileinfo 的上传与安装补丁'))
 manual_parts.extend([('docs/PLATFORM_024.md','0.24 内容菜单与FAQ'),('docs/REFERENCE_024.md','四主题源码再次对照')])
+manual_parts.extend([('docs/PLATFORM_0241.md','0.24.1 修复与使用'),('docs/ACCOUNT_RECOVERY.md','账户双重验证恢复')])
 nav = []
 articles = []
 for n, (rel, title) in enumerate(manual_parts, 1):

@@ -228,6 +228,11 @@ final class Actions
                 $_SESSION['issued_invitations']=$a->invitations->issue($uid,Input::integer($input['count']??1,1,100),Input::integer($input['max_uses']??1,1,1000),$expires,Input::text($input['label']??'',100));
                 $response['message']=tr('Codes generated. Copy them now; plaintext will not be shown again.');break;
             case 'admin_invitation_disable':$a->invitations->disable($uid,Input::integer($input['id']??0,1));break;
+            case 'admin_invitation_enable':$a->invitations->enable($uid,Input::integer($input['id']??0,1));break;
+            case 'admin_factor_recover':
+                if(empty($input['confirm_recovery'])){throw new Problem('Confirm the account recovery after verifying its owner.');}
+                $a->secondFactor->recoverByAdmin($uid,(int)$actor['session_version'],Input::passwordValue($input['current_password']??''),Input::text($input['factor_code']??'',32),Input::integer($input['user_id']??0,1),Input::integer($input['target_version']??-1,0),Input::required($input['target_username']??'',32),Input::required($input['reason']??'',180));
+                $response['message']=tr('Authenticator reset. All target sessions were revoked; ask the owner to sign in and enroll again.');break;
             case 'admin_settings':
                 $group = Input::required($input['group'] ?? '', 40); $a->settings->saveGroup($group, $input);
                 $a->activity->audit($uid, 'settings.updated', $group); break;
@@ -261,7 +266,7 @@ final class Actions
                 $response['message'] = tr('Codes generated. Copy them now; plaintext will not be shown again.'); break;
             case 'admin_stock': $a->commerce->importStock($uid, Input::integer($input['content_id'] ?? 0, 1), Input::required($input['codes'] ?? '', 500000),Input::integer($input['variant_id']??0)); break;
             case 'admin_refund':
-                $a->auth->verifyPassword(Input::passwordValue($input['current_password'] ?? ''));
+                $a->auth->prove(Input::passwordValue($input['current_password'] ?? ''),Input::text($input['factor_code']??'',32));
                 $a->commerce->refund($uid, Input::integer($input['id'] ?? 0, 1), ($input['decision'] ?? '') === 'approve'); break;
             case 'admin_ship': $a->commerce->ship($uid, Input::integer($input['id'] ?? 0, 1), (string)($input['tracking'] ?? '')); break;
             case 'admin_withdrawal':

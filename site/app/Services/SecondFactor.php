@@ -110,6 +110,33 @@ final class SecondFactor
             return ['version'=>$this->bump($account),'codes'=>$plain];
         });
     }
+    /** Recovery requires a fresh administrator proof and the exact target revision.
+     * All account locks precede factor locks, in ID order, including cross-admin recovery. */
+    public function recoverByAdmin(int $actor,int $version,string $password,string $code,int $user,int $targetVersion,string $username,string $reason): void
+    {
+        if($actor===$user){throw new Problem('Use your security center or the private operator recovery procedure for your own account.',403);}
+        $password=Input::passwordValue($password);$username=Input::required($username,32);$reason=Input::required($reason,180);$this->rate($actor);
+        $this->db->transaction(function()use($actor,$version,$password,$code,$user,$targetVersion,$username,$reason):void{
+            $accounts=$this->db->all('SELECT * FROM cy_users WHERE id IN (?,?) ORDER BY id'.$this->db->lock(),[$actor,$user]);$rows=[];
+            foreach($accounts as $row){$rows[(int)$row['id']]=$row;}
+            $operator=$rows[$actor]??null;$target=$rows[$user]??null;
+            if(!$operator || $operator['role']!=='admin' || $operator['status']!=='active' || (int)$operator['session_version']!==$version){throw new Problem('Access denied.',403);}
+            if(!password_verify($password,$operator['password_hash'])){throw new Problem('Current password is incorrect.',403);}
+            if(!$target){throw new Problem('Account not found.',404);}
+            if($target['status']!=='active' || (int)$target['session_version']!==$targetVersion || !hash_equals($target['username'],$username)){throw new Problem('Target account changed. Reload and verify the username before recovery.',409);}
+            if($target['role']==='admin' && !$this->db->one('SELECT id FROM cy_second_factors WHERE user_id=?',[$actor])){throw new Problem('Enroll your own authenticator before recovering another administrator.',403);}
+            $this->verifyLocked($operator,$code);
+            if(!$this->db->one('SELECT id FROM cy_second_factors WHERE user_id=?'.$this->db->lock(),[$user])){throw new Problem('Two-factor authentication is not enabled.',409);}
+            $this->recoverAccount($target,$actor,'account.factor_admin_recovery',$reason);
+            $this->activity->notify($user,'Authenticator reset by an administrator','Sign in and enroll a new authenticator. Contact the site operator if you did not request this recovery.','security');
+        });
+    }
+    private function recoverAccount(array $account,int $actor,string $event,string $reason=''): void
+    {
+        $user=(int)$account['id'];$this->db->execute('DELETE FROM cy_second_factors WHERE user_id=?',[$user]);$this->bump($account);
+        $this->db->execute('UPDATE cy_resets SET used_at=? WHERE user_id=? AND used_at=0',[time(),$user]);
+        $this->activity->audit($actor,$event,(string)$user.($reason!==''?' / '.$reason:''));
+    }
     /** Local operator recovery only. No HTTP action exposes this method. */
     public function recoverOffline(int $user): void
     {
@@ -117,8 +144,7 @@ final class SecondFactor
         $this->db->transaction(function()use($user):void {
             $account=$this->db->one('SELECT * FROM cy_users WHERE id=?'.$this->db->lock(),[$user]);
             if (!$account) { throw new Problem('Account not found.',404); }
-            $this->db->execute('DELETE FROM cy_second_factors WHERE user_id=?',[$user]);$this->bump($account);
-            $this->activity->audit(0,'account.factor_offline_recovery',(string)$user);
+            $this->recoverAccount($account,0,'account.factor_offline_recovery');
         });
     }
 }

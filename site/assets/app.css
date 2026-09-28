@@ -112,3 +112,5 @@ html,body{max-width:100%;overflow-x:clip}
 
 /* Explicitly disable optical blur when the operator chooses solid surfaces. */
 html[data-glass="none"] .glass{background:var(--surface);backdrop-filter:none;-webkit-backdrop-filter:none}html[data-glass="none"] .site-header,html[data-glass="none"] .mobile-bottom-nav,html[data-glass="none"] .admin-header,html[data-glass="none"] .cover-badge{backdrop-filter:none;-webkit-backdrop-filter:none}
+
+.upload-preview{display:flex;align-items:center;gap:14px;margin:12px 0}.upload-preview img{width:72px;height:72px;border-radius:50%;object-fit:cover;border:1px solid var(--line)}.upload-preview figcaption{max-width:26em}

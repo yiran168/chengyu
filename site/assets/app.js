@@ -29,7 +29,9 @@
     if(enabled())CYMotion.animate(node,[{opacity:0,transform:'translateY(10px) scale(.97)'},{opacity:1,transform:'none'}],{duration:CYMotion.duration(220)});resume();
   }
   async function request(data, options = {}) {
-    const response = await fetch((root.dataset.base || '') + '/action.php', {method: 'POST', body: data, signal: options.signal, credentials: 'same-origin', headers: {'Accept': 'application/json'}});
+    const headers = {'Accept': 'application/json'};
+    if (options.navigation) headers['X-Chengyu-Form'] = '1';
+    const response = await fetch((root.dataset.base || '') + '/action.php', {method: 'POST', body: data, signal: options.signal, credentials: 'same-origin', headers});
     const text = await response.text(); let result;
     try { result = JSON.parse(text); } catch (_) { throw new Error(strings.network); }
     if (!response.ok || !result.ok) throw new Error(result.message || strings.network);
@@ -40,6 +42,21 @@
     target.value = String(value); target.dispatchEvent(new Event('input', {bubbles:true})); target.dispatchEvent(new Event('change', {bubbles:true})); return true;
   }
   window.CYUI = {request,toast,assignMedia};
+  $$('[data-upload-preview]').forEach(preview => {
+    const field = preview.closest('form')?.elements.namedItem(preview.dataset.uploadPreview);
+    if (!(field instanceof HTMLInputElement)) return;
+    const picture = $('img',preview),caption = $('figcaption',preview);
+    const update = () => {
+      const id = Number(field.value),valid = Number.isSafeInteger(id) && id > 0;
+      if (valid) {
+        const src = (root.dataset.base || '') + '/media.php?id=' + id;
+        if (picture.getAttribute('src') !== src) picture.src = src;
+      } else picture.removeAttribute('src');
+      picture.hidden = !valid;
+      caption.textContent = field.value === preview.dataset.savedValue ? caption.dataset.savedLabel : caption.dataset.unsavedLabel;
+    };
+    field.addEventListener('input',update);field.addEventListener('change',update);
+  });
   $$('form[data-async]').forEach(form => {
     form.addEventListener('submit', async event => {
       event.preventDefault();
@@ -54,9 +71,9 @@
       $$('.form-error', form).forEach(n => n.remove());
       const busyTimer=setTimeout(()=>{form.dataset.busyVisual='1';},180);
       try {
-        const result = await request(data);
+        const result = await request(data, {navigation:true});
         document.dispatchEvent(new CustomEvent('cy:form-feedback',{detail:{form,kind:'success'}}));
-        if (result.message) toast(result.message);
+        if (result.message && !result.feedback_persisted) toast(result.message);
         if (result.redirect) {
           // Destinations are generated and validated by the server, including configured hosted checkout.
           window.location.assign(result.redirect);

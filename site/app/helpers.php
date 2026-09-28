@@ -96,9 +96,10 @@ function cover(array $item): string {
 function item_url(array $item): string { return url($item['kind'] === 'product' ? 'product' : ($item['kind'] === 'page' ? 'page' : 'article'), ['id' => (int)$item['id']]); }
 function empty_state(string $message = 'Nothing here yet.', string $symbol = 'leaf'): void { echo '<div class="empty-state">' . (app()->visuals->image('scene:empty')?'<img class="empty-art" src="'.e(app()->visuals->image('scene:empty')).'" alt="" loading="lazy">':icon($symbol)) . '<h3>' . t($message) . '</h3><p>' . t('A little space for something good to come.') . '</p></div>'; }
 function button(string $label = 'Save changes', string $class = '', string $symbol = 'check'): void { echo '<button class="btn ' . e($class) . '" type="submit">' . icon($symbol) . t($label) . '</button>'; }
-function upload_field(string $name, string $label, int $value, bool $private = false): void
+function upload_field(string $name, string $label, int $value, bool $private = false, bool $preview = false): void
 {
     echo '<div class="upload-field">'; field($name, $label, $value, 'number', ['min' => '0']);
+    if($preview && !$private){echo '<figure class="upload-preview" data-upload-preview="'.e($name).'" data-saved-value="'.$value.'"><img alt="'.t('Selected avatar preview').'" width="72" height="72"'.($value?' src="'.e(media_url($value)).'"':' hidden').'><figcaption class="hint" role="status" data-unsaved-label="'.t('Preview only. Save your profile to apply this avatar.').'" data-saved-label="'.t('Current saved avatar.').'">'.t('Choose an image, then save your profile to apply it.').'</figcaption></figure>';}
     if(!$private && app()->auth->user() && empty(app()->auth->user()['is_guest'])) {echo '<div class="media-picker-actions"><button type="button" class="btn secondary small" data-media-open hidden>'.icon('anime-gallery').t('Choose an existing image').'</button><button type="button" class="btn secondary small" data-media-clear hidden>'.t('Clear image').'</button></div>';}
     echo '<label class="upload-button">' . icon('upload') . t('Choose a file') . '<input type="file" data-upload-target="' . e($name) . '" data-private="' . ($private ? '1' : '0') . '"></label><small class="upload-status">' . t($private ? 'Private attachment; access is checked on download.' : 'Public image; use only assets you own.') . '</small></div>';
 }

@@ -1,0 +1,175 @@
+{
+  "total": 42,
+  "passed": 42,
+  "failed": 0,
+  "tests": [
+    {
+      "test": "under exact solver is time-step independent",
+      "ok": true
+    },
+    {
+      "test": "under zero time preserves momentum on retarget",
+      "ok": true
+    },
+    {
+      "test": "under converges to the target",
+      "ok": true
+    },
+    {
+      "test": "under inspector samples settle using same solver",
+      "ok": true
+    },
+    {
+      "test": "critical exact solver is time-step independent",
+      "ok": true
+    },
+    {
+      "test": "critical zero time preserves momentum on retarget",
+      "ok": true
+    },
+    {
+      "test": "critical converges to the target",
+      "ok": true
+    },
+    {
+      "test": "critical inspector samples settle using same solver",
+      "ok": true
+    },
+    {
+      "test": "over exact solver is time-step independent",
+      "ok": true
+    },
+    {
+      "test": "over zero time preserves momentum on retarget",
+      "ok": true
+    },
+    {
+      "test": "over converges to the target",
+      "ok": true
+    },
+    {
+      "test": "over inspector samples settle using same solver",
+      "ok": true
+    },
+    {
+      "test": "finite bounded parameter response 40/8/0.4",
+      "ok": true
+    },
+    {
+      "test": "finite bounded parameter response 40/8/1",
+      "ok": true
+    },
+    {
+      "test": "finite bounded parameter response 40/8/2.5",
+      "ok": true
+    },
+    {
+      "test": "finite bounded parameter response 40/24/0.4",
+      "ok": true
+    },
+    {
+      "test": "finite bounded parameter response 40/24/1",
+      "ok": true
+    },
+    {
+      "test": "finite bounded parameter response 40/24/2.5",
+      "ok": true
+    },
+    {
+      "test": "finite bounded parameter response 40/60/0.4",
+      "ok": true
+    },
+    {
+      "test": "finite bounded parameter response 40/60/1",
+      "ok": true
+    },
+    {
+      "test": "finite bounded parameter response 40/60/2.5",
+      "ok": true
+    },
+    {
+      "test": "finite bounded parameter response 180/8/0.4",
+      "ok": true
+    },
+    {
+      "test": "finite bounded parameter response 180/8/1",
+      "ok": true
+    },
+    {
+      "test": "finite bounded parameter response 180/8/2.5",
+      "ok": true
+    },
+    {
+      "test": "finite bounded parameter response 180/24/0.4",
+      "ok": true
+    },
+    {
+      "test": "finite bounded parameter response 180/24/1",
+      "ok": true
+    },
+    {
+      "test": "finite bounded parameter response 180/24/2.5",
+      "ok": true
+    },
+    {
+      "test": "finite bounded parameter response 180/60/0.4",
+      "ok": true
+    },
+    {
+      "test": "finite bounded parameter response 180/60/1",
+      "ok": true
+    },
+    {
+      "test": "finite bounded parameter response 180/60/2.5",
+      "ok": true
+    },
+    {
+      "test": "finite bounded parameter response 480/8/0.4",
+      "ok": true
+    },
+    {
+      "test": "finite bounded parameter response 480/8/1",
+      "ok": true
+    },
+    {
+      "test": "finite bounded parameter response 480/8/2.5",
+      "ok": true
+    },
+    {
+      "test": "finite bounded parameter response 480/24/0.4",
+      "ok": true
+    },
+    {
+      "test": "finite bounded parameter response 480/24/1",
+      "ok": true
+    },
+    {
+      "test": "finite bounded parameter response 480/24/2.5",
+      "ok": true
+    },
+    {
+      "test": "finite bounded parameter response 480/60/0.4",
+      "ok": true
+    },
+    {
+      "test": "finite bounded parameter response 480/60/1",
+      "ok": true
+    },
+    {
+      "test": "finite bounded parameter response 480/60/2.5",
+      "ok": true
+    },
+    {
+      "test": "invalid state rejected",
+      "ok": true
+    },
+    {
+      "test": "negative time rejected",
+      "ok": true
+    },
+    {
+      "test": "nonfinite parameters use safe defaults",
+      "ok": true
+    }
+  ]
+}

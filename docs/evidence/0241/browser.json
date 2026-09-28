@@ -1,0 +1,161 @@
+{
+  "total": 38,
+  "passed": 38,
+  "failed": 0,
+  "tests": [
+    {
+      "test": "HTTP login",
+      "ok": true
+    },
+    {
+      "test": "HTTP register",
+      "ok": true
+    },
+    {
+      "test": "HTTP admin_wallet",
+      "ok": true
+    },
+    {
+      "test": "GET /admin/",
+      "ok": true
+    },
+    {
+      "test": "login success survives navigation",
+      "ok": true
+    },
+    {
+      "test": "GET /admin/index.php?tab=ledger&user_id=3&q=241-filter",
+      "ok": true
+    },
+    {
+      "test": "ledger filter excludes other accounts",
+      "ok": true
+    },
+    {
+      "test": "ledger pagination preserves filters",
+      "ok": true
+    },
+    {
+      "test": "GET /admin/index.php?tab=ledger&user_id=",
+      "ok": true
+    },
+    {
+      "test": "blank ledger user filter means all",
+      "ok": true
+    },
+    {
+      "test": "GET /admin/index.php?tab=invitations",
+      "ok": true
+    },
+    {
+      "test": "invitation re-enabled without resetting usage",
+      "ok": true
+    },
+    {
+      "test": "guest upgrade leads to login with guidance",
+      "ok": true
+    },
+    {
+      "test": "HTTP admin_content",
+      "ok": true
+    },
+    {
+      "test": "HTTP admin_wallet",
+      "ok": true
+    },
+    {
+      "test": "HTTP buy",
+      "ok": true
+    },
+    {
+      "test": "HTTP refund",
+      "ok": true
+    },
+    {
+      "test": "GET /admin/index.php?tab=service&section=refunds",
+      "ok": true
+    },
+    {
+      "test": "shared refund desk processes classic wallet requests",
+      "ok": true
+    },
+    {
+      "test": "service queue labels are translated",
+      "ok": true
+    },
+    {
+      "test": "wrong refunded order rejects upgrade rollback",
+      "ok": true
+    },
+    {
+      "test": "HTTP factor_begin",
+      "ok": true
+    },
+    {
+      "test": "HTTP factor_activate",
+      "ok": true
+    },
+    {
+      "test": "non-admin cannot recover an authenticator",
+      "ok": true
+    },
+    {
+      "test": "GET /admin/index.php?tab=edit_user&id=3",
+      "ok": true
+    },
+    {
+      "test": "recovery form clears factor and leaves explicit result",
+      "ok": true
+    },
+    {
+      "test": "recovery invalidates existing target session",
+      "ok": true
+    },
+    {
+      "test": "GET /index.php?r=login",
+      "ok": true
+    },
+    {
+      "test": "GET /index.php?r=profile",
+      "ok": true
+    },
+    {
+      "test": "success flash is consumed once",
+      "ok": true
+    },
+    {
+      "test": "old password no longer works",
+      "ok": true
+    },
+    {
+      "test": "new password works",
+      "ok": true
+    },
+    {
+      "test": "uploaded avatar really loads in preview",
+      "ok": true
+    },
+    {
+      "test": "saved profile uses chosen avatar",
+      "ok": true
+    },
+    {
+      "test": "profile mobile layout 390",
+      "ok": true
+    },
+    {
+      "test": "profile mobile layout 768",
+      "ok": true
+    },
+    {
+      "test": "profile mobile layout 1280",
+      "ok": true
+    },
+    {
+      "test": "no uncaught JS errors",
+      "ok": true
+    }
+  ],
+  "browser_errors": [],
+  "scope": "Disposable localhost PHP/native SQLite; admin recovery, filters, native refund, form navigation and upload previews"
+}

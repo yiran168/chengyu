@@ -86,6 +86,8 @@ expect_post(admin,'admin_rule_save',409,kind='shipping',id=shipid16,name='Stale 
 expect_post(user,'admin_rule_save',403,kind='shipping',name='forged',document=json.dumps(shipping16),revision='0')
 check('016 jobs endpoint rejects unsigned trigger',stranger16.post(base+'/jobs.php').status_code in [403,503])
 check('016 direct webhook rejects unsigned provider payload',stranger16.post(base+'/notify-direct.php?gateway=stripe',json={}).status_code in [400,403,404])
+# Start this independent scenario with fresh proof quotas in the disposable database.
+conn.execute('DELETE FROM cy_rate_limits');conn.commit()
 # A real one-cent wallet purchase, password-gated service approval and idempotent refund.
 paid16=create_content(title='016 wallet refund HTTP',kind='article',access_level='paid',price_currency='balance',price='0.01',protected_body='REFUND-ENTITLEMENT-016')
 balance16=db_one('SELECT balance FROM cy_users WHERE id=?',(uid,))['balance']

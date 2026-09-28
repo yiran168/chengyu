@@ -11,6 +11,9 @@ final class CommercePages
     {
         if(!in_array($route,['checkout','checkout_review','receipt','guest_orders','guest_content','upgrade'],true)){return false;}
         $a=$this->a;header('Cache-Control: private, no-store');header('Referrer-Policy: no-referrer');header('X-Robots-Tag: noindex, nofollow');
+        if($route==='upgrade' && !$a->auth->user()){
+            flash(tr('Please sign in to continue.'),'info');redirect($a->url('login'));
+        }
         $data=['route'=>$route,'title'=>tr(['checkout'=>'Secure checkout','checkout_review'=>'Review your order','receipt'=>'Order receipt','guest_orders'=>'Guest order desk','guest_content'=>'Your purchased content','upgrade'=>'Membership upgrade'][$route])];
         if($route==='checkout'){
             $a->settings->requireModule('checkout');$owner=$a->auth->user()??$a->guests->current();$lines=[];$items=[];$physical=false;

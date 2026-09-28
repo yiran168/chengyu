@@ -21,7 +21,7 @@ with tempfile.TemporaryDirectory(prefix='chengyu-live-') as directory:
                 try:requests.get(base,timeout=.3).raise_for_status();break
                 except requests.RequestException:time.sleep(.05)
             suite=os.environ.get('CY_BROWSER_SUITE','browser_live.py')
-            if suite not in ['browser_live.py','browser_024.py']:raise ValueError('Unknown browser suite')
+            if suite not in ['browser_live.py','browser_024.py','browser_0241.py']:raise ValueError('Unknown browser suite')
             result=subprocess.run([sys.executable,str(ROOT/'tests'/suite)],env=env)
             code=result.returncode
         finally:

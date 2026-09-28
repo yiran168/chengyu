@@ -53,9 +53,11 @@ final class AdminController
         if ($q!=='') {$clauses=[];foreach ($searchFields[$tab] as $field) {$clauses[]=$field." LIKE ? ESCAPE '!'";$params[]='%'.str_replace(['!','%','_'],['!!','!%','!_'],$q).'%';}$where.=' AND ('.implode(' OR ',$clauses).')';}
         if ($status!=='' && in_array($tab,['contents','users','orders','withdrawals'],true)) {$where.=' AND status=?';$params[]=$status;}
         if($tab==='orders'&&!empty($_GET['sale_id'])){$where.=' AND sale_id=?';$params[]=Input::integer($_GET['sale_id'],1);}
+        $userId=$tab==='ledger' && ($_GET['user_id']??'')!==''?Input::integer($_GET['user_id'],0):0;
+        if($userId){$where.=' AND user_id=?';$params[]=$userId;}
         if ($tab==='contents' && !empty($_GET['kind'])) {$where.=' AND kind=?';$params[]=Input::choice($_GET['kind'],['article','thread','product','page']);}
         $total=(int)$a->db->value('SELECT COUNT(*) FROM '.$tables[$tab].' WHERE '.$where,$params);
         $rows=$a->db->all('SELECT * FROM '.$tables[$tab].' WHERE '.$where.' ORDER BY id DESC LIMIT 30 OFFSET ?',array_merge($params,[($page-1)*30]));
-        render('admin_list',array_merge($data,['rows'=>$rows,'q'=>$q,'status'=>$status,'pagination'=>['page'=>$page,'pages'=>max(1,(int)ceil($total/30))],'total'=>$total]),true);
+        render('admin_list',array_merge($data,['rows'=>$rows,'q'=>$q,'status'=>$status,'userId'=>$userId,'pagination'=>['page'=>$page,'pages'=>max(1,(int)ceil($total/30))],'total'=>$total]),true);
     }
 }

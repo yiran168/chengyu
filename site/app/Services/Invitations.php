@@ -27,5 +27,17 @@ final class Invitations
         if (!$row || !(int)$row['active'] || (int)$row['expires_at']<=time() || (int)$row['uses']>=(int)$row['max_uses']) { throw new Problem('Invitation code is invalid, expired or used.'); }
         $this->db->execute('UPDATE cy_invitations SET uses=uses+1 WHERE id=?',[(int)$row['id']]);
     }
-    public function disable(int $actor,int $id):void { $this->db->update('cy_invitations',$id,['active'=>0]);$this->activity->audit($actor,'invitations.disabled',(string)$id); }
+    public function disable(int $actor,int $id):void { $this->setActive($actor,$id,false); }
+    public function enable(int $actor,int $id):void { $this->setActive($actor,$id,true); }
+    private function setActive(int $actor,int $id,bool $active):void
+    {
+        $this->db->transaction(function()use($actor,$id,$active):void{
+            $row=$this->db->one('SELECT * FROM cy_invitations WHERE id=?'.$this->db->lock(),[$id]);
+            if(!$row){throw new Problem('Invitation not found.',404);}
+            if($active && ((int)$row['expires_at']<=time() || (int)$row['uses']>=(int)$row['max_uses'])){throw new Problem('Expired or exhausted invitations cannot be enabled.',409);}
+            if((bool)$row['active']===$active){return;}
+            $this->db->update('cy_invitations',$id,['active'=>$active?1:0]);
+            $this->activity->audit($actor,$active?'invitations.enabled':'invitations.disabled',(string)$id);
+        });
+    }
 }

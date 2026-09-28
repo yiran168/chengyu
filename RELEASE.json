@@ -1,8 +1,8 @@
 {
   "name": "Chengyu",
-  "version": "0.24.0",
-  "date": "2026-09-21",
-  "baseline": "0.23.4",
+  "version": "0.24.1",
+  "date": "2026-09-28",
+  "baseline": "0.24.0",
   "database_schema_version": 16,
   "installation_config_format_version": 1,
   "settings_fields": 293,
@@ -31,20 +31,20 @@
     "8.5.10"
   ],
   "native_pdo_verified": true,
-  "mysql_verified_on_ci_commit": "cd1ee7c68ca9836cde491069741723172b9379f0",
-  "ci_native_matrix_jobs": 14,
-  "ci_matrix_executed": true,
-  "ci_run_url": "https://github.com/yiran168/chengyu/actions/runs/35545588108",
-  "local_core_tests_per_php": 761,
+  "mysql_verified_on_ci_commit": null,
+  "ci_native_matrix_jobs": 0,
+  "ci_matrix_executed": false,
+  "ci_run_url": null,
+  "local_core_tests_per_php": 769,
   "http_tests": 1188,
   "spring_tests": 42,
-  "php_syntax_files": 319,
-  "production_php_files": 266,
+  "php_syntax_files": 323,
+  "production_php_files": 269,
   "javascript_syntax_files": 20,
-  "screenshots": 201,
-  "new_screenshots": 8,
-  "manual_chapters": 42,
-  "locale_dictionary_entries": 3079,
+  "screenshots": 208,
+  "new_screenshots": 7,
+  "manual_chapters": 44,
+  "locale_dictionary_entries": 3117,
   "real_shared_hosts_verified": false,
   "vps_install_verified": false,
   "live_payments_verified": false,
@@ -62,12 +62,24 @@
   "new_distinct_covers": 0,
   "browser_tests": 200,
   "browser_baseline_version": "0.23.0",
-  "browser_verification_scope": "0.24.0: 38 focused real-URL browser checks for content menus and layout draft/publish/FAQ paths. The 200-test full suite and 193 earlier screenshots remain historical 0.23.0 evidence.",
+  "browser_verification_scope": "0.24.1: 38 focused real-URL checks for ledger filtering, invitations, refunds, authenticator recovery, password feedback and avatar preview. Historical browser suites are not counted as new results.",
   "requires_fileinfo": false,
   "upload_type_detector": "Shared bounded PHP content detector for local, chunked and S3 uploads",
-  "ci_database_extension_states": 28,
+  "ci_database_extension_states": 0,
   "local_extension_states_per_php": 2,
   "http_runtime_suites": [
+    {
+      "file": "http-7.4-absent.json",
+      "runtime": {
+        "php": "7.4.33",
+        "fileinfo": false,
+        "finfo": false,
+        "gd": false,
+        "zip": true
+      },
+      "total": 1188,
+      "passed": 1188
+    },
     {
       "file": "http-8.2-absent.json",
       "runtime": {
@@ -81,25 +93,13 @@
       "passed": 1188
     },
     {
-      "file": "http-8.2-present.json",
+      "file": "http-8.5-absent.json",
       "runtime": {
-        "php": "8.2.33",
-        "fileinfo": true,
-        "finfo": true,
-        "gd": false,
-        "zip": false
-      },
-      "total": 1187,
-      "passed": 1187
-    },
-    {
-      "file": "http-7.4-absent.json",
-      "runtime": {
-        "php": "7.4.33",
+        "php": "8.5.10",
         "fileinfo": false,
         "finfo": false,
         "gd": false,
-        "zip": true
+        "zip": false
       },
       "total": 1188,
       "passed": 1188
@@ -107,9 +107,9 @@
   ],
   "focused_browser_tests": 38,
   "prior_ci_baseline": {
-    "version": "0.23.4",
-    "commit": "804060c4a53ef5e043e6f43477b8ee0239357fca",
-    "url": "https://github.com/yiran168/chengyu/actions/runs/35503757700",
-    "scope": "Historical 28 database/extension states; not a 0.24.0 result."
+    "version": "0.24.0",
+    "commit": "cd1ee7c68ca9836cde491069741723172b9379f0",
+    "url": "https://github.com/yiran168/chengyu/actions/runs/35545588108",
+    "scope": "Historical 28 database/extension states; not a 0.24.1 result."
   }
 }

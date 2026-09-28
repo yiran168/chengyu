@@ -72,8 +72,10 @@ final class Upgrades
     public function refund(int $actor,int $order): void
     {
         $a=$this->a;$a->db->transaction(function()use($a,$actor,$order):void{
-            $o=$a->db->one('SELECT * FROM cy_orders WHERE id=?'.$a->db->lock(),[$order]);if(!$o){throw new Problem('Order not found.',404);}if($o['status']==='refunded'){return;}$m=json_decode($o['metadata'],true,48,JSON_THROW_ON_ERROR);$q=$m['upgrade']??null;
-            if($o['kind']!=='membership'||$o['status']!=='paid'||!is_array($q)){throw new Problem('Choose a completed wallet upgrade.');}$user=(int)$o['user_id'];$a->wallet->lockActive($user);
+            $o=$a->db->one('SELECT * FROM cy_orders WHERE id=?'.$a->db->lock(),[$order]);if(!$o){throw new Problem('Order not found.',404);}$m=json_decode($o['metadata'],true,48,JSON_THROW_ON_ERROR);$q=$m['upgrade']??null;
+            if($o['kind']!=='membership'||!is_array($q)){throw new Problem('Choose a completed wallet upgrade.');}
+            if($o['status']==='refunded'){return;}
+            if($o['status']!=='paid'){throw new Problem('Choose a completed wallet upgrade.');}$user=(int)$o['user_id'];$a->wallet->lockActive($user);
             $lot=$a->db->one('SELECT * FROM cy_membership_lots WHERE order_id=?'.$a->db->lock(),[$order]);$current=(int)$a->db->value('SELECT until_at FROM cy_memberships WHERE user_id=? AND tier=?',[$user,(int)$q['tier']]);
             if(!$lot||$lot['status']!=='active'||$current!==(int)$q['target_until']||$a->db->one("SELECT id FROM cy_orders WHERE user_id=? AND kind='membership' AND id>? AND status IN ('paid','pending','refund_requested')",[$user,$order])){throw new Problem('Later membership changes prevent automatic rollback. Merchant review is required.',409);}
             $expected=[];foreach($q['previous_memberships'] as $r){if((int)$r['tier']>(int)$q['tier']){$expected[(int)$r['tier']]=(int)$r['until_at'];}}$expected[(int)$q['tier']]=(int)$q['target_until'];ksort($expected);

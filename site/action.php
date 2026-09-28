@@ -4,7 +4,13 @@ require __DIR__ . '/app/bootstrap.php';
 $json = strpos($_SERVER['HTTP_ACCEPT'] ?? '', 'application/json') !== false;
 try {
     $response = (new \Chengyu\Http\Actions(app()))->run($_POST);
-    if ($json) { header('Content-Type: application/json; charset=UTF-8'); echo json_encode($response, JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR); }
+    if ($json) {
+        // Only navigating forms opt in. Background requests must not leave unrelated messages.
+        if (($_SERVER['HTTP_X_CHENGYU_FORM']??'')==='1' && !empty($response['message']) && !empty($response['redirect']) && parse_url($response['redirect'],PHP_URL_SCHEME)===null) {
+            flash($response['message']);$response['feedback_persisted']=true;
+        }
+        header('Content-Type: application/json; charset=UTF-8'); echo json_encode($response, JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR);
+    }
     else {
         if (parse_url($response['redirect'], PHP_URL_SCHEME) !== null) { external_handoff($response['redirect']); }
         else { flash($response['message']); redirect($response['redirect']); }
