@@ -67,9 +67,18 @@ if($a->db->driver()==='mysql'){
         truth((bool)preg_match('/```sql\n(SET @cy_recovery_id.*?);\n```/s',$text,$match));
         $sql=str_replace(['SET @cy_recovery_id = 123;',"SET @cy_recovery_username = 'confirmed_admin_name';"],['SET @cy_recovery_id = '.$user.';',"SET @cy_recovery_username = '".account($user)['username']."';"],$match[1].';');
         // Match the SQL console's text protocol, including ROW_COUNT() from the previous statement.
-        $run=static function(string $script)use($a):void{foreach(explode(';',$script) as $statement){if(trim($statement)!==''){$a->db->raw(trim($statement));}}};
-        $run(str_replace(account($user)['username'],'wrong_owner',$sql));truth($a->secondFactor->status($user)['enabled']);
-        $run($sql);same(false,$a->secondFactor->status($user)['enabled']);same($version+1,(int)account($user)['session_version']);same(0,(int)$a->db->value('SELECT COUNT(*) FROM cy_resets WHERE user_id=? AND used_at=0',[$user]));
-        $run($sql);same($version+1,(int)account($user)['session_version']);same(1,(int)$a->db->value("SELECT COUNT(*) FROM cy_audit WHERE action='account.factor_database_recovery' AND target=?",[(string)$user]));
+        $run=static function(string $script)use($a):array{
+            $result=[];
+            foreach(explode(';',$script) as $statement){
+                $statement=trim($statement);if($statement===''){continue;}
+                // PDO::exec leaves SELECT result sets pending; consume the console's final status row.
+                if(preg_match('/^SELECT\b/i',$statement) && !preg_match('/\bINTO\b/i',$statement)){$result=$a->db->all($statement);}
+                else{$a->db->raw($statement);}
+            }
+            return $result;
+        };
+        same(0,(int)$run(str_replace(account($user)['username'],'wrong_owner',$sql))[0]['authenticator_removed']);truth($a->secondFactor->status($user)['enabled']);
+        same(1,(int)$run($sql)[0]['authenticator_removed']);same(false,$a->secondFactor->status($user)['enabled']);same($version+1,(int)account($user)['session_version']);same(0,(int)$a->db->value('SELECT COUNT(*) FROM cy_resets WHERE user_id=? AND used_at=0',[$user]));
+        same(0,(int)$run($sql)[0]['authenticator_removed']);same($version+1,(int)account($user)['session_version']);same(1,(int)$a->db->value("SELECT COUNT(*) FROM cy_audit WHERE action='account.factor_database_recovery' AND target=?",[(string)$user]));
     });
 }
