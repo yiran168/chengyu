@@ -30,7 +30,8 @@ SET @cy_recovery_target = NULL;
 START TRANSACTION;
 SELECT id INTO @cy_recovery_target
 FROM cy_users
-WHERE id = @cy_recovery_id AND username = @cy_recovery_username
+WHERE id = @cy_recovery_id
+  AND CAST(username AS BINARY) = CAST(@cy_recovery_username AS BINARY)
   AND role = 'admin' AND status = 'active'
 FOR UPDATE;
 DELETE FROM cy_second_factors WHERE user_id = @cy_recovery_target;
